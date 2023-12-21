@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.custom-clip {
+  clip-path: polygon(calc(100% - 30.0000px) 100%,30.0000px  100%,30.0000px  100%,29.6082px  calc(100% - 4.8738px),28.4736px  calc(100% - 9.4944px),26.6574px  calc(100% - 13.8006px),24.2208px  calc(100% - 17.7312px),21.2250px  calc(100% - 21.2250px),17.7312px  calc(100% - 24.2208px),13.8006px  calc(100% - 26.6574px),9.4944px  calc(100% - 28.4736px),4.8738px  calc(100% - 29.6082px),0.0000px  calc(100% - 30.0000px),0.0000px  30.0000px ,0.0000px  30.0000px ,4.8738px  29.6082px ,9.4944px  28.4736px ,13.8006px  26.6574px ,17.7312px  24.2208px ,21.2250px  21.2250px ,24.2208px  17.7312px ,26.6574px  13.8006px ,28.4736px  9.4944px ,29.6082px  4.8738px ,30.0000px  0.0000px ,calc(100% - 30.0000px) 0.0000px ,calc(100% - 30.0000px) 0.0000px ,calc(100% - 29.6082px) 4.8738px ,calc(100% - 28.4736px) 9.4944px ,calc(100% - 26.6574px) 13.8006px ,calc(100% - 24.2208px) 17.7312px ,calc(100% - 21.2250px) 21.2250px ,calc(100% - 17.7312px) 24.2208px ,calc(100% - 13.8006px) 26.6574px ,calc(100% - 9.4944px) 28.4736px ,calc(100% - 4.8738px) 29.6082px ,calc(100% - 0.0000px) 30.0000px ,100% calc(100% - 30.0000px),100% calc(100% - 30.0000px),calc(100% - 4.8738px) calc(100% - 29.6082px),calc(100% - 9.4944px) calc(100% - 28.4736px),calc(100% - 13.8006px) calc(100% - 26.6574px),calc(100% - 17.7312px) calc(100% - 24.2208px),calc(100% - 21.2250px) calc(100% - 21.2250px),calc(100% - 24.2208px) calc(100% - 17.7312px),calc(100% - 26.6574px) calc(100% - 13.8006px),calc(100% - 28.4736px) calc(100% - 9.4944px),calc(100% - 29.6082px) calc(100% - 4.8738px),calc(100% - 30.0000px) calc(100% - 0.0000px)); 
+
+}
+
+  .clip-board{
+  clip-path: polygon(100% 30.0000px ,100% calc(100% - 30.0000px),100% calc(100% - 30.0000px),calc(100% - 0.3945px) calc(100% - 25.1505px),calc(100% - 1.5360px) calc(100% - 20.5440px),calc(100% - 3.3615px) calc(100% - 16.2435px),calc(100% - 5.8080px) calc(100% - 12.3120px),calc(100% - 8.8125px) calc(100% - 8.8125px),calc(100% - 12.3120px) calc(100% - 5.8080px),calc(100% - 16.2435px) calc(100% - 3.3615px),calc(100% - 20.5440px) calc(100% - 1.5360px),calc(100% - 25.1505px) calc(100% - 0.3945px),calc(100% - 30.0000px) calc(100% - 0.0000px),30.0000px  100%,30.0000px  100%,25.1505px  calc(100% - 0.3945px),20.5440px  calc(100% - 1.5360px),16.2435px  calc(100% - 3.3615px),12.3120px  calc(100% - 5.8080px),8.8125px  calc(100% - 8.8125px),5.8080px  calc(100% - 12.3120px),3.3615px  calc(100% - 16.2435px),1.5360px  calc(100% - 20.5440px),0.3945px  calc(100% - 25.1505px),0.0000px  calc(100% - 30.0000px),0.0000px  30.0000px ,0.0000px  30.0000px ,0.3945px  25.1505px ,1.5360px  20.5440px ,3.3615px  16.2435px ,5.8080px  12.3120px ,8.8125px  8.8125px ,12.3120px  5.8080px ,16.2435px  3.3615px ,20.5440px  1.5360px ,25.1505px  0.3945px ,30.0000px  0.0000px ,calc(50% - 90.0000px) 0.0000px ,calc(50% - 90.0000px) 0.0000px ,calc(50% - 87.5631px) 0.1986px ,calc(50% - 85.2528px) 0.7728px ,calc(50% - 83.0997px) 1.6902px ,calc(50% - 81.1344px) 2.9184px ,calc(50% - 79.3875px) 4.4250px ,calc(50% - 77.8896px) 6.1776px ,calc(50% - 76.6713px) 8.1438px ,calc(50% - 75.7632px) 10.2912px ,calc(50% - 75.1959px) 12.5874px ,calc(50% - 75.0000px) 15.0000px ,calc(50% - 75.0000px) 35.0000px ,calc(50% - 75.0000px) 35.0000px ,calc(50% - 74.8014px) 37.4369px ,calc(50% - 74.2272px) 39.7472px ,calc(50% - 73.3098px) 41.9003px ,calc(50% - 72.0816px) 43.8656px ,calc(50% - 70.5750px) 45.6125px ,calc(50% - 68.8224px) 47.1104px ,calc(50% - 66.8562px) 48.3287px ,calc(50% - 64.7088px) 49.2368px ,calc(50% - 62.4126px) 49.8041px ,calc(50% - 60.0000px) 50.0000px ,calc(50% + 60.0000px) 50.0000px ,calc(50% + 60.0000px) 50.0000px ,calc(50% + 62.4369px) 49.8014px ,calc(50% + 64.7472px) 49.2272px ,calc(50% + 66.9003px) 48.3098px ,calc(50% + 68.8656px) 47.0816px ,calc(50% + 70.6125px) 45.5750px ,calc(50% + 72.1104px) 43.8224px ,calc(50% + 73.3287px) 41.8562px ,calc(50% + 74.2368px) 39.7088px ,calc(50% + 74.8041px) 37.4126px ,calc(50% + 75.0000px) 35.0000px ,calc(50% + 75.0000px) 15.0000px ,calc(50% + 75.0000px) 15.0000px ,calc(50% + 75.1986px) 12.5631px ,calc(50% + 75.7728px) 10.2528px ,calc(50% + 76.6902px) 8.0997px ,calc(50% + 77.9184px) 6.1344px ,calc(50% + 79.4250px) 4.3875px ,calc(50% + 81.1776px) 2.8896px ,calc(50% + 83.1438px) 1.6713px ,calc(50% + 85.2912px) 0.7632px ,calc(50% + 87.5874px) 0.1959px ,calc(50% + 90.0000px) 0.0000px ,calc(100% - 30.0000px) 0.0000px ,calc(100% - 30.0000px) 0.0000px ,calc(100% - 25.1505px) 0.3945px ,calc(100% - 20.5440px) 1.5360px ,calc(100% - 16.2435px) 3.3615px ,calc(100% - 12.3120px) 5.8080px ,calc(100% - 8.8125px) 8.8125px ,calc(100% - 5.8080px) 12.3120px ,calc(100% - 3.3615px) 16.2435px ,calc(100% - 1.5360px) 20.5440px ,calc(100% - 0.3945px) 25.1505px ,calc(100% - 0.0000px) 30.0000px ); 
+  
+  }
+
+  .clip-ask{
+
+clip-path: polygon(0% 0%, 100% 0%, 100% 83%, 85% 87%, 84% 100%, 49% 91%, 0 91%);  }
+
+.clip-round{
+clip-path: circle(60.6% at 50% 50%);
+}
+
+.clip-rabet{
+clip-path: polygon(0% 0%, 87% 14%, 100% 75%, 75% 75%, 100% 100%, 50% 75%, 10% 66%);
+}
+
+.clip-round{
+clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)
+}
+
+@layer base {
+  h1 {
+    @apply text-4xl font-bold;
+  }
+  h2 {
+    @apply text-3xl font-bold;
+  }
+  h3 {
+    @apply text-2xl font-bold;
+  }
+  a {
+    @apply text-cyan-400;
+  }
+
+  alertBox{
+    @apply bg-red-500 text-white p-4 rounded-lg;
+  }
+}
+
+
+@layer utilities {
+  .post-content p{
+@apply pb-6;
+  }
+  .post-content a{
+  @apply text-blue-300 hover:text-blue-400;
+  
+  }
+  .post-content h1{
+    @apply text-4xl font-bold;
+  }
+
+  .post-content h2{
+    @apply text-3xl font-bold;
+  }
+
+  .post-content h3{
+    @apply text-2xl font-bold;
+  }
+
+  .post-content h4{
+    @apply text-xl font-bold;
+  }
+  .post-content ul{
+    @apply list-disc list-inside pb-4 pl-20 text-sm text-orange-600;
+  } 
+
+  .post-content ol{
+    @apply list-decimal list-inside pb-4;
+  }
+
+  .post-content li{
+    @apply pb-2;
+  }
+
+  .post-content figure {
+  @apply pb-4;
+  
+  }
+
+  .post-content figure figcaption {
+  @apply text-sm text-gray-500;
+  }
+
+  .post-content code {
+  @apply text-sm text-lime-500 pl-20;
+  }
+
+  .post-content pre {
+  @apply text-sm text-gray-500 pl-20;
+  }
+
+  .post-content blockquote {
+  @apply text-sm text-gray-500 pl-20;
+  }
+
+  .post-content blockquote p {
+  @apply text-sm text-gray-500 pl-20;
+  }
+
+  .post-content italic {
+  @apply text-sm text-slate-100 bg-slate-500 rounded-full px-2;
+  
+  
+  }
+
+  .post-content strong {
+  @apply text-lg font-bold text-gray-500 pl-20;
+  }
+
+  .post-content img {
+  @apply rounded-lg;
+  }
+
+  .post-content bold {
+  @apply font-semibold text-gray-500 pl-20;
+  
+  }
+  
+  .post-content inline-code{
+  
+  @apply text-sm text-lime-500 pl-20;
+  } 
+
+  .post-content hr{
+  @apply border-gray-500 border-2 my-4;
+  }
+
+  .contact-form label{
+    @apply block w-full mb-4;
+  
+  }
+.contact-form input{  
+  @apply block w-full mb-2 p-2 border border-gray-500 rounded-lg;
+}
+.contact-form textarea{
+  @apply block w-full mb-2 px-2 border border-gray-500 rounded-lg;
+}
+.contact-form button{
+  @apply block w-[20vh] justify-center align-middle mx-auto mb-2 p-2 border border-cyan-500 rounded-lg bg-cyan-400 text-white pb-2;
+}
+  }
+
