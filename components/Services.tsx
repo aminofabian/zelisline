@@ -25,8 +25,7 @@ function Services() {
     <>
     <div className="text-2xl max-w-4xl font-semibold text-center mx-auto pt-10">
     <h1>
-    From card games to platformers and casual 2D games. Start building your first game in minutes with templates
-    to get started fast.
+    From Simple Business Blogs to Super Complex SaaS applications and Casual Websites, We Got You Covered
     </h1>
     </div>
     <div className="bg-slate-300 h-12 md:h-16 flex justify-center mx-auto rounded-3xl my-10 max-w-3xl">

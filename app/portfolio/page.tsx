@@ -1,13 +1,11 @@
 "use client";
 
-
-import Head from "next/head";
+import React from 'react'
+import Portfolio from '../../components/Portfolio'
+import Head from 'next/head';
 import SideNav from "@/components/SideNav";
 import Footer from "@/components/Footer";
 import Image from "next/image";
-import React from 'react'; 
-import Popup from 'reactjs-popup'; 
-import 'reactjs-popup/dist/index.css';
 
 const handleSubmit = async (e: any) => {
   e.preventDefault();
@@ -19,7 +17,7 @@ const handleSubmit = async (e: any) => {
   
   // Check if any field is empty
   if (!name || !email || !message) {
-    alert("You didn't fill in all the fields. Please do and try again.");
+    alert("Please fill in all fields.");
     return; // Exit early if any field is empty
   }
   
@@ -36,7 +34,7 @@ const handleSubmit = async (e: any) => {
     });
     
     if (response.status === 200) {
-      alert("We've received your message, and we'll get back to you as soon as possible, probably within 24 hours. Thanks for contacting us.");
+      alert("Message Sent.");
       e.target.reset();
     } else {
       alert("Failed to send message. Please try again later.");
@@ -47,7 +45,8 @@ const handleSubmit = async (e: any) => {
   }
 };
 
-function Contact() {
+
+function PortfolioPage() {
   return (
     <>
     <Head>
@@ -61,26 +60,10 @@ function Contact() {
     <div> 
     </div>
     <div>
+    <Portfolio />
     <div className="m-3 rounded-2xl">
-    <section className="min-w-7xl">
     <div className='container mx-auto flex flex-col-reverse sm:flex-row items-center'>
-    <div className='md:w-2/5 flex flex-col items-start mt-8 sm:mt-0'>
-    <h1 className='text-2xl lg:text-5xl leading-none mb-4'>
-    You Know <strong className='font-green'> You Can </strong> Always Count On Us.
-    </h1>
-    <p className='lg:text-lg mb-4 sm:mb-12'>
-    Email us today and we will get back to you as soon as possible. We always do our best to respond to all inquiries within 24 hours.
-    </p>
-    </div>
-    <div className='sm:w-2/5 mb-5 opacity-50'>
-    <div className='m-3'>
-    <Image
-    src='gra.gif'
-    alt='hero'
-    width={500}
-    height={500}
-    />
-    </div>
+    
     </div>
     </div>
     <div className="md:w-2/5 mx-auto mt-2">
@@ -102,16 +85,13 @@ function Contact() {
     </button>
     </form>
     </div>
-    </section>
     </div>
     </div>
-    </div> 
     <div>
     <Footer />
-    
     </div>
     </>
     )
   }
   
-  export default Contact;
+  export default PortfolioPage;

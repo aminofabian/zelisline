@@ -3,6 +3,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 
 const ShuffleHero = () => {
@@ -19,12 +20,12 @@ const ShuffleHero = () => {
           We're committed to helping startups and small businesses grow. From software to marketing, we'll help you get there.
         </p>
         <div className="flex space-x-1">
-          <button className="bg-orange-500 text-white font-medium py-2 px-4 rounded-l-xl transition-all hover:bg-orange-300 hover:scale-110 animate-pulse relative">
+          <Link href="/blog">  <button className="bg-orange-500 text-white font-medium py-2 px-4 rounded-l-xl transition-all hover:bg-orange-300 hover:scale-110 animate-pulse relative">
             Our Blog
-          </button>
-          <button className="bg-cyan-300 text-white font-medium py-2 px-4 rounded-r-xl transition-all hover:bg-orange-300 hover:scale-110 active:animate-pulse relative">
+          </button> </Link>
+          <Link href="/contact"> <button className="bg-cyan-300 text-white font-medium py-2 px-4 rounded-r-xl transition-all hover:bg-orange-300 hover:scale-110 active:animate-pulse relative">
             Talk to Us
-          </button>
+          </button> </Link>
         </div>
       </div>
       <ShuffleGrid />

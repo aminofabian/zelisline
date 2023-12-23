@@ -8,6 +8,7 @@ import WhyChooseUs from '@/components/WhyChooseUs'
 import React from 'react'
 import Footer from '@/components/Footer'
 import Services from '@/components/Services'
+import Portfolio from '@/components/Portfolio'
 
 export default function page() {
   return (
@@ -25,8 +26,6 @@ export default function page() {
     </div>
     <div>
     <Services />
-    </div>
-    <div>
     </div>
     <div>
     <ContactPage />

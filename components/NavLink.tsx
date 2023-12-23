@@ -11,7 +11,7 @@ const navLinks = [
     icon: Home, // Replace with the icon identifier or URL
   },
   {
-    name: 'Services',
+    name: 'Our Services',
     href: '/services',
     icon: Layers,
     hideOnMobile: true,
