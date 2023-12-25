@@ -1,13 +1,13 @@
 module.exports = {
 
-   // Other config modules
-   
-    module: {
-      rules: [
-        {
-          test: /\.json$/,
-          use: 'json-loader',
-        },
-      ],
-    },
-  };
+  // Other config modules
+
+  module: {
+    rules: [
+      {
+        test: /\.json$/,
+        use: 'json-loader',
+      },
+    ],
+  },
+};
