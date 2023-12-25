@@ -1,10 +1,10 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 
 function Portfolio() {
 
-  const testimonials = [
+  const testimonials = useMemo(() => [
     {
       "client": "Jobslah",
       "websiteLink": "https://www.jobslah.com/",
@@ -35,7 +35,7 @@ function Portfolio() {
       "screenshot": "fitness.png",
       "review": "As a fitness studio, it was important for us to have a website that not only looked great but also functioned seamlessly. Zelisline delivered on both accounts and more. They incorporated our branding into the design effortlessly and created a user-friendly platform for our clients to navigate. We've seen an increase in website traffic and inquiries since launching our new site."
     }
-  ]
+  ]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -43,7 +43,7 @@ function Portfolio() {
     const interval = setInterval(() => {
       // Change to the next testimonial after 5 seconds
       setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-    }, 10000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, [testimonials]);

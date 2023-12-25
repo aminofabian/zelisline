@@ -143,7 +143,7 @@ const ShuffleGrid = () => {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   const shuffleSquares = () => {

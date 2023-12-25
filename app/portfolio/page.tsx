@@ -1,11 +1,10 @@
 "use client";
 
-import React from 'react'
-import Portfolio from '@/components/Portfolio'
-import Head from 'next/head';
+import React from "react";
+import Portfolio from "@/components/Portfolio";
+import Head from "next/head";
 import SideNav from "@/components/SideNav";
 import Footer from "@/components/Footer";
-import Image from "next/image";
 
 const handleSubmit = async (e: any) => {
   e.preventDefault();
