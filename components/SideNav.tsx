@@ -10,9 +10,7 @@ function SideNav() {
   </Link>
   </div>
   <div className="justify-between flex md:flex">
-  <div>
   <NavLinks />
-  </div> 
   <div className="hiddenflex relative md:mt-auto flex-1 place-items-end text-slate-800">
   <MoreDropdown />
   </div> 

@@ -14,7 +14,6 @@ const navLinks = [
     name: 'Our Services',
     href: '/services',
     icon: Layers,
-    hideOnMobile: true,
   },
   
   {
@@ -43,7 +42,7 @@ export default function NavLinks() {
   return (
     <div className='mt-12'>
     {navLinks.map((link) => (
-      <Link href={link.href} key={link.href}>
+      <Link href={link.href} key={link.name}>
       <div className="flex flex-row md:flex-col items-center space-x-2 text-slate-900 hover:text-cyan-400 hover:motion-safe:animate-bounce">
       <link.icon className="w-10 h-12" />
       </div>
