@@ -7,7 +7,7 @@ import Image from 'next/image';
 function Portfolio() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const testimonials = useMemo(() => [
+  const testimonials = [
     {
       "client": "Jobslah",
       "websiteLink": "https://www.jobslah.com/",
@@ -38,7 +38,7 @@ function Portfolio() {
       "screenshot": "fitness.png",
       "review": "As a fitness studio, it was important for us to have a website that not only looked great but also functioned seamlessly. Zelisline delivered on both accounts and more. They incorporated our branding into the design effortlessly and created a user-friendly platform for our clients to navigate. We've seen an increase in website traffic and inquiries since launching our new site."
     }
-  ]);
+  ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
 

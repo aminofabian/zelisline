@@ -49,7 +49,9 @@ function PortfolioPage() {
   return (
     <>
       <Head>
-        <title>Page Slug</title>
+        <title>Portfolio Page Zelisline</title>
+        <meta name="description" content="Portfolio Page Zelisline" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex min:h-screen relative md:flex-row md:overflow-hidden xl:px-40 md:px-10 bg-transparent">

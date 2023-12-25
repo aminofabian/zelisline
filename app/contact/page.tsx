@@ -6,7 +6,6 @@ import SideNav from "@/components/SideNav";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import React from 'react'; 
-import Popup from 'reactjs-popup'; 
 import 'reactjs-popup/dist/index.css';
 
 const handleSubmit = async (e: any) => {
