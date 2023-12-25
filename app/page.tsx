@@ -8,7 +8,6 @@ import WhyChooseUs from '@/components/WhyChooseUs'
 import React from 'react'
 import Footer from '@/components/Footer'
 import Services from '@/components/Services'
-import Portfolio from '@/components/Portfolio'
 
 export default function page() {
   return (

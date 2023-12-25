@@ -2,8 +2,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 
+
+
 function Portfolio() {
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const testimonials = useMemo(() => [
     {
       "client": "Jobslah",
@@ -41,9 +44,10 @@ function Portfolio() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // Change to the next testimonial after 5 seconds
+      // Change to the next testimonial after 6 seconds
       setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
     }, 6000);
+
 
     return () => clearInterval(interval);
   }, [testimonials]);
@@ -73,7 +77,9 @@ function Portfolio() {
             />
           </div>
           <div className="w-1/2 h-full p-8 bg-slate-100">
-            <p className="absolute t-1/2 r-4 slate-500 w-[25dvw] text-md font-extralight mx-auto text-center inline-block">"{currentTestimonial.review}"</p>
+            <p className="absolute t-1/2 r-4 slate-500 w-[25dvw] text-md font-extralight mx-auto text-center inline-block"> &quot;
+              {currentTestimonial.review} &quot;
+            </p>
           </div>
           <button className="absolute px-3 py-2 transform -translate-y-2/3 bg-orange-500 text-white clip-arrow"
             onClick={handleNext}
