@@ -11,6 +11,7 @@ import Services from '@/components/Services'
 
 export default function Page() {
   return (
+    <React.Fragment>
     <main className="flex h-screen relative md:flex-row md:overflow-hidden xl:px-40 md:px-10 bg-transparent">
     <div className="w-screen lg:w-44 md:border-r mr-15 border-slate-50 justify-center align-middle">
     <div className="hidden md:flex pr-10">
@@ -34,5 +35,6 @@ export default function Page() {
     <Footer />
     </div>
     </main>
+    </React.Fragment>
     )
   }
