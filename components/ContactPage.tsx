@@ -39,7 +39,7 @@ const formHandler = async (e: any) => {
     });
     
     if (response.status === 200) {
-      alert("Message Sent.");
+      alert("Your Message Was Sent. We'll Respond Within 24 Hours.");
       e.target.reset();
       console.log(formData);
     } else {
@@ -51,20 +51,12 @@ const formHandler = async (e: any) => {
   }
 };
 
-
-
-
-
-
-
 export default function ContactPage() {
   const [agreed, setAgreed] = useState(false);
   
   const handleCheckboxChange = () => {
     setAgreed(!agreed);
   };
-  
-  
   
   return (
     <div className="flex items-center justify-center lg:mx-48">
@@ -172,17 +164,13 @@ export default function ContactPage() {
     <option>TZ</option>
     <option>UG</option>
     </select>
-    <ChevronUp
-    className="pointer-events-none absolute right-3 top-0 h-full w-5 text-gray-400"
-    aria-hidden="true"
-    />
     </div>
     <input
     type="tel"
     name="phone-number"
     id="phone-number"
     autoComplete="tel"
-    className="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+    className="block w-full rounded-md border-0 px-5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
     />
     </div>
     </div>
@@ -195,7 +183,7 @@ export default function ContactPage() {
     name="message"
     id="message"
     rows={4}
-    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+    className="block w-full border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
     defaultValue={''}
     />
     </div>
@@ -219,13 +207,19 @@ export default function ContactPage() {
     </label>
     </div>
     </div>
-    <div className="mt-10">
+    <div className="mt-5 mx-auto justify-center">
+    <div className="generate-text-box flex">
     <button
     type="submit"
-    className="block w-full rounded-md bg-cyan-400 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500"
+    className="inline bg-cyan-400 px-5 py-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 clip-angled generate-text-box"
     >
     Let Us talk
     </button>
+    <div className="text-box-container clip-angled-both mt-2 mb-10">
+    <p>Email Us. We&apos;ll respond to you within 24 hours.</p>
+    <p>Alternatively, use our email address (support@zelisline.co.ke)</p>
+    </div>
+    </div>
     </div>
     </div>
     </form>

@@ -92,15 +92,17 @@ export default function Pricing() {
   }
   return (
     <>
-    <div className="bg-blue-300 rounded-s-3xl custom-clip">
-    <div className= "bg-[url('/new.gif')] bg-cover rounded-e-xl py-16">
-    <div className="max-w-9xl mx-auto">
-    <h2 className="text-3xl font-bold text-center mb-2 text-flourish-500 p-3 hover:animate-bounce-custom transition-all">
+    <div className="bg-cyan-200 custom-clip">
+    <div className= "bg-[url('/new.gif')] bg-cover rounded-e-xl py-16 border-cyan-50">
+    <div className="max-w-8xl mx-auto">
+    <div className="w-full clip-angled ">
+    <h2 className="text-3xl font-bold text-center mb-2 text-flourish-500 p-3 hover:animate-bounce-custom transition-all justify-center">
     Choose Your Package
     </h2>
+    </div>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     {packages.map((packageItem, index) => (
-      <div key={index} className="bg-white rounded-lg shadow-md p-6 border-l-8 border-flourish-800 rounded-r-2xl hover:translate-x-7 max-h-[70dvh]">
+      <div key={index} className="bg-cyan-50 shadow-md p-6 border-l-8 border-flourish-800 rounded-r-2xl hover:translate-x-7 max-h-[70dvh] clip-angled-both">
       <h3 className="text-xl font-semibold mb-4">{packageItem.name}</h3>
       <p className="text-gray-600 mb-4">{packageItem.description}</p>
       <ul className="text-gray-600 mb-4">
@@ -120,9 +122,12 @@ export default function Pricing() {
         ))}
         </ul>
         <p className="text-lg font-bold text-orange-500 hover:translate-x-3 scale-70">${packageItem.startingPrice}</p>
-        <button className="bg-cyan-400 hover:bg-cyan-600 text-white font-semibold hover:scale-125 py-2 px-4 rounded mt-4 block w-full justify-items-end animate-bounce-custom">
+        <div className="flex justify-center">
+        <button className="bg-cyan-400 hover:bg-cyan-600 text-white font-semibold px-5 hover:scale-125 py-2 mt-4 inline animate-bounce-custom clip-angled">
         Get Started
         </button>
+        </div>
+        
         </div>
         ))}
         </div>

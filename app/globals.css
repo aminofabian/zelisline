@@ -40,6 +40,44 @@ clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%)
 .clip-arrow-left{
 clip-path: polygon(40% 0%, 40% 20%, 100% 20%, 100% 80%, 40% 80%, 40% 100%, 0% 50%);
 }
+
+.clip-angled{
+clip-path: polygon(20% 0%, 94% 0, 100% 20%, 100% 100%, 80% 100%, 5% 100%, 0% 80%, 0 0);
+}
+
+.clip-angled-both{
+clip-path: polygon(0% 20%, 2% 0, 97% 0, 100% 50%, 98% 100%, 2% 100%, 0% 80%);
+}
+
+       .generate-text-box {
+      display: inline-block;
+      padding: 7px;
+      color: #fff;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .text-box-container {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 400px; /* Adjust the width as needed */
+      padding: 10px;
+      background-color: #2dcaf1; /* Match the button color or change it */
+      color: #fff;
+      display: none;
+      z-index: 1;
+      transition: visibility 0s, opacity 0.3s linear;
+      border: 2px solid rgb(21, 215, 241); /* Start with a transparent border */
+      animation: borderAnimation 0.90s ease-out;
+
+    }
+
+    .generate-text-box:hover .text-box-container {
+      display: block;
+    }
+
+
 @layer base {
   h1 {
     @apply text-4xl font-bold;
@@ -58,6 +96,7 @@ clip-path: polygon(40% 0%, 40% 20%, 100% 20%, 100% 80%, 40% 80%, 40% 100%, 0% 50
     @apply bg-red-500 text-white p-4 rounded-lg;
   }
 }
+
 
 
 @layer utilities {

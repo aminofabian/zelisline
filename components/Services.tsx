@@ -28,10 +28,10 @@ function Services() {
     From Simple Business Blogs to Super Complex SaaS applications and Casual Websites, We Got You Covered
     </h1>
     </div>
-    <div className="bg-slate-300 h-12 md:h-16 flex justify-center mx-auto rounded-3xl my-10 max-w-3xl">
+    <div className="bg-slate-300 h-12 md:h-16 flex justify-center mx-auto my-10 max-w-3xl clip-angled">
     <div className="flex justify-between items-center w-full max-w-screen-md mx-auto px-4 space-x-3">
     <div
-    className={`flex-1 h-full rounded-3xl text-center flex items-center justify-center font-bold text-lg md:text-xl cursor-pointer ${
+    className={`flex-1 h-full clip-angled-both text-center flex items-center justify-center font-bold text-lg md:text-xl cursor-pointer ${
       selectedComponent === 'WebDesign' ? 'bg-slate-200' : 'bg-slate-300'
     }`}
     onClick={() => renderComponent('WebDesign')}
@@ -39,7 +39,7 @@ function Services() {
     <button className="hover:cursor-pointer">WebDesign</button>
     </div>
     <div
-    className={`flex-1 h-full rounded-3xl text-center flex items-center justify-center font-bold text-lg md:text-xl cursor-pointer ${
+    className={`flex-1 h-full clip-angled text-center flex items-center justify-center font-bold text-lg md:text-xl cursor-pointer ${
       selectedComponent === 'GraphicalDesign' ? 'bg-slate-200' : 'bg-slate-300'
     }`}
     onClick={() => renderComponent('GraphicalDesign')}
@@ -47,7 +47,7 @@ function Services() {
     <button className="hover:cursor-pointer">GraphicalDesign</button>
     </div>
     <div
-    className={`flex-1 h-full rounded-3xl text-center flex items-center justify-center font-bold text-lg md:text-xl cursor-pointer ${
+    className={`flex-1 h-full clip-angled-both text-center flex items-center justify-center font-bold text-lg md:text-xl cursor-pointer ${
       selectedComponent === 'DigitalMarketing' ? 'bg-slate-200' : 'bg-slate-300'
     }`}
     onClick={() => renderComponent('DigitalMarketing')}

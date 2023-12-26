@@ -62,9 +62,9 @@ function Portfolio() {
   return (
     <div>
 
-      <div className="w-2xl h-[40vh] overflow-hidden flow-col items-center justify-center transition-transform duration-500 ease-in-out transform translate-x-0 mt-15 mx-10 rounded-2xl space-x-10 border-emerald-400">
+      <div className="w-2xl h-[40vh] overflow-hidden flow-col items-center justify-center transition-transform duration-500 ease-in-out transform translate-x-0 mt-15 mx-10 rounded-2xl space-x-10 border-emerald-400 clip-angled-both">
         <div className="w-[70dvw] h-full flex mt-10 rounded-2xl">
-          <div className="w-1/2 h-[80vh] bg-slate-100 relative hover:animate-bounce-custom">
+          <div className="w-1/2 h-[80vh] bg-slate-100 relative hover:animate-bounce-custom clip-angled">
             <Image
               src={currentTestimonial.screenshot}
               width="0"
@@ -76,7 +76,7 @@ function Portfolio() {
               alt={`${currentTestimonial.client} Screenshot`}
             />
           </div>
-          <div className="w-1/2 h-full p-8 bg-slate-100">
+          <div className="w-1/2 h-full p-8 bg-slate-100 clip-angled-both">
             <p className="absolute t-1/2 r-4 slate-500 w-[25dvw] text-md font-extralight mx-auto text-center inline-block"> &quot;
               {currentTestimonial.review} &quot;
             </p>
