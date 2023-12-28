@@ -1,6 +1,6 @@
  import React from 'react';
  import Footer from '@/components/Footer';
- import ContactPage from '@/components/ContactPage';
+ import ContactPage from '@/components/contactPage';
  import Head from 'next/head';
  import SideNav from '@/components/sideNav';
  

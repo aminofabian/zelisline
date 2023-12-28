@@ -1,6 +1,5 @@
 "use client"
 import React, { useState } from 'react';
-import { ChevronUp } from 'lucide-react';
 
 const formHandler = async (e: any) => {
   e.preventDefault();

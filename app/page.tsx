@@ -1,8 +1,8 @@
 
-import ContactPage from '@/components/ContactPage';
-import Pricing from '@/components/Pricing';
+import ContactPage from '@/components/contactPage';
+import Pricing from '@/components/pricing';
 import ShuffleHero from '@/components/shuffleHero';
-import WhyChooseUs from '@/components/WhyChooseUs';
+import WhyChooseUs from '@/components/whyChooseUs';
 import Footer from '@/components/Footer';
 import Services from '@/components/services';
 import SideNav from '@/components/sideNav';
