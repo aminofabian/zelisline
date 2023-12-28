@@ -3,8 +3,9 @@
 import React from "react";
 import Portfolio from "@/components/portfolio";
 import Head from "next/head";
-import SideNav from "@/components/SideNav";
+import SideNav from "@/components/sideNav";
 import Footer from "@/components/Footer";
+import Image from "next/image";
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -61,6 +62,35 @@ function PortfolioPage() {
         <div>
         </div>
         <div>
+          <div className='container mx-auto flex flex-col-reverse sm:flex-row items-center'>
+            <div className='md:w-2/5 flex flex-col items-start mt-8 sm:mt-10'>
+              <h1 className='text-2xl lg:text-5xl leading-none mb-4'>
+                Here are  <strong className='font-green'> a few samples</strong>  of our Work.
+              </h1>
+              <h2>                Websites We&lsquo;ve Built:
+              </h2>
+              <div className='lg:text-lg mb-4 sm:mb-12'>
+                <ul className="flex flex-col space-y-4 mt-10 pl-10 list-disc">
+                  <li className="hover:border-solid hover:border-var-secondary hover-border-solid hover:transforrm scale-105 pl-5 py-2 clip-angled-both bg-slate-200 font-bold hover:bg-cyan-600 hover:text-slate-100 border-transparent shadow-xl transition-colors border-e-slate-50">Jobs Lah: <div className="text-sm text-black bg-slate-300 inline px-3 py-1 font-medium clip-angled">https://www.jobslah.com/</div></li>
+                  <li className="hover:border-2 pl-5 py-2 clip-angled-both bg-slate-200 font-bold  hover:bg-cyan-600 hover:text-slate-50">Hawai Family Dental: <div className="text-sm text-black bg-slate-300 shadow-xl inline px-3 py-1 font-medium clip-angled">https://www.hawaiifamilydental.com</div></li>
+                  <li className="hover:border-2 pl-5 py-2 clip-angled-both bg-slate-200 font-bold hover:bg-cyan-600 hover:text-slate-50">Fit Fusion Fitness: <div className="text-sm text-black bg-slate-300 inline px-3 py-1 font-medium clip-angled">https://www.fitfusionfitness.com</div></li>
+                  <li className="hover:border-2 pl-5 py-2 clip-angled-both bg-slate-200 font-bold hover:bg-cyan-600 hover:text-slate-50">Wanderlust Travel Co: <div className="text-sm text-black bg-slate-300 inline px-3 py-1 font-medium clip-angled">https://www.wanderlusttravelco.com/</div></li>
+                  <li className="hover:border-2 pl-5 py-2 clip-angled-both bg-slate-200 font-bold hover:bg-cyan-600 hover:text-slate-50">Rustic Retreats: <div className="text-sm text-black bg-slate-300 inline px-3 py-1 font-medium clip-angled">https://www.rustic-retreats.uk</div></li>
+                </ul>
+
+              </div>
+            </div>
+            <div className='sm:w-2/5 mb-5 opacity-50'>
+              <div className='m-3'>
+                <Image
+                  src='gra.gif'
+                  alt='hero'
+                  width={500}
+                  height={500}
+                />
+              </div>
+            </div>
+          </div>
           <Portfolio />
           <div className="m-3 rounded-2xl">
             <div className='container mx-auto flex flex-col-reverse sm:flex-row items-center'>

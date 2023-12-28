@@ -19,11 +19,11 @@ const ShuffleHero = () => {
         <p className="text-base md:text-lg text-white my-4 md:my-6 relative hover:scale-90 bg-cyan-500 opacity-80 p-10 border-l-8 border-flourish-500 transform -skew-x-6">
           We're committed to helping startups and small businesses grow. From software to marketing, we'll help you get there.
         </p>
-        <div className="flex space-x-1">
-          <Link href="/blog">  <button className="bg-orange-500 text-white font-medium py-2 px-4 rounded-l-xl transition-all hover:bg-orange-300 hover:scale-110 animate-pulse relative">
+        <div className="flex -space-x-0.5">
+          <Link href="/blog">  <button className="bg-orange-500 text-white font-medium py-2 px-4 transition-all hover:bg-orange-300 hover:animate-bounce-custom relative rounded-l-2xl">
             Our Blog
           </button> </Link>
-          <Link href="/contact"> <button className="bg-cyan-300 text-white font-medium py-2 px-4 rounded-r-xl transition-all hover:bg-orange-300 hover:scale-110 active:animate-pulse relative">
+          <Link href="/contact"> <button className="bg-cyan-300 text-white font-medium py-2 px-4 transition-all hover:bg-orange-300 hover:animate-bounce active:animate-pulse relative rounded-r-2xl">
             Talk to Us
           </button> </Link>
         </div>

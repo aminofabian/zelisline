@@ -2,7 +2,7 @@
  import Footer from '@/components/Footer';
  import ContactPage from '@/components/ContactPage';
  import Head from 'next/head';
- import SideNav from '@/components/SideNav';
+ import SideNav from '@/components/sideNav';
  
  async function getPageDSlug(slug: any) {
   const query = `
@@ -58,9 +58,7 @@ function PageSlug() {
     <link rel="icon" href="/favicon.ico" />
     </Head>
     <div className="flex h-screen relative md:flex-row md:overflow-hidden xl:px-40 md:px-10 bg-transparent">
-    <div className="w-screen lg:w-44 md:border-r border-slate-50 justify-center align-middle">
     <div className="hidden md:flex"><SideNav /></div>
-    </div>  
     <div> 
     { }
     </div>

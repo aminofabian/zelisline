@@ -1,5 +1,6 @@
 
 import Image from 'next/image';
+import React from 'react';
 
 import {
   Globe,
@@ -9,7 +10,7 @@ import {
   Monitor,
 } from 'lucide-react'; // Assuming these are your icon components
 
-const DigitalMarketingServices = [
+const digitalMarketingServices = [
   {
     name: 'SEO (Search Engine Optimization)',
     description: 'Enhancing online visibility and search engine rankings.',
@@ -53,7 +54,7 @@ const DigitalMarketing = () => {
     Digital Marketing
     </h2>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-    {DigitalMarketingServices.map((service, index) => (
+    {digitalMarketingServices.map((service, index) => (
       <div key={index} className="flex items-center">
       <div className="mr-2 text-orange-400">{service.icon}</div>
       <div>

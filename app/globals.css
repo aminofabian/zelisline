@@ -48,7 +48,12 @@ clip-path: polygon(20% 0%, 94% 0, 100% 20%, 100% 100%, 80% 100%, 5% 100%, 0% 80%
 .clip-angled-both{
 clip-path: polygon(0% 20%, 2% 0, 97% 0, 100% 50%, 98% 100%, 2% 100%, 0% 80%);
 }
-
+.clip-polygon-left{
+clip-path: polygon(20% 11%, 40% 20%, 100% 20%, 100% 80%, 40% 80%, 25% 89%, 0% 50%);
+}
+.clip-polygon-right{
+clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+}
        .generate-text-box {
       display: inline-block;
       padding: 7px;
@@ -61,7 +66,7 @@ clip-path: polygon(0% 20%, 2% 0, 97% 0, 100% 50%, 98% 100%, 2% 100%, 0% 80%);
       position: absolute;
       top: 100%;
       left: 0;
-      width: 400px; /* Adjust the width as needed */
+      width: 500px; /* Adjust the width as needed */
       padding: 10px;
       background-color: #2dcaf1; /* Match the button color or change it */
       color: #fff;
@@ -86,7 +91,7 @@ clip-path: polygon(0% 20%, 2% 0, 97% 0, 100% 50%, 98% 100%, 2% 100%, 0% 80%);
     @apply text-3xl font-bold;
   }
   h3 {
-    @apply text-2xl font-bold;
+    @apply text-lg font-extralight;
   }
   a {
     @apply text-cyan-400;
@@ -112,18 +117,18 @@ clip-path: polygon(0% 20%, 2% 0, 97% 0, 100% 50%, 98% 100%, 2% 100%, 0% 80%);
   }
 
   .post-content h2{
-    @apply text-3xl font-bold;
+    @apply text-3xl font-bold mb-5;
   }
 
   .post-content h3{
-    @apply text-2xl font-bold;
+    @apply text-xl font-semibold mb-3 text-slate-400;
   }
 
   .post-content h4{
-    @apply text-xl font-bold;
+    @apply text-lg font-light;
   }
   .post-content ul{
-    @apply list-disc list-inside pb-4 pl-20 text-sm text-orange-600;
+    @apply list-disc list-inside pb-4 pl-5 text-sm text-slate-400;
   } 
 
   .post-content ol{
@@ -131,7 +136,7 @@ clip-path: polygon(0% 20%, 2% 0, 97% 0, 100% 50%, 98% 100%, 2% 100%, 0% 80%);
   }
 
   .post-content li{
-    @apply pb-2;
+    @apply pb-5;
   }
 
   .post-content figure {
@@ -152,11 +157,11 @@ clip-path: polygon(0% 20%, 2% 0, 97% 0, 100% 50%, 98% 100%, 2% 100%, 0% 80%);
   }
 
   .post-content blockquote {
-  @apply text-sm text-gray-500 pl-20;
+  @apply text-sm text-gray-500 pl-10;
   }
 
   .post-content blockquote p {
-  @apply text-sm text-gray-500 pl-20;
+  @apply text-sm text-gray-500 pl-5;
   }
 
   .post-content italic {
@@ -166,7 +171,7 @@ clip-path: polygon(0% 20%, 2% 0, 97% 0, 100% 50%, 98% 100%, 2% 100%, 0% 80%);
   }
 
   .post-content strong {
-  @apply text-lg font-bold text-gray-500 pl-20;
+  @apply text-lg font-bold text-gray-500;
   }
 
   .post-content img {
@@ -174,7 +179,7 @@ clip-path: polygon(0% 20%, 2% 0, 97% 0, 100% 50%, 98% 100%, 2% 100%, 0% 80%);
   }
 
   .post-content bold {
-  @apply font-semibold text-gray-500 pl-20;
+  @apply font-semibold text-slate-500;
   
   }
   

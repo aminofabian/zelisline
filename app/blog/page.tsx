@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import Loading from "./loading";
 import Image from "next/image";
-import SideNav from "@/components/SideNav";
+import SideNav from "@/components/sideNav";
 import Date from '@/components/date';
 import Head from "next/head";
 
@@ -90,7 +90,6 @@ async function getPosts(): Promise<Post[]> {
       <title>Zelisline Blog List</title>
       </Head>
       <div className="flex h-screen relative md:flex-row md:overflow-hidden xl:px-40 md:px-5 bg-transparent mx-auto">
-      {/* Left column for the navbar */}
       <div className="hidden: lg:w-30 md:border-r border-slate-200 justify-center align-middle">
       <SideNav />
       </div>

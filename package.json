@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@lottiefiles/react-lottie-player": "^3.5.3",
+    "@next/third-parties": "^14.0.4",
     "class-variance-authority": "^0.7.0",
     "date-fns": "^3.0.0",
     "framer-motion": "^10.16.16",

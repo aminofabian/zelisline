@@ -1,8 +1,9 @@
 'use client'
 import React, { useState } from 'react';
-import WebDesign from './WebDesign';
-import DigitalMarketing from './DigitalMarketing';
-import GraphicalDesign from './GraphicalDesign';
+import WebDesign from './webDesign';
+import DigitalMarketing from './digitalMarketing';
+import GraphicalDesign from './graphicalDesign';
+
 
 function Services() {
   const [selectedComponent, setSelectedComponent] = useState('WebDesign');
@@ -28,10 +29,10 @@ function Services() {
     From Simple Business Blogs to Super Complex SaaS applications and Casual Websites, We Got You Covered
     </h1>
     </div>
-    <div className="bg-slate-300 h-12 md:h-16 flex justify-center mx-auto my-10 max-w-3xl clip-angled">
+    <div className="bg-slate-300 h-12 flex justify-center mx-auto my-10 max-w-3xl clip-angled-both">
     <div className="flex justify-between items-center w-full max-w-screen-md mx-auto px-4 space-x-3">
     <div
-    className={`flex-1 h-full clip-angled-both text-center flex items-center justify-center font-bold text-lg md:text-xl cursor-pointer ${
+    className={`flex-1 h-full clip-angled-both text-center flex items-center justify-center font-bold text-lg md:text-xl hover:cursor-pointer ${
       selectedComponent === 'WebDesign' ? 'bg-slate-200' : 'bg-slate-300'
     }`}
     onClick={() => renderComponent('WebDesign')}
