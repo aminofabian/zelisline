@@ -216,7 +216,7 @@ export default function ContactPage() {
     Let Us talk
     </button>
     <div className="text-box-container clip-angled-both mt-2 mb-10 text-sm">
-    <p>You can send us an email. We'll respond within 24 hours.</p>
+    <p>You can send us an email. We&apos;ll respond within 24 hours.</p>
     <p>Alternatively, you can email us directly at (support@zelisline.co.ke)</p>
     </div>
     </div>
