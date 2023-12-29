@@ -42,7 +42,7 @@ const navLinks = [
   }
 ];
 
-export default function NavLinks() {
+function NavLinks() {
   return (
     <div className='mt-3'>
       {navLinks.map((link) => (
@@ -56,3 +56,5 @@ export default function NavLinks() {
     </div>
   );
 }
+
+export default NavLinks;
