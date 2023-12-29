@@ -1,8 +1,8 @@
 'use client'
 import React, { useState } from 'react';
-import WebDesign from './webDesign';
-import DigitalMarketing from './digitalMarketing';
-import GraphicalDesign from './graphicalDesign';
+import WebDesign from './WebDesign';
+import DigitalMarketing from './DigitalMarketing';
+import GraphicalDesign from './GraphicalDesign';
 
 
 function Services() {
