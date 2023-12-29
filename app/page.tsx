@@ -1,11 +1,11 @@
 
-import ContactPage from '@/components/contactPage';
+import ContactPage from '@/components/ContactPage';
 import Pricing from '@/components/pricing';
 import ShuffleHero from '@/components/shuffleHero';
 import WhyChooseUs from '@/components/whyChooseUs';
 import Footer from '@/components/Footer';
 import Services from '@/components/services';
-import SideNav from '@/components/sideNav';
+import SideNav from '@/components/SideNav';
 
 function HomePage() {
   return (

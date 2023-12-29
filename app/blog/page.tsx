@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import Loading from "./loading";
 import Image from "next/image";
-import SideNav from "@/components/sideNav";
+import SideNav from "@/components/SideNav";
 import Date from '@/components/date';
 import Head from "next/head";
 

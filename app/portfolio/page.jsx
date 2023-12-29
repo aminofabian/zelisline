@@ -3,7 +3,7 @@
 import React from "react";
 import Portfolio from "@/components/portfolio";
 import Head from "next/head";
-import SideNav from "@/components/sideNav";
+import SideNav from "@/components/SideNav";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 

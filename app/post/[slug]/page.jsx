@@ -1,6 +1,6 @@
 import Loading from "../../blog/loading";
 import Image from "next/image";
-import SideNav from "@/components/sideNav";
+import SideNav from "@/components/SideNav";
 import Date from "@/components/date";
 import Head from "next/head";
 import Footer from "@/components/Footer";

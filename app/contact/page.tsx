@@ -2,7 +2,7 @@
 
 
 import Head from "next/head";
-import SideNav from "@/components/sideNav";
+import SideNav from "@/components/SideNav";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import React from 'react'; 
