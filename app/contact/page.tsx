@@ -51,7 +51,7 @@ function Contact() {
     <>
     <Head>
     <title>Page Slug</title>
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="canonical" href='/contact' />
     </Head>
     <div className="flex min:h-screen relative md:flex-row md:overflow-hidden xl:px-40 md:px-10 bg-transparent">
     <div className="w-screen lg:w-44 md:border-r border-slate-50 justify-center align-middle">

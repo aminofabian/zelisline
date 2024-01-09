@@ -92,8 +92,8 @@ export default function Pricing() {
   }
   return (
     <>
-    <div className="bg-cyan-200 custom-clip">
-    <div className= "bg-[url('/new.gif')] bg-cover rounded-e-xl py-7 border-cyan-50">
+    <div className="bg-slate-100 custom-clip">
+    <div className= "bg-cover rounded-e-xl py-7 border-cyan-50">
     <div className="max-w-full mx-auto">
     <div className="w-full clip-angled-both ">
     <h2 className="text-3xl font-bold text-center mb-2 text-flourish-500 p-3 hover:animate-bounce-custom transition-all justify-center">

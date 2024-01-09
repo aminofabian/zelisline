@@ -40,10 +40,10 @@ export default async function ContactHandler(req, res) {
       address: `${email}`,
     },
     replyTo: email,
-    to: "zelisline@gmail.com",
+    to: `zelisline@gmail.com, ${email}`,
     subject: `form message`,
     text: message,
-    html: `${message}`,
+    html: `Thank you for contacting us. We've received your message as follows: ${message} We'll respond to you within 24 hours`,
   };
 
   await new Promise((resolve, reject) => {

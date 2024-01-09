@@ -45,16 +45,16 @@ const navLinks = [
 function NavLinks() {
   return (
     <div className='mt-3'>
-      {navLinks.map((link) => (
-        <Link href={link.href} key={link.href}>
-          <div className="flex flex-row md:flex-col items-center space-x-2 text-slate-900 hover:text-cyan-400 hover:motion-safe:animate-bounce">
-            <link.icon className="w-10 h-12" />
-            <div className="hidden md:block mb-10 text-slate-600 text-sm font-mono hover:scale-125">{link.name}</div>
-          </div>
-        </Link>
+    {navLinks.map((link) => (
+      <Link href={link.href} key={link.href}>
+      <div className="flex flex-row md:flex-col items-center space-x-2 text-slate-900 hover:text-cyan-400 hover:motion-safe:animate-bounce">
+      <link.icon className="w-10 h-12" />
+      <div className="hidden md:block mb-10 text-slate-600 text-sm font-mono hover:scale-125">{link.name}</div>
+      </div>
+      </Link>
       ))}
-    </div>
-  );
-}
-
-export default NavLinks;
+      </div>
+      );
+    }
+    
+    export default NavLinks;

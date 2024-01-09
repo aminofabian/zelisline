@@ -8,8 +8,8 @@ import { GoogleTagManager} from '@next/third-parties/google'
 const inter = Jost({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'The Most Trusted Software Development and Digital Marketing Company in Kenya',
-  description: 'Zelisline is a leading software development and digital marketing company based in Kenya. With over 10 years of experience, we have established ourselves as the most trusted and reliable choice for businesses looking to enhance their online presence and streamline their operations.',
+  title: 'Software Development and Digital Marketing Agency Kenya',
+  description: 'Zelisline, a top software development company in Kenya, offers customized enterprise-level software and applications that meet your business needs.',
 }
 
 export default function RootLayout({
@@ -19,8 +19,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>{children}</body>
-            <GoogleTagManager gtmId="GTM-VHVH004Y49" />
+    <body className={inter.className}>{children}</body>
+    <GoogleTagManager gtmId="GTM-VHVH004Y49" />
     </html>
     )
   }

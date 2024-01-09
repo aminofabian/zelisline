@@ -43,7 +43,7 @@ export default async function ContactHandler(req, res) {
       address: `${email}`,
     },
     replyTo: email,
-    to: "zelisline@gmail.com",
+    to: `zelisline@gmail.com, ${email}`,
     subject: `form message`,
     text: message,
     html: `${message}`,

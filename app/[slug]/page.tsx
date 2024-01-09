@@ -55,7 +55,7 @@ function PageSlug() {
     <>
     <Head>
     <title>Page Slug</title>
-    <link rel="icon" href="/favicon.ico" />
+    <link  rel="canonical" />
     </Head>
     <div className="flex h-screen relative md:flex-row md:overflow-hidden xl:px-40 md:px-10 bg-transparent">
     <div className="hidden md:flex"><SideNav /></div>
