@@ -109,7 +109,7 @@ async function getPosts(): Promise<Post[]> {
           />
           ) : (
             <Image 
-            src="/new.gif"
+            src="/project-team.svg"
             width="0"
             height="0"
             sizes="15vw"
