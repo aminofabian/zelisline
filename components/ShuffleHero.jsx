@@ -93,7 +93,7 @@ const squareData = [
   },
   {
     id: 11,
-    src: "gif.gif",
+    src: "seo.jpg",
   },
   {
     id: 12,
