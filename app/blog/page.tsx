@@ -89,6 +89,7 @@ async function getPosts(): Promise<Post[]> {
       <Head>
       <title>Zelisline Blog List</title>
       <link rel="canonical" href="/blog" />
+      <meta name="robots" content="noindex,nofollow" />
       </Head>
       <div className="flex h-screen relative md:flex-row md:overflow-hidden xl:px-40 md:px-5 bg-transparent mx-auto">
       <div className="hidden: lg:w-30 md:border-r border-slate-200 justify-center align-middle">

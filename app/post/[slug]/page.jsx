@@ -68,10 +68,12 @@ export default async function PostDetails({ params }) {
         <div>
           <Head>
             <title>{post.title}</title>
-            <meta property="og:title" content="My page title" key="title" />
+            <meta property="og:title" content="My page title noindex,nofollow" key="title" name="robots" />
           </Head>
           <Head>
             <meta property="og:title" content={post.excerpt} key="title" />
+            <meta name="google" content="nositelinkssearchbox" key="sitelinks" />
+            <meta name="google" content="notranslate" key="notranslate" />
           </Head>
         </div>
         <div className="flex md:max-w-7xl mx-auto">
