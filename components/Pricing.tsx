@@ -1,3 +1,6 @@
+import Contact from "@/app/contact/page";
+import ContactPage from "./ContactPage";
+import ButtonAlert from "./myComponents/ButtonAlert";
 
 export default function Pricing() {
   
@@ -106,9 +109,15 @@ export default function Pricing() {
       <h3 className="text-xl font-semibold mb-4">{packageItem.name}</h3>
       <p className="text-gray-600 mb-4">{packageItem.description}</p>
       <div className="flex justify-center mb-10">
-      <button className="border-2 border-cyan-500  hover:bg-cyan-150 text-cyan-500 font-semibold px-5 hover:scale-125 py-2 mt-4 inline animate-bounce-custom">
-      Get Started
-      </button>
+      <div className="border-2 border-cyan-500  hover:bg-cyan-150 text-cyan-500 font-semibold px-5 hover:scale-125 py-2 mt-4 inline animate-bounce-custom">
+      <ButtonAlert
+      triggerText="Get Started"
+      title="Are you absolutely sure?"
+      descriptionComponent={<Contact />}
+      cancelText="Cancel"
+      continueText="Continue"
+      />
+      </div>
       </div>
       <p className="text-sm font-md text-cyan-400 hover:translate-x-3 scale-70">${packageItem.startingPrice}</p>
       <ul className="text-gray-600 mb-4">
