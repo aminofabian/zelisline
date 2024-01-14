@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import Image from "next/image";
 import React, { useState } from 'react'; 
 import 'reactjs-popup/dist/index.css';
-import AlertComponent from "@/components/myComponents/Alert";
+import AlertComponent from '@/components/myComponents/Alert';
 
 
 
@@ -69,8 +69,7 @@ function Contact() {
     <div className="m-3 rounded-2xl">
     <section className="min-w-7xl">
     {showSuccessAlert ? (
-      <AlertComponent
-      />
+      <AlertComponent />
       ) : (
         
         
