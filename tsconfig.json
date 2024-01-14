@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/lib/graphqlRequest.js", "app/blog/index.tsx", "app/post/[slug]", "src/api/contact.js", "app/api/contact/route.js", "components/date.js", "components/ShuffleHero.jsx", "components/Portfolio.tsx", "app/portfolio/page.jsx", "components/NavLink.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/lib/graphqlRequest.js", "app/blog/index.tsx", "app/post/[slug]", "src/api/contact.js", "app/api/contact/route.js", "components/date.js", "components/ShuffleHero.jsx", "components/Portfolio.tsx", "app/portfolio/page.jsx", "components/NavLink.jsx", "components/myComponents/ErrorMessage.js"],
   "exclude": ["node_modules"]
 }
