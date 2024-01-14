@@ -29,7 +29,7 @@ export default function Pricing() {
       startingPrice: 500
     },
     {
-      name: "E-Commerce Package (custom)",
+      name: "E-Commerce Website Package (custom)",
       description: "Perfect for businesses looking to sell products online with a custom design tailored to their brand.",
       features: [
         "Custom website design with unlimited revisions",
@@ -69,7 +69,7 @@ export default function Pricing() {
     },
     {
       name: "Additional Services",
-      description: "In addition to our packages, we also offer these additional services for a more personalized and comprehensive web design experience.",
+      description: "We also offer these additional services for a more personalized and comprehensive web design experience.",
       features: [
         "Logo design",
         "Branding and identity development",
@@ -97,7 +97,7 @@ export default function Pricing() {
     <div className="max-w-full mx-auto">
     <div className="w-full clip-angled-both ">
     <h2 className="text-3xl font-bold text-center mb-2 text-flourish-500 p-3 hover:animate-bounce-custom transition-all justify-center">
-    Choose Your Package
+    CHOOSE YOUR PACKAGE
     </h2>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
@@ -105,6 +105,12 @@ export default function Pricing() {
       <div key={index} className="bg-cyan-50 shadow-md p-6 border-l-8 border-flourish-800 rounded-r-2xl hover:translate-x-7 clip-angled-both">
       <h3 className="text-xl font-semibold mb-4">{packageItem.name}</h3>
       <p className="text-gray-600 mb-4">{packageItem.description}</p>
+      <div className="flex justify-center mb-10">
+      <button className="border-2 border-cyan-500  hover:bg-cyan-150 text-cyan-500 font-semibold px-5 hover:scale-125 py-2 mt-4 inline animate-bounce-custom">
+      Get Started
+      </button>
+      </div>
+      <p className="text-sm font-md text-cyan-400 hover:translate-x-3 scale-70">${packageItem.startingPrice}</p>
       <ul className="text-gray-600 mb-4">
       {packageItem.features.map((feature, i) => (
         <li key={i} className="flex items-center mb-2 pl-5">
@@ -121,13 +127,6 @@ export default function Pricing() {
         </li>
         ))}
         </ul>
-        <p className="text-lg font-bold text-orange-500 hover:translate-x-3 scale-70">${packageItem.startingPrice}</p>
-        <div className="flex justify-center">
-        <button className="bg-cyan-400 hover:bg-cyan-600 text-white font-semibold px-5 hover:scale-125 py-2 mt-4 inline animate-bounce-custom clip-angled">
-        Get Started
-        </button>
-        </div>
-        
         </div>
         ))}
         </div>

@@ -20,11 +20,11 @@ const ShuffleHero = () => {
           We're committed to helping startups and small businesses grow. From software to marketing, we'll help you get there.
         </p>
         <div className="flex -space-x-0.5">
-          <Link href="/blog">  <button className="bg-cyan-500 text-white font-medium py-2 px-4 transition-all hover:bg-white hover:text-cyan-500 hover:animate-bounce-custom relative rounded-l-2xl">
-            Our Blog
-          </button> </Link>
-          <Link href="/contact"> <button className="bg-white text-cyan-500 font-medium py-2 px-4 transition-all hover:bg-cyan-500 hover:text-white hover:animate-bounce active:animate-pulse relative rounded-r-2xl">
+          <Link href="/blog">  <button className="bg-cyan-500 border-2 border-cyan-500 text-white font-sm py-1 px-4 transition-all hover:bg-white hover:text-cyan-500 hover:animate-bounce-custom relative rounded-l-2xl">
             Write Us
+          </button> </Link>
+          <Link href="/contact"> <button className="bg-transparent border-2 border-cyan-500 text-cyan-500 font-sm py-1 px-4 transition-all hover:bg-cyan-500 hover:text-white hover:animate-bounce active:animate-pulse relative rounded-r-2xl">
+            Our Blog
           </button> </Link>
         </div>
       </div>
