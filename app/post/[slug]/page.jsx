@@ -68,12 +68,16 @@ export default async function PostDetails({ params }) {
         <div>
           <Head>
             <title>{post.title}</title>
-            <meta property="og:title" content="My page title noindex,nofollow" key="title" name="robots" />
-          </Head>
-          <Head>
-            <meta property="og:title" content={post.excerpt} key="title" />
-            <meta name="google" content="nositelinkssearchbox" key="sitelinks" />
-            <meta name="google" content="notranslate" key="notranslate" />
+            <meta name="description" content={post.excerpt} key="desc" />
+            <meta property="og:title" content={post.title} />
+            <meta
+              property="og:description"
+              content={post.excerpt}
+            />
+            <meta
+              property="og:image"
+              content={post.featuredImage}
+            />
           </Head>
         </div>
         <div className="flex md:max-w-7xl mx-auto">
@@ -82,15 +86,14 @@ export default async function PostDetails({ params }) {
           </div>
           <div className="post-content max-w-3xl mx-auto md:mt-16 mt-10">
             <nav>
-              <h1>{post.title}</h1>
+              <h1>{post.title}</h1>  <p className="justify-center mt-10 hover:translate-x-6 text-xs font-light text-white hover:text-slate-500 bg-cyan-500 hover:bg-grey-100 inline px-5 py-2 clip-rabet">
+                Modified: <Date dateString={post.modified} />
+              </p>
+
               <div className="flex justify-end">
                 <p className="justify-center mt-10 hover:translate-x-6 text-xs font-light text-slate-100 hover:text-slate-200 bg-cyan-400 hover:bg-grey-100 inline w-12 h-12 text-center py-2 clip-round shadow-2xl">
                   <Date dateString={post.date} />
                 </p>
-                {/* <p className="justify-center mt-10 hover:translate-x-6 text-xs font-light text-slate-400 hover:text-slate-500 bg-slate-200 hover:bg-grey-100 inline px-5 py-2 clip-rabet">
-      Date Updated: <Date dateString={post.modified} />
-    </p> */}
-
               </div>
               <div className=" h-40vh max-w-[60vh] bg-cover mb-10 mx-auto">
                 {post.featuredImage && (
