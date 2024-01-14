@@ -8,25 +8,33 @@ import Footer from "@/components/Footer";
 
 async function getSinglePost(slug) {
   const query = `
-  query GetSinglePost($slug: String!) {
-    postBy(slug: $slug) {
-      title(format: RENDERED)
-      content(format: RENDERED)
-      date
-      modified
-      featuredImage {
-        node {
-          mediaDetails {
-            sizes {
-              sourceUrl
-              width
-              height
-            }
+ query GetSinglePost($slug: String!) {
+  postBy(slug: $slug) {
+    title(format: RENDERED)
+    content(format: RENDERED)
+    date
+    modified
+    featuredImage {
+      node {
+        mediaDetails {
+          sizes {
+            sourceUrl
+            width
+            height
           }
         }
       }
     }
+    author {
+      node {
+        description
+        firstName
+        lastName
+        nickname
+      }
+    }
   }
+}
   `;
 
   const variables = {
@@ -76,7 +84,7 @@ export default async function PostDetails({ params }) {
             />
             <meta
               property="og:image"
-              content={post.featuredImage}
+              content={post.featuredImage.node.mediaDetails.sizes[0].sourceUrl}
             />
           </Head>
         </div>
@@ -86,12 +94,12 @@ export default async function PostDetails({ params }) {
           </div>
           <div className="post-content max-w-3xl mx-auto md:mt-16 mt-10">
             <nav>
-              <h1>{post.title}</h1>  <p className="justify-center mt-10 hover:translate-x-6 text-xs font-light text-white hover:text-slate-500 bg-cyan-500 hover:bg-grey-100 inline px-5 py-2 clip-rabet">
+              <h1>{post.title}</h1>  <p className="justify-center mt-10 hover:translate-x-6 text-xs font-light text-white hover:text-slate-200 bg-cyan-500 hover:bg-grey-100 inline px-5 py-2 clip-rabet">
                 Modified: <Date dateString={post.modified} />
               </p>
 
               <div className="flex justify-end">
-                <p className="justify-center mt-10 hover:translate-x-6 text-xs font-light text-slate-100 hover:text-slate-200 bg-cyan-400 hover:bg-grey-100 inline w-12 h-12 text-center py-2 clip-round shadow-2xl">
+                <p className="justify-center mt-10 hover:translate-x-6 text-xs font-light text-slate-100 hover:text-slate-200 bg-orange-400 hover:bg-grey-100 inline w-12 h-12 text-center py-2 clip-round shadow-2xl">
                   <Date dateString={post.date} />
                 </p>
               </div>
@@ -114,10 +122,11 @@ export default async function PostDetails({ params }) {
               <div dangerouslySetInnerHTML={{ __html: post.content }} />
 
             </div>
+            {post.author.node.firstName}
+            {post.author.node.lastName}
+            {post.author.node.description}
 
           </div>
-
-
         </div>
         <Footer />
 
