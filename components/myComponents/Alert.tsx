@@ -4,12 +4,14 @@ import { BellDot } from 'lucide-react';
 
 function AlertComponent() {
   return (
-    <div>
+    <div className="justify-center items-center">
     <Alert>
     <BellDot className="h-4 w-4" />
-    <AlertTitle>Heads up!</AlertTitle>
+    <AlertTitle>
+    Your message has been successfully delivered to our email box.
+    </AlertTitle>
     <AlertDescription>
-    Your message was successful
+    Your message has been successfully delivered to our email box. 
     </AlertDescription>
     </Alert>
     </div>
