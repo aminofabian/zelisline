@@ -11,7 +11,7 @@ function AlertComponent() {
     Your message has been successfully delivered to our email box.
     </AlertTitle>
     <AlertDescription>
-    Your message has been successfully delivered to our email box. We will respond within 24 hours. 
+    Your message was successful
     </AlertDescription>
     </Alert>
     </div>
