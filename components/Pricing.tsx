@@ -99,28 +99,29 @@ export default function Pricing() {
     <div className= "bg-cover rounded-e-xl py-7 border-cyan-50">
     <div className="max-w-full mx-auto">
     <div className="w-full clip-angled-both ">
-    <h2 className="text-3xl font-bold text-center mb-2 text-flourish-500 p-3 hover:animate-bounce-custom transition-all justify-center">
+    <h2 className="text-3xl font-semibold text-center mb-2 text-green-600 p-3 hover:animate-bounce-custom transition-all justify-center">
     CHOOSE YOUR PACKAGE
     </h2>
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
     {packages.map((packageItem, index) => (
-      <div key={index} className="bg-cyan-50 shadow-md p-6 border-l-8 border-flourish-800 rounded-r-2xl hover:translate-x-7 clip-angled-both">
-      <h3 className="text-xl font-semibold mb-4">{packageItem.name}</h3>
+      <div key={index} className="bg-cyan-50 shadow-md p-4 border-l-8 border-flourish-800 rounded-r-2xl hover:translate-x-7 rounded-2xl">
+      <h3 className="text-xl font-semibold mb-4 text-green-600">{packageItem.name}</h3>
       <p className="text-gray-600 mb-4">{packageItem.description}</p>
       <div className="flex justify-center mb-10">
-      <div className="border-2 border-cyan-500  hover:bg-cyan-150 text-cyan-500 font-semibold px-5 hover:scale-125 py-2 mt-4 inline animate-bounce-custom">
+      <div className="border-[1px] border-orange-500  hover:bg-cyan-150 text-orange-500 px-5 hover:scale-125 py-2 mt-4 inline animate-bounce-custom rounded-md">
       <ButtonAlert
       triggerText="Get Started"
       title="Are you absolutely sure?"
-      descriptionComponent={<Contact />}
+      descriptionComponent="Fill in the form"
+      // {<Contact />}
       cancelText="Cancel"
       continueText="Continue"
       />
       </div>
       </div>
-      <p className="text-sm font-md text-cyan-400 hover:translate-x-3 scale-70">${packageItem.startingPrice}</p>
-      <ul className="text-gray-600 mb-4">
+      <p className="text-sm font-md text-green-600 hover:translate-x-3 scale-70">${packageItem.startingPrice}</p>
+      <ul className="text-lime-500 mb-4">
       {packageItem.features.map((feature, i) => (
         <li key={i} className="flex items-center mb-2 pl-5">
         <svg

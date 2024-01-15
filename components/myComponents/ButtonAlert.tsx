@@ -27,7 +27,7 @@ const ButtonAlert: React.FC<ButtonAlertProps> = ({
   continueText,
 }) => {
   return (
-    <div className="font-extrabold text-lg">
+    <div className="font-normal text-lg">
     <AlertDialog>
     <AlertDialogTrigger>{triggerText}</AlertDialogTrigger>
     <AlertDialogContent>

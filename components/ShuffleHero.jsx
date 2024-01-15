@@ -13,18 +13,18 @@ const ShuffleHero = () => {
         <span className="block mb-4 text-xs md:text-sm font-bold text-slate-100 py-1 inset-0 z-0 relative">
           Driving Growth from Series A to IPO
         </span>
-        <h3 className="text-4xl md:text-6xl font-semibold mt-1 text-slate-100">
-          WELCOME TO <span className="text-orange-500 relative hover:text-orange-400">ZELISLINE</span>
-        </h3>
-        <p className="text-base md:text-lg text-white my-4 md:my-6 relative hover:scale-90 bg-cyan-500 opacity-80 p-10 border-l-8 border-flourish-500 transform -skew-x-6">
+        <h1 className="text-4xl md:text-2xl font-semibold mt-1 text-slate-100">
+          YOUR ONE-STOP-SHOP FOR <span className="text-green-500 relative hover:text-orange-400">WEB DEVELOPMENT AND DIGITAL MARKETING SERVICES IN KENYA</span>
+        </h1>
+        <h2 className="text-base md:text-lg text-slate-100 my-4 md:my-6 relative hover:scale-90 bg-sky-500/75 opacity-90 p-10 border-y-8 border-lime-500 transform -skew-x-6">
           We're committed to helping startups and small businesses grow. From software to marketing, we'll help you get there.
-        </p>
+        </h2>
         <div className="flex -space-x-0.5">
-          <Link href="/blog">  <button className="bg-cyan-500 border-2 border-cyan-500 text-white font-sm py-1 px-4 transition-all hover:bg-white hover:text-cyan-500 hover:animate-bounce-custom relative rounded-l-2xl">
+          <Link href="/blog">  <button className="bg-orange-500 border-2 border-orange-500 text-white font-sm py-1 px-4 transition-all hover:bg-white hover:text-orange-500 hover:animate-bounce-custom relative rounded-l-2xl">
             Write Us
           </button> </Link>
-          <Link href="/contact"> <button className="bg-transparent border-2 border-cyan-500 text-cyan-500 font-sm py-1 px-4 transition-all hover:bg-cyan-500 hover:text-white hover:animate-bounce active:animate-pulse relative rounded-r-2xl">
-            Our Blog
+          <Link href="/contact"> <button className="bg-transparent border-2 border-orange-500 text-orange-500 font-sm py-1 px-4 transition-all hover:bg-orange-500 hover:text-white hover:animate-bounce active:animate-pulse relative rounded-r-2xl">
+            Read our Blog
           </button> </Link>
         </div>
       </div>
