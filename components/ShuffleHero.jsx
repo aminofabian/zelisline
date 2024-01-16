@@ -105,15 +105,15 @@ const squareData = [
   },
   {
     id: 14,
-    src: "14.svg",
+    src: "21.svg",
   },
   {
     id: 15,
-    src: "15.svg",
+    src: "22.svg",
   },
   {
     id: 16,
-    src: "16.svg",
+    src: "20.svg",
   },
 ];
 
