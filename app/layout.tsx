@@ -3,6 +3,8 @@ import { Jost, Inter, Lora } from 'next/font/google';
 import './globals.css';
 import { GoogleTagManager} from '@next/third-parties/google'
 import SideNav from '@/components/SideNav';
+import Link from 'next/link';
+import Logo from '@/components/Logo';
 
 
 

@@ -57,15 +57,15 @@ function GraphicalDesign() {
   /> */}
   </div>
   <div className="md:w-1/2 md:p-8 overflow-y-auto">
-  <h2 className="text-2xl font-bold my-4 text-center md:text-left text-slate-600">
+  <h2 className="text-2xl font-bold my-4 text-center md:text-left text-cyan-500">
   Graphical Design Services
   </h2>
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
   {GraphicDesignServices.map((service, index) => (
     <div key={index} className="flex items-center">
-    <div className="mr-2 text-orange-400">{service.icon}</div>
+    <div className="mr-2 text-cyan-500">{service.icon}</div>
     <div>
-    <h3 className="text-lg font-semibold">{service.name}</h3>
+    <h3 className="text-lg text-cyan-500 font-semibold">{service.name}</h3>
     <p className="text-sm">{service.description}</p>
     </div>
     </div>

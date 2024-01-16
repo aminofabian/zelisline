@@ -32,24 +32,24 @@ function Services() {
     <div className="bg-slate-300 h-12 flex justify-center mx-auto my-10 max-w-3xl clip-angled-both">
     <div className="flex justify-between items-center w-full max-w-screen-md mx-auto px-4 space-x-3">
     <div
-    className={`flex-1 h-full clip-angled-both text-center flex items-center justify-center font-bold text-lg md:text-xl hover:cursor-pointer ${
-      selectedComponent === 'WebDesign' ? 'bg-slate-200' : 'bg-slate-300'
+    className={`flex-1 h-full clip-angled-both text-center flex items-center text-green-600 justify-center font-bold text-lg md:text-xl hover:cursor-pointer ${
+      selectedComponent === 'WebDesign' ? 'bg-slate-100 text-green-600' : 'bg-slate-300 text-white'
     }`}
     onClick={() => renderComponent('WebDesign')}
     >
     <button className="hover:cursor-pointer">WebDesign</button>
     </div>
     <div
-    className={`flex-1 h-full clip-angled text-center flex items-center justify-center font-bold text-lg md:text-xl cursor-pointer ${
-      selectedComponent === 'GraphicalDesign' ? 'bg-slate-200' : 'bg-slate-300'
+    className={`flex-1 h-full clip-angled text-center flex items-center justify-center font-bold text-lg text-green-600 md:text-xl cursor-pointer ${
+      selectedComponent === 'GraphicalDesign' ? 'bg-slate-200 text-lime-500' : 'bg-slate-300 text-white'
     }`}
     onClick={() => renderComponent('GraphicalDesign')}
     >
     <button className="hover:cursor-pointer">GraphicalDesign</button>
     </div>
     <div
-    className={`flex-1 h-full clip-angled-both text-center flex items-center justify-center font-bold text-lg md:text-xl cursor-pointer ${
-      selectedComponent === 'DigitalMarketing' ? 'bg-slate-200' : 'bg-slate-300'
+    className={`flex-1 h-full clip-angled-both text-center flex items-center justify-center font-bold text-lg text-green-600 md:text-xl cursor-pointer ${
+      selectedComponent === 'DigitalMarketing' ? 'bg-slate-200 text-green-600' : 'bg-slate-300 text-white'
     }`}
     onClick={() => renderComponent('DigitalMarketing')}
     >
