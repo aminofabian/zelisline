@@ -8,7 +8,7 @@ import { squareData } from "@/data/squareData";
 
 const ShuffleHero = ({ subTitle, title, bgImage, buttons }) => {
   return (
-    <section className="w-full px-8 py-12 grid grid-cols-1 md:grid-cols-2 items-center gap-8 w-6xl mx-auto bg-[url(${bgImage})]/90 bg-gradient-to-l rounded-e-xl">
+    <section className="w-full px-8 py-12 grid grid-cols-1 md:grid-cols-2 items-center gap-8 w-6xl mx-auto bg-gradient-to-l rounded-e-xl">
       <div>
         {subTitle && (
           <span className="block mb-4 text-xs md:text-sm font-bold text-slate-600 py-1 inset-0 z-0 relative">
