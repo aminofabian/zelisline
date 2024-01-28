@@ -68,7 +68,9 @@ async function getPosts(): Promise<Post[]> {
     {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
+        Accept: 'application/json, text/plain, */*',
+        'User-Agent': '*', 
       },
       next: {
         revalidate: 0,

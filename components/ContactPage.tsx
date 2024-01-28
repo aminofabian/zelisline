@@ -58,16 +58,16 @@ export default function ContactPage() {
   };
   
   return (
-    <div className="flex items-center justify-center lg:mx-48">
+    <div className="flex items-center justify-center lg:mx-48 relative z-5 overflow-hidden rounded-3xl">
     <div className="text-center space-y-1">
-    <h3 className="text-2xl font-thin">
-    Welcome Our Esteemed Visitor. We See You as a Potential Client, Talk to Us
+    <h3 className="text-2xl font-light text-slate-500 py-5">
+    Welcome Our Esteemed Visitor. Write Us
     </h3>
-    <p className="text-xl font-extralight">Drop us an email. We are no snobs</p>
+    <p className="text-xl light text-sky-600">Drop us an email. We are no snobs</p>
     <div className="flex gap-2 justify-center">
     <div className="isolate bg-white px-6 py-5 lg:px-8 ">
     <div
-    className="absolute inset-x-0 top-[-5rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
+    className="absolute inset-x-0 top-[-5rem] transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
     aria-hidden="true"
     >
     <div
@@ -80,9 +80,6 @@ export default function ContactPage() {
     </div>
     <div className="mx-auto md:max-w-4xl text-center">
     <h2 className="text-3xl font-extralight tracking-tight text-gray-600 sm:text-4xl"></h2>
-    <p className="mt-2 text-sm font-thin leading-2 text-slate-500">
-    This will show up in our email inbox. And we do read our emails, and respond to every single one of them... 
-    </p>
     </div>
     <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20" onSubmit={formHandler}>
     <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 max-w-screen-2xl">

@@ -44,7 +44,9 @@ async function getSinglePost(slug) {
   const res = await fetch(process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
+      Accept: 'application/json, text/plain, */*',
+      'User-Agent': '*',
     },
     body: JSON.stringify({ query, variables }),
   });

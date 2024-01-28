@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mail, Phone, Twitter, Linkedin, Mailbox, MailCheck, Facebook, Instagram } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 
 const Footer = () => {
@@ -16,11 +17,16 @@ const Footer = () => {
     alt="Picture of the author"
     />
     </h4 >
-    <p>Digital Marketing</p>
-    <p>Web Design</p>
-    <p>Content Marketing</p>
-    <p>Logo Design</p>
-    <p>Video Production</p>
+    <div className='mt-5'>
+    <div><Link href='/digitalmarketing'>Digital Marketing Services</Link></div>
+    <div><Link href='/webdesign'>Web Design Services</Link></div>
+    <div><Link href='/contentmarketing'>Content Marketing</Link></div>
+    <div><Link href='/logodesign'>Logo Design Services</Link></div>
+    <div><Link href='/videodesign'>Video Production Services</Link></div>
+    <div><Link href='/seo'>SEO Services</Link></div>
+    <div><Link href='/socialmedia'>Social Media Services</Link></div>
+    </div>
+    
     </div>
     <div className="w-1/3">
     <h4 className="text-xl font-bold">Contact Us</h4>
