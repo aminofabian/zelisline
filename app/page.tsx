@@ -5,7 +5,7 @@ import ShuffleHero from '@/components/ShuffleHero';
 import Footer from '@/components/Footer';
 import Services from '@/components/Services';
 import SideNav from '@/components/SideNav';
-import { items as accordionItems } from '@/data/faq';
+import * as items from '@/data/faq';
 import MyAccordion from '@/components/myComponents/MyAccordion';
 import { TabsDemo } from '@/components/myComponents/Tabs';
 

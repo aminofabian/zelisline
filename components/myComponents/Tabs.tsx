@@ -11,7 +11,7 @@ export function TabsDemo() {
       title: "Web Design",
       value: "product",
       content: (
-        <div className="max-w-screen relative z-10 h-screen rounded-2xl p-5 text-xl md:text-4xl font-bold text-slate-700 bg-gradient-to-br from-sky-50 to-slate-50">
+        <div className="max-w-screen h-screen rounded-2xl p-5 text-xl md:text-4xl font-bold text-slate-700 bg-gradient-to-br from-sky-50 to-slate-50">
         <p>Web Design FAQs</p>
         <MyAccordion items={items.webDesignFaqs} />
         </div>

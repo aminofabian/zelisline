@@ -4,7 +4,7 @@ import ShuffleHero from '@/components/ShuffleHero';
 import Footer from '@/components/Footer';
 import Services from '@/components/Services';
 import SideNav from '@/components/SideNav';
-import { items as accordionItems } from '@/data/faq';
+import * as items from '@/data/faq';
 import MyAccordion from '@/components/myComponents/MyAccordion';
 import DigitalMarketingPricing from '@/components/pricing/DigitalMarketingPricing';
 
@@ -40,7 +40,7 @@ function HomePage() {
     </div>
     <div className="w-[100dvh] mb-10 border-[1px]">
     <MyAccordion
-    items={accordionItems}
+    items={items.webDesignFaqs}
     />
     </div>
     <div>
