@@ -58,7 +58,7 @@ export default function ContactPage() {
   };
   
   return (
-    <div className="flex items-center justify-center lg:mx-48 relative z-5 overflow-hidden rounded-3xl">
+    <div className="flex items-center justify-center lg:mx-48 overflow-hidden rounded-3xl">
     <div className="text-center space-y-1">
     <h3 className="text-2xl font-light text-slate-500 py-5">
     Welcome Our Esteemed Visitor. Write Us

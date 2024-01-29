@@ -32,7 +32,7 @@ export function TabsDemo() {
           value: "content",
           content: (
             <div className="w-full overflow-hidden relative h-fit rounded-2xl p-5 text-xl md:text-4xl font-bold  text-slate-600 bg-gradient-to-br from-sky-100 to-cyan-100">
-            <p>Social Media Marketing FAQs</p>
+            <p>Content Marketing FAQs</p>
             <MyAccordion items={items.faqContent} />
             </div>
             ),
