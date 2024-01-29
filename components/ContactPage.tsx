@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 
 const formHandler = async (e: any) => {
   e.preventDefault();
-  
-  // Get form input values
   const firstName = e.target['first-name'].value;
   const lastName = e.target['last-name'].value;
   const company = e.target.company.value;
@@ -12,13 +10,11 @@ const formHandler = async (e: any) => {
   const phoneNumber = e.target['phone-number'].value;
   const message = e.target.message.value;
   
-  // Check if any field is empty
   if (!firstName || !lastName || !company || !email || !phoneNumber || !message) {
     alert("Please fill in all fields.");
-    return; // Exit early if any field is empty
+    return; 
   }
   
-  // All fields are filled, proceed with form submission
   const formData = {
     firstName,
     lastName,
