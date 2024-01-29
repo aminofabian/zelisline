@@ -5,7 +5,7 @@ import ShuffleHero from '@/components/ShuffleHero';
 import Footer from '@/components/Footer';
 import Services from '@/components/Services';
 import SideNav from '@/components/SideNav';
-import * as items from '@/data/faq';
+import { items as accordionItems } from '@/data/faq';
 import MyAccordion from '@/components/myComponents/MyAccordion';
 import { TabsDemo } from '@/components/myComponents/Tabs';
 
@@ -39,10 +39,10 @@ function HomePage() {
     <div>
     <Services />
     </div>
-    <div className="w-7xl justify-center mb-5 mt-0 pt-0 h-fit overflow-y-auto">
+    <div className="w-[100dvh] mb-5 mt-0 pt-0 h-fit overflow-y-auto">
     <TabsDemo />
     </div>
-    <div className="w-7xl mt-10">
+    <div className="w-[100dvh] mt-10">
     <ContactPage />
     </div>
     <Footer />

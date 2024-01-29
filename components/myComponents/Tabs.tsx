@@ -3,8 +3,7 @@
 import Image from "next/image";
 import { Tabs } from "../ui/tabs";
 import MyAccordion from "./MyAccordion";
-import { content, logo, seo, video, webdesign } from "@/data/faq";
-import * as items from '@/data/faq';
+import { items } from "@/data/faq";
 
 export function TabsDemo() {
   const tabs = [
@@ -12,9 +11,9 @@ export function TabsDemo() {
       title: "Web Design",
       value: "product",
       content: (
-        <div className="max-w-screen justify-center relative z-10 h-screen rounded-2xl p-5 text-xl md:text-4xl font-bold text-slate-700 bg-gradient-to-br from-sky-50 to-slate-50">
+        <div className="max-w-screen-2xl relative z-10 h-screen rounded-2xl p-5 text-xl md:text-4xl font-bold text-slate-700 bg-gradient-to-br from-sky-50 to-slate-50">
         <p>Web Design FAQs</p>
-        <MyAccordion items={items.webdesign} />
+        <MyAccordion items={items} />
         </div>
         ),
       },
@@ -22,9 +21,9 @@ export function TabsDemo() {
         title: "SEO Services",
         value: "SEO Services",
         content: (
-          <div className="w-full overflow-hidden relative h-fit rounded-3xl p-5 text-xl md:text-4xl font-bold text-slate-700 bg-gradient-to-br from-sky-100 to-cyan-100">
+          <div className="w-full overflow-hidden relative h-fit rounded-3xl p-5 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-sky-100 to-cyan-100">
           <p>SEO FAQs</p>
-          <MyAccordion items={items.seo} />
+          <MyAccordion items={items} />
           </div>
           ),
         },
@@ -32,9 +31,9 @@ export function TabsDemo() {
           title: "Content Marketing",
           value: "content",
           content: (
-            <div className="w-full overflow-hidden relative h-fit rounded-2xl p-10 text-xl md:text-4xl font-bold text-slate-700 bg-gradient-to-br from-sky-100 to-cyan-100">
+            <div className="w-full overflow-hidden relative h-fit rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-sky-100 to-cyan-100">
             <p>Social Media Marketing FAQs</p>
-            <MyAccordion items={items.content} />
+            <MyAccordion items={items} />
             </div>
             ),
           },
@@ -42,9 +41,9 @@ export function TabsDemo() {
             title: "Logo Design",
             value: "logo",
             content: (
-              <div className="w-full overflow-hidden relative h-fit rounded-2xl p-10 text-xl md:text-4xl font-bold text-slate-700 bg-gradient-to-br from-sky-100 to-cyan-100">
+              <div className="w-full overflow-hidden relative h-fit rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-sky-100 to-cyan-100">
               <p>Logo Design FAQs</p>
-              <MyAccordion items={items.logo} />
+              <MyAccordion items={items} />
               </div>
               ),
             },
@@ -52,9 +51,9 @@ export function TabsDemo() {
               title: "Video Production",
               value: "video",
               content: (
-                <div className="w-full overflow-hidden relative h-fit rounded-2xl p-10 text-xl md:text-4xl font-bold text-slate-700 bg-gradient-to-br from-sky-100 to-cyan-100">
+                <div className="w-full overflow-hidden relative h-fit rounded-2xl p-10 text-xl md:text-4xl font-bold text-white bg-gradient-to-br from-sky-100 to-cyan-100">
                 <p>Vido Production FAQs</p>
-                <MyAccordion items={items.video} />
+                <MyAccordion items={items} />
                 </div>
                 ),
               },

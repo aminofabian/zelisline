@@ -5,8 +5,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import * as items from '@/data/faq';
-
 
 interface AccordionItemProps {
   value: string;
@@ -18,7 +16,7 @@ interface MyAccordionProps {
   items: AccordionItemProps[];
 }
 
-const MyAccordion: React.FC<MyAccordionProps> = ({items  }) => {
+const MyAccordion: React.FC<MyAccordionProps> = ({ items }) => {
   return (
     <div className='px-20'>
     <Accordion type="single" collapsible>
