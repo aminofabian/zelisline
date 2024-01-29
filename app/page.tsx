@@ -36,13 +36,13 @@ function HomePage() {
     <div className="m-5 rounded-xl">
     <Pricing />
     </div>
-    <div>
+    <div className='mb-2 pb-2'>
     <Services />
     </div>
-    <div className="w-[100dvh] mb-5 mt-0 pt-0 h-fit overflow-y-auto">
+    <div className="w-full h-fit overflow-y-auto">
     <TabsDemo />
     </div>
-    <div className="w-[100dvh] mt-10">
+    <div className="w-full mt-10">
     <ContactPage />
     </div>
     <Footer />
