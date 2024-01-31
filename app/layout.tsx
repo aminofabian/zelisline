@@ -11,10 +11,33 @@ import Logo from '@/components/Logo';
 const inter = Jost({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Software Development and Digital Marketing Agency Kenya',
-  description: 'Zelisline, a top software development company in Kenya, offers customized enterprise-level software and applications that meet your business needs.',
-}
-
+  title: {
+    default: "Software Development and Digital Marketing Agency Kenya || Zelisline",
+    template: "%s | Zelisline", 
+  },
+  description: "Zelisline, a top software development company in Kenya, offers customized enterprise-level software and applications that meet your business unique needs.",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://www.zelisline.co.ke",
+    title: "Software Development and Digital Marketing Agency Kenya || Zelisline",
+    description: "Zelisline, a top software development company in Kenya, offers customized enterprise-level software and applications that meet your business unique needs.",
+    images: [
+      {
+        url: "opengraph-image.png",
+        width: 1200,
+        height: 600,
+        alt: "Zelisline Software Development and Digital Marketing Agency Kenya",
+      },
+    ],
+  },
+  twitter: {
+    title: "Software Development and Digital Marketing Agency Kenya || Zelisline",
+    card: "summary_large_image",
+    site: "@zelisline",
+    description: "Zelisline, a top software development company in Kenya, offers customized enterprise-level software and applications that meet your business unique needs.",
+  },
+};
 export default function RootLayout({
   children,
 }: {

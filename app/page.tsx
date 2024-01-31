@@ -8,6 +8,7 @@ import SideNav from '@/components/SideNav';
 import * as items from '@/data/faq';
 import MyAccordion from '@/components/myComponents/MyAccordion';
 import { TabsDemo } from '@/components/myComponents/Tabs';
+import {OurTeam} from '@/components/myComponents/OurTeam';
 
 
 
