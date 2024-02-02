@@ -6,14 +6,18 @@ import Footer from "@/components/Footer";
 import Image from "next/image";
 import React from 'react'; 
 import 'reactjs-popup/dist/index.css';
+import { toast, useToast } from "@/components/ui/use-toast"
+
 
 const handleSubmit = async (e: any) => {
+  
   e.preventDefault();
   
   // Get form input values
   const name = e.target.name.value;
   const email = e.target.email.value;
   const message = e.target.message.value;
+  
   
   // Check if any field is empty
   if (!name || !email || !message) {
@@ -34,14 +38,25 @@ const handleSubmit = async (e: any) => {
     });
     
     if (response.status === 200) {
-      alert("We've received your message, and we'll get back to you as soon as possible, probably within 24 hours. Thanks for contacting us.");
+      toast({
+        title: "Message Successfully sent",
+        description: "We've received your message, and we'll get back to you as soon as possible, probably within 24 hours. Thanks for contacting us.",
+        variant: "default"
+      })
       e.target.reset();
     } else {
-      alert("Failed to send message. Please try again later.");
+      toast({
+        title: "Message Not sent",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive"
+      })
     }
   } catch (error) {
-    console.error("Error:", error);
-    alert("An error occurred. Please try again later.");
+    toast({
+      title: "Message Not sent",
+      description: "An error occurred. Please try again later.",
+      variant: "destructive"
+    })
   }
 };
 

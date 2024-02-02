@@ -2,7 +2,7 @@
 import ContactPage from '@/components/ContactPage';
 import Pricing from '@/components/pricing/Pricing';
 import ShuffleHero from '@/components/ShuffleHero';
-import Footer from '@/components/Footer';
+import FooterRev from '@/components/FooterRev';
 import Services from '@/components/Services';
 import SideNav from '@/components/SideNav';
 import * as items from '@/data/faq';
@@ -21,7 +21,7 @@ function HomePage() {
   return (
     <>
     <div className="flex h-screen relative md:flex-row md:overflow-hidden xl:px-10 md:px-2 bg-transparent mx-auto">
-    <nav className="hidden md:flex mt-5 pl-2">
+    <nav className="hidden md:flex mt-5 pl-5">
     <SideNav />
     </nav>
     <div className="flex-grow mt-7 md:mt-0 flex-1 w-9xl md:overflow-y-auto md:p-5 max-w-6xl mx-auto">
@@ -46,7 +46,7 @@ function HomePage() {
     <div className="w-full mt-10">
     <ContactPage />
     </div>
-    <Footer />
+    <FooterRev />
     </div>
     </div>
     </>

@@ -44,12 +44,12 @@ const navLinks = [
 
 function NavLinks() {
   return (
-    <div className='mt-3'>
+    <div className='mt-2'>
     {navLinks.map((link) => (
       <Link href={link.href} key={link.href}>
-      <div className="flex flex-row md:flex-col items-center space-x-2 text-slate-900 hover:text-cyan-400">
-      <link.icon className="w-10 h-12" />
-      <div className="hidden md:block mb-10 text-slate-600 text-sm font-mono hover:scale-125">{link.name}</div>
+      <div className="flex flex-row md:flex-col items-center space-x-1 text-slate-900 hover:text-sky-600">
+      <link.icon className="w-7 h-10" />
+      <div className="hidden md:block mb-7 text-slate-600 text-xs font-mono hover:scale-125">{link.name}</div>
       </div>
       </Link>
       ))}

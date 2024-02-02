@@ -86,6 +86,34 @@ We can also provide guidance on best practices for writing website copy and opti
     content: `Yes, we offer logo design services as well. Our team of talented designers will work with you to create a unique and visually appealing logo that represents your brand effectively.
 We understand the importance of branding and how it can impact your business's success. That's why we take the time to understand your vision and incorporate it into the design process.
 Once we have agreed upon a logo design, we will provide you with all necessary files and formats for you to use in various marketing materials. Your logo will also be integrated into your website design, creating a cohesive and professional image for your brand.`
+  },
+
+  {
+    value: 'item-12',
+    triggerText: `❈ How much do you charge to develop a templated website for a small business?`,
+    content: `Not much. If all we're going to do is install a template and change the colors, add content, and add a few plugins, we can do that for $200 to $500.
+However, if you want a high-quality and unique website with custom design and coding, the price will be significantly higher. That's because it takes time and expertise to write quality code and create a visually appealing design.`,
+  }
+  ,
+  {
+    value: 'item-13',
+    triggerText: `❈ Do you offer hosting services?`,
+    content: `No, we do not offer hosting services. However, we can recommend reliable hosting providers and assist you with setting up your website on their server. 
+By outsourcing the hosting aspect of your website, you can ensure that it is in good hands and receives regular maintenance and updates. This will also free up time for you to focus on creating quality content for your website.`,
+  },
+  {
+    value: 'item-14',
+    triggerText: `❈ Who owns the completed website?`,
+    content: `Once the project is completed and paid for, you own the website in its entirety. We will provide you with all necessary files and information, including login credentials, so you have full control over your website. 
+We also offer ongoing maintenance and support services to help keep your website running smoothly and updated with fresh content. 
+You're also free to hire another company or individual to make changes or updates to your website if you so choose.`,
+  },
+  {
+    value: 'item-15',
+    triggerText: `❈ What's your design process like?`,
+    content: `Our design process involves understanding your brand and target audience, conducting research on your industry and competitors, creating wireframes and mockups for your website, and finally bringing it to life with custom coding. 
+For a templated website, the process may be simpler and quicker. Well present you with a few template options that align with your brand and you can choose the one that best suits your needs. 
+We believe in involving our clients in every step of the process to ensure their vision is realized and their expectations are met. `,
   }
 ];
 
@@ -333,11 +361,11 @@ Pure White Version,
 RGB version
 CMYK version
 Pantone Color Code Versions`,
-},
-{
-  value: 'item-11',
+  },
+  {
+    value: 'item-11',
     triggerText: `❈ Why Should I Choose Zelisline for My Logo Design?`,
-      content: `At zelisline, we don't just design logos; we create unique and professional brand identities that represent your brand's essence.
+    content: `At zelisline, we don't just design logos; we create unique and professional brand identities that represent your brand's essence.
 Our experienced designers will work with you every step of the way to ensure we create a logo that resonates with your brand values, vision, and target audience. We understand how important it is to have a strong brand identity in today's competitive market.
 Working with us gives you access to:
 Affordable rates
@@ -347,7 +375,7 @@ High-quality and unique designs
 Personalized communication with our designers
 Full ownership and license of the final design
 Don't just take our word for it, check out our portfolio to see some of the amazing logos we've created for our clients!`
-}
+  }
 ]
 
 export const videoFaqs = [
@@ -416,33 +444,33 @@ We pride ourselves on delivering top-quality videos at affordable rates, without
 Don't take our word for it; check out our portfolio for some of the amazing videos we've created for our clients!`,
   },
   {
-  value: 'item-9',
-  triggerText: `❈ How Much Does It Cost to Order a Video?`,
-  content: `The cost of our video editing service depends on the type and complexity of the video you need. Contact us with your requirements, and we'll provide you with a custom quote.
+    value: 'item-9',
+    triggerText: `❈ How Much Does It Cost to Order a Video?`,
+    content: `The cost of our video editing service depends on the type and complexity of the video you need. Contact us with your requirements, and we'll provide you with a custom quote.
 Our prices start at $300 for a 3 minutes video and $500 for a 5 minutes video. However, our pricing is flexible and depends on your specific needs.`
-},
-{
-  value: 'item-10',
+  },
+  {
+    value: 'item-10',
     triggerText: `❈ What Do I Need to Provide When Ordering a Video?`,
-      content: `When ordering a video, you'll need to provide us with:
+    content: `When ordering a video, you'll need to provide us with:
 A brief description of the video (including purpose, target audience, brand values)
 Any specific requirements or guidelines
 Content (images, footage, logo) to be included in the video
 A brief script (if any)
 If you need us to source and license stock images or footage for your video, kindly let us know.`,
-},
-{
-  value: 'item-11',
+  },
+  {
+    value: 'item-11',
 
     triggerText: `❈ What Languages Do You Offer for Voiceover?`,
-      content: `We provide voiceovers only in English and KiswahilI. If you need a different language, kindly provide us with the voiceover or let us know in advance to source and license it for your video.`,
-},
-{
-  value: 'item-12',
+    content: `We provide voiceovers only in English and KiswahilI. If you need a different language, kindly provide us with the voiceover or let us know in advance to source and license it for your video.`,
+  },
+  {
+    value: 'item-12',
 
     triggerText: `❈ Do You Offer Express Delivery?`,
-      content: `Yes, we offer express delivery at an additional cost. Kindly inform us of your deadline and requirements, and we'll provide you with a custom quote for express delivery.`,
-}
-] 
+    content: `Yes, we offer express delivery at an additional cost. Kindly inform us of your deadline and requirements, and we'll provide you with a custom quote for express delivery.`,
+  }
+]
 
 

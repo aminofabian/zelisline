@@ -5,6 +5,8 @@ import { GoogleTagManager} from '@next/third-parties/google'
 import SideNav from '@/components/SideNav';
 import Link from 'next/link';
 import Logo from '@/components/Logo';
+import { Toaster } from "@/components/ui/toaster"
+
 
 
 
@@ -22,21 +24,8 @@ export const metadata: Metadata = {
     url: "https://www.zelisline.co.ke",
     title: "Software Development and Digital Marketing Agency Kenya || Zelisline",
     description: "Zelisline, a top software development company in Kenya, offers customized enterprise-level software and applications that meet your business unique needs.",
-    images: [
-      {
-        url: "opengraph-image.png",
-        width: 1200,
-        height: 600,
-        alt: "Zelisline Software Development and Digital Marketing Agency Kenya",
-      },
-    ],
-  },
-  twitter: {
-    title: "Software Development and Digital Marketing Agency Kenya || Zelisline",
-    card: "summary_large_image",
-    site: "@zelisline",
-    description: "Zelisline, a top software development company in Kenya, offers customized enterprise-level software and applications that meet your business unique needs.",
-  },
+    images: '/og-image.png',
+  }
 };
 export default function RootLayout({
   children,
@@ -45,7 +34,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-    <body className={inter.className}>{children}</body>
+    <body className={inter.className}>{children}
+    <Toaster />
+    
+    
+    </body>
     <GoogleTagManager gtmId="GTM-VHVH004Y49" />
     </html>
     )

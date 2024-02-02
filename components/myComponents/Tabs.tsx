@@ -21,7 +21,7 @@ export function TabsDemo() {
         title: "SEO Services",
         value: "SEO Services",
         content: (
-          <div className="w-full overflow-hidden relative h-fit rounded-3xl p-5 text-xl md:text-4xl font-bold  text-slate-600 bg-gradient-to-br from-sky-100 to-cyan-100">
+          <div className="w-full overflow-hidden relative h-fit rounded-3xl p-5 text-xl md:text-4xl font-bold  text-slate-600 bg-gradient-to-br from-sky-50 to-cyan-50">
           <p>SEO FAQs</p>
           <MyAccordion items={items.seoFaqs} />
           </div>

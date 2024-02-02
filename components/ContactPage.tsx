@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react';
+import { toast, useToast } from "@/components/ui/use-toast"
 
 const formHandler = async (e: any) => {
   e.preventDefault();
@@ -34,7 +35,11 @@ const formHandler = async (e: any) => {
     });
     
     if (response.status === 200) {
-      alert("Your Message Was Sent. We'll Respond Within 24 Hours.");
+      toast({
+        title: "Message Sent",
+        description: "You've successfully sent us a message. We'll respond within 24 hours",
+        variant: "default"
+      })
       e.target.reset();
       console.log(formData);
     } else {
