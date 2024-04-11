@@ -87,34 +87,29 @@ We can also provide guidance on best practices for writing website copy and opti
 We understand the importance of branding and how it can impact your business's success. That's why we take the time to understand your vision and incorporate it into the design process.
 Once we have agreed upon a logo design, we will provide you with all necessary files and formats for you to use in various marketing materials. Your logo will also be integrated into your website design, creating a cohesive and professional image for your brand.`
   },
-
   {
     value: 'item-12',
     triggerText: `❈ How much do you charge to develop a templated website for a small business?`,
     content: `Not much. If all we're going to do is install a template and change the colors, add content, and add a few plugins, we can do that for $200 to $500.
 However, if you want a high-quality and unique website with custom design and coding, the price will be significantly higher. That's because it takes time and expertise to write quality code and create a visually appealing design.`,
-  }
-  ,
-  {
-    value: 'item-13',
-    triggerText: `❈ Do you offer hosting services?`,
-    content: `No, we do not offer hosting services. However, we can recommend reliable hosting providers and assist you with setting up your website on their server. 
-By outsourcing the hosting aspect of your website, you can ensure that it is in good hands and receives regular maintenance and updates. This will also free up time for you to focus on creating quality content for your website.`,
   },
-  {
-    value: 'item-14',
-    triggerText: `❈ Who owns the completed website?`,
-    content: `Once the project is completed and paid for, you own the website in its entirety. We will provide you with all necessary files and information, including login credentials, so you have full control over your website. 
-We also offer ongoing maintenance and support services to help keep your website running smoothly and updated with fresh content. 
-You're also free to hire another company or individual to make changes or updates to your website if you so choose.`,
-  },
-  {
-    value: 'item-15',
-    triggerText: `❈ What's your design process like?`,
-    content: `Our design process involves understanding your brand and target audience, conducting research on your industry and competitors, creating wireframes and mockups for your website, and finally bringing it to life with custom coding. 
-For a templated website, the process may be simpler and quicker. Well present you with a few template options that align with your brand and you can choose the one that best suits your needs. 
-We believe in involving our clients in every step of the process to ensure their vision is realized and their expectations are met. `,
-  }
+  //   {
+  //     value: 'item-13',
+  //     triggerText: `❈ Do you offer hosting services?`,
+  //     content: `No, we do not offer hosting services. However, we can recommend reliable hosting providers and assist you with setting up your website on their server. 
+  // By outsourcing the hosting aspect of your website, you can ensure that it is in good hands and receives regular maintenance and updates. This will also free up time for you to focus on creating quality content for your website.`,
+  //   },
+  //   {
+  //     value: 'item-14',
+  //     triggerText: `❈ Who owns the completed website?`,
+  //     content: `Once the project is completed and paid for, you own the website in its entirety. We will provide you with all necessary files and information, including login credentials, so you have full control over your website. We also offer ongoing maintenance and support services to help keep your website running smoothly and updated with fresh content. 
+  // You're also free to hire another company or individual to make changes or updates to your website if you so choose.`,
+  //   },
+  //   {
+  //     value: 'item-15',
+  //     triggerText: `❈ What's your design process like?`,
+  //     content: `Our design process involves understanding your brand and target audience, conducting research on your industry and competitors, creating wireframes and mockups for your website, and finally bringing it to life with custom coding. For a templated website, the process may be simpler and quicker. Well present you with a few template options that align with your brand and you can choose the one that best suits your needs. We believe in involving our clients in every step of the process to ensure their vision is realized and their expectations are met. `,
+  //   }
 ];
 
 export const seoFaqs = [
@@ -270,12 +265,12 @@ If you're not happy with the quality of our work or would like to cancel your or
   content: `We accept various payment methods, including PayPal, M-Pesa, bank transfers, and credit/debit cards. Once we agree on the terms of your project, we'll send you an invoice with a payment link, where you can choose your preferred payment method.
 We require full payment before we start working on your project. However, if it's an ongoing project or a large order, we can divide the payments into two installments; 50% upfront and 50% upon completion.`,
 },
-{
-  value: 'item-14',
-  triggerText: `❈ I Have More Questions, Who Can I Contact?`,
-  content: `If you have more questions or concerns about our services, kindly send us an email at support@zelisline.co.ke or call us directly at +254714282874.
-Our friendly and knowledgeable team is available to assist you with anything you need. We look forward to hearing from you and helping you with your unique content needs.`,
-},
+// {
+//   value: 'item-14',
+//   triggerText: `❈ I Have More Questions, Who Can I Contact?`,
+//   content: `If you have more questions or concerns about our services, kindly send us an email at support@zelisline.co.ke or call us directly at +254714282874.
+// Our friendly and knowledgeable team is available to assist you with anything you need. We look forward to hearing from you and helping you with your unique content needs.`,
+// },
 ]
 
 export const logoFaqs = [

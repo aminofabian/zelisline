@@ -18,12 +18,12 @@ interface MyAccordionProps {
 
 const MyAccordion: React.FC<MyAccordionProps> = ({ items }) => {
   return (
-    <div className='px-20'>
+    <div className='px-20 text-slate-500'>
     <Accordion type="single" collapsible>
     {items.map((item, index) => (
       <AccordionItem key={index} value={item.value}>
       <AccordionTrigger className='text-slate-800 text-lg font-light'>{item.triggerText}</AccordionTrigger>
-      <AccordionContent className='bg-slate-50 p-10 rounded-xl text-lg font-light text-slate-800 space-y-10'>{item.content}</AccordionContent>
+      <AccordionContent className='bg-slate-50 p-10 text-lg font-light text-slate-800 space-y-10'>{item.content}</AccordionContent>
       </AccordionItem>
       ))}
       </Accordion>

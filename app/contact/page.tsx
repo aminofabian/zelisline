@@ -21,7 +21,11 @@ const handleSubmit = async (e: any) => {
   
   // Check if any field is empty
   if (!name || !email || !message) {
-    alert("You didn't fill in all the fields. Please do and try again.");
+    toast({
+      title: "Kindly Fill in all the fields before clicking submit",
+      description: "It seems like you skipped some of the fields. Please fill in all the fields before clicking the submit page",
+      variant: "destructive"
+    });
     return; // Exit early if any field is empty
   }
   

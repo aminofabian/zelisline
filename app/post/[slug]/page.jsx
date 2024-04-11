@@ -101,7 +101,7 @@ export default async function PostDetails({ params }) {
               </p>
 
               <div className="flex justify-end">
-                <p className="justify-center mt-10 hover:translate-x-6 text-xs font-light text-slate-100 hover:text-slate-200 bg-orange-400 hover:bg-grey-100 inline w-12 h-12 text-center py-2 clip-round shadow-2xl">
+                <p className="justify-center mt-10 hover:translate-x-6 text-xs font-light text-slate-100 hover:text-slate-200 bg-orange-400 hover:bg-grey-100 inline w-12 leading-tight h-12 text-center clip-round shadow-2xl">
                   <Date dateString={post.date} />
                 </p>
               </div>

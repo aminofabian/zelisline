@@ -11,7 +11,7 @@ export function TabsDemo() {
       title: "Web Design",
       value: "product",
       content: (
-        <div className="max-w-screen h-screen rounded-2xl p-5 text-xl md:text-4xl font-bold text-slate-700 bg-gradient-to-br from-sky-50 to-slate-50">
+        <div className="max-w-screen h-screen rounded-2xl p-5 text-xl md:text-4xl font-bold text-slate-700 bg-gradient-to-br from-cyan-50 to-sky-50">
         <p>Web Design FAQs</p>
         <MyAccordion items={items.webDesignFaqs} />
         </div>
@@ -60,7 +60,12 @@ export function TabsDemo() {
             ];
             
             return (
-              <div className="h-[20rem] md:h-[40rem] [perspective:1000px] relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start my-40">
+              <div className="h-[50rem] md:h-[60rem] [perspective:1000px] relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start my-1">
+              <div className="w-full">
+              <h2 className="text-4xl font-bold text-center mb-5 text-slate-500 p-3 transition-all justify-center">
+              Browse Our FAQs
+              </h2>
+              </div>
               <Tabs tabs={tabs} />
               </div>
               );

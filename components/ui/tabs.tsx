@@ -52,7 +52,7 @@ export const Tabs = ({
         }}
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
-        className={cn("relative px-4 py-2 rounded-full bg-cyan-500", tabClassName)}
+        className={cn("relative px-4 py-2 rounded-md bg-sky-400 text-white", tabClassName)}
         style={{
           transformStyle: "preserve-3d",
         }}
@@ -62,13 +62,13 @@ export const Tabs = ({
           layoutId="clickedbutton"
           transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
           className={cn(
-            "absolute inset-0 bg-sky-600 dark:bg-zinc-800 rounded-full",
+            "absolute inset-0 bg-cyan-300 text-white dark:bg-zinc-800 rounded-md",
             activeTabClassName
             )}
             />
             )}
             
-            <span className="relative block text-white dark:text-white">
+            <span className="relative block text-slate-50 font-bold dark:text-white">
             {tab.title}
             </span>
             </button>
@@ -100,7 +100,7 @@ export const Tabs = ({
               return tab.value === tabs[0].value;
             };
             return (
-              <div className="relative w-full h-full">
+              <div className="relative w-full h-fit">
               {tabs.map((tab, idx) => (
                 <motion.div
                 key={tab.value}
@@ -114,7 +114,7 @@ export const Tabs = ({
                 animate={{
                   y: isActive(tab) ? [0, 40, 0] : 0,
                 }}
-                className={cn("w-full h-full absolute top-0 left-0", className)}
+                className={cn("w-full h-fit absolute top-0 left-0", className)}
                 >
                 {tab.content}
                 </motion.div>
