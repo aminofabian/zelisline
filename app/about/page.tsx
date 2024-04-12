@@ -1,5 +1,5 @@
 import React from 'react';
-import { OurTeam } from '@/components/myComponents/OurTeam';
+import { OurTeam } from '@/components/myComponents/ourTeam';
 import Footer from '@/components/Footer';
 
 export default function About() {
