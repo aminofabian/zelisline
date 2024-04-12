@@ -36,11 +36,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
     <body className={inter.className}>{children}
     <Toaster />
-    
-    
     </body>
     <GoogleTagManager gtmId="GTM-VHVH004Y49" />
     </html>
-    )
-  }
-  
+  )
+}
