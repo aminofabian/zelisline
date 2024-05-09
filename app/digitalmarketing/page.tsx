@@ -7,6 +7,7 @@ import SideNav from '@/components/SideNav';
 import * as items from '@/data/faq';
 import MyAccordion from '@/components/myComponents/MyAccordion';
 import DigitalMarketingPricing from '@/components/pricing/DigitalMarketingPricing';
+import FooterRev from '@/components/FooterRev';
 
 
 
@@ -46,12 +47,12 @@ function HomePage() {
     <div>
     <ContactPage />
     </div>
-    <Footer />
+    <FooterRev />
     </div>
     </div>
     </>
-    )
-  }
-  
-  
-  export default HomePage;
+  )
+}
+
+
+export default HomePage;

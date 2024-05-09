@@ -20,7 +20,7 @@ function HomePage() {
   
   return (
     <>
-    <div className="flex h-screen relative md:flex-row md:overflow-hidden xl:px-10 md:px-2 bg-transparent mx-auto">
+    <div className="container flex h-screen relative md:flex-row md:overflow-hidden xl:px-10 md:px-2 bg-transparent mx-auto">
     <nav className="hidden md:flex mt-5 pl-5">
     <SideNav />
     </nav>

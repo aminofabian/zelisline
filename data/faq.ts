@@ -2,114 +2,51 @@
 export const webDesignFaqs = [
   {
     value: 'item-1',
-    triggerText: '❈ How Much Do You Charge for a Website?',
-    content: `It depends. It depends on the complexity of your project and the features you require.
+    triggerText: '❈ Pricing Inquiry: How Much Do You Charge for a Website?',
+    content: `Our pricing varies depending on your project's complexity and required features.
 
-    We understand that every business is unique and may have different needs, so our prices are determined on a case-by -case basis.Our packages start at kes20K($200) and can go up to kes5m($50,000) or more, depending on the scope of work.
-
-    We suggest you talk to us directly about your project so we can understand your requirements and provide you with a customized quote.
+    Recognizing each business's uniqueness, we determine prices on a case-by-case basis. Our packages range from kes20K($200) to kes5m($50,000) or more, tailored to your specific needs.
     
-    We\'ve also written a detailed guide on how much it might cost to build a website, which you can refer to as a general reference.
+    Feel free to discuss your project directly with us for a personalized quote. Additionally, we have a comprehensive guide on website development costs for reference.
     
-    Our team of experts will always work with you to find the best solution that fits your budget and meets your business needs.Whether you\'re looking for a simple brochure-style website, a complex e-commerce platform, or a SaaS project, we have the experience and expertise to bring it to life.`
+    Regardless of whether you need a simple brochure-style website, a sophisticated e-commerce platform, or a SaaS project, our experienced team ensures the solution aligns with your budget and business requirements.`,
   },
   {
     value: 'item-2',
-    triggerText: '❈ Why Are Some of Your Projects So Expensive?',
-    content: `It depends on the scope of the project or the amount of work we pump into the project. 
-A more complex website or platform will require more time, effort, and resources to develop and maintain, which is reflected in the price.
-Most agencies use templates and pre- made designs to cut costs, but we believe in creating unique solutions tailored specifically for our clients.Some of our clients require extensive customizations and integrations, which can drive up the cost.
-  However, we always try to find a balance between quality and affordability for our clients.Our goal is to provide exceptional services that deliver tangible results and add value to your business.`,
+    triggerText: '❈ Project Cost Clarification: Why Are Some of Your Projects So Expensive?',
+    content: `The cost depends on the project's scope and the effort invested.
+A more intricate website or platform necessitates more time, resources, and expertise, which is reflected in the price.
+While many agencies rely on templates, we prioritize crafting unique solutions tailored to each client. Extensive customizations and integrations requested by some clients may contribute to higher costs.
+Nevertheless, we strive to strike a balance between quality and affordability, aiming to deliver exceptional services that add tangible value to your business.`,
   },
   {
     value: 'item-3',
-    triggerText: ' ❈   How Long Does It Take to Build a Website?',
-    content: `Again, it depends on the complexity of your project. A simple website can take anywhere from a week to 6 weeks, while a more complex one can take up to several months.
-Our development process includes initial consultations to understand your business and requirements, design mockups for your approval, and then the actual coding and testing phase. We also provide regular updates and feedback sessions to ensure that we are meeting your expectations.
-Our team is dedicated and efficient, but we also prioritize quality over speed. We want to make sure that your website not only looks great but also functions seamlessly for your customers.`,
+    triggerText: '❈ Development Duration: How Long Does It Take to Build a Website?',
+    content: `The duration hinges on your project's complexity, ranging from a week to several months.
+Our process involves initial consultations to grasp your needs, design mockups for approval, and subsequent coding and testing phases. Regular updates and feedback sessions ensure alignment with your expectations.
+While we prioritize efficiency, our paramount concern is quality, ensuring your website not only looks appealing but also functions seamlessly for your audience's benefit.`,
   },
   {
     value: 'item-4',
-    triggerText: '❈  Are There Any Ongoing Costs After the Website is Launched?',
-    content: `Yes, there may be ongoing costs such as hosting fees, domain fees, and maintenance costs. These are necessary to keep your website running smoothly and up-to-date with the latest security measures.
-We also offer ongoing support packages for our clients who require regular updates or maintenance on their websites. This ensures that your website stays current and relevant in this ever-changing digital landscape.
-Frameworks change, technologies evolve, and your business may require new features down the line. We are always here to help you adapt and grow with these changes.`,
+    triggerText: '❈ Post-Launch Costs: Are There Any Ongoing Costs After the Website is Launched?',
+    content: `Yes, ongoing costs like hosting, domain fees, and maintenance are necessary for smooth website operation and security.
+We offer support packages for regular updates or maintenance, ensuring your website remains relevant in the evolving digital landscape.
+As frameworks evolve and your business requires new features, we're committed to supporting your growth and adaptation.`,
   },
   {
     value: 'item-5',
-    triggerText: '❈  What Will You Require from Me to Build a Website?',
-    content: `We will require your input and feedback throughout the development process. We will also need any content or media assets you may want to include on your website, such as images, videos, and text.
-Additionally, we may also ask for access to your domain and hosting accounts so we can set up your website correctly. Don't worry, we take extra precautions to protect your sensitive information and ensure the security of your website.
-We may request for your team images, or if you don't have one (and are located in Kenya), organize with our photographer to come and take the photos at a small added cost.`,
+    triggerText: '❈ Requirements Gathering: What Will You Require from Me to Build a Website?',
+    content: `Throughout development, we'll need your input, feedback, and any content or media assets such as images, videos, and text.
+Access to your domain and hosting accounts may also be requested for correct website setup. Rest assured, we prioritize security and confidentiality.
+For clients without team images (and located in Kenya), we can arrange for our photographer to capture images at an additional cost if needed.`,
   },
   {
     value: 'item-6',
-    triggerText: `❈  What if I Don't LIke the Website You Build for Me ?`,
-    content: `We work closely with our clients throughout the development process to ensure that we understand and meet their expectations. We also provide regular updates and feedback sessions so you can see the progress of your website and give any necessary input.
-We'll begin by providing a simple mockup design, and we'll make unlimited revisions until you are satisfied with the final product. Our goal is to create a website that not only meets your business needs but also aligns with your vision and brand.
-In the unlikely event that you are dissatisfied with our work, we have a satisfaction guarantee policy and will work with you to resolve any issues or concerns. Your satisfaction is our top priority, and we want to make sure you are happy with the end result. 
-We understand that investing in a website for your business can be a big decision, and we're here to help guide you through the process. Our team of experts is dedicated to providing exceptional services at competitive prices.`,
+    triggerText: `❈ Satisfaction Assurance: What if I Don't Like the Website You Build for Me?`,
+    content: `We collaborate closely with you throughout development, providing regular updates and feedback sessions.
+Starting with a simple mockup design, we offer unlimited revisions until you're satisfied. Our aim is to create a website that not only meets your needs but also aligns with your vision and brand.
+In the unlikely event of dissatisfaction, our satisfaction guarantee policy ensures we work with you to resolve any issues. Your happiness with the end result is our priority, guiding you through the website development process with expert assistance.`,
   },
-  {
-    value: 'item-7',
-    triggerText: `❈  What's Your Payment Schedule?`,
-    content: `We usually require a deposit before starting any project, and the remaining balance can be paid in increments throughout the development process or upon completion. Pay at least 50% before we start work and the remaining 50% after 30 days.
-30 days because some projects may take longer than anticipated, and there might be delays on your end in providing necessary materials or feedback. We want to make sure that we have enough time to deliver the best quality work for you.
-We also offer installment plans for larger projects, so you can pay in smaller amounts over a longer period.
-Our payment options are flexible and can be tailored to fit your budget and timeline. Our priority is to provide you with a smooth and stress-free development process, and we're willing to work with you to find a payment schedule that works best for both of us. `,
-  },
-  {
-    value: 'item-8',
-    triggerText: `❈  Who Hosts the Website?`,
-    content: `We offer hosting services for our clients or can work with your preferred hosting provider. Our team will handle the setup and maintenance of your website on the chosen hosting platform.
-If you choose to use our hosting services, we guarantee fast loading times, high-security measures, and reliable support for any technical issues that may arise. We also provide regular backups of your website to ensure its safety and stability.
-However, if you prefer to use your own hosting provider, we will work with them to ensure the proper setup of your website. Our goal is to make the process as seamless as possible for our clients. `,
-  },
-  {
-    value: 'item-9',
-    triggerText: `❈  Can I update My Website Once It's Launched?`,
-    content: `Yes, you can update your website once it has been launched. We provide training and support for our clients on how to make simple updates or changes to their websites.
-We can work with a CMS such as WordPress, Joomla, or Drupal, depending on your preferences and needs.These platforms allow you to easily update content, add new pages, and make other changes without needing advanced coding skills.
-For more advanced websites that we've built from scratch, we can provide a customized admin panel that you can use to make updates or changes.
-We also offer ongoing support packages for clients who require regular updates but may not have the time or resources to do it themselves.We understand that your business needs may change and evolve, and we're here to help you adapt and grow with those changes.`,
-  },
-  {
-    value: 'item-10',
-    triggerText: `❈  Who Writes My Website's Copy?`,
-    content: `Usually that's you, the business owner. You know your business and customers best, so you can provide the most authentic and accurate information about your products or services.
-However, if you need assistance with writing copy for your website, we offer content creation services at an additional cost. Our team of professional writers will work with you to create compelling and SEO-friendly content that reflects your brand voice and resonates with your target audience.
-We can also provide guidance on best practices for writing website copy and optimizing it for search engines. Our goal is to help you create a strong online presence that attracts and engages potential customers.`,
-  },
-  {
-    value: 'item-11',
-    triggerText: `❈  What About My Website's Logo? Will You Design It?`,
-    content: `Yes, we offer logo design services as well. Our team of talented designers will work with you to create a unique and visually appealing logo that represents your brand effectively.
-We understand the importance of branding and how it can impact your business's success. That's why we take the time to understand your vision and incorporate it into the design process.
-Once we have agreed upon a logo design, we will provide you with all necessary files and formats for you to use in various marketing materials. Your logo will also be integrated into your website design, creating a cohesive and professional image for your brand.`
-  },
-  {
-    value: 'item-12',
-    triggerText: `❈ How much do you charge to develop a templated website for a small business?`,
-    content: `Not much. If all we're going to do is install a template and change the colors, add content, and add a few plugins, we can do that for $200 to $500.
-However, if you want a high-quality and unique website with custom design and coding, the price will be significantly higher. That's because it takes time and expertise to write quality code and create a visually appealing design.`,
-  },
-  //   {
-  //     value: 'item-13',
-  //     triggerText: `❈ Do you offer hosting services?`,
-  //     content: `No, we do not offer hosting services. However, we can recommend reliable hosting providers and assist you with setting up your website on their server. 
-  // By outsourcing the hosting aspect of your website, you can ensure that it is in good hands and receives regular maintenance and updates. This will also free up time for you to focus on creating quality content for your website.`,
-  //   },
-  //   {
-  //     value: 'item-14',
-  //     triggerText: `❈ Who owns the completed website?`,
-  //     content: `Once the project is completed and paid for, you own the website in its entirety. We will provide you with all necessary files and information, including login credentials, so you have full control over your website. We also offer ongoing maintenance and support services to help keep your website running smoothly and updated with fresh content. 
-  // You're also free to hire another company or individual to make changes or updates to your website if you so choose.`,
-  //   },
-  //   {
-  //     value: 'item-15',
-  //     triggerText: `❈ What's your design process like?`,
-  //     content: `Our design process involves understanding your brand and target audience, conducting research on your industry and competitors, creating wireframes and mockups for your website, and finally bringing it to life with custom coding. For a templated website, the process may be simpler and quicker. Well present you with a few template options that align with your brand and you can choose the one that best suits your needs. We believe in involving our clients in every step of the process to ensure their vision is realized and their expectations are met. `,
-  //   }
 ];
 
 export const seoFaqs = [
@@ -265,12 +202,6 @@ If you're not happy with the quality of our work or would like to cancel your or
   content: `We accept various payment methods, including PayPal, M-Pesa, bank transfers, and credit/debit cards. Once we agree on the terms of your project, we'll send you an invoice with a payment link, where you can choose your preferred payment method.
 We require full payment before we start working on your project. However, if it's an ongoing project or a large order, we can divide the payments into two installments; 50% upfront and 50% upon completion.`,
 },
-// {
-//   value: 'item-14',
-//   triggerText: `❈ I Have More Questions, Who Can I Contact?`,
-//   content: `If you have more questions or concerns about our services, kindly send us an email at support@zelisline.co.ke or call us directly at +254714282874.
-// Our friendly and knowledgeable team is available to assist you with anything you need. We look forward to hearing from you and helping you with your unique content needs.`,
-// },
 ]
 
 export const logoFaqs = [

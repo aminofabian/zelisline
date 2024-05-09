@@ -9,9 +9,9 @@ function FooterRev() {
           <div className="flex flex-col space-y-4">
             <h2 className="font-bold text-cyan-500">Services</h2>
             <div className="flex flex-col space-y-2 text-sm dark:text-gray-400">
-              <a rel="noopener noreferrer" href="#">Digital Marketing</a>
-              <a rel="noopener noreferrer" href="#">Search Engine Optimization (SEO)</a>
-              <a rel="noopener noreferrer" href="#">Website Design & Developement</a>
+              <a rel="noopener noreferrer" href="/digitalmarketing">Digital Marketing</a>
+              <a rel="noopener noreferrer" href="/webdevelopment">Web Development Services (WordPress)</a>
+              <a rel="noopener noreferrer" href="/ecommerce-website-development">Ecommerce Website Design & Developement</a>
               <a rel="noopener noreferrer" href="#">Content Marketing</a>
               <a rel="noopener noreferrer" href="#">Video Production</a>
               <a rel="noopener noreferrer" href="#">Social Media Services</a>
@@ -45,7 +45,7 @@ function FooterRev() {
           <div className="flex flex-col space-y-4">
             <h2 className="font-bold text-cyan-500">Find Us</h2>
             <div className="flex flex-col space-y-2 text-sm dark:text-gray-400">
-              
+
               <a rel="noopener noreferrer" href="#">GitHub</a>
               <a rel="noopener noreferrer" href="#">Discord</a>
               <a rel="noopener noreferrer" href="#">Twitter</a>
