@@ -1,13 +1,13 @@
-"use client";
-
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Tabs } from "../ui/tabs";
 import MyAccordion from "./MyAccordion";
 import * as items from "@/data/faq";
 import { Globe, Search, PenTool, Image, Video, LucideIcon } from 'lucide-react';
 
-const tabIcons: Record<string, LucideIcon> = {
+type TabTitle = "Web Design" | "SEO Services" | "Content Marketing" | "Logo Design" | "Video Production";
+
+const tabIcons: Record<TabTitle, LucideIcon> = {
   "Web Design": Globe,
   "SEO Services": Search,
   "Content Marketing": PenTool,
@@ -15,38 +15,49 @@ const tabIcons: Record<string, LucideIcon> = {
   "Video Production": Video,
 };
 
-interface Tab {
-  title: string;
-  value: string;
-  content: React.ReactNode;
-  titleElement?: React.ReactNode;
-}
-
-const tabs: Tab[] = [
-  { title: "Web Design", value: "web-design", content: <div>Web Design Content</div> },
-  { title: "SEO Services", value: "seo-services", content: <div>SEO Services Content</div> },
-  { title: "Content Marketing", value: "content-marketing", content: <div>Content Marketing Content</div> },
-  { title: "Logo Design", value: "logo-design", content: <div>Logo Design Content</div> },
-  { title: "Video Production", value: "video-production", content: <div>Video Production Content</div> },
-  
-  
-];
-
 export function TabsDemo() {
-  const tabsWithElements: Tab[] = tabs.map(tab => ({
-    ...tab,
-    titleElement: (
-      <div className="flex items-center space-x-2">
-      {React.createElement(tabIcons[tab.title], { className: "w-5 h-5" })}
-      <span>{tab.title}</span>
-      </div>
-    ),
-  }));
+  const tabs = [
+    {
+      title: "Web Design" as TabTitle,
+      value: "product",
+      content: (
+        <FAQSection title="Web Design FAQs" items={items.webDesignFaqs} />
+      ),
+    },
+    {
+      title: "SEO Services" as TabTitle,
+      value: "seo",
+      content: (
+        <FAQSection title="SEO FAQs" items={items.seoFaqs} />
+      ),
+    },
+    {
+      title: "Content Marketing" as TabTitle,
+      value: "content",
+      content: (
+        <FAQSection title="Content Marketing FAQs" items={items.faqContent} />
+      ),
+    },
+    {
+      title: "Logo Design" as TabTitle,
+      value: "logo",
+      content: (
+        <FAQSection title="Logo Design FAQs" items={items.logoFaqs} />
+      ),
+    },
+    {
+      title: "Video Production" as TabTitle,
+      value: "video",
+      content: (
+        <FAQSection title="Video Production FAQs" items={items.videoFaqs} />
+      ),
+    },
+  ];
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-teal-50 py-16 px-4 sm:px-6 lg:px-8">
     <div className="max-w-6xl mx-auto">
-    <motion.h2
+    <motion.h2 
     className="text-4xl font-bold text-center mb-12 text-gray-800"
     initial={{ opacity: 0, y: -20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -54,20 +65,13 @@ export function TabsDemo() {
     >
     Browse Our <span className="text-orange-500">FAQs</span>
     </motion.h2>
-    <Tabs tabs={tabsWithElements} />
+    <Tabs tabs={tabs} />
     </div>
     </div>
   );
 }
 
-
-
-interface FAQSectionProps {
-  title: string;
-  items: any[]; // Replace 'any' with the actual type of your FAQ items
-}
-
-const FAQSection: React.FC<FAQSectionProps> = ({ title, items }) => (
+const FAQSection: React.FC<{ title: string; items: any[] }> = ({ title, items }) => (
   <motion.div 
   initial={{ opacity: 0, y: 20 }}
   animate={{ opacity: 1, y: 0 }}
@@ -79,3 +83,20 @@ const FAQSection: React.FC<FAQSectionProps> = ({ title, items }) => (
   <MyAccordion items={items} />
   </motion.div>
 );
+
+// Custom tab component to include icons
+const CustomTab: React.FC<{ title: string }> = ({ title }) => {
+  const isValidTitle = (t: string): t is TabTitle => t in tabIcons;
+  
+  if (isValidTitle(title)) {
+    const Icon = tabIcons[title];
+    return (
+      <div className="flex items-center space-x-2">
+      <Icon className="w-5 h-5" />
+      <span>{title}</span>
+      </div>
+    );
+  }
+  
+  return <span>{title}</span>;
+};
