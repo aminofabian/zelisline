@@ -8,12 +8,11 @@ export default function Logo() {
     width="0"
     height="0"
     sizes="10vw"
-    style={{ width: '90%', height: 'auto' }}
+    style={{ width: '50%', height: 'auto' }}
     placeholder="empty"
     loading = 'lazy'
     alt="Zelisline Logo"
     />
     </div>
-    )
-  }
-  
+  )
+}

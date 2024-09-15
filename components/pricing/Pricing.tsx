@@ -1,72 +1,86 @@
-import Contact from "@/app/contact/page";
-import ContactPage from "../ContactPage";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { CheckCircle, ArrowRight, Globe, Briefcase, ShoppingCart, Building, Palette, AlarmClockCheck } from 'lucide-react';
 import ButtonAlert from "../myComponents/ButtonAlert";
-import {packages} from "@/data/pricing/HomePage";
+import { packages } from "@/data/pricing/HomePage";
+
+const iconMap = {
+  "Personal Website Package (templated)": Globe,
+  "Small Business Package (templated)": Briefcase,
+  "E-Commerce Website Package (custom)": ShoppingCart,
+  "Enterprise Package (custom)": Building,
+  "Maintenance Package (monthly)": AlarmClockCheck,
+  "Additional Services": Palette,
+};
 
 export default function Pricing() {
-  
-  
-  interface Package {
-    name: string;
-    description: string;
-    features: string[];
-    startingPrice: number;
-  }
-  
-  interface Props {
-    packages: Package[];
-  }
   return (
-    <>
-    <div className="w-full custom-clip">
-    <div className= "bg-cover rounded-e-xl py-7 border-white">
+    <section className="bg-gradient-to-br from-orange-50 via-white to-teal-50 py-20 px-4 sm:px-6 lg:px-8">
     <div className="max-w-7xl mx-auto">
-    <div className="w-9xl clip-angled-both ">
-    <h2 className="text-3xl font-semibold text-center mb-2 text-sky-600 p-3 transition-all justify-center">
-    CHOOSE YOUR PACKAGE
+    <motion.div 
+    initial={{ opacity: 0, y: -20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    className="text-center mb-16"
+    >
+    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+    Choose Your <span className="text-orange-500">Perfect</span> Package
     </h2>
-    </div>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-6xl">
-    {packages.map((packageItem, index) => (
-      <div key={index} className="bg-green-50 shadow-md p-4 border-l-8 border-flourish-800 hover:bg-slate-100 rounded-r-2xl rounded-2xl">
-      <h3 className="text-xl font-semibold mb-4 text-slate-600">{packageItem.name}</h3>
-      <p className="text-gray-600 mb-4">{packageItem.description}</p>
-      <div className="flex justify-center mb-10">
-      <div className="border-[1px] border-orange-500  hover:bg-cyan-150 text-orange-500 px-5 hover:scale-125 py-2 mt-4 inline rounded-md">
-      <ButtonAlert
-      triggerText="Get Started"
-      title="Are you absolutely sure?"
-      descriptionComponent="Fill in the form"
-      // {<Contact />}
-      cancelText="Cancel"
-      continueText="Continue"
-      />
-      </div>
-      </div>
-      <p className="text-sm font-md text-orange-500 hover:translate-x-3 scale-70">${packageItem.startingPrice}</p>
-      <ul className="text-slate-500 mb-4">
-      {packageItem.features.map((feature, i) => (
-        <li key={i} className="flex items-center mb-2 pl-5">
-        <svg
-        className="w-4 h-4 mr-2 flex-shrink-0 text-cyan-400 hover:animate-spin"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
+    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+    Select the plan that best suits your needs and start creating amazing content today.
+    </p>
+    </motion.div>
+    
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {packages.map((packageItem, index) => {
+      const IconComponent = iconMap[packageItem.name] || Globe;
+      return (
+        <motion.div 
+        key={index}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+        className="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl flex flex-col"
         >
-        <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="10" />
-        <polyline points="32,50 45,65 70,35" fill="none" stroke="currentColor" strokeWidth="10" strokeLinecap="round" />
-        </svg>
-        
-        <span>{feature}</span>
-        </li>
+        <div className="p-8 flex-grow">
+        <div className="flex items-center justify-between mb-4">
+        <IconComponent className="w-12 h-12 text-emerald-500" />
+        <span className="text-2xl font-bold text-emerald-500">${packageItem.startingPrice}</span>
+        </div>
+        <h3 className="text-2xl font-semibold mb-4 text-gray-800">{packageItem.name}</h3>
+        <p className="text-gray-600 mb-6">{packageItem.description}</p>
+        <ul className="space-y-3 mb-8">
+        {packageItem.features.map((feature, i) => (
+          <li key={i} className="flex items-start">
+          <CheckCircle className="w-5 h-5 text-teal-500 mr-2 flex-shrink-0 mt-1" />
+          <span className="text-gray-700">{feature}</span>
+          </li>
         ))}
         </ul>
         </div>
-        ))}
+        <div className="px-8 pb-8 mt-auto">
+        <ButtonAlert
+        triggerText={
+          <motion.div 
+          className="bg-orange-500 text-white px-6 py-3 rounded-full font-semibold flex items-center justify-center space-x-2 hover:bg-orange-600 transition-all duration-300"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          >
+          <span>Get Started</span>
+          <ArrowRight size={20} />
+          </motion.div>
+        }
+        title={`Ready to start with ${packageItem.name}?`}
+        descriptionComponent={`Fill in the form to get started with your ${packageItem.name.toLowerCase()}.`}
+        cancelText="Not yet"
+        continueText="Let's go!"
+        />
         </div>
-        </div>
-        </div>
-        </div>
-        </>
-        )
-      }
-      
+        </motion.div>
+      );
+    })}
+    </div>
+    </div>
+    </section>
+  );
+}

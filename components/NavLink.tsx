@@ -1,60 +1,34 @@
 import React from 'react';
-import { Home, Layers, Users, Contact, KanbanSquare, PanelTop, MoreHorizontal, LogIn } from 'lucide-react';
+import { Home, Layers, Users, Contact, KanbanSquare, PanelTop, LogIn } from 'lucide-react';
 import Link from 'next/link';
 
-
-
 const navLinks = [
-  {
-    name: 'Home',
-    href: '/',
-    icon: Home,
-  },
-  {
-    name: 'Services',
-    href: '/services',
-    icon: Layers,
-  },
-  {
-    name: 'Client Section',
-    href: '/client',
-    icon: LogIn,
-  },
-  {
-    name: 'About',
-    href: '/about',
-    icon: Users,
-  },
-  {
-    name: 'Contact',
-    href: '/contact',
-    icon: Contact,
-  },
-  {
-    name: 'Portfolio',
-    href: '/portfolio',
-    icon: KanbanSquare,
-  },
-  {
-    name: 'Blog',
-    href: '/blog',
-    icon: PanelTop,
-  }
+  { name: 'Home', href: '/', icon: Home },
+  { name: 'Services', href: '/services', icon: Layers },
+  { name: 'Client Section', href: '/client', icon: LogIn },
+  { name: 'About', href: '/about', icon: Users },
+  { name: 'Contact', href: '/contact', icon: Contact },
+  { name: 'Portfolio', href: '/portfolio', icon: KanbanSquare },
+  { name: 'Blog', href: '/blog', icon: PanelTop }
 ];
 
 function NavLinks() {
   return (
-    <div className='mt-2'>
+    <nav className="flex flex-col space-y-1 md:space-y-2">
     {navLinks.map((link) => (
-      <Link href={link.href} key={link.href}>
-      <div className="flex flex-row md:flex-col items-center space-x-1 text-slate-900 hover:text-sky-600">
-      <link.icon className="w-7 h-10" />
-      <div className="hidden md:block mb-7 text-slate-600 text-xs font-mono hover:scale-125">{link.name}</div>
-      </div>
+      <Link 
+      href={link.href} 
+      key={link.href}
+      className="flex items-center p-2 rounded-lg transition-colors duration-200 hover:bg-orange-100 group"
+      >
+      <link.icon className="w-6 h-6 text-gray-600 group-hover:text-orange-500" />
+      <span className="hidden md:block ml-3 text-sm font-medium text-gray-700 group-hover:text-orange-600">
+      {link.name}
+      </span>
       </Link>
-      ))}
-      </div>
-      );
-    }
-    
-    export default NavLinks;
+    ))}
+    </nav>
+  );
+}
+
+export default NavLinks;

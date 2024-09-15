@@ -1,41 +1,79 @@
 "use client";
+
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { squareData } from "@/data/squareData";
 
 const ShuffleHero = ({ subTitle, title, bgImage, buttons }) => {
+  // Function to wrap specific words in turquoise span
+  const highlightWords = (text) => {
+    const words = text.split(' ');
+    return words.map((word, index) => 
+      index % 5 === 0 ? <span key={index} className="text-teal-500">{word} </span> : word + ' '
+    );
+  };
+
   return (
-    <section className="w-full px-8 py-12 grid grid-cols-1 md:grid-cols-2 items-center gap-8 w-6xl mx-auto bg-gradient-to-l rounded-e-xl">
-      <div className="bgSvg">
-        {subTitle && (
-          <span className="block mb-4 text-xs md:text-sm font-bold text-slate-600 py-1 inset-0 z-0 relative">
-            {subTitle}
-          </span>
-        )}
-        {title && (
-          <h1 className="text-3xl md:text-xl font-semibold mt-1 text-sky-600">
-            {title}
-          </h1>
-        )}
-        <div className="flex -space-x-0.5 mt-10">
-          {buttons.map((button, index) => (
-            <Link key={index} href={button.link}>
-              <button
-                className={`${index === 0
-                  ? "bg-orange-500 border-2 border-orange-500 text-white hover:bg-sky-500 hover:border-sky-600"
-                  : "bg-transparent border-2 border-orange-500 text-orange-500 hover:text-cyan-500 hover:border-cyan-500"
-                  } font-sm py-1 px-4 transition-all hover:bg-${index === 0 ? "white" : "orange-500"
-                  } hover:text-${index === 0 ? "orange-500" : "white"} hover:animate-bounce-custom relative rounded-${index === 0 ? "l" : "r"
-                  }-2xl`}
-              >
-                {button.text}
-              </button>
-            </Link>
-          ))}
-        </div>
+    <section className="w-full px-4 py-12 md:py-20 bg-gradient-to-br from-orange-50 via-white to-orange-100">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="space-y-4"
+        >
+          {subTitle && (
+            <motion.span 
+              className="block text-xs md:text-sm font-semibold text-orange-600"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              {subTitle}
+            </motion.span>
+          )}
+          {title && (
+            <motion.h1 
+              className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 leading-tight"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              {highlightWords(title)}
+            </motion.h1>
+          )}
+          <motion.div 
+            className="flex flex-wrap gap-3 mt-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            {buttons.map((button, index) => (
+              <Link key={index} href={button.link}>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`px-5 py-2 rounded-md text-sm font-medium transition-all ${
+                    index === 0
+                      ? "bg-orange-500 text-white hover:bg-orange-600"
+                      : "bg-white text-teal-600 border border-teal-300 hover:bg-teal-50"
+                  }`}
+                >
+                  {button.text}
+                </motion.button>
+              </Link>
+            ))}
+          </motion.div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <ShuffleGrid />
+        </motion.div>
       </div>
-      <ShuffleGrid />
     </section>
   );
 };
@@ -57,27 +95,27 @@ const shuffle = (array) => {
   return array;
 };
 
-
 const generateSquares = () => {
   return shuffle(squareData).map((sq) => (
     <motion.div
       key={sq.id}
       layout
       transition={{ duration: 1.5, type: "spring" }}
-      className="w-full h-full hover:animate-spin relative z-0 border-l-8 rounded-xl animate-bounce-custom"
+      className="w-full h-full relative rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
       style={{
         backgroundImage: `url(${sq.src})`,
         backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
-    ></motion.div>
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-orange-900/20 to-teal-900/20 opacity-30 hover:opacity-0 transition-opacity duration-300"></div>
+    </motion.div>
   ));
 };
 
 const ShuffleGrid = () => {
   const timeoutRef = useRef(null);
   const [squares, setSquares] = useState(generateSquares());
-
-
 
   useEffect(() => {
     shuffleSquares();
@@ -86,14 +124,13 @@ const ShuffleGrid = () => {
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-
   const shuffleSquares = () => {
     setSquares(generateSquares());
-    if (timeoutRef.current) timeoutRef.current = setTimeout(shuffleSquares, 3000);
+    timeoutRef.current = setTimeout(shuffleSquares, 3000);
   };
 
   return (
-    <div className="grid grid-cols-4 grid-rows-4 h-[450px] gap-1">
+    <div className="grid grid-cols-4 grid-rows-4 gap-2 h-[400px] w-full max-w-[400px] mx-auto">
       {squares.map((sq) => sq)}
     </div>
   );

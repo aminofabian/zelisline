@@ -1,57 +1,97 @@
+'use client';
+
 import React from 'react';
-import { Mail, Phone, Twitter, Linkedin, Mailbox, MailCheck, Facebook, Instagram } from 'lucide-react';
+import { motion } from "framer-motion";
+import { Mail, Phone, Twitter, Linkedin, Facebook, Instagram } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+  
+  const footerSections = [
+    {
+      title: "Our Services",
+      links: ["Digital Marketing", "Web Design", "Content Marketing", "Logo Design", "Video Production", "SEO Services", "Social Media"]
+    },
+    {
+      title: "Company",
+      links: ["About Us", "Careers", "Press", "Privacy Policy"]
+    },
+    {
+      title: "Resources",
+      links: ["Blog", "Guides", "API Documentation", "Community"]
+    },
+    {
+      title: "Contact",
+      links: ["Support", "Sales", "Partnerships", "Feedback"]
+    }
+  ];
+  
+  const socialIcons = [
+    { Icon: Twitter, href: "https://www.twitter.com/zelisline", color: "text-blue-400" },
+    { Icon: Instagram, href: "https://www.instagram.com/zelisline", color: "text-pink-500" },
+    { Icon: Facebook, href: "https://www.facebook.com/zelisline", color: "text-blue-600" },
+    { Icon: Linkedin, href: "https://www.linkedin.com/company/zelisline-ltd", color: "text-blue-700" }
+  ];
+  
   return (
-    <footer className="bg-slate-100 text-slate-500 py-8 mt-10 hover:animate-bounce-custom border-l-8 border-r-8 border-b-1 border-flourish-500 rounded-2xl pb-10">
-    <div className="container mx-auto flex justify-between">
-    <div className="w-1/3 ml-10">
-    <h4 className="text-xs font-bold hover:animate-bounce">
-    <Image
-    src="/logo.png"
-    width={100}
-    height={20}
-    alt="Picture of the author"
-    />
-    </h4 >
-    <div className='mt-5'>
-    <div><Link href='/digitalmarketing'>Digital Marketing Services</Link></div>
-    <div><Link href='/webdesign'>Web Design Services</Link></div>
-    <div><Link href='/contentmarketing'>Content Marketing</Link></div>
-    <div><Link href='/logodesign'>Logo Design Services</Link></div>
-    <div><Link href='/videodesign'>Video Production Services</Link></div>
-    <div><Link href='/seo'>SEO Services</Link></div>
-    <div><Link href='/socialmedia'>Social Media Services</Link></div>
+    <footer className="bg-gradient-to-br from-orange-50 via-white to-purple-50 text-gray-800 py-16 mt-24">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+    {footerSections.map((section, index) => (
+      <motion.div 
+      key={index}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      >
+      <h3 className="text-lg font-semibold mb-4 text-orange-500">{section.title}</h3>
+      <ul className="space-y-2">
+      {section.links.map((link, linkIndex) => (
+        <motion.li 
+        key={linkIndex}
+        whileHover={{ x: 5 }}
+        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+        >
+        <a href="#" className="text-gray-600 hover:text-orange-500 transition-colors duration-200">{link}</a>
+        </motion.li>
+      ))}
+      </ul>
+      </motion.div>
+    ))}
     </div>
     
+    <motion.div 
+    className="border-t border-orange-200 pt-8 flex flex-col md:flex-row justify-between items-center"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.5, delay: 0.5 }}
+    >
+    <div className="mb-4 md:mb-0">
+    <Image src="/zelisline.svg" alt="Zelisline Logo" width={150} height={50} />
     </div>
-    <div className="w-1/3">
-    <h4 className="text-xl font-bold">Contact Us</h4>
-    <p><Mail className="inline-block mr-2 text-lime-400 hover:animate-bounce text-sm" /> support@zelisline.co.ke</p>
-    <p><MailCheck className="inline-block mr-2 text-lime-400 hover:animate-bounce text-sm" /> enquiries@zelisline.co.ke</p>
-    <p><Mailbox className="inline-block mr-2 text-lime-400 hover:animate-bounce text-sm" /> P.O Box: 35393-00100,
-    Nairobi Kenya</p>
-    <p><Phone className="inline-block mr-2  text-orange-500 hover:animate-bounce text-sm" /> +254 714 28 28 74</p>
+    <div className="flex space-x-6 mb-4 md:mb-0">
+    {socialIcons.map(({ Icon, href, color }, index) => (
+      <motion.a
+      key={index}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`${color} hover:text-orange-500 transition-colors duration-200`}
+      whileHover={{ y: -3, scale: 1.1 }}
+      >
+      <Icon size={24} />
+      </motion.a>
+    ))}
     </div>
-    <div className="w-1/3">
-    <h4 className="text-xl font-bold">Follow Us</h4>
-    <p><a href="https://www.twitter.com/zelisline" target="_blank"> <Twitter className="inline-block mr-2 text-sm text-cyan-400 hover:animate-bounce" /> Twitter</a>
-    </p>
-    <p><a href="https://www.linkedin.com/company/zelisline-ltd" target="_blank"> <Linkedin className="inline-block mr-2 text-sm text-cyan-400 hover:animate-bounce" />LinkedIn </a></p>
-    <p><a href="https://www.fscrbook.com/zelisline" target="_blank"> <Facebook className="inline-block mr-2 text-sm text-blue-400 hover:animate-bounce" /> Facebook</a>
-    </p>
-    <p><a href="https://www.instagram.com/zelisline" target="_blank"> <Instagram className="inline-block mr-2 text-sm text-orange-400 hover:animate-bounce" />Instagram </a></p>
+    <div className="text-sm text-gray-500">
+    © {currentYear} Zelisline. All rights reserved.
     </div>
-    </div>
-    <div className="w-full h-1 mt-4 bg-gradient-to-r from-slate-200 to-cyan-200 animate-stretch hover:translate-y-5">
-    <p className="text-center font-light text-sm p-5 ml-10 mb-10"> <span className="animate-bounce text-lime-500 pb-5"> Zelisline  </span>is a registered trademark of Zelisline, Inc. Copyright © 2024 Zelisline, Inc.</p>
+    </motion.div>
     </div>
     </footer>
-    );
-  };
-  
-  export default Footer;
-  
+  );
+};
+
+export default Footer;

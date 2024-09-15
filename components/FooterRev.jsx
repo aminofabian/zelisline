@@ -1,65 +1,127 @@
+'use client';
 
-import React from 'react'
+import React from 'react';
+import { motion } from "framer-motion";
+import { Twitter, Github, Youtube, MessageCircle } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
-function FooterRev() {
+const FooterRev = () => {
+  const currentYear = new Date().getFullYear();
+
+  const footerSections = [
+    {
+      title: "Services",
+      links: [
+        { href: "/digitalmarketing", text: "Digital Marketing" },
+        { href: "/webdevelopment", text: "Web Development Services (WordPress)" },
+        { href: "/ecommerce-website-development", text: "Ecommerce Website Design & Development" },
+        { href: "#", text: "Content Marketing" },
+        { href: "#", text: "Video Production" },
+        { href: "#", text: "Social Media Services" },
+        { href: "#", text: "Graphic Design/Logo Design" },
+      ]
+    },
+    {
+      title: "Company",
+      links: [
+        { href: "#", text: "Who We Are" },
+        { href: "#", text: "Client Reviews" },
+        { href: "#", text: "Hover, Focus, & Other States" },
+        { href: "#", text: "Our Portfolio" },
+        { href: "#", text: "Partner with Us" },
+        { href: "#", text: "Blog" },
+        { href: "#", text: "Contact Us" },
+      ]
+    },
+    {
+      title: "Helpful Links",
+      links: [
+        { href: "#", text: "Privacy Policy" },
+        { href: "#", text: "Terms of Use" },
+        { href: "#", text: "Your Privacy Choices" },
+        { href: "#", text: "FAQs" },
+        { href: "#", text: "Topics and Insights" },
+        { href: "#", text: "Testimonials" },
+        { href: "#", text: "Tell Us About Your Project" },
+      ]
+    },
+    {
+      title: "Find Us",
+      links: [
+        { href: "#", text: "GitHub", Icon: Github },
+        { href: "#", text: "Discord", Icon: MessageCircle },
+        { href: "#", text: "Twitter", Icon: Twitter },
+        { href: "#", text: "YouTube", Icon: Youtube },
+      ]
+    }
+  ];
+
+  const socialIcons = [
+    { Icon: Github, href: "#", color: "text-gray-800" },
+    { Icon: MessageCircle, href: "#", color: "text-indigo-500" },
+    { Icon: Twitter, href: "#", color: "text-blue-400" },
+    { Icon: Youtube, href: "#", color: "text-red-600" },
+  ];
+
   return (
-    <div>
-      <footer className="p-6 bg-sky-100 border-l-8 border-r-8 border-b-1 border-flourish-500 rounded-2xl pb-10 dark:bg-gray-800 dark:text-gray-100">
-        <div className="container grid grid-cols-2 mx-auto gap-x-3 gap-y-8 sm:grid-cols-3 md:grid-cols-4">
-          <div className="flex flex-col space-y-4">
-            <h2 className="font-bold text-cyan-500">Services</h2>
-            <div className="flex flex-col space-y-2 text-sm dark:text-gray-400">
-              <a rel="noopener noreferrer" href="/digitalmarketing">Digital Marketing</a>
-              <a rel="noopener noreferrer" href="/webdevelopment">Web Development Services (WordPress)</a>
-              <a rel="noopener noreferrer" href="/ecommerce-website-development">Ecommerce Website Design & Developement</a>
-              <a rel="noopener noreferrer" href="#">Content Marketing</a>
-              <a rel="noopener noreferrer" href="#">Video Production</a>
-              <a rel="noopener noreferrer" href="#">Social Media Services</a>
-              <a rel="noopener noreferrer" href="#">Graphic Design/Logo Design</a>
-            </div>
-          </div>
-          <div className="flex flex-col space-y-4">
-            <h2 className="font-bold text-cyan-500">Company</h2>
-            <div className="flex flex-col space-y-2 text-sm dark:text-gray-400">
-              <a rel="noopener noreferrer" href="#">Who We Are</a>
-              <a rel="noopener noreferrer" href="#">Client Reviews</a>
-              <a rel="noopener noreferrer" href="#">Hover, Focus, &amp; Other States</a>
-              <a rel="noopener noreferrer" href="#"> Our Portfilio</a>
-              <a rel="noopener noreferrer" href="#">Partner with Us</a>
-              <a rel="noopener noreferrer" href="#">Blog</a>
-              <a rel="noopener noreferrer" href="#">Contact Us</a>
-            </div>
-          </div>
-          <div className="flex flex-col space-y-4">
-            <h2 className="font-bold text-cyan-500">Helpful Links</h2>
-            <div className="flex flex-col space-y-2 text-sm dark:text-gray-400">
-              <a rel="noopener noreferrer" href="#">Privacy Policy</a>
-              <a rel="noopener noreferrer" href="#">Terms of Use</a>
-              <a rel="noopener noreferrer" href="#">Your Privacy Choices</a>
-              <a rel="noopener noreferrer" href="#">FAQs</a>
-              <a rel="noopener noreferrer" href="#">Topics and Insights</a>
-              <a rel="noopener noreferrer" href="#">Testimonials</a>
-              <a rel="noopener noreferrer" href="#">Tell Us About Your Project</a>
-            </div>
-          </div>
-          <div className="flex flex-col space-y-4">
-            <h2 className="font-bold text-cyan-500">Find Us</h2>
-            <div className="flex flex-col space-y-2 text-sm dark:text-gray-400">
-
-              <a rel="noopener noreferrer" href="#">GitHub</a>
-              <a rel="noopener noreferrer" href="#">Discord</a>
-              <a rel="noopener noreferrer" href="#">Twitter</a>
-              <a rel="noopener noreferrer" href="#">YouTube</a>
-            </div>
-          </div>
+    <footer className="bg-gradient-to-br from-orange-50 via-white to-purple-50 text-gray-800 py-16 mt-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+          {footerSections.map((section, index) => (
+            <motion.div 
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <h3 className="text-lg font-semibold mb-4 text-orange-500">{section.title}</h3>
+              <ul className="space-y-2">
+                {section.links.map((link, linkIndex) => (
+                  <motion.li 
+                    key={linkIndex}
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    <Link href={link.href} className="text-gray-600 hover:text-orange-500 transition-colors duration-200 flex items-center">
+                      {link.Icon && <link.Icon className="w-4 h-4 mr-2" />}
+                      {link.text}
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
         </div>
-        <div className="w-full h-1 mt-4 bg-gradient-to-r from-slate-200 to-cyan-200 animate-stretch hover:translate-y-5">
-          <p className="text-center font-light text-sm p-5 ml-10 mb-10"> <span className="animate-bounce text-lime-500 pb-5"> Zelisline  </span>is a registered trademark of Zelisline, Inc. Copyright © 2024 Zelisline, Inc.</p>
-        </div>
-      </footer>
-
-    </div>
-  )
-}
+        
+        <motion.div 
+          className="border-t border-orange-200 pt-8 flex flex-col md:flex-row justify-between items-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <div className="mb-4 md:mb-0">
+            <Image src="/zelisline.svg" alt="Zelisline Logo" width={150} height={50} />
+          </div>
+          <div className="flex space-x-6 mb-4 md:mb-0">
+            {socialIcons.map(({ Icon, href, color }, index) => (
+              <motion.a
+                key={index}
+                href={href}
+                className={`${color} hover:text-orange-500 transition-colors duration-200`}
+                whileHover={{ y: -3, scale: 1.1 }}
+              >
+                <Icon size={24} />
+              </motion.a>
+            ))}
+          </div>
+          <div className="text-sm text-gray-500">
+            <span className="text-orange-500 font-medium">Zelisline</span> is a registered trademark of Zelisline, Inc. Copyright © {currentYear} Zelisline, Inc.
+          </div>
+        </motion.div>
+      </div>
+    </footer>
+  );
+};
 
 export default FooterRev;

@@ -1,242 +1,302 @@
-"use client"
-import React, { useState } from 'react';
-import { toast, useToast } from "@/components/ui/use-toast"
+'use client';
 
-const formHandler = async (e: any) => {
-  e.preventDefault();
-  const firstName = e.target['first-name'].value;
-  const lastName = e.target['last-name'].value;
-  const company = e.target.company.value;
-  const email = e.target.email.value;
-  const phoneNumber = e.target['phone-number'].value;
-  const message = e.target.message.value;
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { User, Briefcase, Mail, MessageSquare, Send, Check, X, UserCircle, Users, HeartHandshake } from 'lucide-react';
+
+interface FormData {
+  role: 'client' | 'writer' | 'partner' | '';
+  name: string;
+  service: string;
+  email: string;
+  message: string;
+  termsAccepted: boolean;
+}
+
+interface InputFieldProps {
+  icon: React.ReactElement;
+  placeholder: string;
+  name: keyof FormData;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  type?: string;
+  as?: 'input' | 'select' | 'textarea';
+  options?: string[];
+  isActive: boolean;
+  onFocus: () => void;
+  onBlur: () => void;
+}
+
+const InputField: React.FC<InputFieldProps> = ({ 
+  icon, placeholder, name, value, onChange, type = 'text', as = 'input', options, isActive, onFocus, onBlur 
+}) => (
+  <motion.div 
+  className={`flex items-center space-x-4 group ${isActive ? 'bg-orange-50' : ''} rounded-lg p-2 transition-all duration-300`}
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5 }}
+  >
+  <motion.div 
+  className={`w-12 h-12 rounded-full flex items-center justify-center ${isActive ? 'bg-orange-500 text-white' : 'bg-orange-100 text-orange-500'} shadow-lg transition-all duration-300`}
+  animate={{ rotate: isActive ? 360 : 0 }}
+  transition={{ duration: 0.5 }}
+  >
+  {React.cloneElement(icon, { size: 24 })}
+  </motion.div>
+  {as === 'input' && (
+    <motion.input
+    whileFocus={{ scale: 1.02 }}
+    className="flex-grow bg-transparent border-b-2 border-gray-300 focus:border-orange-500 text-lg px-2 py-1 outline-none transition-colors duration-300"
+    type={type}
+    placeholder={placeholder}
+    name={name}
+    value={value}
+    onChange={onChange}
+    onFocus={onFocus}
+    onBlur={onBlur}
+    required
+    />
+  )}
+  {as === 'select' && (
+    <motion.select
+    whileFocus={{ scale: 1.02 }}
+    className="flex-grow bg-transparent border-b-2 border-gray-300 focus:border-orange-500 text-lg px-2 py-1 outline-none appearance-none transition-colors duration-300"
+    name={name}
+    value={value}
+    onChange={onChange}
+    onFocus={onFocus}
+    onBlur={onBlur}
+    required
+    >
+    <option value="">{placeholder}</option>
+    {options?.map((option, index) => (
+      <option key={index} value={option}>{option}</option>
+    ))}
+    </motion.select>
+  )}
+  {as === 'textarea' && (
+    <motion.textarea
+    whileFocus={{ scale: 1.02 }}
+    className="flex-grow bg-transparent border-b-2 border-gray-300 focus:border-orange-500 text-lg px-2 py-1 outline-none resize-none transition-colors duration-300"
+    placeholder={placeholder}
+    name={name}
+    value={value}
+    onChange={onChange}
+    onFocus={onFocus}
+    onBlur={onBlur}
+    rows={3}
+    required
+    />
+  )}
+  </motion.div>
+);
+
+const RoleSelector: React.FC<{ role: string; onChange: (role: FormData['role']) => void }> = ({ role, onChange }) => (
+  <div className="flex justify-center space-x-4 mb-8">
+  {['client', 'writer', 'partner'].map((r) => (
+    <motion.button
+    key={r}
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+    className={`px-4 py-2 rounded-full flex items-center space-x-2 ${
+      role === r ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-700'
+    }`}
+    onClick={() => onChange(r as FormData['role'])}
+    type="button"
+    >
+    {r === 'client' && <UserCircle size={20} />}
+    {r === 'writer' && <Users size={20} />}
+    {r === 'partner' && <HeartHandshake size={20} />}
+    <span className="capitalize">{r}</span>
+    </motion.button>
+  ))}
+  </div>
+);
+
+const ContactPage: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
+    role: '',
+    name: '',
+    service: '',
+    email: '',
+    message: '',
+    termsAccepted: false
+  });
+  const [activeField, setActiveField] = useState<keyof FormData | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
   
-  if (!firstName || !lastName || !company || !email || !phoneNumber || !message) {
-    toast({
-      title: "Kindly Fill in all the fields before clicking submit",
-      description: "It seems like you skipped some of the fields. Please fill in all the fields before clicking the submit page",
-      variant: "destructive"
-    });
-    return; 
-  }
-  
-  const formData = {
-    firstName,
-    lastName,
-    company,
-    email,
-    phoneNumber,
-    message,
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
+    }));
   };
   
-  try {
-    const response = await fetch("/api/contact-us", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-    
-    if (response.status === 200) {
-      toast({
-        title: "Message Sent",
-        description: "You've successfully sent us a message. We'll respond within 24 hours",
-        variant: "default"
-      })
-      e.target.reset();
-      console.log(formData);
-    } else {
-      toast({
-        title: "Message Not Sent",
-        description: "Failed to send message. Please try again later",
-        variant: "destructive"
-      })
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    toast({
-      title: "Message Not Sent",
-      description: "Failed to send message. Please try again later",
-      variant: "destructive"
-    })  }
+  const handleRoleChange = (role: FormData['role']) => {
+    setFormData(prev => ({ ...prev, role }));
   };
   
-  export default function ContactPage() {
-    const [agreed, setAgreed] = useState(false);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulating an API call
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setIsSubmitting(false);
+    setSubmitStatus(Math.random() > 0.5 ? 'success' : 'error'); // Randomly succeed or fail for demonstration
+    setTimeout(() => setSubmitStatus(null), 3000); // Reset status after 3 seconds
+  };
+  
+  return (
+    <section className="bg-gradient-to-b from-white to-gray-50 py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div className="container mx-auto max-w-4xl relative">
+    <motion.div 
+    className="absolute top-0 left-1/2 w-96 h-96 bg-orange-100 rounded-full mix-blend-multiply filter blur-xl opacity-70"
+    animate={{ 
+      x: [0, 50, -50, 0],
+      y: [0, -50, 50, 0],
+    }}
+    transition={{ 
+      repeat: Infinity, 
+      duration: 10,
+      ease: "easeInOut"
+    }}
+    ></motion.div>     
+    <motion.div 
+    className="absolute top-0 -right-4 w-96 h-96 bg-yellow-100 rounded-full mix-blend-multiply filter blur-xl opacity-70"
+    animate={{ 
+      x: [0, -50, 50, 0],
+      y: [0, 50, -50, 0],
+    }}
+    transition={{ 
+      repeat: Infinity, 
+      duration: 15,
+      ease: "easeInOut"
+    }}
+    ></motion.div>    
+    <motion.div 
+    className="relative bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-3xl shadow-xl p-8"
+    initial={{ opacity: 0, y: 50 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    >
     
-    const handleCheckboxChange = () => {
-      setAgreed(!agreed);
-    };
+    <form onSubmit={handleSubmit} className="space-y-8">
+    <RoleSelector role={formData.role} onChange={handleRoleChange} />
     
-    return (
-      <div className="flex items-center justify-center lg:mx-48 overflow-hidden rounded-3xl bgSvg">
-      <div className="text-center space-y-1">
-      <h3 className="text-2xl font-light text-slate-500 py-5">
-      Welcome Our Esteemed Visitor. Write Us
-      </h3>
-      <p className="text-xl light text-sky-600">Drop us an email. We are no snobs</p>
-      <div className="flex gap-2 justify-center">
-      <div className="isolate bg-white px-6 py-5 lg:px-8 ">
-      <div
-      className="absolute inset-x-0 top-[-5rem] transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
-      aria-hidden="true"
+    <InputField
+    icon={<User />}
+    placeholder="Your Name"
+    name="name"
+    value={formData.name}
+    onChange={handleInputChange}
+    isActive={activeField === 'name'}
+    onFocus={() => setActiveField('name')}
+    onBlur={() => setActiveField(null)}
+    />
+    <InputField
+    icon={<Briefcase />}
+    placeholder="Select Service"
+    name="service"
+    value={formData.service}
+    onChange={handleInputChange}
+    as="select"
+    options={['Content Writing', 'Editing & Proofreading', 'Content Strategy', 'SEO Optimization', 'AI Checker', 'AI Idea Generator', 'Writing Jobs', 'Other']}
+    isActive={activeField === 'service'}
+    onFocus={() => setActiveField('service')}
+    onBlur={() => setActiveField(null)}
+    />
+    <InputField
+    icon={<Mail />}
+    placeholder="Your Email"
+    name="email"
+    value={formData.email}
+    onChange={handleInputChange}
+    type="email"
+    isActive={activeField === 'email'}
+    onFocus={() => setActiveField('email')}
+    onBlur={() => setActiveField(null)}
+    />
+    <InputField
+    icon={<MessageSquare />}
+    placeholder="Tell us about your project..."
+    name="message"
+    value={formData.message}
+    onChange={handleInputChange}
+    as="textarea"
+    isActive={activeField === 'message'}
+    onFocus={() => setActiveField('message')}
+    onBlur={() => setActiveField(null)}
+    />
+    
+    <motion.div className="flex items-center space-x-2">
+    <input
+    type="checkbox"
+    id="terms"
+    name="termsAccepted"
+    checked={formData.termsAccepted}
+    onChange={handleInputChange}
+    className="form-checkbox h-5 w-5 text-orange-500 rounded-full"
+    required
+    />
+    <label htmlFor="terms" className="text-sm text-gray-700">
+    I hereby accept all terms and conditions.
+    </label>
+    </motion.div>
+    
+    <motion.button
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+    type="submit"
+    className="w-full bg-orange-500 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 flex items-center justify-center space-x-2"
+    disabled={isSubmitting}
+    >
+    {isSubmitting ? (
+      <motion.div
+      animate={{ rotate: 360 }}
+      transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
       >
-      <div
-      className="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#80d0ff] to-[#fcb789] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
-      style={{
-        clipPath:
-        'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-      }}
-      />
-      </div>
-      <div className="mx-auto md:max-w-4xl text-center">
-      <h2 className="text-3xl font-extralight tracking-tight text-gray-600 sm:text-4xl"></h2>
-      </div>
-      <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20" onSubmit={formHandler}>
-      <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 max-w-screen-2xl">
-      <div>
-      <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
-      First name
-      </label>
-      <div className="mt-2.5">
-      <input
-      type="text"
-      name="first-name"
-      id="first-name"
-      autoComplete="given-name"
-      className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      />
-      </div>
-      </div>
-      <div>
-      <label htmlFor="last-name" className="block text-sm font-semibold leading-6 text-gray-900">
-      Last name
-      </label>
-      <div className="mt-2.5">
-      <input
-      type="text"
-      name="last-name"
-      id="last-name"
-      autoComplete="family-name"
-      className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      />
-      </div>
-      </div>
-      <div className="sm:col-span-2">
-      <label htmlFor="company" className="block text-sm font-semibold leading-6 text-gray-900">
-      Company
-      </label>
-      <div className="mt-2.5">
-      <input
-      type="text"
-      name="company"
-      id="company"
-      autoComplete="organization"
-      className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      />
-      </div>
-      </div>
-      <div className="sm:col-span-2">
-      <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">
-      Email
-      </label>
-      <div className="mt-2.5">
-      <input
-      type="email"
-      name="email"
-      id="email"
-      autoComplete="email"
-      className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      />
-      </div>
-      </div>
-      <div className="sm:col-span-2">
-      <label htmlFor="phone-number" className="block text-sm font-semibold leading-6 text-gray-900">
-      Phone number
-      </label>
-      <div className="relative mt-2.5">
-      <div className="absolute inset-y-0 left-0 flex items-center">
-      <label htmlFor="country" className="sr-only">
-      Country
-      </label>
-      <select
-      id="country"
-      name="country"
-      className="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+      <Send size={20} />
+      </motion.div>
+    ) : (
+      <>
+      <span>Send Enquiry</span>
+      <Send size={20} />
+      </>
+    )}
+    </motion.button>
+    </form>
+    
+    <AnimatePresence>
+    {submitStatus && (
+      <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+      className={`mt-4 p-3 rounded-lg flex items-center justify-center space-x-2 ${
+        submitStatus === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+      }`}
       >
-      <option>KE</option>
-      <option>US</option>
-      <option>CA</option>
-      <option>SG</option>
-      <option>TZ</option>
-      <option>UG</option>
-      </select>
-      </div>
-      <input
-      type="tel"
-      name="phone-number"
-      id="phone-number"
-      autoComplete="tel"
-      className="block w-full rounded-md border-0 px-5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      />
-      </div>
-      </div>
-      <div className="sm:col-span-2">
-      <label htmlFor="message" className="block text-sm font-semibold leading-6 text-gray-900">
-      Message
-      </label>
-      <div className="mt-2.5">
-      <textarea
-      name="message"
-      id="message"
-      rows={4}
-      className="block w-full border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-      defaultValue={''}
-      />
-      </div>
-      </div>
-      <div className="flex gap-x-4 sm:col-span-2">
-      <div className="flex items-center">
-      <input
-      type="checkbox"
-      id="agreed"
-      name="agreed"
-      checked={agreed}
-      onChange={handleCheckboxChange}
-      className="w-4 h-4 text-cyan-400 focus:ring-cyan-500 border-cyan-300 focus:outline-none focus:ring focus:border-cyan-300 rounded-2xl"
-      />
-      <label htmlFor="agreed" className="ml-2 text-sm text-slate-600">
-      By selecting this, you agree to our{' '}
-      <a href="#" className="font-semibold text-orange-500">
-      privacy policy
-      </a>
-      .
-      </label>
-      </div>
-      </div>
-      <div className="mt-5 mx-auto justify-center">
-      <div className="generate-text-box flex">
-      <button
-      type="submit"
-      className="inline bg-cyan-400 px-5 py-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 clip-angled generate-text-box"
-      >
-      Let Us talk
-      </button>
-      <div className="text-box-container clip-angled-both mt-2 mb-10 text-sm">
-      <p>You can send us an email. We&apos;ll respond within 24 hours.</p>
-      <p>Alternatively, you can email us directly at (support@zelisline.co.ke)</p>
-      </div>
-      </div>
-      </div>
-      </div>
-      </form>
-      </div>
-      </div>
-      </div>
-      </div>
-    );
-  }
-  
-  
-  
+      {submitStatus === 'success' ? (
+        <>
+        <Check size={20} />
+        <span>Form submitted successfully!</span>
+        </>
+      ) : (
+        <>
+        <X size={20} />
+        <span>An error occurred. Please try again.</span>
+        </>
+      )}
+      </motion.div>
+    )}
+    </AnimatePresence>
+    </motion.div>
+    </div>
+    </section>
+  );
+};
+
+export default ContactPage;

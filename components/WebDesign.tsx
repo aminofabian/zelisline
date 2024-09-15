@@ -1,93 +1,106 @@
-
-import React from 'react'
-import Image from 'next/image';
+import React from 'react';
+import { motion } from 'framer-motion';
+import Lottie from 'lottie-react';
 import Animation from './Animation.json';
 import {
-  Globe,
-  Laptop,
-  Settings,
-  Code,
   Smartphone,
+  Settings,
   LayoutTemplate,
-  FolderSync,
   BookMarked,
+  FolderSync,
+  Code,
   Braces,
 } from 'lucide-react';
-import Lottie from 'lottie-react';
 
+const WebDesignServices = [
+  {
+    name: 'Mobile App Design',
+    description: 'Crafting intuitive and visually appealing mobile application interfaces.',
+    icon: Smartphone,
+  },
+  {
+    name: 'Customization and Settings',
+    description: 'Tailoring websites to meet specific client needs and preferences.',
+    icon: Settings,
+  },
+  {
+    name: 'Frontend Development',
+    description: 'Implementing responsive and interactive frontend solutions.',
+    icon: LayoutTemplate,
+  },
+  {
+    name: 'WordPress Development',
+    description: 'Building websites using the WordPress platform for flexibility and ease of use.',
+    icon: BookMarked,
+  },
+  {
+    name: 'Headless WordPress',
+    description: 'Implementing headless WordPress setups for decoupled frontend and backend architecture.',
+    icon: FolderSync,
+  },
+  {
+    name: 'Custom WordPress Themes',
+    description: 'Designing and developing custom WordPress themes for a unique online presence.',
+    icon: Code,
+  },
+  {
+    name: 'SaaS (Software as a Service)',
+    description: 'Creating scalable and cloud-based software solutions for various industries.',
+    icon: Braces,
+  },
+];
 
 function WebDesign() {
-  
-  const WebDesignServices = [ 
-    {
-      name: 'Mobile App Design',
-      description: 'Crafting intuitive and visually appealing mobile application interfaces.',
-      icon: <Smartphone size={30} />,
-    },
-    {
-      name: 'Customization and Settings',
-      description: 'Tailoring websites to meet specific client needs and preferences.',
-      icon: <Settings size={30} />,
-    },
-    {
-      name: 'Frontend Development',
-      description: 'Implementing responsive and interactive frontend solutions.',
-      icon: <LayoutTemplate size={30} />,
-    },
-    {
-      name: 'WordPress Development',
-      description: 'Building websites using the WordPress platform for flexibility and ease of use.',
-      icon: <BookMarked size={30} />,
-    },
-    {
-      name: 'Headless WordPress',
-      description: 'Implementing headless WordPress setups for decoupled frontend and backend architecture.',
-      icon: <FolderSync size={30} />,
-    },
-    {
-      name: 'Custom WordPress Themes',
-      description: 'Designing and developing custom WordPress themes for a unique online presence.',
-      icon: <Code size={30} />,
-    },
-    {
-      name: 'SaaS (Software as a Service)',
-      description: 'Creating scalable and cloud-based software solutions for various industries.',
-      icon: <Braces size={30} />,
-    },
-  ];
-  
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-0 py-8 md:py-12 flex flex-col md:flex-row">
-    <div className="lg:w-1/2 flex items-center justify-center clip-rabet translate-x-6 ease-in-out duration-1000  bg-slate-300 opacity-40">
-    
+    <div className="max-w-7xl mx-auto px-4 py-12">
+    <div className="flex flex-col lg:flex-row items-center gap-12">
+    <motion.div 
+    className="lg:w-1/2"
+    initial={{ opacity: 0, x: -50 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.5 }}
+    >
+    <h2 className="text-3xl font-bold mb-6 text-gray-800">
+    <span className="text-orange-500">Web Design</span> Services
+    </h2>
+    <p className="text-lg text-gray-600 mb-8">
+    Elevate your online presence with our cutting-edge web design services. From responsive layouts to custom solutions, we bring your vision to life.
+    </p>
+    <div className="bg-gradient-to-r from-orange-400 to-teal-400 p-1 rounded-2xl">
+    <div className="bg-white rounded-xl overflow-hidden">
     <Lottie
     animationData={Animation}
-    className="flex justify-center items-center"
-    loop />
-    {/* <Image
-    src="/webanim.gif"
-    width={600}
-    height={600}
-    alt="Picture of the author"
-  /> */}
-  </div>
-  <div className="md:w-1/2 md:p-8 overflow-y-auto">
-  <h2 className="text-2xl font-bold my-4 text-center md:text-left text-sky-600">
-  Website Design Services
-  </h2>
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-  {WebDesignServices.map((service, index) => (
-    <div key={index} className="flex items-center">
-    <div className="mr-2 text-sky-600">{service.icon}</div>
-    <div>
-    <h3 className="text-lg font-semibold text-sky-600">{service.name}</h3>
-    <p className="text-sm">{service.description}</p>
+    className="w-full h-64 object-cover"
+    loop
+    />
     </div>
     </div>
+    </motion.div>
+    
+    <motion.div 
+    className="lg:w-1/2"
+    initial={{ opacity: 0, x: 50 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.5, delay: 0.2 }}
+    >
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {WebDesignServices.map((service, index) => (
+      <motion.div 
+      key={index}
+      className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 300 }}
+      >
+      <service.icon className="w-10 h-10 text-orange-500 mb-4" />
+      <h3 className="text-xl font-semibold mb-2 text-gray-800">{service.name}</h3>
+      <p className="text-gray-600">{service.description}</p>
+      </motion.div>
     ))}
     </div>
+    </motion.div>
     </div>
-    </div>  )
-  }
-  
-  export default WebDesign
+    </div>
+  );
+}
+
+export default WebDesign;
