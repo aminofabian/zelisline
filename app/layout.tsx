@@ -1,17 +1,10 @@
 import type { Metadata } from 'next';
-import { Jost, Inter, Lora } from 'next/font/google';
+import { Jost } from 'next/font/google';
 import './globals.css';
 import { GoogleTagManager} from '@next/third-parties/google'
-import SideNav from '@/components/SideNav';
-import Link from 'next/link';
-import Logo from '@/components/Logo';
 import { Toaster } from "@/components/ui/toaster"
 
-
-
-
 const inter = Jost({ subsets: ['latin'] })
-
 export const metadata: Metadata = {
   title: {
     default: "Software Development and Digital Marketing Agency Kenya || Zelisline",
