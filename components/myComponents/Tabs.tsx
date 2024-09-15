@@ -5,9 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Tabs } from "../ui/tabs";
 import MyAccordion from "./MyAccordion";
 import * as items from "@/data/faq";
-import { Globe, Search, PenTool, Image, Video } from 'lucide-react';
+import { Globe, Search, PenTool, Image, Video, LucideIcon } from 'lucide-react';
 
-const tabIcons = {
+const tabIcons: Record<string, LucideIcon> = {
   "Web Design": Globe,
   "SEO Services": Search,
   "Content Marketing": PenTool,
@@ -15,49 +15,38 @@ const tabIcons = {
   "Video Production": Video,
 };
 
+interface Tab {
+  title: string;
+  value: string;
+  content: React.ReactNode;
+  titleElement?: React.ReactNode;
+}
+
+const tabs: Tab[] = [
+  { title: "Web Design", value: "web-design", content: <div>Web Design Content</div> },
+  { title: "SEO Services", value: "seo-services", content: <div>SEO Services Content</div> },
+  { title: "Content Marketing", value: "content-marketing", content: <div>Content Marketing Content</div> },
+  { title: "Logo Design", value: "logo-design", content: <div>Logo Design Content</div> },
+  { title: "Video Production", value: "video-production", content: <div>Video Production Content</div> },
+  
+  
+];
+
 export function TabsDemo() {
-  const tabs = [
-    {
-      title: "Web Design",
-      value: "product",
-      content: (
-        <FAQSection title="Web Design FAQs" items={items.webDesignFaqs} />
-      ),
-    },
-    {
-      title: "SEO Services",
-      value: "SEO Services",
-      content: (
-        <FAQSection title="SEO FAQs" items={items.seoFaqs} />
-      ),
-    },
-    {
-      title: "Content Marketing",
-      value: "content",
-      content: (
-        <FAQSection title="Content Marketing FAQs" items={items.faqContent} />
-      ),
-    },
-    {
-      title: "Logo Design",
-      value: "logo",
-      content: (
-        <FAQSection title="Logo Design FAQs" items={items.logoFaqs} />
-      ),
-    },
-    {
-      title: "Video Production",
-      value: "video",
-      content: (
-        <FAQSection title="Video Production FAQs" items={items.videoFaqs} />
-      ),
-    },
-  ];
+  const tabsWithElements: Tab[] = tabs.map(tab => ({
+    ...tab,
+    titleElement: (
+      <div className="flex items-center space-x-2">
+      {React.createElement(tabIcons[tab.title], { className: "w-5 h-5" })}
+      <span>{tab.title}</span>
+      </div>
+    ),
+  }));
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-teal-50 py-16 px-4 sm:px-6 lg:px-8">
     <div className="max-w-6xl mx-auto">
-    <motion.h2 
+    <motion.h2
     className="text-4xl font-bold text-center mb-12 text-gray-800"
     initial={{ opacity: 0, y: -20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -65,21 +54,20 @@ export function TabsDemo() {
     >
     Browse Our <span className="text-orange-500">FAQs</span>
     </motion.h2>
-    <Tabs tabs={tabs.map(tab => ({
-      ...tab,
-      title: (
-        <div className="flex items-center space-x-2">
-        {React.createElement(tabIcons[tab.title], { className: "w-5 h-5" })}
-        <span>{tab.title}</span>
-        </div>
-      )
-    }))} />
+    <Tabs tabs={tabsWithElements} />
     </div>
     </div>
   );
 }
 
-const FAQSection = ({ title, items }) => (
+
+
+interface FAQSectionProps {
+  title: string;
+  items: any[]; // Replace 'any' with the actual type of your FAQ items
+}
+
+const FAQSection: React.FC<FAQSectionProps> = ({ title, items }) => (
   <motion.div 
   initial={{ opacity: 0, y: 20 }}
   animate={{ opacity: 1, y: 0 }}

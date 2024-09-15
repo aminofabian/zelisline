@@ -1,4 +1,3 @@
-
 import ContactPage from '@/components/ContactPage';
 import ShuffleHero from '@/components/ShuffleHero';
 import Footer from '@/components/Footer';
@@ -50,8 +49,8 @@ function Seo() {
     </div>
     </div>
     </>
-    )
-  }
-  
-  
-  export default Seo;
+  )
+}
+
+
+export default Seo;

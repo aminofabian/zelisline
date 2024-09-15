@@ -1,5 +1,4 @@
 'use client'
-
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Code, Megaphone, PenTool } from 'lucide-react';
@@ -16,7 +15,7 @@ const services = [
 function Services() {
   const [selectedService, setSelectedService] = useState(services[0].name);
   
-  const renderComponent = (serviceName) => {
+  const renderComponent = (serviceName: string) => {
     setSelectedService(serviceName);
   };
   

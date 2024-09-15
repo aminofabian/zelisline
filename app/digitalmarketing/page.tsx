@@ -1,7 +1,5 @@
-
 import ContactPage from '@/components/ContactPage';
 import ShuffleHero from '@/components/ShuffleHero';
-import Footer from '@/components/Footer';
 import Services from '@/components/Services';
 import SideNav from '@/components/SideNav';
 import * as items from '@/data/faq';
@@ -11,7 +9,7 @@ import FooterRev from '@/components/FooterRev';
 
 
 
-function HomePage() {
+export default function HomePage() {
   const buttons = [
     { link: "/blog", text: "Write Us" },
     { link: "/contact", text: "Get a Free SEO Audit" },
@@ -55,4 +53,3 @@ function HomePage() {
 }
 
 
-export default HomePage;

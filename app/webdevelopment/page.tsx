@@ -1,7 +1,5 @@
-
 import ContactPage from '@/components/ContactPage';
 import ShuffleHero from '@/components/ShuffleHero';
-import Footer from '@/components/Footer';
 import Services from '@/components/WebDevelopmentServices';
 import SideNav from '@/components/SideNav';
 import * as items from '@/data/faq';

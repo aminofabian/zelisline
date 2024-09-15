@@ -2,14 +2,14 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingCart, WordPress, Code } from 'lucide-react';
+import { ShoppingCart, Code, WebhookIcon } from 'lucide-react';
 import WebDesign from './WebDesign';
 import DigitalMarketing from './DigitalMarketing';
 import GraphicalDesign from './CustomDesignServices';
 
 const services = [
   { name: 'Ecommerce', component: GraphicalDesign, icon: ShoppingCart, description: 'Build powerful online stores' },
-  { name: 'WordPress', component: DigitalMarketing, icon: WordPress, description: 'Create flexible content-managed sites' },
+  { name: 'WordPress', component: DigitalMarketing, icon: WebhookIcon, description: 'Create flexible content-managed sites' },
   { name: 'Custom', component: WebDesign, icon: Code, description: 'Develop tailored web applications' },
 ];
 

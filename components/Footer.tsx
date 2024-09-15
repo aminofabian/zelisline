@@ -2,9 +2,8 @@
 
 import React from 'react';
 import { motion } from "framer-motion";
-import { Mail, Phone, Twitter, Linkedin, Facebook, Instagram } from 'lucide-react';
+import { Twitter, Linkedin, Facebook, Instagram } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();

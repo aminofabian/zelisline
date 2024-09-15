@@ -1,18 +1,15 @@
-
 import ContactPage from '@/components/ContactPage';
 import ShuffleHero from '@/components/ShuffleHero';
-import Footer from '@/components/Footer';
 import Services from '@/components/Services';
 import SideNav from '@/components/SideNav';
 import * as items from '@/data/faq';
 import MyAccordion from '@/components/myComponents/MyAccordion';
-import WebDevelopersPricing from '@/components/pricing/WebDevelopersPricing';
 import FooterRev from '@/components/FooterRev';
 import EcommercePricing from '@/components/pricing/EcommercePricing';
 
 
 
-function EcommercePage () {
+export default function EcommercePage () {
   const buttons = [
     { link: "/contact", text: "Talk to Us" },
     { link: "/contact", text: "Get a Quote" },
@@ -54,6 +51,3 @@ function EcommercePage () {
     </>
   )
 }
-
-
-export default EcommercePage;
