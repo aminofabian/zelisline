@@ -28,7 +28,7 @@ function Services() {
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
     >
-    From <span className="text-orange-500">Simple Business Blogs</span> to <span className="text-teal-500">Complex SaaS Applications</span>, We've Got You Covered
+    From <span className="text-orange-500">Simple Business Blogs</span> to <span className="text-teal-500">Complex SaaS Applications</span>, We&apos;ve Got You Covered
     </motion.h2>
     
     <motion.div 
