@@ -104,17 +104,17 @@ const WhyChooseUs = () => {
     >
     <h3 className="text-3xl font-bold mb-8 text-center text-gray-800">
     <Quote size={48} className="text-orange-400 inline-block mr-4 mb-2" />
-    We don't just build websites, we craft digital experiences
+    We don&apos;t just build websites, we craft digital experiences
     </h3>
     <p className="text-xl text-gray-700 leading-relaxed text-center max-w-3xl mx-auto">
-    We're not just designers and developers; we're digital artisans passionate about creating exceptional online experiences. With a blend of creativity, expertise, and cutting-edge technology, we transform your vision into a stunning digital reality.
+    We&apos;re not just designers and developers; we&apos;re digital artisans passionate about creating exceptional online experiences. With a blend of creativity, expertise, and cutting-edge technology, we transform your vision into a stunning digital reality.
     </p>
     <motion.button 
     className="mt-10 px-8 py-3 bg-gradient-to-r from-orange-400 to-teal-400 text-white font-semibold rounded-full text-lg shadow-md hover:shadow-lg transition-shadow duration-300 mx-auto block"
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
     >
-    Let's Create Something Amazing
+    Let&apos;s Create Something Amazing
     </motion.button>
     </motion.div>
     </div>
