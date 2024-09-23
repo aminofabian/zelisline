@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ReactNode } from 'react';
+import React, { ReactNode, Suspense } from 'react';
 import { Jost } from "next/font/google";
 import { motion } from "framer-motion"; // Ensure motion is imported
 import { cn } from "@/lib/utils";
@@ -57,7 +57,6 @@ const Section: React.FC<SectionProps> = ({ children, color = "bg-white" }) => (
   <WaveBorder color={`fill-${color.split('-')[1]}-100`} />
   </motion.section>
 );
-
 const HomePage = () => {
   const buttons = [
     { link: "/contact", text: "Write Us" },
@@ -74,19 +73,14 @@ const HomePage = () => {
     </div>
     </aside>
     <main className="flex-1 text-emerald-800">
-    <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.4 }}  // Reduced duration
-    className="mb-16"
-    >
+    <div className="mb-16">
     <ShuffleHero
     subTitle="Driving Growth from Series A to IPO"
     title="YOUR ONE-STOP-SHOP FOR WEB DEVELOPMENT AND DIGITAL MARKETING SERVICES IN KENYA"
     bgImage="/bg.jpg"
     buttons={buttons}
     />
-    </motion.div>
+    </div>
     
     <Section color="bg-orange-50">
     <Pricing />
@@ -110,17 +104,18 @@ const HomePage = () => {
     </main>
     </div>
     
-    <motion.div
-    initial={{ opacity: 0, y: 50 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.4 }}
-    className='relative z-50'
-    >
+    <div className='relative z-50'>
     <FooterRev />
-    </motion.div>
+    </div>
     </div>
     </div>
   );
 }
 
 export default HomePage;
+
+
+
+
+
+

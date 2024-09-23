@@ -6,6 +6,7 @@ import Head from "next/head";
 import SideNav from "@/components/SideNav";
 import Footer from "@/components/Footer";
 import Image from "next/image";
+import Portfolio2 from "@/components/Portfolio2";
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -69,6 +70,7 @@ function PortfolioPage() {
               </h1>
               <h2>                Websites We&lsquo;ve Built:
               </h2>
+
               <div className='lg:text-lg mb-4 sm:mb-12'>
                 <ul className="flex flex-col space-y-4 mt-10 pl-10 list-disc">
                   <li className="hover:border-solid hover:border-var-secondary hover-border-solid hover:transforrm scale-105 pl-5 py-2 clip-angled-both bg-slate-200 font-bold hover:bg-cyan-600 hover:text-slate-100 border-transparent shadow-xl transition-colors border-e-slate-50">Jobs Lah: <div className="text-sm text-black bg-slate-300 inline px-3 py-1 font-medium clip-angled">https://www.jobslah.com/</div></li>
@@ -79,9 +81,13 @@ function PortfolioPage() {
                 </ul>
 
               </div>
+
             </div>
+
             <div className='sm:w-2/5 mb-5 opacity-50'>
+
               <div className='m-3'>
+
                 <Image
                   src='gra.gif'
                   alt='hero'
