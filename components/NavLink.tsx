@@ -8,7 +8,7 @@ const navLinks = [
   { name: 'Client Section', href: '/client', icon: LogIn },
   { name: 'About', href: '/about', icon: Users },
   { name: 'Contact', href: '/contact', icon: Contact },
-  { name: 'Portfolio', href: '/portfolio', icon: KanbanSquare },
+  { name: 'Our Work', href: '/our-work', icon: KanbanSquare },
   { name: 'Blog', href: '/blog', icon: PanelTop }
 ];
 

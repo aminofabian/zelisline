@@ -33,7 +33,7 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
-    title: "AlexaWriters – Premium Article Writing Platform",
+    title: "Alexawriters – Premium Article Writing Platform",
     image: "/alexawriters.png",
     description: "AlexaWriters is a premium article writing platform built with Next.js, featuring a client dashboard for placing orders, a writer dashboard for managing tasks, and an admin dashboard for overseeing operations. It integrates AI tools for generating content ideas, managing writers, and optimizing order fulfillment, designed for seamless efficiency.",
     duration: "2 months",
@@ -51,7 +51,53 @@ const projects: Project[] = [
     keyObjectives: "Enhance UX, Streamline Operations, Automate Writer Management",
     testimonial: {
       text: "AlexaWriters transformed how we manage content, automating workflows and improving efficiency. Their integration of AI made a huge difference.",
-      author: "Sarah Johnson, CEO of AlexaWriters Inc."
+      author: "Dolphine Peace, CEO of AlexaWriters Inc."
+    }
+  },
+  {
+    id: 2,
+    title: "FItrii - Community Support Platform",
+    image: "/fitrii.png",
+    description: "FItrii is a platform where people join support communities to help each other. It features integrated payment systems and is designed for easy community building and mutual assistance.",
+    duration: "3 months",
+    techStack: ["NextJS", "React", "Zustand", "PostgreSQL"],
+    otherDetails: "Mobile app for Android and iOS in development using React Native",
+    link: "https://fitrii.com",
+    client: {
+      name: "FItrii Inc.",
+      contact: {
+        email: "contact@fitrii.com",
+        phone: "+1 (555) 987-6543"
+      }
+    },
+    teamSize: "3 developers, 1 designer",
+    keyObjectives: "Build Support Communities, Facilitate Mutual Aid, Enable Easy Payments",
+    testimonial: {
+      text: "FItrii has revolutionized how we connect people in need with those who can help. The platform's ease of use and payment integrations make it incredibly effective.",
+      author: "Mike Nester, Founder of FItrii Inc."
+    }
+  },
+  {
+    id: 3,
+    title: "Mediamasses - Social Media Following Marketplace",
+    image: "/mediamasses.png",
+    description: "Mediamasses is a platform that sells social media following across various platforms including YouTube and Instagram. It integrates third-party APIs for service processing and Kopokopo APIs for M-Pesa payments.",
+    duration: "2 weeks",
+    techStack: ["Next.js", "Nest.js"],
+    otherDetails: "Integrated with third-party APIs for service processing and Kopokopo for M-Pesa payments",
+    link: "https://mediamasses.com",
+    client: {
+      name: "Mediamasses Inc.",
+      contact: {
+        email: "contact@mediamasses.com",
+        phone: "+254 700 123456"
+      }
+    },
+    teamSize: "2 developers, 1 designer",
+    keyObjectives: "Sell Social Media Following, Process Services via APIs, Enable M-Pesa Payments",
+    testimonial: {
+      text: "Mediamasses has streamlined our social media growth services. The integration with various platforms and M-Pesa payments has significantly improved our operations.",
+      author: "Xtian Dela, CEO of Mediamasses Inc."
     }
   }
 ];
@@ -90,7 +136,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
   </div>
   <p className="mb-4 text-gray-600"><strong className="text-orange-500">Tech Stack:</strong> {project.techStack.join(", ")}</p>
   <p className="mb-4 text-gray-600"><strong className="text-orange-500">Results:</strong> {project.otherDetails}</p>
-  <Link href={project.link} className="inline-flex items-center text-orange-500 hover:text-orange-600 transition-colors duration-200">
+  <Link href={project.link} target='_blank' className="inline-flex items-center text-orange-500 hover:text-orange-600 transition-colors duration-200">
   View Project <ExternalLink className="ml-1 w-4 h-4" />
   </Link>
   </div>
