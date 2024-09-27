@@ -70,7 +70,7 @@ const projects: Project[] = [
         phone: "+1 (555) 987-6543"
       }
     },
-    teamSize: "3 developers, 1 designer",
+    teamSize: "3 developers, 2 designer",
     keyObjectives: "Build Support Communities, Facilitate Mutual Aid, Enable Easy Payments",
     testimonial: {
       text: "FItrii has revolutionized how we connect people in need with those who can help. The platform's ease of use and payment integrations make it incredibly effective.",
