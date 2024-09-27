@@ -99,7 +99,31 @@ const projects: Project[] = [
       text: "Mediamasses has streamlined our social media growth services. The integration with various platforms and M-Pesa payments has significantly improved our operations.",
       author: "Xtian Dela, CEO of Mediamasses Inc."
     }
+  },
+  {
+    id: 4,
+    title: "Pulse Labs - Innovative UX Research Platform",
+    image: "/pulselabs.png",
+    description: "Pulse Labs is at the forefront of revolutionizing user experience research and analytics. Our proprietary technology captures real-time, context-rich user interactions in a privacy-conscious manner, providing human-centered insights since 2017.",
+    duration: "2 months",
+    techStack: ["React", "React Query", "Duda CMS"],
+    otherDetails: "Proprietary technology for capturing real-time user interactions",
+    link: "https://pulselabs.ai",
+    client: {
+      name: "Pulse Labs",
+      contact: {
+        email: "info@pulselabs.ai",
+        phone: "+1 (206) 555-0123"
+      }
+    },
+    teamSize: "4 developers, 2 designers",
+    keyObjectives: "Revolutionize UX Research, Provide Real-time Analytics, Ensure Privacy",
+    testimonial: {
+      text: "Pulse Labs has transformed our approach to user experience research. Their innovative technology provides us with insights we never thought possible, all while maintaining user privacy.",
+      author: "Dr. Emily Chen, Head of UX Research at TechGiant Corp."
+    }
   }
+  
 ];
 
 const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => (
