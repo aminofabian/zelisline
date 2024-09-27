@@ -80,7 +80,7 @@ const projects: Project[] = [
   {
     id: 3,
     title: "Mediamasses - Social Media Following Marketplace",
-    image: "/mediamasses.png",
+    image: "/mediamassess.png",
     description: "Mediamasses is a platform that sells social media following across various platforms including YouTube and Instagram. It integrates third-party APIs for service processing and Kopokopo APIs for M-Pesa payments.",
     duration: "2 weeks",
     techStack: ["Next.js", "Nest.js"],
