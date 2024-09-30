@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Briefcase, Mail, MessageSquare, Send, Check, X, UserCircle, Users, HeartHandshake } from 'lucide-react';
+import { User, Briefcase, Mail, MessageSquare, Send, Check, X, UserCircle, Users, HeartHandshake, HeartHandshakeIcon } from 'lucide-react';
+import { EnhancedHeader } from './EnhancedHeader';
+
 
 interface FormData {
   role: 'client' | 'writer' | 'partner' | '';
@@ -92,7 +94,7 @@ const InputField: React.FC<InputFieldProps> = ({
 );
 
 const RoleSelector: React.FC<{ role: string; onChange: (role: FormData['role']) => void }> = ({ role, onChange }) => (
-  <div className="flex justify-center space-x-4 mb-8">
+  <div className="flex flex-wrap justify-center gap-4 mb-8">
   {['client', 'writer', 'partner'].map((r) => (
     <motion.button
     key={r}
@@ -106,18 +108,19 @@ const RoleSelector: React.FC<{ role: string; onChange: (role: FormData['role']) 
     >
     {r === 'client' && <UserCircle size={20} />}
     {r === 'writer' && <Users size={20} />}
-    {r === 'partner' && <HeartHandshake size={20} />}
+    {r === 'partner' && <HeartHandshakeIcon size={20} />}
     <span className="capitalize">{r}</span>
     </motion.button>
   ))}
   </div>
 );
 
-const ContactPage: React.FC = () => {
+const ContactForm: React.FC = () => {
+  
   const [formData, setFormData] = useState<FormData>({
-    role: '',
+    role: 'client',
     name: '',
-    service: '',
+    service: 'Content Writing',
     email: '',
     message: '',
     termsAccepted: false
@@ -125,6 +128,7 @@ const ContactPage: React.FC = () => {
   const [activeField, setActiveField] = useState<keyof FormData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+  const messageRef = useRef<HTMLTextAreaElement>(null);
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -141,15 +145,47 @@ const ContactPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulating an API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    try {
+      const response = await fetch('/api/submit-contact-form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({
+          role: 'client',
+          name: '',
+          service: '',
+          email: '',
+          message: '',
+          termsAccepted: false
+        });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
+    }
+    
     setIsSubmitting(false);
-    setSubmitStatus(Math.random() > 0.5 ? 'success' : 'error'); // Randomly succeed or fail for demonstration
-    setTimeout(() => setSubmitStatus(null), 3000); // Reset status after 3 seconds
+    setTimeout(() => setSubmitStatus(null), 3000);
   };
   
+  useEffect(() => {
+    if (messageRef.current) {
+      messageRef.current.style.height = 'auto';
+      messageRef.current.style.height = `${messageRef.current.scrollHeight}px`;
+    }
+  }, [formData.message]);
+  
   return (
-    <section className="bg-gradient-to-b from-white to-gray-50 py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="bg-gradient-to-b from-white to-gray-50 py-12 sm:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
     <div className="container mx-auto max-w-4xl relative">
     <motion.div 
     className="absolute top-0 left-1/2 w-96 h-96 bg-orange-100 rounded-full mix-blend-multiply filter blur-xl opacity-70"
@@ -176,13 +212,14 @@ const ContactPage: React.FC = () => {
     }}
     ></motion.div>    
     <motion.div 
-    className="relative bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-3xl shadow-xl p-8"
+    className="relative bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-3xl shadow-xl p-4 sm:p-8"
     initial={{ opacity: 0, y: 50 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
     >
+    <EnhancedHeader />
     
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
     <RoleSelector role={formData.role} onChange={handleRoleChange} />
     
     <InputField
@@ -299,4 +336,4 @@ const ContactPage: React.FC = () => {
   );
 };
 
-export default ContactPage;
+export default ContactForm;
