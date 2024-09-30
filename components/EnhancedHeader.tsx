@@ -51,7 +51,7 @@ export const EnhancedHeader: React.FC = () => {
     >
     Schedule an Appointment with{' '}
     <span className="relative">
-    <span className="relative z-10 text-orange-600">Alexawriters</span>
+    <span className="relative z-10 text-orange-600">Zelisline</span>
     <motion.span
     className="absolute bottom-0 left-0 h-3 bg-orange-200 z-0"
     variants={highlightVariants}
@@ -62,16 +62,15 @@ export const EnhancedHeader: React.FC = () => {
     className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed"
     variants={itemVariants}
     >
-    Let&apos;s discuss how we can craft{' '}
+    Let&apos;s discuss how we can make{' '}
     <motion.span
     className="font-semibold text-orange-600"
     whileHover={{ scale: 1.1 }}
     whileTap={{ scale: 0.95 }}
     >
-    exceptional content
+    your business standout 
     </motion.span>{' '}
-    for your needs
-    </motion.p>
+    in the competitive business landscape    </motion.p>
     </motion.div>
   );
 };

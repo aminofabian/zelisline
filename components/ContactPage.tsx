@@ -6,6 +6,7 @@ import { User, Briefcase, Mail, MessageSquare, Send, Check, X, UserCircle, Users
 import { EnhancedHeader } from './EnhancedHeader';
 
 
+
 interface FormData {
   role: 'client' | 'writer' | 'partner' | '';
   name: string;
@@ -14,6 +15,12 @@ interface FormData {
   message: string;
   termsAccepted: boolean;
 }
+
+interface SubmitStatus {
+  type: 'success' | 'error';
+  message: string;
+}
+
 
 interface InputFieldProps {
   icon: React.ReactElement;
@@ -127,7 +134,7 @@ const ContactForm: React.FC = () => {
   });
   const [activeField, setActiveField] = useState<keyof FormData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus | null>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -155,8 +162,10 @@ const ContactForm: React.FC = () => {
         body: JSON.stringify(formData),
       });
       
+      const result = await response.json();
+      
       if (response.ok) {
-        setSubmitStatus('success');
+        setSubmitStatus({ type: 'success', message: 'Form submitted successfully!' });
         setFormData({
           role: 'client',
           name: '',
@@ -166,15 +175,15 @@ const ContactForm: React.FC = () => {
           termsAccepted: false
         });
       } else {
-        setSubmitStatus('error');
+        setSubmitStatus({ type: 'error', message: result.error || 'An error occurred. Please try again.' });
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      setSubmitStatus('error');
+      setSubmitStatus({ type: 'error', message: 'An unexpected error occurred. Please try again later.' });
     }
     
     setIsSubmitting(false);
-    setTimeout(() => setSubmitStatus(null), 3000);
+    setTimeout(() => setSubmitStatus(null), 5000);
   };
   
   useEffect(() => {
@@ -313,18 +322,18 @@ const ContactForm: React.FC = () => {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.3 }}
       className={`mt-4 p-3 rounded-lg flex items-center justify-center space-x-2 ${
-        submitStatus === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+        submitStatus.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
       }`}
       >
-      {submitStatus === 'success' ? (
+      {submitStatus.type === 'success' ? (
         <>
         <Check size={20} />
-        <span>Form submitted successfully!</span>
+        <span>{submitStatus.message}</span>
         </>
       ) : (
         <>
         <X size={20} />
-        <span>An error occurred. Please try again.</span>
+        <span>{submitStatus.message}</span>
         </>
       )}
       </motion.div>
@@ -337,3 +346,4 @@ const ContactForm: React.FC = () => {
 };
 
 export default ContactForm;
+

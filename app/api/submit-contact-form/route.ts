@@ -5,9 +5,13 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
-  const { role, name, service, email, message } = await request.json();
-
   try {
+    const { role, name, service, email, message } = await request.json();
+
+    if (!role || !name || !service || !email || !message) {
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
+
     const { data, error } = await resend.emails.send({
       from: 'Your Website <onboarding@resend.dev>',
       to: 'your-email@example.com', // Replace with your email address
@@ -23,11 +27,13 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      return NextResponse.json({ error }, { status: 400 });
+      console.error('Resend API error:', error);
+      return NextResponse.json({ error: error.message }, { status: 400 });
     }
 
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json({ success: true, data }, { status: 200 });
   } catch (error) {
+    console.error('Server error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
