@@ -20,9 +20,31 @@ function SideNav() {
   const [scrollY, setScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const controls = useAnimation();
+  const [windowSize, setWindowSize] = useState({ width: typeof window !== 'undefined' ? window.innerWidth : 0, height: typeof window !== 'undefined' ? window.innerHeight : 0 });
 
   // Position state without localStorage persistence
   const [position, setPosition] = useState<Position>({ x: 20, y: 20 });
+
+  // Initialize window size
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    }
+
+    // Set initial size
+    handleResize();
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Handle mobile menu toggle
   const toggleMobileMenu = () => {
@@ -87,7 +109,12 @@ function SideNav() {
         drag
         dragMomentum={false}
         dragElastic={0.1}
-        dragConstraints={{ left: 20, right: window.innerWidth - 300, top: 20, bottom: window.innerHeight - 100 }}
+        dragConstraints={{ 
+          left: 20, 
+          right: windowSize.width - 300, 
+          top: 20, 
+          bottom: windowSize.height - 100 
+        }}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
         style={{ touchAction: "none" }}

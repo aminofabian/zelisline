@@ -4,14 +4,15 @@ import React, { ReactNode, Suspense } from 'react';
 import { Jost } from "next/font/google";
 import { cn } from "@/lib/utils";
 import dynamic from 'next/dynamic';
+import type { ShuffleHeroProps } from '@/types/components';
 
-const ShuffleHero = dynamic(() => import('@/components/ShuffleHero'), { ssr: false });
+const ShuffleHero = dynamic<ShuffleHeroProps>(() => import('@/components/ShuffleHero'), { ssr: false });
 const Pricing = dynamic(() => import('@/components/pricing/Pricing'));
 const Services = dynamic(() => import('@/components/Services'));
 const TabsDemo = dynamic(() => import('@/components/myComponents/Tabs').then(mod => mod.TabsDemo));
 const ContactPage = dynamic(() => import('@/components/ContactPage'));
 const FooterRev = dynamic(() => import('@/components/FooterRev'));
-const SideNav = dynamic(() => import('@/components/SideNav'));
+const SideNav = dynamic(() => import('@/components/ClientSideNav'), { ssr: false });
 const WhyChooseUs = dynamic(() => import('@/components/WhyChooseUs'));
 
 const font = Jost({

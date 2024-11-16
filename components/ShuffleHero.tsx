@@ -4,23 +4,21 @@ import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle, ChevronRight, Sparkles } from "lucide-react";
 import ButtonAlert from "./myComponents/ButtonAlert";
 import { WritingPen } from "./myComponents/WritingPen";
-
-interface ShuffleHeroProps {
-  subTitle: string;
-  title: string;
-  bgImage: string;
-  buttons: {
-    link: string;
-    text: string;
-  }[];
-}
+import type { ShuffleHeroProps } from "@/types/components";
 
 export default function ShuffleHero({ subTitle, title, bgImage, buttons }: ShuffleHeroProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     setIsVisible(true);
   }, []);
+
+  // Don't render anything on the server
+  if (!mounted) {
+    return null;
+  }
 
   const benefits = [
     "Stunning Modern Designs",
