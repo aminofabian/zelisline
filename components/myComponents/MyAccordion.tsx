@@ -18,18 +18,29 @@ interface MyAccordionProps {
 
 const MyAccordion: React.FC<MyAccordionProps> = ({ items }) => {
   return (
-    <div className='px-20 text-slate-500'>
-    <Accordion type="single" collapsible>
-    {items.map((item, index) => (
-      <AccordionItem key={index} value={item.value}>
-      <AccordionTrigger className='text-slate-800 text-lg font-light'>{item.triggerText}</AccordionTrigger>
-      <AccordionContent className='bg-slate-50 p-10 text-lg font-light text-slate-800 space-y-10'>{item.content}</AccordionContent>
-      </AccordionItem>
-      ))}
+    <div className='w-full text-slate-500'>
+      <Accordion type="single" collapsible className="w-full">
+        {items.map((item, index) => (
+          <AccordionItem 
+            key={index} 
+            value={item.value}
+            className="border-b border-orange-200/30 last:border-b-0 last:mb-0"
+          >
+            <AccordionTrigger 
+              className='text-slate-800 text-base sm:text-lg font-medium hover:text-orange-500 transition-colors py-3 px-2'
+            >
+              {item.triggerText}
+            </AccordionTrigger>
+            <AccordionContent 
+              className='bg-orange-50/50 p-3 sm:p-4 text-base sm:text-lg font-light text-slate-700 rounded-lg mt-1 mb-2'
+            >
+              {item.content}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
       </Accordion>
-      </div>
-      );
-    };
+    </div>
+  );
+};
     
-    export default MyAccordion;
-    
+export default MyAccordion;

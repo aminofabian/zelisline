@@ -39,73 +39,144 @@ const ButtonAlert: React.FC<ButtonAlertProps> = ({ triggerText, title, descripti
 
 export default function Pricing() {
   return (
-    <section className="bg-gradient-to-br from-orange-50 via-white to-teal-50 py-20 px-4 sm:px-6 lg:px-8">
-    <div className="max-w-7xl mx-auto">
-    <motion.div 
-    initial={{ opacity: 0, y: -20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-    className="text-center mb-16"
-    >
-    <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-    Choose Your <span className="text-orange-500">Perfect</span> Package
-    </h2>
-    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-    Select the plan that best suits your needs and start creating amazing content today.
-    </p>
-    </motion.div>
-    
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    {packages.map((packageItem: Package, index: number) => {
-      const IconComponent = iconMap[packageItem.name as IconName] || Globe;
-      return (
-        <motion.div 
-        key={index}
-        initial={{ opacity: 0, y: 20 }}
+    <div className="w-full">
+      <motion.div 
+        className="text-center mb-12 sm:mb-16"
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl flex flex-col"
+        transition={{ duration: 0.6 }}
+      >
+        <motion.h2 
+          className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gray-900"
+          initial={{ scale: 0.95 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
-        <div className="p-8 flex-grow">
-        <div className="flex items-center justify-between mb-4">
-        <IconComponent className="w-12 h-12 text-emerald-500" />
-        <span className="text-2xl font-bold text-emerald-500">${packageItem.startingPrice}</span>
-        </div>
-        <h3 className="text-2xl font-semibold mb-4 text-gray-800">{packageItem.name}</h3>
-        <p className="text-gray-600 mb-6">{packageItem.description}</p>
-        <ul className="space-y-3 mb-8">
-        {packageItem.features.map((feature, i) => (
-          <li key={i} className="flex items-start">
-          <CheckCircle className="w-5 h-5 text-teal-500 mr-2 flex-shrink-0 mt-1" />
-          <span className="text-gray-700">{feature}</span>
-          </li>
-        ))}
-        </ul>
-        </div>
-        <div className="px-8 pb-8 mt-auto">
-        <ButtonAlert
-        triggerText="Get Started"
-        title={`Ready to start with ${packageItem.name}?`}
-        description={`Fill in the form to get started with your ${packageItem.name.toLowerCase()}.`}
-        cancelText="Not yet"
-        continueText="Let's go!"
-        customTrigger={
-          <motion.div 
-          className="bg-orange-500 text-white px-6 py-3 rounded-full font-semibold flex items-center justify-center space-x-2 hover:bg-orange-600 transition-all duration-300"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          <motion.span 
+            className="bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-orange-500"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
           >
-          <span>Get Started</span>
-          <ArrowRight size={20} />
+            Perfect
+          </motion.span>{' '}
+          <motion.span 
+            className="bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-orange-400"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            Pricing Plans
+          </motion.span>
+        </motion.h2>
+        <motion.p 
+          className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+        >
+          Select the plan that best suits your needs and start creating amazing content today.
+        </motion.p>
+      </motion.div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {packages.map((packageItem, index) => (
+          <motion.div
+            key={packageItem.name}
+            className={`relative group overflow-hidden rounded-2xl border ${
+              packageItem.name === "Enterprise Package (custom)"
+                ? 'border-orange-200 bg-gradient-to-br from-orange-50 to-white'
+                : 'border-gray-200 bg-white'
+            }`}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: index * 0.1,
+              type: "spring",
+              stiffness: 100
+            }}
+            whileHover={{ 
+              y: -10,
+              scale: 1.02,
+              transition: { duration: 0.3 }
+            }}
+          >
+            {packageItem.name === "Enterprise Package (custom)" && (
+              <motion.div
+                className="absolute top-0 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-orange-600 to-orange-400 text-white text-sm font-medium rounded-b-lg"
+                initial={{ y: -20 }}
+                animate={{ y: 0 }}
+                transition={{ delay: 0.5 + index * 0.1 }}
+              >
+                Most Popular
+              </motion.div>
+            )}
+            
+            <motion.div 
+              className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100"
+              initial={false}
+              whileHover={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            />
+            
+            <div className="p-6 sm:p-8 relative">
+              <motion.div 
+                className="mb-5"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">{packageItem.name}</h3>
+                <p className="text-gray-600 text-sm sm:text-base">{packageItem.description}</p>
+              </motion.div>
+              
+              <motion.div 
+                className="mb-6 sm:mb-8"
+                whileHover={{ x: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="flex items-baseline">
+                  <span className="text-sm sm:text-base font-medium text-gray-900 mr-1">KES</span>
+                  <span className="text-4xl sm:text-5xl font-bold text-gray-900">{packageItem.startingPrice * 100}</span>
+                  <span className="text-gray-600 ml-2">/ month</span>
+                </div>
+              </motion.div>
+              
+              <motion.ul 
+                className="space-y-3 mb-6 sm:mb-8"
+                initial={{ opacity: 0.8 }}
+                whileHover={{ opacity: 1 }}
+              >
+                {packageItem.features.map((feature, featureIndex) => (
+                  <motion.li
+                    key={featureIndex}
+                    className="flex items-center text-gray-600"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.8 + featureIndex * 0.1 }}
+                    whileHover={{ x: 5 }}
+                  >
+                    <CheckCircle className="w-5 h-5 text-orange-500 mr-2 flex-shrink-0" />
+                    <span className="text-sm sm:text-base">{feature}</span>
+                  </motion.li>
+                ))}
+              </motion.ul>
+              
+              <motion.button
+                className={`w-full py-3 px-4 rounded-xl text-center font-medium transition-all ${
+                  packageItem.name === "Enterprise Package (custom)"
+                    ? 'bg-gradient-to-r from-orange-600 to-orange-400 text-white hover:shadow-lg hover:shadow-orange-200'
+                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Get Started
+              </motion.button>
+            </div>
           </motion.div>
-        }
-        />
-        </div>
-        </motion.div>
-      );
-    })}
+        ))}
+      </div>
     </div>
-    </div>
-    </section>
   );
 }

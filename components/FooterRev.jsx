@@ -65,60 +65,77 @@ const FooterRev = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-orange-50 via-white to-purple-50 text-gray-800 py-16 mt-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-          {footerSections.map((section, index) => (
-            <motion.div 
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <h3 className="text-lg font-semibold mb-4 text-orange-500">{section.title}</h3>
-              <ul className="space-y-2">
-                {section.links.map((link, linkIndex) => (
-                  <motion.li 
-                    key={linkIndex}
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  >
-                    <Link href={link.href} className="text-gray-600 hover:text-orange-500 transition-colors duration-200 flex items-center">
-                      {link.Icon && <link.Icon className="w-4 h-4 mr-2" />}
-                      {link.text}
-                    </Link>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
-        
-        <motion.div 
-          className="border-t border-orange-200 pt-8 flex flex-col md:flex-row justify-between items-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-        >
-          <div className="mb-4 md:mb-0">
-            <Image src="/zelisline.svg" alt="Zelisline Logo" width={150} height={50} />
-          </div>
-          <div className="flex space-x-6 mb-4 md:mb-0">
-            {socialIcons.map(({ Icon, href, color }, index) => (
-              <motion.a
+    <footer className="bg-gradient-to-br from-orange-50/80 via-white to-purple-50/80 text-gray-800 py-12 sm:py-16 mt-24 border-t border-orange-100/50">
+      <div className="w-full transition-all duration-300 ease-in-out md:ml-[80px] lg:ml-[160px]">
+        <div className="max-w-[calc(100%-2rem)] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
+            {footerSections.map((section, index) => (
+              <motion.div 
                 key={index}
-                href={href}
-                className={`${color} hover:text-orange-500 transition-colors duration-200`}
-                whileHover={{ y: -3, scale: 1.1 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative"
               >
-                <Icon size={24} />
-              </motion.a>
+                <h3 className="text-lg font-semibold mb-6 text-orange-500 inline-block pb-2 border-b-2 border-orange-200">{section.title}</h3>
+                <ul className="space-y-3">
+                  {section.links.map((link, linkIndex) => (
+                    <motion.li 
+                      key={linkIndex}
+                      whileHover={{ x: 5 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      <Link 
+                        href={link.href} 
+                        className="text-gray-600 hover:text-orange-500 transition-all duration-200 flex items-center text-sm lg:text-base group"
+                      >
+                        {link.Icon && <link.Icon className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-200" />}
+                        <span className="border-b border-transparent group-hover:border-orange-300">
+                          {link.text}
+                        </span>
+                      </Link>
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
             ))}
           </div>
-          <div className="text-sm text-gray-500">
-            <span className="text-orange-500 font-medium">Zelisline</span> is a registered trademark of Zelisline, Inc. Copyright © {currentYear} Zelisline, Inc.
-          </div>
-        </motion.div>
+          
+          <motion.div 
+            className="border-t border-orange-200/70 pt-8 mt-8 flex flex-col lg:flex-row justify-between items-center gap-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            <div className="order-1 lg:order-1">
+              <Image 
+                src="/zelisline.svg" 
+                alt="Zelisline Logo" 
+                width={150} 
+                height={50}
+                className="transform hover:scale-105 transition-transform duration-200"
+              />
+            </div>
+            <div className="flex space-x-8 order-2 lg:order-2">
+              {socialIcons.map(({ Icon, href, color }, index) => (
+                <motion.a
+                  key={index}
+                  href={href}
+                  className={`${color} hover:text-orange-500 transition-all duration-200`}
+                  whileHover={{ y: -3, scale: 1.1 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * index }}
+                >
+                  <Icon size={22} className="hover:drop-shadow-md" />
+                </motion.a>
+              ))}
+            </div>
+            <div className="text-sm text-gray-500 order-3 lg:order-3 text-center lg:text-right">
+              <span className="text-orange-500 font-medium">Zelisline</span> is a registered trademark of Zelisline, Inc.<br className="hidden sm:block" /> Copyright {currentYear} Zelisline, Inc.
+            </div>
+          </motion.div>
+        </div>
       </div>
     </footer>
   );

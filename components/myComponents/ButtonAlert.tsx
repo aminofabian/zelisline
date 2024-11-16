@@ -12,38 +12,45 @@ import {
 } from "@/components/ui/alert-dialog";
 
 interface ButtonAlertProps {
-  triggerText: string;
+  triggerText?: string;
   title: string;
-  descriptionComponent: string | React.ReactNode;
+  description?: string;
+  descriptionComponent?: React.ReactNode;
   cancelText: string;
   continueText: string;
+  customTrigger?: React.ReactNode;
 }
 
 const ButtonAlert: React.FC<ButtonAlertProps> = ({
   triggerText,
   title,
+  description,
   descriptionComponent,
   cancelText,
   continueText,
+  customTrigger,
 }) => {
   return (
     <div className="font-normal text-lg">
-    <AlertDialog>
-    <AlertDialogTrigger>{triggerText}</AlertDialogTrigger>
-    <AlertDialogContent>
-    <AlertDialogHeader>
-    <AlertDialogTitle>{title}</AlertDialogTitle>
-    <AlertDialogDescription>{descriptionComponent}</AlertDialogDescription>
-    </AlertDialogHeader>
-    <AlertDialogFooter>
-    <AlertDialogCancel>{cancelText}</AlertDialogCancel>
-    <AlertDialogAction>{continueText}</AlertDialogAction>
-    </AlertDialogFooter>
-    </AlertDialogContent>
-    </AlertDialog>
+      <AlertDialog>
+        <AlertDialogTrigger>
+          {customTrigger || triggerText}
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{title}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {descriptionComponent || description}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{cancelText}</AlertDialogCancel>
+            <AlertDialogAction>{continueText}</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
-    );
-  };
-  
-  export default ButtonAlert;
-  
+  );
+};
+
+export default ButtonAlert;

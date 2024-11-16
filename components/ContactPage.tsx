@@ -40,85 +40,89 @@ const InputField: React.FC<InputFieldProps> = ({
   icon, placeholder, name, value, onChange, type = 'text', as = 'input', options, isActive, onFocus, onBlur 
 }) => (
   <motion.div 
-  className={`flex items-center space-x-4 group ${isActive ? 'bg-orange-50' : ''} rounded-lg p-2 transition-all duration-300`}
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.5 }}
+    className={`flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 group ${
+      isActive ? 'bg-orange-50' : ''
+    } rounded-lg p-4 transition-all duration-300`}
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
   >
-  <motion.div 
-  className={`w-12 h-12 rounded-full flex items-center justify-center ${isActive ? 'bg-orange-500 text-white' : 'bg-orange-100 text-orange-500'} shadow-lg transition-all duration-300`}
-  animate={{ rotate: isActive ? 360 : 0 }}
-  transition={{ duration: 0.5 }}
-  >
-  {React.cloneElement(icon, { size: 24 })}
-  </motion.div>
-  {as === 'input' && (
-    <motion.input
-    whileFocus={{ scale: 1.02 }}
-    className="flex-grow bg-transparent border-b-2 border-gray-300 focus:border-orange-500 text-lg px-2 py-1 outline-none transition-colors duration-300"
-    type={type}
-    placeholder={placeholder}
-    name={name}
-    value={value}
-    onChange={onChange}
-    onFocus={onFocus}
-    onBlur={onBlur}
-    required
-    />
-  )}
-  {as === 'select' && (
-    <motion.select
-    whileFocus={{ scale: 1.02 }}
-    className="flex-grow bg-transparent border-b-2 border-gray-300 focus:border-orange-500 text-lg px-2 py-1 outline-none appearance-none transition-colors duration-300"
-    name={name}
-    value={value}
-    onChange={onChange}
-    onFocus={onFocus}
-    onBlur={onBlur}
-    required
+    <motion.div 
+      className={`w-12 h-12 rounded-full flex items-center justify-center ${
+        isActive ? 'bg-orange-500 text-white' : 'bg-orange-100 text-orange-500'
+      } shadow-lg transition-all duration-300 flex-shrink-0`}
+      animate={{ rotate: isActive ? 360 : 0 }}
+      transition={{ duration: 0.5 }}
     >
-    <option value="">{placeholder}</option>
-    {options?.map((option, index) => (
-      <option key={index} value={option}>{option}</option>
-    ))}
-    </motion.select>
-  )}
-  {as === 'textarea' && (
-    <motion.textarea
-    whileFocus={{ scale: 1.02 }}
-    className="flex-grow bg-transparent border-b-2 border-gray-300 focus:border-orange-500 text-lg px-2 py-1 outline-none resize-none transition-colors duration-300"
-    placeholder={placeholder}
-    name={name}
-    value={value}
-    onChange={onChange}
-    onFocus={onFocus}
-    onBlur={onBlur}
-    rows={3}
-    required
-    />
-  )}
+      {React.cloneElement(icon, { size: 24 })}
+    </motion.div>
+    {as === 'input' && (
+      <motion.input
+        whileFocus={{ scale: 1.02 }}
+        className="w-full bg-transparent border-b-2 border-gray-300 focus:border-orange-500 text-base sm:text-lg px-2 py-1 outline-none transition-colors duration-300"
+        type={type}
+        placeholder={placeholder}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        required
+      />
+    )}
+    {as === 'select' && (
+      <motion.select
+        whileFocus={{ scale: 1.02 }}
+        className="w-full bg-transparent border-b-2 border-gray-300 focus:border-orange-500 text-base sm:text-lg px-2 py-1 outline-none appearance-none transition-colors duration-300"
+        name={name}
+        value={value}
+        onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        required
+      >
+        <option value="">{placeholder}</option>
+        {options?.map((option, index) => (
+          <option key={index} value={option}>{option}</option>
+        ))}
+      </motion.select>
+    )}
+    {as === 'textarea' && (
+      <motion.textarea
+        whileFocus={{ scale: 1.02 }}
+        className="w-full bg-transparent border-b-2 border-gray-300 focus:border-orange-500 text-base sm:text-lg px-2 py-1 outline-none resize-none transition-colors duration-300 min-h-[100px]"
+        placeholder={placeholder}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        rows={3}
+        required
+      />
+    )}
   </motion.div>
 );
 
 const RoleSelector: React.FC<{ role: string; onChange: (role: FormData['role']) => void }> = ({ role, onChange }) => (
-  <div className="flex flex-wrap justify-center gap-4 mb-8">
-  {['client', 'writer', 'partner'].map((r) => (
-    <motion.button
-    key={r}
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
-    className={`px-4 py-2 rounded-full flex items-center space-x-2 ${
-      role === r ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-700'
-    }`}
-    onClick={() => onChange(r as FormData['role'])}
-    type="button"
-    >
-    {r === 'client' && <UserCircle size={20} />}
-    {r === 'writer' && <Users size={20} />}
-    {r === 'partner' && <HeartHandshakeIcon size={20} />}
-    <span className="capitalize">{r}</span>
-    </motion.button>
-  ))}
+  <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+    {['client', 'writer', 'partner'].map((r) => (
+      <motion.button
+        key={r}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className={`px-3 sm:px-4 py-2 rounded-full flex items-center space-x-2 text-sm sm:text-base ${
+          role === r ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-700'
+        }`}
+        onClick={() => onChange(r as FormData['role'])}
+        type="button"
+      >
+        {r === 'client' && <UserCircle size={18} />}
+        {r === 'writer' && <Users size={18} />}
+        {r === 'partner' && <HeartHandshakeIcon size={18} />}
+        <span className="capitalize">{r}</span>
+      </motion.button>
+    ))}
   </div>
 );
 
@@ -194,156 +198,155 @@ const ContactForm: React.FC = () => {
   }, [formData.message]);
   
   return (
-    <section className="bg-gradient-to-b from-white to-gray-50 py-12 sm:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-    <div className="container mx-auto max-w-4xl relative">
-    <motion.div 
-    className="absolute top-0 left-1/2 w-96 h-96 bg-orange-100 rounded-full mix-blend-multiply filter blur-xl opacity-70"
-    animate={{ 
-      x: [0, 50, -50, 0],
-      y: [0, -50, 50, 0],
-    }}
-    transition={{ 
-      repeat: Infinity, 
-      duration: 10,
-      ease: "easeInOut"
-    }}
-    ></motion.div>     
-    <motion.div 
-    className="absolute top-0 -right-4 w-96 h-96 bg-yellow-100 rounded-full mix-blend-multiply filter blur-xl opacity-70"
-    animate={{ 
-      x: [0, -50, 50, 0],
-      y: [0, 50, -50, 0],
-    }}
-    transition={{ 
-      repeat: Infinity, 
-      duration: 15,
-      ease: "easeInOut"
-    }}
-    ></motion.div>    
-    <motion.div 
-    className="relative bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-3xl shadow-xl p-4 sm:p-8"
-    initial={{ opacity: 0, y: 50 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-    >
-    <EnhancedHeader />
-    
-    <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
-    <RoleSelector role={formData.role} onChange={handleRoleChange} />
-    
-    <InputField
-    icon={<User />}
-    placeholder="Your Name"
-    name="name"
-    value={formData.name}
-    onChange={handleInputChange}
-    isActive={activeField === 'name'}
-    onFocus={() => setActiveField('name')}
-    onBlur={() => setActiveField(null)}
-    />
-    <InputField
-    icon={<Briefcase />}
-    placeholder="Select Service"
-    name="service"
-    value={formData.service}
-    onChange={handleInputChange}
-    as="select"
-    options={['Content Writing', 'Editing & Proofreading', 'Content Strategy', 'SEO Optimization', 'AI Checker', 'AI Idea Generator', 'Writing Jobs', 'Other']}
-    isActive={activeField === 'service'}
-    onFocus={() => setActiveField('service')}
-    onBlur={() => setActiveField(null)}
-    />
-    <InputField
-    icon={<Mail />}
-    placeholder="Your Email"
-    name="email"
-    value={formData.email}
-    onChange={handleInputChange}
-    type="email"
-    isActive={activeField === 'email'}
-    onFocus={() => setActiveField('email')}
-    onBlur={() => setActiveField(null)}
-    />
-    <InputField
-    icon={<MessageSquare />}
-    placeholder="Tell us about your project..."
-    name="message"
-    value={formData.message}
-    onChange={handleInputChange}
-    as="textarea"
-    isActive={activeField === 'message'}
-    onFocus={() => setActiveField('message')}
-    onBlur={() => setActiveField(null)}
-    />
-    
-    <motion.div className="flex items-center space-x-2">
-    <input
-    type="checkbox"
-    id="terms"
-    name="termsAccepted"
-    checked={formData.termsAccepted}
-    onChange={handleInputChange}
-    className="form-checkbox h-5 w-5 text-orange-500 rounded-full"
-    required
-    />
-    <label htmlFor="terms" className="text-sm text-gray-700">
-    I hereby accept all terms and conditions.
-    </label>
-    </motion.div>
-    
-    <motion.button
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
-    type="submit"
-    className="w-full bg-orange-500 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300 flex items-center justify-center space-x-2"
-    disabled={isSubmitting}
-    >
-    {isSubmitting ? (
-      <motion.div
-      animate={{ rotate: 360 }}
-      transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-      >
-      <Send size={20} />
-      </motion.div>
-    ) : (
-      <>
-      <span>Send Enquiry</span>
-      <Send size={20} />
-      </>
-    )}
-    </motion.button>
-    </form>
-    
-    <AnimatePresence>
-    {submitStatus && (
-      <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.3 }}
-      className={`mt-4 p-3 rounded-lg flex items-center justify-center space-x-2 ${
-        submitStatus.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-      }`}
-      >
-      {submitStatus.type === 'success' ? (
-        <>
-        <Check size={20} />
-        <span>{submitStatus.message}</span>
-        </>
-      ) : (
-        <>
-        <X size={20} />
-        <span>{submitStatus.message}</span>
-        </>
-      )}
-      </motion.div>
-    )}
-    </AnimatePresence>
-    </motion.div>
-    </div>
+    <section className="bg-gradient-to-b from-white to-gray-50 py-4 sm:py-16 lg:py-24 px-1 sm:px-6 lg:px-8 min-h-screen flex items-center justify-center">
+      <div className="w-[98%] sm:container sm:mx-auto sm:max-w-4xl relative">
+        <motion.div 
+          className="absolute top-0 left-1/2 w-64 sm:w-96 h-64 sm:h-96 bg-orange-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 -translate-x-1/2"
+          animate={{ 
+            x: [0, 50, -50, 0],
+            y: [0, -50, 50, 0]
+          }}
+          transition={{ 
+            repeat: Infinity, 
+            duration: 10,
+            ease: "easeInOut"
+          }}
+        ></motion.div>     
+        <motion.div 
+          className="absolute top-0 -right-4 w-64 sm:w-96 h-64 sm:h-96 bg-yellow-100 rounded-full mix-blend-multiply filter blur-xl opacity-70"
+          animate={{ 
+            x: [0, -50, 50, 0],
+            y: [0, 50, -50, 0]
+          }}
+          transition={{ 
+            repeat: Infinity, 
+            duration: 15,
+            ease: "easeInOut"
+          }}
+        ></motion.div>    
+        <motion.div 
+          className="relative bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-lg sm:rounded-3xl shadow-xl p-3 sm:p-6 lg:p-8 w-full"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <EnhancedHeader />
+          
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 lg:space-y-8 mt-6 sm:mt-8">
+            <RoleSelector role={formData.role} onChange={handleRoleChange} />
+            
+            <InputField
+              icon={<User />}
+              placeholder="Your Name"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              isActive={activeField === 'name'}
+              onFocus={() => setActiveField('name')}
+              onBlur={() => setActiveField(null)}
+            />
+            <InputField
+              icon={<Briefcase />}
+              placeholder="Select Service"
+              name="service"
+              value={formData.service}
+              onChange={handleInputChange}
+              as="select"
+              options={['Content Writing', 'Editing & Proofreading', 'Content Strategy', 'SEO Optimization', 'AI Checker', 'AI Idea Generator', 'Writing Jobs', 'Other']}
+              isActive={activeField === 'service'}
+              onFocus={() => setActiveField('service')}
+              onBlur={() => setActiveField(null)}
+            />
+            <InputField
+              icon={<Mail />}
+              placeholder="Your Email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              type="email"
+              isActive={activeField === 'email'}
+              onFocus={() => setActiveField('email')}
+              onBlur={() => setActiveField(null)}
+            />
+            <InputField
+              icon={<MessageSquare />}
+              placeholder="Tell us about your project..."
+              name="message"
+              value={formData.message}
+              onChange={handleInputChange}
+              as="textarea"
+              isActive={activeField === 'message'}
+              onFocus={() => setActiveField('message')}
+              onBlur={() => setActiveField(null)}
+            />
+            
+            <motion.div className="flex items-start sm:items-center space-x-3">
+              <input
+                type="checkbox"
+                id="terms"
+                name="termsAccepted"
+                checked={formData.termsAccepted}
+                onChange={handleInputChange}
+                className="form-checkbox h-5 w-5 text-orange-500 rounded-full mt-1 sm:mt-0"
+                required
+              />
+              <label htmlFor="terms" className="text-sm sm:text-base text-gray-700">
+                I hereby accept all terms and conditions.
+              </label>
+            </motion.div>
+            
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              type="submit"
+              className="w-full bg-orange-500 text-white px-6 py-3 rounded-full text-base sm:text-lg font-semibold hover:bg-orange-600 transition duration-300 flex items-center justify-center space-x-2 mt-6"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                >
+                  <Send size={20} />
+                </motion.div>
+              ) : (
+                <>
+                  <span>Send Enquiry</span>
+                  <Send size={20} />
+                </>
+              )}
+            </motion.button>
+          </form>
+          
+          <AnimatePresence>
+            {submitStatus && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className={`mt-4 p-3 rounded-lg flex items-center justify-center space-x-2 text-sm sm:text-base ${
+                  submitStatus.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                }`}
+              >
+                {submitStatus.type === 'success' ? (
+                  <>
+                    <Check size={18} className="flex-shrink-0" />
+                    <span>{submitStatus.message}</span>
+                  </>
+                ) : (
+                  <>
+                    <X size={18} className="flex-shrink-0" />
+                    <span>{submitStatus.message}</span>
+                  </>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </div>
     </section>
   );
 };
 
 export default ContactForm;
-

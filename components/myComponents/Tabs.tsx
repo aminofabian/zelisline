@@ -55,48 +55,48 @@ export function TabsDemo() {
   ];
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-teal-50 py-16 px-4 sm:px-6 lg:px-8">
-    <div className="max-w-6xl mx-auto">
-    <motion.h2 
-    className="text-4xl font-bold text-center mb-12 text-gray-800"
-    initial={{ opacity: 0, y: -20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-    >
-    Browse Our <span className="text-orange-500">FAQs</span>
-    </motion.h2>
-    <Tabs tabs={tabs} />
-    </div>
+    <div className="bg-gradient-to-br from-orange-50 via-white to-orange-50/30 py-4 px-1 sm:px-6 lg:px-8">
+      <div className="w-[98%] sm:container mx-auto sm:max-w-6xl">
+        <motion.h2 
+          className="text-2xl sm:text-4xl font-bold text-center mb-4 text-gray-800"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          Browse Our <span className="text-orange-500">FAQs</span>
+        </motion.h2>
+        <Tabs 
+          tabs={tabs}
+          containerClassName="mb-2"
+          contentClassName="relative z-10"
+        />
+      </div>
     </div>
   );
 }
 
 const FAQSection: React.FC<{ title: string; items: any[] }> = ({ title, items }) => (
   <motion.div 
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  exit={{ opacity: 0, y: -20 }}
-  transition={{ duration: 0.5 }}
-  className="bg-white rounded-2xl shadow-lg p-6 md:p-8"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+    transition={{ duration: 0.5 }}
+    className="bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-lg p-3 sm:p-6 w-full relative"
   >
-  <h3 className="text-2xl md:text-3xl font-bold mb-6 text-orange-500">{title}</h3>
-  <MyAccordion items={items} />
+    <h3 className="text-xl sm:text-3xl font-semibold mb-3 text-orange-500 px-2">{title}</h3>
+    <div className="relative">
+      <MyAccordion items={items} />
+    </div>
   </motion.div>
 );
 
 // Custom tab component to include icons
-const CustomTab: React.FC<{ title: string }> = ({ title }) => {
-  const isValidTitle = (t: string): t is TabTitle => t in tabIcons;
-  
-  if (isValidTitle(title)) {
-    const Icon = tabIcons[title];
-    return (
-      <div className="flex items-center space-x-2">
-      <Icon className="w-5 h-5" />
-      <span>{title}</span>
-      </div>
-    );
-  }
-  
-  return <span>{title}</span>;
+const CustomTab = ({ title }: { title: TabTitle }) => {
+  const Icon = tabIcons[title];
+  return (
+    <div className="flex items-center space-x-2 relative z-10">
+      <Icon className="w-4 h-4 text-orange-500 group-hover:text-white transition-colors duration-300" />
+      <span className="transition-colors duration-300">{title}</span>
+    </div>
+  );
 };

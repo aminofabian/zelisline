@@ -1,10 +1,15 @@
 import type { Metadata } from 'next';
-import { Jost } from 'next/font/google';
+import { Inter, Caveat } from 'next/font/google';
 import './globals.css';
 import { GoogleTagManager} from '@next/third-parties/google'
 import { Toaster } from "@/components/ui/toaster"
 
-const inter = Jost({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] })
+const caveat = Caveat({ 
+  subsets: ['latin'],
+  variable: '--font-caveat',
+})
+
 export const metadata: Metadata = {
   title: {
     default: "Software Development and Digital Marketing Agency Kenya || Zelisline",
@@ -27,7 +32,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-    <body className={inter.className}>{children}
+    <body className={`${inter.className} ${caveat.variable}`}>{children}
     <Toaster />
     </body>
     <GoogleTagManager gtmId="GTM-VHVH004Y49" />
