@@ -1,11 +1,21 @@
-'use client';
+'use client'
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle, ChevronRight, Sparkles } from "lucide-react";
 import ButtonAlert from "./myComponents/ButtonAlert";
 import { WritingPen } from "./myComponents/WritingPen";
 
-export const ShuffleHero = () => {
+interface ShuffleHeroProps {
+  subTitle: string;
+  title: string;
+  bgImage: string;
+  buttons: {
+    link: string;
+    text: string;
+  }[];
+}
+
+export default function ShuffleHero({ subTitle, title, bgImage, buttons }: ShuffleHeroProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -395,6 +405,4 @@ export const ShuffleHero = () => {
       </div>
     </section>
   );
-};
-
-export default ShuffleHero;
+}
