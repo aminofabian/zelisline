@@ -1,18 +1,21 @@
+'use client';
+
 import ContactPage from '@/components/ContactPage';
-import ShuffleHero from '@/components/ShuffleHero';
+import { ShuffleHero } from "@/components/ShuffleHero";
 import Services from '@/components/Services';
 import SideNav from '@/components/SideNav';
 import * as items from '@/data/faq';
 import MyAccordion from '@/components/myComponents/MyAccordion';
 import DigitalMarketingPricing from '@/components/pricing/DigitalMarketingPricing';
 import FooterRev from '@/components/FooterRev';
+import DigitalMarketing from "@/components/DigitalMarketing";
 
 
 
 export default function HomePage() {
   const buttons = [
-    { link: "/blog", text: "Write Us" },
-    { link: "/contact", text: "Get a Free SEO Audit" },
+    { link: "/contact", text: "Get Started" },
+    { link: "/portfolio", text: "View Portfolio" },
   ];
   
   return (
@@ -43,6 +46,9 @@ export default function HomePage() {
     />
     </div>
     <div>
+    <DigitalMarketing />
+    </div>
+    <div>
     <ContactPage />
     </div>
     <FooterRev />
@@ -51,5 +57,3 @@ export default function HomePage() {
     </>
   )
 }
-
-

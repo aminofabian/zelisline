@@ -5,7 +5,22 @@ import { ArrowRight, CheckCircle, ChevronRight, Sparkles } from "lucide-react";
 import ButtonAlert from "./myComponents/ButtonAlert";
 import { WritingPen } from "./myComponents/WritingPen";
 
-export const ShuffleHero = () => {
+interface ShuffleHeroProps {
+  subTitle?: string;
+  title?: string;
+  bgImage?: string;
+  buttons?: Array<{
+    link: string;
+    text: string;
+  }>;
+}
+
+export const ShuffleHero = ({ 
+  subTitle = "Transform Your Digital Presence",
+  title = "Web Development & Digital Marketing Agency in Kenya",
+  bgImage = "/bg.jpg",
+  buttons = []
+}: ShuffleHeroProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -51,7 +66,7 @@ export const ShuffleHero = () => {
               <div className="flex items-center space-x-2">
                 <Sparkles className="w-5 h-5 text-orange-500" />
                 <span className="text-sm sm:text-base font-medium text-orange-700">
-                  Transform Your Digital Presence
+                  {subTitle}
                 </span>
               </div>
             </motion.div>
@@ -68,7 +83,7 @@ export const ShuffleHero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-              Web Development & Digital Marketing Agency in Kenya
+              {title}
               </motion.h1>
 
               <WritingPen texts={writingTexts} />
