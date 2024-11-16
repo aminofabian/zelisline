@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle, ChevronRight, Sparkles } from "lucide-react";
 import ButtonAlert from "./myComponents/ButtonAlert";
 import { WritingPen } from "./myComponents/WritingPen";
+import ProjectInquiryModal from './ProjectInquiryModal';
 
 interface ShuffleHeroProps {
   subTitle?: string;
@@ -18,10 +19,9 @@ interface ShuffleHeroProps {
 export const ShuffleHero = ({ 
   subTitle = "Transform Your Digital Presence",
   title = "Web Development & Digital Marketing Agency in Kenya",
-  bgImage = "/bg.jpg",
-  buttons = []
 }: ShuffleHeroProps) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -114,11 +114,11 @@ export const ShuffleHero = ({
                 </div>
                 <div className="flex flex-col items-center p-4 bg-white/50 rounded-xl backdrop-blur-sm border border-orange-100">
                   <span className="text-3xl font-bold text-orange-500">50+</span>
-                  <span className="text-sm text-slate-600">Marketed</span>
+                  <span className="text-sm text-slate-600">Marketed Businesses</span>
                 </div>
                 <div className="flex flex-col items-center p-4 bg-white/50 rounded-xl backdrop-blur-sm border border-orange-100">
-                  <span className="text-3xl font-bold text-orange-500">95%</span>
-                  <span className="text-sm text-slate-600">Client Satisfaction</span>
+                  <span className="text-3xl font-bold text-orange-500">99%</span>
+                  <span className="text-xs text-slate-600">Client Satisfaction</span>
                 </div>
               </motion.div>
 
@@ -128,23 +128,15 @@ export const ShuffleHero = ({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <ButtonAlert
-                  triggerText="Get Started"
-                  title="Ready to Transform Your Business?"
-                  description="Let's discuss your project and create something amazing together."
-                  cancelText="Not yet"
-                  continueText="Let's Begin!"
-                  customTrigger={
-                    <motion.button 
-                      className="px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-400 text-white rounded-xl font-semibold flex items-center space-x-2 hover:shadow-lg hover:shadow-orange-200/50 transition-all duration-300 group"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <span>Start Your Project</span>
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </motion.button>
-                  }
-                />
+                <motion.button 
+                  className="px-8 py-4 bg-gradient-to-r from-orange-600 to-orange-400 text-white rounded-xl font-semibold flex items-center space-x-2 hover:shadow-lg hover:shadow-orange-200/50 transition-all duration-300 group"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  <span>Start Your Project</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </motion.button>
                 
                 <motion.button 
                   className="px-8 py-4 bg-white text-gray-900 rounded-xl font-semibold flex items-center space-x-2 hover:bg-gray-50 transition-all duration-300 group border border-gray-200"
@@ -409,6 +401,11 @@ export const ShuffleHero = ({
           </motion.div>
         </div>
       </div>
+      {/* Project Inquiry Modal */}
+      <ProjectInquiryModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </section>
   );
 };
