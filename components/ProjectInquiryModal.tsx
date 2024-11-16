@@ -1,321 +1,303 @@
-'use client';
-
+import { Dialog } from '@headlessui/react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
-import React, { useState } from 'react';
-import { toast } from "@/components/ui/use-toast";
+import { useState } from 'react';
+import SimpleCaptcha from './SimpleCaptcha';
+import { X, Loader2 } from 'lucide-react';
+import { useToast } from "@/components/ui/use-toast";
 
 interface ProjectInquiryModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const budgetRanges = [
-  'KES 25,000 - 50,000',
-  'KES 50,000 - 100,000',
-  'KES 100,000 - 250,000',
-  'KES 250,000+',
-];
-
-const timeframes = [
-  'As soon as possible',
-  'Within 1 month',
-  'Within 3 months',
-  'Flexible',
-];
-
-const ProjectInquiryModal = ({ isOpen, onClose }: ProjectInquiryModalProps) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({ isOpen, onClose }) => {
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    projectDescription: '',
-    budget: '',
-    timeframe: '',
+    company: '',
+    projectDetails: '',
   });
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+
+  const validateForm = () => {
+    const errors: Record<string, string> = {};
+    
+    if (!formData.name.trim()) errors.name = 'Name is required';
+    if (!formData.email.trim()) {
+      errors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = 'Please enter a valid email';
+    }
+    if (!formData.projectDetails.trim()) errors.projectDetails = 'Project details are required';
+    if (!isCaptchaValid) errors.captcha = 'Please complete the captcha verification';
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Check if required fields are filled
-    if (!formData.name || !formData.email || !formData.projectDescription || !formData.budget || !formData.timeframe) {
+    if (!isCaptchaValid) {
       toast({
-        title: "Please fill in all required fields",
-        description: "Make sure to complete all required fields before submitting your inquiry.",
-        variant: "destructive"
+        title: "⚠️ Verification Required",
+        description: "Please complete the captcha verification before submitting.",
+        variant: "destructive",
+        duration: 3000,
       });
       return;
     }
 
-    setIsSubmitting(true);
+    if (!validateForm()) {
+      toast({
+        title: "⚠️ Form Incomplete",
+        description: "Please fill in all required fields correctly.",
+        variant: "destructive",
+        duration: 3000,
+      });
+      return;
+    }
 
+    setIsLoading(true);
     try {
-      const response = await fetch("/api/submit-project-inquiry", {
-        method: "POST",
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
-        toast({
-          title: "Project Inquiry Submitted Successfully",
-          description: "Thank you for your inquiry! We'll get back to you as soon as possible.",
-          variant: "default"
-        });
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          projectDescription: '',
-          budget: '',
-          timeframe: '',
-        });
-        onClose();
-      } else {
-        const errorData = await response.json();
-        toast({
-          title: "Submission Failed",
-          description: errorData.error || "Failed to submit your inquiry. Please try again later.",
-          variant: "destructive"
-        });
+      if (!response.ok) {
+        throw new Error('Failed to send email');
       }
+
+      toast({
+        title: "✨ Success!",
+        description: (
+          <div className="flex flex-col space-y-2">
+            <p>Thank you for your project inquiry!</p>
+            <p className="text-sm text-gray-500">
+              We've received your message and will get back to you within 24-48 hours.
+            </p>
+          </div>
+        ),
+        className: "bg-gradient-to-r from-green-50 to-emerald-50 border-green-200",
+        duration: 5000,
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        projectDetails: '',
+      });
+      setIsCaptchaValid(false);
+      onClose();
     } catch (error) {
       toast({
-        title: "Error",
-        description: "An error occurred while submitting your inquiry. Please try again later.",
-        variant: "destructive"
+        title: "❌ Error",
+        description: (
+          <div className="flex flex-col space-y-2">
+            <p>Failed to send your inquiry.</p>
+            <p className="text-sm text-red-500">
+              Please try again or contact us directly at zelisline@gmail.com
+            </p>
+          </div>
+        ),
+        variant: "destructive",
+        duration: 5000,
       });
-      console.error('Form submission error:', error);
     } finally {
-      setIsSubmitting(false);
+      setIsLoading(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (formErrors[name]) {
+      setFormErrors(prev => ({ ...prev, [name]: '' }));
+    }
   };
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <Dialog
+          as={motion.div}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/50 backdrop-blur-sm"
-          onClick={onClose}
+          className="fixed inset-0 z-50 overflow-y-auto"
+          onClose={onClose}
+          open={isOpen}
         >
-          <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.95, opacity: 0 }}
-            onClick={e => e.stopPropagation()}
-            className="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden"
-          >
-            <div className="relative p-6 sm:p-8">
-              {/* Close Button */}
-              <button
-                onClick={onClose}
-                className="absolute top-4 right-4 p-2 rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                <X className="w-5 h-5 text-gray-500" />
-              </button>
+          <div className="min-h-screen px-4 text-center">
+            <Dialog.Overlay
+              as={motion.div}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/40"
+            />
 
-              {/* Header */}
-              <div className="mb-6">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Tell Us About Your Project</h2>
-                <p className="text-gray-600">Help us understand your vision better</p>
+            <span className="inline-block h-screen align-middle" aria-hidden="true">&#8203;</span>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="relative inline-block w-full max-w-2xl p-6 my-8 overflow-hidden text-left align-middle bg-white shadow-xl rounded-2xl"
+            >
+              <div className="absolute top-4 right-4">
+                <button
+                  onClick={onClose}
+                  className="p-2 text-gray-400 hover:text-gray-500 rounded-full hover:bg-gray-100 transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
 
-              {/* Form */}
+              <Dialog.Title as="h3" className="text-2xl font-semibold leading-6 text-gray-900 mb-8">
+                Start Your Project
+              </Dialog.Title>
+
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Name */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {/* Name Field */}
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                      Name
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Name *
                     </label>
                     <input
                       type="text"
-                      id="name"
                       name="name"
                       value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+                      onChange={handleInputChange}
+                      className={`w-full px-4 py-3 rounded-lg border ${
+                        formErrors.name ? 'border-red-500' : 'border-gray-300'
+                      } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors`}
                       placeholder="Your name"
                     />
+                    {formErrors.name && (
+                      <p className="mt-1 text-sm text-red-500">{formErrors.name}</p>
+                    )}
                   </div>
 
-                  {/* Email */}
+                  {/* Email Field */}
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                      Email
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Email *
                     </label>
                     <input
                       type="email"
-                      id="email"
                       name="email"
                       value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+                      onChange={handleInputChange}
+                      className={`w-full px-4 py-3 rounded-lg border ${
+                        formErrors.email ? 'border-red-500' : 'border-gray-300'
+                      } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors`}
                       placeholder="your@email.com"
+                    />
+                    {formErrors.email && (
+                      <p className="mt-1 text-sm text-red-500">{formErrors.email}</p>
+                    )}
+                  </div>
+
+                  {/* Phone Field */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors"
+                      placeholder="Your phone number"
+                    />
+                  </div>
+
+                  {/* Company Field */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Company
+                    </label>
+                    <input
+                      type="text"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors"
+                      placeholder="Your company name"
                     />
                   </div>
                 </div>
 
-                {/* Phone */}
+                {/* Project Details Field */}
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
-                    placeholder="Your phone number"
-                  />
-                </div>
-
-                {/* Project Description */}
-                <div>
-                  <label htmlFor="projectDescription" className="block text-sm font-medium text-gray-700 mb-1">
-                    Project Description
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Project Details *
                   </label>
                   <textarea
-                    id="projectDescription"
-                    name="projectDescription"
-                    value={formData.projectDescription}
-                    onChange={handleChange}
-                    required
+                    name="projectDetails"
+                    value={formData.projectDetails}
+                    onChange={handleInputChange}
                     rows={4}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors resize-none"
+                    className={`w-full px-4 py-3 rounded-lg border ${
+                      formErrors.projectDetails ? 'border-red-500' : 'border-gray-300'
+                    } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors`}
                     placeholder="Tell us about your project..."
                   />
+                  {formErrors.projectDetails && (
+                    <p className="mt-1 text-sm text-red-500">{formErrors.projectDetails}</p>
+                  )}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Budget Range */}
-                  <div>
-                    <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-1">
-                      Budget Range
-                    </label>
-                    <select
-                      id="budget"
-                      name="budget"
-                      value={formData.budget}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors appearance-none bg-white"
-                    >
-                      <option value="">Select budget range</option>
-                      {budgetRanges.map((range) => (
-                        <option key={range} value={range}>
-                          {range}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* Timeframe */}
-                  <div>
-                    <label htmlFor="timeframe" className="block text-sm font-medium text-gray-700 mb-1">
-                      Desired Timeframe
-                    </label>
-                    <select
-                      id="timeframe"
-                      name="timeframe"
-                      value={formData.timeframe}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors appearance-none bg-white"
-                    >
-                      <option value="">Select timeframe</option>
-                      {timeframes.map((time) => (
-                        <option key={time} value={time}>
-                          {time}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                {/* Captcha */}
+                <div className="mt-6">
+                  <SimpleCaptcha onValidate={setIsCaptchaValid} />
+                  {formErrors.captcha && (
+                    <p className="mt-1 text-sm text-red-500">{formErrors.captcha}</p>
+                  )}
                 </div>
 
                 {/* Submit Button */}
-                <motion.button
-                  type="submit"
-                  disabled={isSubmitting}
-                  whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                  whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                  className={`w-full py-3 bg-gradient-to-r relative overflow-hidden ${
-                    isSubmitting 
-                      ? 'from-orange-400 to-orange-300 cursor-not-allowed' 
-                      : 'from-orange-600 to-orange-400 hover:shadow-lg hover:shadow-orange-200/50'
-                  } text-white rounded-lg font-semibold transition-all duration-300`}
-                >
-                  <div className="relative flex items-center justify-center">
-                    <span className={`transition-opacity duration-200 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
-                      Submit Inquiry
-                    </span>
-                    {isSubmitting && (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="flex gap-1">
-                          <motion.div
-                            className="w-2 h-2 bg-white rounded-full"
-                            animate={{
-                              y: ["0%", "-50%", "0%"],
-                            }}
-                            transition={{
-                              duration: 0.6,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                              delay: 0,
-                            }}
-                          />
-                          <motion.div
-                            className="w-2 h-2 bg-white rounded-full"
-                            animate={{
-                              y: ["0%", "-50%", "0%"],
-                            }}
-                            transition={{
-                              duration: 0.6,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                              delay: 0.2,
-                            }}
-                          />
-                          <motion.div
-                            className="w-2 h-2 bg-white rounded-full"
-                            animate={{
-                              y: ["0%", "-50%", "0%"],
-                            }}
-                            transition={{
-                              duration: 0.6,
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                              delay: 0.4,
-                            }}
-                          />
-                        </div>
-                      </div>
+                <div className="mt-8">
+                  <button
+                    type="submit"
+                    disabled={!isCaptchaValid || isLoading}
+                    className={`w-full px-6 py-4 text-white rounded-lg text-lg font-semibold transition-all transform hover:scale-[1.02] ${
+                      isCaptchaValid && !isLoading
+                        ? 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-lg hover:shadow-xl'
+                        : 'bg-gray-300 cursor-not-allowed'
+                    }`}
+                  >
+                    {isLoading ? (
+                      <span className="flex items-center justify-center">
+                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                        Sending...
+                      </span>
+                    ) : isCaptchaValid ? (
+                      'Submit Project Inquiry'
+                    ) : (
+                      'Please Complete Verification'
                     )}
-                  </div>
-                </motion.button>
+                  </button>
+                </div>
               </form>
-            </div>
-          </motion.div>
-        </motion.div>
+            </motion.div>
+          </div>
+        </Dialog>
       )}
     </AnimatePresence>
   );

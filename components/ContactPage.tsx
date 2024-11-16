@@ -4,7 +4,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Briefcase, Mail, MessageSquare, Send, Check, X, Building2, Users2, HandIcon } from 'lucide-react';
 import { EnhancedHeader } from './EnhancedHeader';
-import { toast } from "@/components/ui/use-toast";
+import SimpleCaptcha from './SimpleCaptcha';
+import { useToast } from "@/components/ui/use-toast";
+
 
 interface FormData {
   role: 'business' | 'individual' | 'agency' | '';
@@ -139,14 +141,36 @@ const ContactForm: React.FC = () => {
   const [activeField, setActiveField] = useState<keyof FormData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus | null>(null);
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const messageRef = useRef<HTMLTextAreaElement>(null);
-  
+  const { toast } = useToast();
+
+  const validateForm = () => {
+    const errors: Record<string, string> = {};
+    
+    if (!formData.name.trim()) errors.name = 'Name is required';
+    if (!formData.email.trim()) {
+      errors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = 'Please enter a valid email';
+    }
+    if (!formData.message.trim()) errors.message = 'Message is required';
+    if (!isCaptchaValid) errors.captcha = 'Please complete the captcha verification';
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
     }));
+    if (formErrors[name]) {
+      setFormErrors(prev => ({ ...prev, [name]: '' }));
+    }
   };
   
   const handleRoleChange = (role: FormData['role']) => {
@@ -155,8 +179,28 @@ const ContactForm: React.FC = () => {
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     
+    if (!isCaptchaValid) {
+      toast({
+        title: "⚠️ Verification Required",
+        description: "Please complete the captcha verification before submitting.",
+        variant: "destructive",
+        duration: 3000,
+      });
+      return;
+    }
+
+    if (!validateForm()) {
+      toast({
+        title: "⚠️ Form Incomplete",
+        description: "Please fill in all required fields correctly.",
+        variant: "destructive",
+        duration: 3000,
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
     try {
       const response = await fetch('/api/submit-contact-form', {
         method: 'POST',
@@ -303,7 +347,15 @@ const ContactForm: React.FC = () => {
                 I hereby accept all terms and conditions.
               </label>
             </motion.div>
-            
+
+            {/* Captcha */}
+            <div className="mt-8">
+              <SimpleCaptcha onValidate={setIsCaptchaValid} />
+              {formErrors.captcha && (
+                <p className="mt-1 text-sm text-red-500">{formErrors.captcha}</p>
+              )}
+            </div>
+
             <motion.button
               whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
               whileTap={{ scale: isSubmitting ? 1 : 0.98 }}

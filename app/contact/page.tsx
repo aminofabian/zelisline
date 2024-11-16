@@ -5,68 +5,122 @@ import SideNav from "@/components/SideNav";
 import Footer from "@/components/Footer";
 import React, { useState } from 'react'; 
 import 'reactjs-popup/dist/index.css';
-import { toast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, ArrowRight, Loader2 } from 'lucide-react';
 import Lottie from 'lottie-react';
 import contactAnimation from '@/public/phone-flow.json';
+import SimpleCaptcha from '@/components/SimpleCaptcha';
 
 function Contact() {
+  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
+  const validateForm = () => {
+    const errors: Record<string, string> = {};
+    
+    if (!formData.name.trim()) errors.name = 'Name is required';
+    if (!formData.email.trim()) {
+      errors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = 'Please enter a valid email';
+    }
+    if (!formData.message.trim()) errors.message = 'Message is required';
+    if (!isCaptchaValid) errors.captcha = 'Please complete the captcha verification';
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!isCaptchaValid) {
       toast({
-        title: "Please fill in all fields",
-        description: "Make sure to complete all fields before submitting your message.",
-        variant: "destructive"
+        title: "⚠️ Verification Required",
+        description: "Please complete the captcha verification before submitting.",
+        variant: "destructive",
+        duration: 3000,
       });
-      setIsSubmitting(false);
       return;
     }
-    
+
+    if (!validateForm()) {
+      toast({
+        title: "⚠️ Form Incomplete",
+        description: "Please fill in all required fields correctly.",
+        variant: "destructive",
+        duration: 3000,
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
-      
-      if (response.status === 200) {
-        toast({
-          title: "Message sent successfully! ",
-          description: "We'll get back to you within 24 hours. Check your email for confirmation.",
-          variant: "default"
-        });
-        setFormData({ name: '', email: '', message: '' });
-      } else {
+
+      if (!response.ok) {
         throw new Error('Failed to send message');
       }
+
+      toast({
+        title: "✨ Success!",
+        description: (
+          <div className="flex flex-col space-y-2">
+            <p>Thank you for your message!</p>
+            <p className="text-sm text-gray-500">
+              We've received your inquiry and will get back to you within 24-48 hours.
+            </p>
+          </div>
+        ),
+        className: "bg-gradient-to-r from-green-50 to-emerald-50 border-green-200",
+        duration: 5000,
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        message: ''
+      });
+      setIsCaptchaValid(false);
     } catch (error) {
       toast({
-        title: "Message not sent",
-        description: "Please try again or contact us directly at zelisline@gmail.com",
-        variant: "destructive"
+        title: "❌ Error",
+        description: (
+          <div className="flex flex-col space-y-2">
+            <p>Failed to send your message.</p>
+            <p className="text-sm text-red-500">
+              Please try again or contact us directly at zelisline@gmail.com
+            </p>
+          </div>
+        ),
+        variant: "destructive",
+        duration: 5000,
       });
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (formErrors[name]) {
+      setFormErrors(prev => ({ ...prev, [name]: '' }));
     }
   };
 
@@ -169,104 +223,89 @@ function Contact() {
                     className="bg-white p-8 rounded-2xl shadow-xl"
                   >
                     <h2 className="text-2xl font-bold mb-6 text-gray-800">Send us a Message</h2>
-                    <form className="space-y-6" onSubmit={handleSubmit}>
-                      <div className="space-y-2">
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
-                        <input 
-                          type="text" 
-                          id="name" 
+                    <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-8">
+                      <div className="mb-6">
+                        <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name *</label>
+                        <input
+                          type="text"
+                          id="name"
                           name="name"
                           value={formData.name}
-                          onChange={handleChange}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300"
+                          onChange={handleInputChange}
+                          className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 ${
+                            formErrors.name ? 'border-red-500' : 'border-gray-300'
+                          }`}
                           placeholder="Your name"
                         />
+                        {formErrors.name && (
+                          <p className="mt-1 text-sm text-red-500">{formErrors.name}</p>
+                        )}
                       </div>
-                      
-                      <div className="space-y-2">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                        <input 
-                          type="email" 
-                          id="email" 
+                      <div className="mb-6">
+                        <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email *</label>
+                        <input
+                          type="email"
+                          id="email"
                           name="email"
                           value={formData.email}
-                          onChange={handleChange}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300"
-                          placeholder="your.email@example.com"
+                          onChange={handleInputChange}
+                          className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 ${
+                            formErrors.email ? 'border-red-500' : 'border-gray-300'
+                          }`}
+                          placeholder="your@email.com"
                         />
+                        {formErrors.email && (
+                          <p className="mt-1 text-sm text-red-500">{formErrors.email}</p>
+                        )}
                       </div>
-                      
-                      <div className="space-y-2">
-                        <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
-                        <textarea 
-                          id="message" 
+                      <div className="mb-6">
+                        <label htmlFor="message" className="block text-gray-700 text-sm font-bold mb-2">Message *</label>
+                        <textarea
+                          id="message"
                           name="message"
                           value={formData.message}
-                          onChange={handleChange}
+                          onChange={handleInputChange}
                           rows={4}
-                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 resize-none"
-                          placeholder="Tell us about your project..."
+                          className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 ${
+                            formErrors.message ? 'border-red-500' : 'border-gray-300'
+                          }`}
+                          placeholder="Your message"
                         />
+                        {formErrors.message && (
+                          <p className="mt-1 text-sm text-red-500">{formErrors.message}</p>
+                        )}
                       </div>
-                      
+
+                      {/* Captcha */}
+                      <div className="mb-6">
+                        <SimpleCaptcha onValidate={setIsCaptchaValid} />
+                        {formErrors.captcha && (
+                          <p className="mt-1 text-sm text-red-500">{formErrors.captcha}</p>
+                        )}
+                      </div>
+
                       <motion.button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className={`w-full relative bg-gradient-to-r ${
-                          isSubmitting 
-                            ? 'from-orange-400 to-orange-300 cursor-not-allowed' 
-                            : 'from-orange-600 to-orange-400 hover:shadow-lg hover:shadow-orange-200/50'
-                        } text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300`}
                         whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                         whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                        disabled={isSubmitting}
+                        type="submit"
+                        className={`w-full flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white ${
+                          isSubmitting
+                            ? 'bg-gray-400 cursor-not-allowed'
+                            : 'bg-orange-600 hover:bg-orange-700'
+                        }`}
                       >
-                        <div className="relative flex items-center justify-center">
-                          <span className={`transition-opacity duration-200 flex items-center gap-2 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
-                            Send Message <ArrowRight size={20} />
+                        {isSubmitting ? (
+                          <span className="flex items-center">
+                            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                            Sending...
                           </span>
-                          {isSubmitting && (
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <div className="flex gap-1">
-                                <motion.div
-                                  className="w-2 h-2 bg-white rounded-full"
-                                  animate={{
-                                    y: ["0%", "-50%", "0%"],
-                                  }}
-                                  transition={{
-                                    duration: 0.6,
-                                    repeat: Infinity,
-                                    ease: "easeInOut",
-                                    delay: 0,
-                                  }}
-                                />
-                                <motion.div
-                                  className="w-2 h-2 bg-white rounded-full"
-                                  animate={{
-                                    y: ["0%", "-50%", "0%"],
-                                  }}
-                                  transition={{
-                                    duration: 0.6,
-                                    repeat: Infinity,
-                                    ease: "easeInOut",
-                                    delay: 0.2,
-                                  }}
-                                />
-                                <motion.div
-                                  className="w-2 h-2 bg-white rounded-full"
-                                  animate={{
-                                    y: ["0%", "-50%", "0%"],
-                                  }}
-                                  transition={{
-                                    duration: 0.6,
-                                    repeat: Infinity,
-                                    ease: "easeInOut",
-                                    delay: 0.4,
-                                  }}
-                                />
-                              </div>
-                            </div>
-                          )}
-                        </div>
+                        ) : (
+                          <span className="flex items-center">
+                            Send Message
+                            <ArrowRight className="ml-2 h-5 w-5" />
+                          </span>
+                        )}
                       </motion.button>
                     </form>
                   </motion.div>

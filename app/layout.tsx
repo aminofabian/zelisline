@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Jost, Caveat } from 'next/font/google';
 import './globals.css';
 import { GoogleTagManager} from '@next/third-parties/google'
-import { Toaster } from "@/components/ui/toaster"
+import  { Toaster } from "@/components/ui/toaster";
 import WhatsAppButton from '@/components/WhatsAppButton';
 
 const inter = Jost({ subsets: ['latin'] })
@@ -34,9 +34,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={caveat.variable}>
       <body className={inter.className}>
-        {children}
-        <Toaster />
-        <WhatsAppButton />
+          {children}
+          <Toaster />
+          <WhatsAppButton />
       </body>
       <GoogleTagManager gtmId="GTM-VHVH004Y49" />
     </html>
