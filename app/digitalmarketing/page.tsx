@@ -1,7 +1,7 @@
 'use client';
 
 import ContactPage from '@/components/ContactPage';
-import { ShuffleHero } from "@/components/ShuffleHero";
+import ShuffleHero  from '@/components/ShuffleHero';
 import Services from '@/components/Services';
 import SideNav from '@/components/SideNav';
 import * as items from '@/data/faq';

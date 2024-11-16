@@ -82,8 +82,8 @@ const Section: React.FC<SectionProps> = ({ children, color = "bg-white" }) => (
 const HomePage = () => {
   const { mainClass, isScrolled } = useScrollWidth();
   const buttons = [
-    { link: "/contact", text: "Write Us" },
-    { link: "/blog", text: "Read our Blog" },
+    { link: "/contact", text: "Get Started" },
+    { link: "/our-work", text: "View  Our Work" },
   ];
   
   return (
