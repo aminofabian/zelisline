@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, ArrowRight, Globe, Briefcase, ShoppingCart, Building, Palette, AlarmClockCheck } from 'lucide-react';
 import { packages } from "@/data/pricing/HomePage";
+import Link from 'next/link';
 
 // Define types for our data structures
 type IconName = keyof typeof iconMap;
@@ -38,6 +39,19 @@ const ButtonAlert: React.FC<ButtonAlertProps> = ({ triggerText, title, descripti
 };
 
 export default function Pricing() {
+  const getPackageLink = (packageName: string) => {
+    switch (packageName) {
+      case 'Personal Website Package (templated)':
+        return '/personal-website-package';
+      case 'Small Business Package (templated)':
+        return '/small-business-package';
+      case 'Enterprise Package (custom)':
+        return '/enterprise-package';
+      default:
+        return '#';
+    }
+  };
+
   return (
     <div className="w-full">
       <motion.div 
@@ -138,7 +152,7 @@ export default function Pricing() {
                 <div className="flex items-baseline">
                   <span className="text-sm sm:text-base font-medium text-gray-900 mr-1">KES</span>
                   <span className="text-4xl sm:text-5xl font-bold text-gray-900">{packageItem.startingPrice * 100}</span>
-                  <span className="text-gray-600 ml-2">/ month</span>
+                  <span className="text-gray-600 ml-2"></span>
                 </div>
               </motion.div>
               
@@ -162,17 +176,19 @@ export default function Pricing() {
                 ))}
               </motion.ul>
               
-              <motion.button
-                className={`w-full py-3 px-4 rounded-xl text-center font-medium transition-all ${
-                  packageItem.name === "Enterprise Package (custom)"
-                    ? 'bg-gradient-to-r from-orange-600 to-orange-400 text-white hover:shadow-lg hover:shadow-orange-200'
-                    : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Get Started
-              </motion.button>
+              <Link href={getPackageLink(packageItem.name)}>
+                <motion.button
+                  className={`w-full py-3 px-4 rounded-xl text-center font-medium transition-all ${
+                    packageItem.name === "Enterprise Package (custom)"
+                      ? 'bg-gradient-to-r from-orange-600 to-orange-400 text-white hover:shadow-lg hover:shadow-orange-200'
+                      : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Get Started
+                </motion.button>
+              </Link>
             </div>
           </motion.div>
         ))}
