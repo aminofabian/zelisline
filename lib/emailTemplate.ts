@@ -142,7 +142,7 @@ export const generateProjectInquiryEmail = (data: ProjectInquiryData) => {
           <div class="header">
             <div class="logo">
               <!-- Replace with your actual logo URL -->
-              <img src="https://zelisline.com/logo.png" alt="Zelisline" />
+              <img src="https://zelisline.com/zelisline.svg" alt="Zelisline" />
             </div>
             <h1>New Project Inquiry</h1>
             <p>We've received a new message from your website</p>
@@ -195,7 +195,7 @@ export const generateProjectInquiryEmail = (data: ProjectInquiryData) => {
               <p>Need help? Contact us:</p>
               <p>
                 Email: <a href="mailto:zelisline@gmail.com">zelisline@gmail.com</a><br>
-                Phone: <a href="tel:+254797356380">+254 797 356 380</a>
+                Phone: <a href="tel:+254797356380">+254 714 28 28 74</a>
               </p>
               <a href="https://zelisline.com" class="button">Visit Our Website</a>
             </div>
