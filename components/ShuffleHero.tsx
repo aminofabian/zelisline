@@ -20,6 +20,7 @@ export const ShuffleHero = () => {
   ];
 
   const writingTexts = [
+    "You'll Never Go Wrong with Us",
     "We join the dots",
     "Build Stunning Websites",
     "And Our Clients Loves Us for It",
@@ -62,12 +63,12 @@ export const ShuffleHero = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <motion.h1 
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold"
+                className="text-4xl sm:text-5xl lg:text-5xl font-bold"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                Web Design & Digital Marketing
+              Web Development & Digital Marketing Agency in Kenya
               </motion.h1>
 
               <WritingPen texts={writingTexts} />

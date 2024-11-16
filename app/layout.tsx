@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter, Caveat } from 'next/font/google';
+import { Jost, Caveat } from 'next/font/google';
 import './globals.css';
 import { GoogleTagManager} from '@next/third-parties/google'
 import { Toaster } from "@/components/ui/toaster"
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Jost({ subsets: ['latin'] })
 const caveat = Caveat({ 
   subsets: ['latin'],
   variable: '--font-caveat',
