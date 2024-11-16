@@ -5,6 +5,7 @@ import { Jost } from "next/font/google";
 import { cn } from "@/lib/utils";
 import dynamic from 'next/dynamic';
 import type { ShuffleHeroProps } from '@/types/components';
+import { useScrollWidth } from '@/hooks/useScrollWidth';
 
 const ShuffleHero = dynamic<ShuffleHeroProps>(() => import('@/components/ShuffleHero'), { ssr: false });
 const Pricing = dynamic(() => import('@/components/pricing/Pricing'));
@@ -48,6 +49,7 @@ const Section: React.FC<SectionProps> = ({ children, color = "bg-white" }) => (
 );
 
 const HomePage = () => {
+  const { mainClass, isScrolled } = useScrollWidth();
   const buttons = [
     { link: "/contact", text: "Write Us" },
     { link: "/blog", text: "Read our Blog" },
@@ -55,49 +57,49 @@ const HomePage = () => {
   
   return (
     <div className={cn("min-h-screen bg-gradient-to-br from-orange-50 via-white to-teal-50", font.className)}>
-    <div className="container mx-auto">
-    <div className="flex flex-col lg:flex-row">
-    <aside className="lg:w-64 lg:mr-8 mb-8 lg:mb-0">
-    <div className="sticky top-8 z-10">
-    <SideNav />
-    </div>
-    </aside>
-    <main className="flex-1 text-emerald-800">
-    <div className="mb-16">
-    <ShuffleHero
-    subTitle="Driving Growth from Series A to IPO"
-    title="YOUR ONE-STOP-SHOP FOR WEB DEVELOPMENT AND DIGITAL MARKETING SERVICES IN KENYA"
-    bgImage="/bg.jpg"
-    buttons={buttons}
-    />
-    </div>
-    
-    <Section color="bg-orange-50">
-    <Pricing />
-    </Section>
-    
-    <Section color="bg-white">
-    <Services />
-    </Section>
-    
-    <Section color="bg-teal-50">
-    <WhyChooseUs />
-    </Section>
-    
-    <Section color="bg-white">
-    <TabsDemo />
-    </Section>
-    
-    <Section color="bg-orange-50">
-    <ContactPage />
-    </Section>
-    </main>
-    </div>
-    
-    <div className='relative z-50'>
-    <FooterRev />
-    </div>
-    </div>
+      <div className={`transition-all duration-300 ease-in-out ${isScrolled ? 'container-fluid px-4' : 'container mx-auto'}`}>
+        <div className="flex flex-col lg:flex-row">
+          <aside className={`transition-all duration-300 ease-in-out ${isScrolled ? 'lg:w-16' : 'lg:w-64'} lg:mr-4 mb-8 lg:mb-0`}>
+            <div className="sticky top-8 z-10">
+              <SideNav />
+            </div>
+          </aside>
+          <main className={`flex-1 transition-all duration-300 ease-in-out ${isScrolled ? 'w-full' : ''}`}>
+            <div className="mb-8">
+              <ShuffleHero
+                subTitle="Driving Growth from Series A to IPO"
+                title="YOUR ONE-STOP-SHOP FOR WEB DEVELOPMENT AND DIGITAL MARKETING SERVICES IN KENYA"
+                bgImage="/bg.jpg"
+                buttons={buttons}
+              />
+            </div>
+            
+            <Section color="bg-orange-50">
+              <Pricing />
+            </Section>
+            
+            <Section color="bg-white">
+              <Services />
+            </Section>
+            
+            <Section color="bg-teal-50">
+              <WhyChooseUs />
+            </Section>
+            
+            <Section color="bg-white">
+              <TabsDemo />
+            </Section>
+            
+            <Section color="bg-orange-50">
+              <ContactPage />
+            </Section>
+          </main>
+        </div>
+        
+        <div className='relative z-50'>
+          <FooterRev />
+        </div>
+      </div>
     </div>
   );
 }

@@ -4,21 +4,13 @@ import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle, ChevronRight, Sparkles } from "lucide-react";
 import ButtonAlert from "./myComponents/ButtonAlert";
 import { WritingPen } from "./myComponents/WritingPen";
-import type { ShuffleHeroProps } from "@/types/components";
 
-export default function ShuffleHero({ subTitle, title, bgImage, buttons }: ShuffleHeroProps) {
+export const ShuffleHero = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     setIsVisible(true);
   }, []);
-
-  // Don't render anything on the server
-  if (!mounted) {
-    return null;
-  }
 
   const benefits = [
     "Stunning Modern Designs",
@@ -39,9 +31,9 @@ export default function ShuffleHero({ subTitle, title, bgImage, buttons }: Shuff
   ];
 
   return (
-    <section className="w-full px-4 sm:px-6 py-12 sm:py-16 lg:py-20 min-h-[90vh] flex items-center bg-gradient-to-br from-orange-50/80 via-white to-orange-50/80">
+    <section className="w-full px-4 sm:px-6 py-4 sm:py-5 lg:py-5 min-h-[90vh] flex items-center bg-gradient-to-br from-orange-50/80 via-white to-orange-50/80">
       <div className="w-[98%] sm:max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-6 items-center">
           {/* Left Column - Content */}
           <motion.div 
             className="text-center lg:text-left"
@@ -403,4 +395,6 @@ export default function ShuffleHero({ subTitle, title, bgImage, buttons }: Shuff
       </div>
     </section>
   );
-}
+};
+
+export default ShuffleHero;
