@@ -102,43 +102,52 @@ export default function Pricing() {
                 ? 'border-orange-200 bg-gradient-to-br from-orange-50 to-white'
                 : 'border-gray-200 bg-white'
             }`}
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              duration: 0.6,
-              delay: index * 0.1,
-              type: "spring",
-              stiffness: 100
+              duration: 0.4,
+              delay: index * 0.15,
+              ease: [0.25, 0.1, 0.25, 1]
             }}
             whileHover={{ 
-              y: -10,
-              scale: 1.02,
-              transition: { duration: 0.3 }
+              y: -5,
+              transition: { 
+                duration: 0.2,
+                ease: "easeOut"
+              }
             }}
           >
             {packageItem.name === "Enterprise Package (custom)" && (
               <motion.div
-                className="absolute top-0 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-orange-600 to-orange-400 text-white text-sm font-medium rounded-b-lg"
-                initial={{ y: -20 }}
-                animate={{ y: 0 }}
-                transition={{ delay: 0.5 + index * 0.1 }}
+                className="absolute top-0 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-orange-600 to-orange-400 text-white text-sm font-medium rounded-b-lg shadow-sm"
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ 
+                  delay: 0.3 + index * 0.15,
+                  duration: 0.3,
+                  ease: "easeOut"
+                }}
               >
                 Most Popular
               </motion.div>
             )}
             
             <motion.div 
-              className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100"
-              initial={false}
+              className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent"
+              initial={{ opacity: 0 }}
               whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
             />
             
             <div className="p-6 sm:p-8 relative">
               <motion.div 
                 className="mb-5"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  delay: 0.1 + index * 0.15,
+                  duration: 0.3
+                }}
               >
                 <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">{packageItem.name}</h3>
                 <p className="text-gray-600 text-sm sm:text-base">{packageItem.description}</p>
@@ -146,8 +155,12 @@ export default function Pricing() {
               
               <motion.div 
                 className="mb-6 sm:mb-8"
-                whileHover={{ x: 5 }}
-                transition={{ type: "spring", stiffness: 300 }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ 
+                  delay: 0.2 + index * 0.15,
+                  duration: 0.3
+                }}
               >
                 <div className="flex items-baseline">
                   <span className="text-sm sm:text-base font-medium text-gray-900 mr-1">KES</span>
@@ -156,35 +169,42 @@ export default function Pricing() {
                 </div>
               </motion.div>
               
-              <motion.ul 
-                className="space-y-3 mb-6 sm:mb-8"
-                initial={{ opacity: 0.8 }}
-                whileHover={{ opacity: 1 }}
-              >
+              <ul className="space-y-3 mb-6 sm:mb-8">
                 {packageItem.features.map((feature, featureIndex) => (
                   <motion.li
                     key={featureIndex}
                     className="flex items-center text-gray-600"
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.8 + featureIndex * 0.1 }}
-                    whileHover={{ x: 5 }}
+                    transition={{ 
+                      delay: 0.3 + index * 0.15 + featureIndex * 0.05,
+                      duration: 0.2
+                    }}
                   >
                     <CheckCircle className="w-5 h-5 text-orange-500 mr-2 flex-shrink-0" />
                     <span className="text-sm sm:text-base">{feature}</span>
                   </motion.li>
                 ))}
-              </motion.ul>
+              </ul>
               
               <Link href={getPackageLink(packageItem.name)}>
                 <motion.button
-                  className={`w-full py-3 px-4 rounded-xl text-center font-medium transition-all ${
+                  className={`w-full py-3 px-4 rounded-xl text-center font-medium transition-colors ${
                     packageItem.name === "Enterprise Package (custom)"
                       ? 'bg-gradient-to-r from-orange-600 to-orange-400 text-white hover:shadow-lg hover:shadow-orange-200'
                       : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                   }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    delay: 0.4 + index * 0.15,
+                    duration: 0.3
+                  }}
+                  whileHover={{ 
+                    scale: 1.02,
+                    transition: { duration: 0.2 }
+                  }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   Get Started
                 </motion.button>

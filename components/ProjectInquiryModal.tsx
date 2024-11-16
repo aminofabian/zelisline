@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import React, { useState } from 'react';
+import { toast } from "@/components/ui/use-toast";
 
 interface ProjectInquiryModalProps {
   isOpen: boolean;
@@ -23,7 +24,8 @@ const timeframes = [
   'Flexible',
 ];
 
-export default function ProjectInquiryModal({ isOpen, onClose }: ProjectInquiryModalProps) {
+const ProjectInquiryModal = ({ isOpen, onClose }: ProjectInquiryModalProps) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -33,20 +35,64 @@ export default function ProjectInquiryModal({ isOpen, onClose }: ProjectInquiryM
     timeframe: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you can handle the form submission
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      projectDescription: '',
-      budget: '',
-      timeframe: '',
-    });
-    onClose();
+    
+    // Check if required fields are filled
+    if (!formData.name || !formData.email || !formData.projectDescription || !formData.budget || !formData.timeframe) {
+      toast({
+        title: "Please fill in all required fields",
+        description: "Make sure to complete all required fields before submitting your inquiry.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/submit-project-inquiry", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Project Inquiry Submitted Successfully",
+          description: "Thank you for your inquiry! We'll get back to you as soon as possible.",
+          variant: "default"
+        });
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          projectDescription: '',
+          budget: '',
+          timeframe: '',
+        });
+        onClose();
+      } else {
+        const errorData = await response.json();
+        toast({
+          title: "Submission Failed",
+          description: errorData.error || "Failed to submit your inquiry. Please try again later.",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An error occurred while submitting your inquiry. Please try again later.",
+        variant: "destructive"
+      });
+      console.error('Form submission error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -209,11 +255,62 @@ export default function ProjectInquiryModal({ isOpen, onClose }: ProjectInquiryM
                 {/* Submit Button */}
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full py-3 bg-gradient-to-r from-orange-600 to-orange-400 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-orange-200/50 transition-all duration-300"
+                  disabled={isSubmitting}
+                  whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                  whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                  className={`w-full py-3 bg-gradient-to-r relative overflow-hidden ${
+                    isSubmitting 
+                      ? 'from-orange-400 to-orange-300 cursor-not-allowed' 
+                      : 'from-orange-600 to-orange-400 hover:shadow-lg hover:shadow-orange-200/50'
+                  } text-white rounded-lg font-semibold transition-all duration-300`}
                 >
-                  Submit Inquiry
+                  <div className="relative flex items-center justify-center">
+                    <span className={`transition-opacity duration-200 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
+                      Submit Inquiry
+                    </span>
+                    {isSubmitting && (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="flex gap-1">
+                          <motion.div
+                            className="w-2 h-2 bg-white rounded-full"
+                            animate={{
+                              y: ["0%", "-50%", "0%"],
+                            }}
+                            transition={{
+                              duration: 0.6,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                              delay: 0,
+                            }}
+                          />
+                          <motion.div
+                            className="w-2 h-2 bg-white rounded-full"
+                            animate={{
+                              y: ["0%", "-50%", "0%"],
+                            }}
+                            transition={{
+                              duration: 0.6,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                              delay: 0.2,
+                            }}
+                          />
+                          <motion.div
+                            className="w-2 h-2 bg-white rounded-full"
+                            animate={{
+                              y: ["0%", "-50%", "0%"],
+                            }}
+                            transition={{
+                              duration: 0.6,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                              delay: 0.4,
+                            }}
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </motion.button>
               </form>
             </div>
@@ -222,4 +319,6 @@ export default function ProjectInquiryModal({ isOpen, onClose }: ProjectInquiryM
       )}
     </AnimatePresence>
   );
-}
+};
+
+export default ProjectInquiryModal;

@@ -2,13 +2,12 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Briefcase, Mail, MessageSquare, Send, Check, X, UserCircle, Users, HeartHandshake, HeartHandshakeIcon } from 'lucide-react';
+import { User, Briefcase, Mail, MessageSquare, Send, Check, X, Building2, Users2, HandIcon } from 'lucide-react';
 import { EnhancedHeader } from './EnhancedHeader';
-
-
+import { toast } from "@/components/ui/use-toast";
 
 interface FormData {
-  role: 'client' | 'writer' | 'partner' | '';
+  role: 'business' | 'individual' | 'agency' | '';
   name: string;
   service: string;
   email: string;
@@ -20,7 +19,6 @@ interface SubmitStatus {
   type: 'success' | 'error';
   message: string;
 }
-
 
 interface InputFieldProps {
   icon: React.ReactElement;
@@ -106,21 +104,23 @@ const InputField: React.FC<InputFieldProps> = ({
 
 const RoleSelector: React.FC<{ role: string; onChange: (role: FormData['role']) => void }> = ({ role, onChange }) => (
   <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-    {['client', 'writer', 'partner'].map((r) => (
+    {[
+      { id: 'business', icon: <Building2 size={18} />, label: 'Business' },
+      { id: 'individual', icon: <User size={18} />, label: 'Individual' },
+      { id: 'agency', icon: <HandIcon size={18} />, label: 'Agency' }
+    ].map(({ id, icon, label }) => (
       <motion.button
-        key={r}
+        key={id}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className={`px-3 sm:px-4 py-2 rounded-full flex items-center space-x-2 text-sm sm:text-base ${
-          role === r ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-700'
+          role === id ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-700'
         }`}
-        onClick={() => onChange(r as FormData['role'])}
+        onClick={() => onChange(id as FormData['role'])}
         type="button"
       >
-        {r === 'client' && <UserCircle size={18} />}
-        {r === 'writer' && <Users size={18} />}
-        {r === 'partner' && <HeartHandshakeIcon size={18} />}
-        <span className="capitalize">{r}</span>
+        {icon}
+        <span>{label}</span>
       </motion.button>
     ))}
   </div>
@@ -129,9 +129,9 @@ const RoleSelector: React.FC<{ role: string; onChange: (role: FormData['role']) 
 const ContactForm: React.FC = () => {
   
   const [formData, setFormData] = useState<FormData>({
-    role: 'client',
+    role: 'business',
     name: '',
-    service: 'Content Writing',
+    service: '',
     email: '',
     message: '',
     termsAccepted: false
@@ -171,7 +171,7 @@ const ContactForm: React.FC = () => {
       if (response.ok) {
         setSubmitStatus({ type: 'success', message: 'Form submitted successfully!' });
         setFormData({
-          role: 'client',
+          role: 'business',
           name: '',
           service: '',
           email: '',
@@ -252,7 +252,16 @@ const ContactForm: React.FC = () => {
               value={formData.service}
               onChange={handleInputChange}
               as="select"
-              options={['Content Writing', 'Editing & Proofreading', 'Content Strategy', 'SEO Optimization', 'AI Checker', 'AI Idea Generator', 'Writing Jobs', 'Other']}
+              options={[
+                'Web Development',
+                'Digital Marketing',
+                'UI/UX Design',
+                'E-commerce Solutions',
+                'Custom Web Applications',
+                'Website Maintenance',
+                'SEO Services',
+                'Other'
+              ]}
               isActive={activeField === 'service'}
               onFocus={() => setActiveField('service')}
               onBlur={() => setActiveField(null)}
@@ -296,53 +305,91 @@ const ContactForm: React.FC = () => {
             </motion.div>
             
             <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+              whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
               type="submit"
-              className="w-full bg-orange-500 text-white px-6 py-3 rounded-full text-base sm:text-lg font-semibold hover:bg-orange-600 transition duration-300 flex items-center justify-center space-x-2 mt-6"
+              className={`w-full relative bg-gradient-to-r ${
+                isSubmitting 
+                  ? 'from-orange-400 to-orange-300 cursor-not-allowed' 
+                  : 'from-orange-600 to-orange-400 hover:shadow-lg hover:shadow-orange-200/50'
+              } text-white px-6 py-3 rounded-full text-base sm:text-lg font-semibold transition duration-300 flex items-center justify-center space-x-2 mt-6`}
               disabled={isSubmitting}
             >
-              {isSubmitting ? (
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                >
-                  <Send size={20} />
-                </motion.div>
-              ) : (
-                <>
-                  <span>Send Enquiry</span>
-                  <Send size={20} />
-                </>
-              )}
-            </motion.button>
-          </form>
-          
-          <AnimatePresence>
-            {submitStatus && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                className={`mt-4 p-3 rounded-lg flex items-center justify-center space-x-2 text-sm sm:text-base ${
-                  submitStatus.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                }`}
-              >
-                {submitStatus.type === 'success' ? (
-                  <>
-                    <Check size={18} className="flex-shrink-0" />
-                    <span>{submitStatus.message}</span>
-                  </>
-                ) : (
-                  <>
-                    <X size={18} className="flex-shrink-0" />
-                    <span>{submitStatus.message}</span>
-                  </>
+              <div className="relative flex items-center justify-center">
+                <span className={`transition-opacity duration-200 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
+                  Send Message
+                </span>
+                {isSubmitting && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="flex gap-1">
+                      <motion.div
+                        className="w-2 h-2 bg-white rounded-full"
+                        animate={{
+                          y: ["0%", "-50%", "0%"],
+                        }}
+                        transition={{
+                          duration: 0.6,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0,
+                        }}
+                      />
+                      <motion.div
+                        className="w-2 h-2 bg-white rounded-full"
+                        animate={{
+                          y: ["0%", "-50%", "0%"],
+                        }}
+                        transition={{
+                          duration: 0.6,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.2,
+                        }}
+                      />
+                      <motion.div
+                        className="w-2 h-2 bg-white rounded-full"
+                        animate={{
+                          y: ["0%", "-50%", "0%"],
+                        }}
+                        transition={{
+                          duration: 0.6,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                          delay: 0.4,
+                        }}
+                      />
+                    </div>
+                  </div>
                 )}
-              </motion.div>
-            )}
-          </AnimatePresence>
+              </div>
+            </motion.button>
+
+            <AnimatePresence>
+              {submitStatus && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className={`mt-4 p-3 rounded-lg flex items-center justify-center space-x-2 text-sm sm:text-base ${
+                    submitStatus.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                  }`}
+                >
+                  {submitStatus.type === 'success' ? (
+                    <>
+                      <Check size={18} className="flex-shrink-0" />
+                      <span>{submitStatus.message}</span>
+                    </>
+                  ) : (
+                    <>
+                      <X size={18} className="flex-shrink-0" />
+                      <span>{submitStatus.message}</span>
+                    </>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </form>
         </motion.div>
       </div>
     </section>
