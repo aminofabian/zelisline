@@ -4,12 +4,18 @@ import './globals.css';
 import { GoogleTagManager} from '@next/third-parties/google'
 import  { Toaster } from "@/components/ui/toaster";
 import WhatsAppButton from '@/components/WhatsAppButton';
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 
 const inter = Jost({ subsets: ['latin'] })
 const caveat = Caveat({ 
   subsets: ['latin'],
   variable: '--font-caveat',
 })
+
+const HelloBar = dynamic(() => import('@/components/HelloBar'), {
+  ssr: false,
+});
 
 export const metadata: Metadata = {
   title: {
@@ -34,9 +40,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={caveat.variable}>
       <body className={inter.className}>
-          {children}
-          <Toaster />
-          <WhatsAppButton />
+        <Suspense fallback={<div className="h-8 bg-orange-500" />}>
+          <HelloBar />
+        </Suspense>
+        {children}
+        <Toaster />
+        <WhatsAppButton />
       </body>
       <GoogleTagManager gtmId="GTM-VHVH004Y49" />
     </html>

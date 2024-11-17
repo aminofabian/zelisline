@@ -1,11 +1,13 @@
 'use client';
 
-import React, { ReactNode, Suspense } from 'react';
+import React, { ReactNode, Suspense, useState } from 'react';
 import { Jost } from "next/font/google";
 import { cn } from "@/lib/utils";
 import dynamic from 'next/dynamic';
 import type { ShuffleHeroProps } from '@/types/components';
 import { useScrollWidth } from '@/hooks/useScrollWidth';
+import { Phone } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const ShuffleHero = dynamic<ShuffleHeroProps>(() => import('@/components/ShuffleHero'), { ssr: false });
 const Pricing = dynamic(() => import('@/components/pricing/Pricing'));
@@ -80,6 +82,15 @@ const Section: React.FC<SectionProps> = ({ children, color = "bg-white" }) => (
 );
 
 const HomePage = () => {
+  const [isHovered, setIsHovered] = useState(false);
+  const phoneNumber = '+254714282874';
+  const formattedNumber = '(+254) 714 28 2874';
+
+  const handleClick = () => {
+    navigator.clipboard.writeText(phoneNumber);
+    // You could add a toast notification here
+  };
+
   const { mainClass, isScrolled } = useScrollWidth();
   const buttons = [
     { link: "/contact", text: "Get Started" },
@@ -124,6 +135,46 @@ const HomePage = () => {
             <Section color="bg-orange-50">
               <ContactPage />
             </Section>
+            
+            <div className="flex justify-center items-center min-h-[200px]">
+              <motion.div
+                onHoverStart={() => setIsHovered(true)}
+                onHoverEnd={() => setIsHovered(false)}
+                onClick={handleClick}
+                className="relative cursor-pointer group"
+              >
+                <motion.div
+                  className="flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Phone className="w-6 h-6 text-white" />
+                  <motion.span
+                    className="text-xl font-medium text-white"
+                    initial={{ opacity: 1 }}
+                    animate={{ opacity: isHovered ? 0 : 1 }}
+                  >
+                    {formattedNumber}
+                  </motion.span>
+                  <motion.span
+                    className="absolute left-[62px] text-xl font-medium text-white"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: isHovered ? 1 : 0 }}
+                  >
+                    Click to Copy
+                  </motion.span>
+                </motion.div>
+                
+                {/* Decorative elements */}
+                <motion.div
+                  className="absolute -inset-1 bg-gradient-to-r from-orange-400 to-orange-600 rounded-xl opacity-50 blur-lg"
+                  animate={{
+                    scale: isHovered ? 1.1 : 1,
+                    opacity: isHovered ? 0.7 : 0.5,
+                  }}
+                />
+              </motion.div>
+            </div>
           </main>
         </div>
         
