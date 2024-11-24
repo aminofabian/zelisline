@@ -131,8 +131,12 @@ const FooterRev = () => {
                 </motion.a>
               ))}
             </div>
-            <div className="text-sm text-gray-500 order-3 lg:order-3 text-center lg:text-right">
-              <span className="text-orange-500 font-medium">Zelisline</span> is a registered trademark of Zelisline, Inc.<br className="hidden sm:block" /> Copyright {currentYear} Zelisline, Inc.
+            <div className="text-sm text-gray-500 order-3 lg:order-3 text-center w-full px-4">
+              <div className="flex flex-wrap justify-center items-center gap-1 break-words max-w-[90%] mx-auto">
+                <span className="text-orange-500 font-medium whitespace-normal">Zelisline</span>
+                <span className="whitespace-normal">is a registered trademark of Zelisline, Inc.</span>
+                <span className="whitespace-normal">Copyright {currentYear} Zelisline, Inc.</span>
+              </div>
             </div>
           </motion.div>
         </div>
