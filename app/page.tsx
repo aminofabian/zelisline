@@ -28,23 +28,23 @@ interface SectionProps {
   color?: string;
 }
 
-const WaveBorder: React.FC<{ flip?: boolean; color?: string }> = ({ flip = false, color = "fill-orange-100" }) => (
+const WaveBorder: React.FC<{ flip?: boolean; color?: string }> = ({ flip = false, color = "fill-orange-50" }) => (
   <div className={`w-full overflow-hidden ${flip ? 'rotate-180' : ''}`}>
     <svg viewBox="0 0 1440 120" className="w-full h-auto">
       <defs>
         <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" style={{ stopColor: '#fcd34d', stopOpacity: 0.6 }}>
+          <stop offset="0%" style={{ stopColor: '#fff1e6', stopOpacity: 0.6 }}>
             <animate
               attributeName="stop-color"
-              values="#fcd34d;#fdba74;#fcd34d"
+              values="#fff1e6;#ffe4d4;#fff1e6"
               dur="4s"
               repeatCount="indefinite"
             />
           </stop>
-          <stop offset="100%" style={{ stopColor: '#fdba74', stopOpacity: 0.6 }}>
+          <stop offset="100%" style={{ stopColor: '#ffe4d4', stopOpacity: 0.6 }}>
             <animate
               attributeName="stop-color"
-              values="#fdba74;#fcd34d;#fdba74"
+              values="#ffe4d4;#fff1e6;#ffe4d4"
               dur="4s"
               repeatCount="indefinite"
             />
