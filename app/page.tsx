@@ -17,6 +17,7 @@ const ContactPage = dynamic(() => import('@/components/ContactPage'));
 const FooterRev = dynamic(() => import('@/components/FooterRev'));
 const SideNav = dynamic(() => import('@/components/ClientSideNav'), { ssr: false });
 const WhyChooseUs = dynamic(() => import('@/components/WhyChooseUs'));
+const HowWeWork = dynamic(() => import('@/components/HowWeWork'));
 
 const font = Jost({
   subsets: ["latin"],
@@ -125,6 +126,10 @@ const HomePage = () => {
             </Section>
             
             <Section color="bg-teal-50">
+              <HowWeWork />
+            </Section>
+            
+            <Section color="bg-white">
               <WhyChooseUs />
             </Section>
             
