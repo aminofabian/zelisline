@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import dynamic from 'next/dynamic';
 import type { ShuffleHeroProps } from '@/types/components';
 import { useScrollWidth } from '@/hooks/useScrollWidth';
-import { Phone } from 'lucide-react';
+import { Phone, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const ShuffleHero = dynamic<ShuffleHeroProps>(() => import('@/components/ShuffleHero'), { ssr: false });
@@ -84,11 +84,16 @@ const Section: React.FC<SectionProps> = ({ children, color = "bg-white" }) => (
 
 const HomePage = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   const phoneNumber = '+254714282874';
   const formattedNumber = '(+254) 714 28 2874';
 
   const handleClick = () => {
     navigator.clipboard.writeText(phoneNumber);
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 2000);
     // You could add a toast notification here
   };
 
@@ -149,35 +154,64 @@ const HomePage = () => {
                 className="relative cursor-pointer group"
               >
                 <motion.div
-                  className="flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-orange-500 to-orange-500 rounded-xl shadow-lg hover:shadow-xs transition-shadow"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="relative flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl shadow-lg hover:shadow-orange-200/50 cursor-pointer group overflow-hidden"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
-                  <Phone className="w-5 h-5 text-white" />
+                  {/* Background animation */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700"
+                    initial={{ x: "100%" }}
+                    whileHover={{ x: 0 }}
+                    transition={{ type: "tween", duration: 0.3 }}
+                  />
+
+                  {/* Phone icon with ring animation */}
+                  <div className="relative">
+                    <Phone className="w-6 h-6 text-white relative z-10" />
+                    <motion.div
+                      className="absolute inset-0 bg-white/20 rounded-full"
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      whileHover={{ scale: 1.5, opacity: 0 }}
+                      transition={{ repeat: Infinity, duration: 1.5 }}
+                    />
+                  </div>
+
+                  {/* Phone number */}
                   <motion.span
-                    className="text-xl font-xs text-white"
-                    initial={{ opacity: 0.5 }}
+                    className="relative text-xl font-medium text-white z-10 tracking-wide"
+                    initial={{ opacity: 1 }}
                     animate={{ opacity: isHovered ? 0 : 1 }}
+                    transition={{ duration: 0.2 }}
                   >
                     {formattedNumber}
                   </motion.span>
+
+                  {/* Click to copy text */}
                   <motion.span
-                    className="absolute left-[62px] text-xl font-medium text-white"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: isHovered ? 1 : 0 }}
+                    className="absolute left-1/2 -translate-x-1/2 text-lg font-medium text-white z-10"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 20 }}
+                    transition={{ duration: 0.2 }}
                   >
                     Click to Copy
                   </motion.span>
+
+                  {/* Success checkmark - show when copied */}
+                  <motion.div
+                    className="absolute right-4 text-white"
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ 
+                      scale: isCopied ? 1 : 0, 
+                      opacity: isCopied ? 1 : 0 
+                    }}
+                    transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  >
+                    <Check className="w-5 h-5" />
+                  </motion.div>
                 </motion.div>
                 
-                {/* Decorative elements */}
-                <motion.div
-                  className="absolute -inset-1 bg-gradient-to-r from-orange-400 to-orange-600 rounded-xl opacity-50 blur-lg"
-                  animate={{
-                    scale: isHovered ? 1.1 : 1,
-                    opacity: isHovered ? 0.7 : 0.5,
-                  }}
-                />
               </motion.div>
             </div>
           </main>
