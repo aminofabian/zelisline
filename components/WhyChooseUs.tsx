@@ -3,199 +3,160 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { 
-  CheckCircle, 
-  Lightbulb, 
-  Clock, 
-  Target, 
-  Users, 
-  Shield, 
-  Code, 
-  Sparkles,
-  ArrowRight 
+  Code2,
+  Gem,
+  Rocket,
+  Clock,
+  Shield,
+  Users,
+  Cloud,
+  Workflow
 } from 'lucide-react';
 
-const reasons = [
+const features = [
   {
-    title: "Expert Team",
-    icon: Users,
-    description: "Our seasoned professionals bring years of industry experience to your project",
-    color: "text-blue-600",
-    bgColor: "bg-blue-50",
-    borderColor: "border-blue-100",
-    points: [
-      "Senior developers with 5+ years experience",
-      "UI/UX design specialists",
-      "Dedicated project managers",
-      "Quality assurance experts",
-      "24/7 support team",
-    ]
+    title: "Expert Development Team",
+    icon: Code2,
+    description: "Senior developers with 5+ years of experience in modern tech stacks including React, Node.js, and Cloud technologies.",
+    position: "lg:top-24 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-full"
   },
   {
-    title: "Proven Process",
-    icon: Target,
-    description: "A streamlined development process that delivers results",
-    color: "text-purple-600",
-    bgColor: "bg-purple-50",
-    borderColor: "border-purple-100",
-    points: [
-      "Clear project milestones",
-      "Regular progress updates",
-      "Transparent communication",
-      "Agile methodology",
-      "Continuous delivery",
-    ]
+    title: "Agile Methodology",
+    icon: Workflow,
+    description: "We follow Agile practices with regular sprints, daily standups, and continuous delivery to ensure project success.",
+    position: "lg:top-1/2 lg:-right-24 lg:translate-x-full lg:-translate-y-1/2"
   },
   {
-    title: "Quality First",
-    icon: Shield,
-    description: "We never compromise on the quality of our deliverables",
-    color: "text-orange-600",
-    bgColor: "bg-orange-50",
-    borderColor: "border-orange-100",
-    points: [
-      "Rigorous testing protocols",
-      "Best coding practices",
-      "Performance optimization",
-      "Security-first approach",
-      "Scalable architecture",
-    ]
+    title: "Rapid Development",
+    icon: Clock,
+    description: "Quick turnaround times with our optimized development process and CI/CD pipeline implementation.",
+    position: "lg:top-24 lg:right-1/2 lg:translate-x-1/2 lg:-translate-y-full"
   },
   {
-    title: "Innovation",
-    icon: Sparkles,
-    description: "Staying ahead with cutting-edge technologies and trends",
-    color: "text-pink-600",
-    bgColor: "bg-pink-50",
-    borderColor: "border-pink-100",
-    points: [
-      "Latest tech stack",
-      "Modern design patterns",
-      "AI integration capabilities",
-      "Progressive web apps",
-      "Cloud-native solutions",
-    ]
+    title: "Quality Assurance",
+    icon: Gem,
+    description: "Comprehensive testing strategy including unit tests, integration tests, and end-to-end testing for robust applications.",
+    position: "lg:bottom-1/2 lg:-left-24 lg:-translate-x-full lg:-translate-y-1/2"
+  },
+  {
+    title: "Cloud & DevOps",
+    icon: Cloud,
+    description: "Expert cloud architecture and DevOps practices ensuring scalable, secure, and maintainable applications.",
+    position: "lg:bottom-24 lg:right-1/2 lg:translate-x-1/2 lg:translate-y-full"
   }
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
-
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.5
-    }
-  }
-};
+const stats = [
+  { number: "100+", label: "Projects Delivered" },
+  { number: "99.9%", label: "Uptime Guaranteed" },
+  { number: "24/7", label: "Support Available" }
+];
 
 const WhyChooseUs = () => {
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-5" />
-      <div className="absolute -top-24 -right-24 w-96 h-96 bg-orange-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob" />
-      <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <section className="py-20 bg-white relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-base font-semibold text-orange-600 tracking-wide uppercase">
-            Why Choose Us
+          <h2 className="text-4xl font-bold">
+            Why <span className="text-blue-600">Choose</span> Us?
           </h2>
-          <h3 className="mt-2 text-3xl font-bold text-gray-900 sm:text-4xl lg:text-5xl">
-            The Right Team for Your Project
-          </h3>
-          <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-600">
-            We combine expertise, innovation, and dedication to deliver exceptional results
+          <p className="mt-4 text-gray-600">
+            Delivering excellence in software development with cutting-edge technologies
           </p>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
-        >
-          {reasons.map((reason, index) => {
-            const Icon = reason.icon;
-            return (
-              <motion.div
-                key={reason.title}
-                variants={itemVariants}
-                className="relative group"
-              >
-                <div className={`h-full p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border ${reason.borderColor}`}>
+        <div className="relative">
+          {/* Center Circle - Hidden on mobile, shown on lg screens */}
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white rounded-full shadow-lg flex-col items-center justify-center text-center p-6 z-10"
+          >
+            <Shield className="w-12 h-12 text-orange-500 mb-3" />
+            <h3 className="text-lg font-semibold mb-2">Security First Approach</h3>
+            <p className="text-sm text-gray-600">
+              We prioritize security at every stage of development, implementing best practices, regular security audits, and compliance measures to protect your application.
+            </p>
+          </motion.div>
+
+          {/* Mobile Security Card - Shown on mobile, hidden on lg screens */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="lg:hidden mb-8 bg-white rounded-lg p-6 shadow-sm"
+          >
+            <div className="flex flex-col items-center text-center">
+              <Shield className="w-12 h-12 text-orange-500 mb-3" />
+              <h3 className="text-lg font-semibold mb-2">Security First Approach</h3>
+              <p className="text-sm text-gray-600">
+                We prioritize security at every stage of development, implementing best practices, regular security audits, and compliance measures to protect your application.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Feature Cards Container */}
+          <div className="lg:min-h-[600px] relative">
+            {/* Mobile Layout - Stack */}
+            <div className="lg:hidden space-y-4">
+              {features.map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
+                >
                   <div className="flex items-start space-x-4">
-                    <div className={`p-3 rounded-xl ${reason.bgColor} ${reason.color}`}>
-                      <Icon className="w-6 h-6" />
-                    </div>
+                    <feature.icon className="w-8 h-8 text-orange-500 flex-shrink-0" />
                     <div>
-                      <h4 className="text-xl font-semibold text-gray-900">
-                        {reason.title}
-                      </h4>
-                      <p className="mt-1 text-gray-600">
-                        {reason.description}
-                      </p>
+                      <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                      <p className="text-gray-600 text-sm">{feature.description}</p>
                     </div>
                   </div>
+                </motion.div>
+              ))}
+            </div>
 
-                  <div className="mt-6 space-y-4">
-                    {reason.points.map((point, pointIndex) => (
-                      <motion.div
-                        key={point}
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: pointIndex * 0.1 }}
-                        className="flex items-start space-x-3"
-                      >
-                        <CheckCircle className={`w-5 h-5 ${reason.color} flex-shrink-0 mt-0.5`} />
-                        <span className="text-gray-600">{point}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  <motion.div
-                    whileHover={{ x: 5 }}
-                    className={`mt-6 flex items-center space-x-2 text-sm font-medium ${reason.color} cursor-pointer`}
-                  >
-                    <span>Learn more</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </motion.div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="mt-16 text-center"
-        >
-          <div className="inline-flex items-center space-x-2 bg-orange-100 px-4 py-2 rounded-full text-orange-600">
-            <span className="font-medium">Ready to get started?</span>
+            {/* Desktop Layout - Radial */}
+            <div className="hidden lg:block">
+              {features.map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`absolute bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300 ${feature.position}`}
+                  style={{ width: '300px' }}
+                >
+                  <feature.icon className="w-8 h-8 text-orange-500 mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-gray-600 text-sm">{feature.description}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            Join hundreds of satisfied clients who trust us with their digital presence.
-            Let's build something amazing together.
-          </p>
+        </div>
+
+        {/* Stats Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8 border rounded-lg p-8"
+        >
+          {stats.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <h4 className="text-3xl font-bold text-blue-600">{stat.number}</h4>
+              <p className="text-gray-600">{stat.label}</p>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>
