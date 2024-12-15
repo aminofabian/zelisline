@@ -144,14 +144,14 @@ const HomePage = () => {
                 className="relative cursor-pointer group"
               >
                 <motion.div
-                  className="flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+                  className="flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-orange-500 to-orange-500 rounded-xl shadow-lg hover:shadow-xs transition-shadow"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Phone className="w-6 h-6 text-white" />
+                  <Phone className="w-5 h-5 text-white" />
                   <motion.span
-                    className="text-xl font-medium text-white"
-                    initial={{ opacity: 1 }}
+                    className="text-xl font-xs text-white"
+                    initial={{ opacity: 0.5 }}
                     animate={{ opacity: isHovered ? 0 : 1 }}
                   >
                     {formattedNumber}
