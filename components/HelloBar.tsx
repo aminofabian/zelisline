@@ -126,7 +126,7 @@ export default function HelloBar() {
                     ease: "easeInOut"
                   }}
                 >
-                  <span className="text-white font-extrabold">15K!</span>
+                  <span className="text-white font-extrabold">15K...</span>
                   <Zap className="w-4 h-4 text-yellow-300 inline ml-1" />
                 </motion.span>
               </motion.div>
