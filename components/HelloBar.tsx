@@ -75,9 +75,9 @@ export default function HelloBar() {
             <Phone className="w-4 h-4" />
           </motion.div>
           <div className="flex flex-col">
-            <span className="hidden sm:inline font-bold">Call Us Now! 🎉</span>
+            <span className="hidden sm:inline font-bold">Call Us Now 🎉</span>
             <span className="hidden sm:inline text-orange-100">(+254) 714 28 2874</span>
-            <span className="sm:hidden font-bold">Call Now! 🎉</span>
+            <span className="sm:hidden font-bold">Call Now 🎉</span>
           </div>
         </motion.a>
 
@@ -130,7 +130,7 @@ export default function HelloBar() {
                   <Zap className="w-4 h-4 text-yellow-300 inline ml-1" />
                 </motion.span>
               </motion.div>
-              <span className="sm:hidden font-bold">✨ 15K Only! ✨</span>
+              <span className="sm:hidden font-bold">✨ 15K Only ✨</span>
             </div>
 
             <motion.div
@@ -180,7 +180,7 @@ export default function HelloBar() {
               ease: "easeInOut"
             }}
           >
-            50% OFF Today! 🎈
+            50% OFF Today 🎈
           </motion.span>
         </motion.div>
       </div>
