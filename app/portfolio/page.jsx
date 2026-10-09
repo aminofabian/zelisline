@@ -1,134 +1,112 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import ClientSideNav from "@/components/ClientSideNav";
+import FooterRev from "@/components/FooterRev";
 import Portfolio from "@/components/Portfolio";
-import Head from "next/head";
-import SideNav from "@/components/SideNav";
-import Footer from "@/components/Footer";
-import Image from "next/image";
-import Portfolio2 from "@/components/Portfolio2";
+import ContactPage from "@/components/ContactPage";
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+const websites = [
+  { name: "kiosk.ke", url: "https://kiosk.ke" },
+  { name: "squl.co.ke", url: "https://squl.co.ke" },
+  { name: "kioskpay.co.ke", url: "https://kioskpay.co.ke" },
+  { name: "Jobs Lah", url: "https://www.jobslah.com/" },
+  { name: "Hawai Family Dental", url: "https://www.hawaiifamilydental.com" },
+  { name: "Fit Fusion Fitness", url: "https://www.fitfusionfitness.com" },
+  { name: "Wanderlust Travel Co", url: "https://www.wanderlusttravelco.com/" },
+  { name: "Rustic Retreats", url: "https://www.rustic-retreats.uk" },
+];
 
-  // Get form input values
-  const name = e.target.name.value;
-  const email = e.target.email.value;
-  const message = e.target.message.value;
-
-  // Check if any field is empty
-  if (!name || !email || !message) {
-    alert("Please fill in all fields.");
-    return; // Exit early if any field is empty
-  }
-
-  // All fields are filled, proceed with form submission
-  const data = { name, email, message };
-
-  try {
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (response.status === 200) {
-      alert("Message Sent.");
-      e.target.reset();
-    } else {
-      alert("Failed to send message. Please try again later.");
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    alert("An error occurred. Please try again later.");
-  }
-};
-
+const prettyUrl = (url) => url.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
 function PortfolioPage() {
   return (
-    <>
-      <Head>
-        <title>Portfolio Page Zelisline</title>
-        <meta name="description" content="Portfolio Page Zelisline" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <div className="flex min:h-screen relative md:flex-row md:overflow-hidden xl:px-40 md:px-10 bg-transparent">
-        <div className="w-screen lg:w-44 md:border-r border-slate-50 justify-center align-middle">
-          <div className="hidden md:flex"><SideNav /></div>
-        </div>
-        <div>
-        </div>
-        <div>
-          <div className='container mx-auto flex flex-col-reverse sm:flex-row items-center'>
-            <div className='md:w-2/5 flex flex-col items-start mt-8 sm:mt-10'>
-              <h1 className='text-2xl lg:text-5xl leading-none mb-4'>
-                Here are  <strong className='font-green'> a few samples</strong>  of our Work.
-              </h1>
-              <h2>                Websites We&lsquo;ve Built:
-              </h2>
+    <div className="min-h-screen bg-background">
+      {/* Squared surfaces, matching the homepage. */}
+      <div className="edges-square">
+        <div className="flex items-start">
+          {/* Desktop rail — small screens use the layout-level MobileNav */}
+          <div className="hidden shrink-0 pl-4 pr-2 pt-6 sm:pl-6 md:block md:self-stretch lg:pl-10">
+            <ClientSideNav />
+          </div>
 
-              <div className='lg:text-lg mb-4 sm:mb-12'>
-                <ul className="flex flex-col space-y-4 mt-10 pl-10 list-disc">
-                  <li className="hover:border-solid hover:border-var-secondary hover-border-solid hover:transforrm scale-105 pl-5 py-2 clip-angled-both bg-slate-200 font-bold hover:bg-cyan-600 hover:text-slate-100 border-transparent shadow-xl transition-colors border-e-slate-50">Jobs Lah: <div className="text-sm text-black bg-slate-300 inline px-3 py-1 font-medium clip-angled">https://www.jobslah.com/</div></li>
-                  <li className="hover:border-2 pl-5 py-2 clip-angled-both bg-slate-200 font-bold  hover:bg-cyan-600 hover:text-slate-50">Hawai Family Dental: <div className="text-sm text-black bg-slate-300 shadow-xl inline px-3 py-1 font-medium clip-angled">https://www.hawaiifamilydental.com</div></li>
-                  <li className="hover:border-2 pl-5 py-2 clip-angled-both bg-slate-200 font-bold hover:bg-cyan-600 hover:text-slate-50">Fit Fusion Fitness: <div className="text-sm text-black bg-slate-300 inline px-3 py-1 font-medium clip-angled">https://www.fitfusionfitness.com</div></li>
-                  <li className="hover:border-2 pl-5 py-2 clip-angled-both bg-slate-200 font-bold hover:bg-cyan-600 hover:text-slate-50">Wanderlust Travel Co: <div className="text-sm text-black bg-slate-300 inline px-3 py-1 font-medium clip-angled">https://www.wanderlusttravelco.com/</div></li>
-                  <li className="hover:border-2 pl-5 py-2 clip-angled-both bg-slate-200 font-bold hover:bg-cyan-600 hover:text-slate-50">Rustic Retreats: <div className="text-sm text-black bg-slate-300 inline px-3 py-1 font-medium clip-angled">https://www.rustic-retreats.uk</div></li>
+          <main className="min-w-0 flex-1">
+            {/* Header band */}
+            <section className="border-b border-sand-200 bg-sand-50">
+              <div className="mx-auto max-w-[1400px] px-5 pb-14 pt-12 sm:px-6 md:pt-16 lg:px-10">
+                <div className="flex items-center gap-3">
+                  <span className="h-px w-8 bg-orange-500" />
+                  <span className="eyebrow">Portfolio</span>
+                </div>
+                <h1 className="mt-5 max-w-[20ch] font-display text-[2.15rem] font-medium leading-[1.06] tracking-[-0.02em] text-ink sm:text-5xl lg:text-[3.6rem]">
+                  A few samples of our work
+                </h1>
+                <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-ink-soft sm:text-lg">
+                  Websites, storefronts and software products we&apos;ve designed, built and
+                  shipped — for clients across Kenya, the UK and the US.
+                </p>
+              </div>
+            </section>
+
+            {/* Website index */}
+            <section className="mx-auto max-w-[1400px] px-5 py-16 sm:px-6 sm:py-20 lg:px-10">
+              <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+                <div className="lg:col-span-4">
+                  <span className="eyebrow">Websites we&apos;ve built</span>
+                  <p className="mt-4 text-pretty leading-relaxed text-ink-soft">
+                    A running list of live sites and platforms from the studio — our own
+                    products included.
+                  </p>
+                </div>
+
+                <ul className="lg:col-span-8">
+                  {websites.map((site, i) => (
+                    <li key={site.name}>
+                      <Link
+                        href={site.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-baseline gap-4 border-t border-sand-200 py-4 transition-colors hover:border-ink/30"
+                      >
+                        <span className="font-display text-xs text-ink-muted">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="flex-1 font-display text-lg text-ink transition-colors group-hover:text-orange-700 sm:text-xl">
+                          {site.name}
+                        </span>
+                        <span className="hidden text-sm text-ink-muted sm:block">
+                          {prettyUrl(site.url)}
+                        </span>
+                        <ArrowUpRight className="h-4 w-4 shrink-0 text-ink-muted transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-orange-600" />
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
-
               </div>
+            </section>
 
-            </div>
-
-            <div className='sm:w-2/5 mb-5 opacity-50'>
-
-              <div className='m-3'>
-
-                <Image
-                  src='gra.gif'
-                  alt='hero'
-                  width={500}
-                  height={500}
-                />
+            {/* Testimonials */}
+            <section className="pb-16 sm:pb-20">
+              <div className="mx-auto mb-10 max-w-[1400px] px-5 sm:px-6 lg:px-10">
+                <span className="eyebrow">What clients say</span>
+                <h2 className="mt-3 max-w-[22ch] font-display text-3xl font-medium leading-tight text-ink sm:text-4xl">
+                  Straight from the people we build for
+                </h2>
               </div>
-            </div>
-          </div>
-          <Portfolio />
-          <div className="m-3 rounded-2xl">
-            <div className='container mx-auto flex flex-col-reverse sm:flex-row items-center'>
+              <Portfolio />
+            </section>
 
-            </div>
-          </div>
-          <div className="md:w-2/5 mx-auto mt-2">
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="name" className="block">Name</label>
-                <input type="text" className="form-control" id="name" name="name" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email" className="block">Email address</label>
-                <input type="email" className="form-control" id="email" name="email" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="message" className="block">Message</label>
-                <textarea className="form-control" id="message" name="message" rows={3} defaultValue={""} />
-              </div>
-              <button type="submit" className='font-semibold text-lg bg-green-400 hover:bg-green-500 text-white py-1 px-3 rounded'>
-                Submit
-              </button>
-            </form>
-          </div>
+            {/* Contact */}
+            <ContactPage />
+          </main>
         </div>
+
+        <FooterRev />
       </div>
-      <div>
-        <Footer />
-      </div>
-    </>
-  )
+    </div>
+  );
 }
 
 export default PortfolioPage;

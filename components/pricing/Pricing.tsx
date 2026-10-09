@@ -1,217 +1,115 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, ArrowRight, Globe, Briefcase, ShoppingCart, Building, Palette, AlarmClockCheck } from 'lucide-react';
+import { Check, ArrowUpRight } from 'lucide-react';
 import { packages } from "@/data/pricing/HomePage";
 import Link from 'next/link';
 
-// Define types for our data structures
-type IconName = keyof typeof iconMap;
-
-interface Package {
-  name: string;
-  startingPrice: number;
-  description: string;
-  features: string[];
-}
-
-const iconMap = {
-  "Personal Website Package (templated)": Globe,
-  "Small Business Package (templated)": Briefcase,
-  "E-Commerce Website Package (custom)": ShoppingCart,
-  "Enterprise Package (custom)": Building,
-  "Maintenance Package (monthly)": AlarmClockCheck,
-  "Additional Services": Palette,
+const getPackageLink = (packageName: string) => {
+  switch (packageName) {
+    case 'Personal Website Package (templated)':
+      return '/personal-website-package';
+    case 'Small Business Package (templated)':
+      return '/small-business-package';
+    case 'Enterprise Package (custom)':
+      return '/enterprise-package';
+    default:
+      return '#';
+  }
 };
 
-// Update ButtonAlert props
-interface ButtonAlertProps {
-  triggerText: string;
-  title: string;
-  description: string;
-  cancelText: string;
-  continueText: string;
-  customTrigger?: React.ReactNode;
-}
+const getShortName = (name: string) => name.replace(/\s*\(.*\)\s*/, '');
 
-const ButtonAlert: React.FC<ButtonAlertProps> = ({ triggerText, title, description, cancelText, continueText, customTrigger }) => {
-  // Implement your ButtonAlert component here
-  return null; // Placeholder return
-};
+const formatPrice = (value: number) =>
+  new Intl.NumberFormat('en-KE', { maximumFractionDigits: 0 }).format(value * 100);
+
+const isMonthly = (name: string) => name.toLowerCase().includes('monthly');
+
+const FEATURED = 'Enterprise Package (custom)';
 
 export default function Pricing() {
-  const getPackageLink = (packageName: string) => {
-    switch (packageName) {
-      case 'Personal Website Package (templated)':
-        return '/personal-website-package';
-      case 'Small Business Package (templated)':
-        return '/small-business-package';
-      case 'Enterprise Package (custom)':
-        return '/enterprise-package';
-      default:
-        return '#';
-    }
-  };
-
   return (
     <div className="w-full">
-      <motion.div 
-        className="text-center mb-12 sm:mb-16"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <motion.h2 
-          className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gray-900"
-          initial={{ scale: 0.95 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <motion.span 
-            className="bg-clip-text text-transparent bg-gradient-to-r from-orange-600 to-orange-500"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            Perfect
-          </motion.span>{' '}
-          <motion.span 
-            className="bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-orange-400"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-          >
-            Pricing Plans
-          </motion.span>
-        </motion.h2>
-        <motion.p 
-          className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
-        >
-          Select the plan that best suits your needs and start creating amazing content today.
-        </motion.p>
-      </motion.div>
+      <div className="mx-auto max-w-[1400px] px-5 sm:px-6 lg:px-10">
+        <div className="grid gap-6 sm:grid-cols-2 sm:items-end">
+          <div>
+            <span className="eyebrow">Pricing</span>
+            <h2 className="mt-3 max-w-[20ch] font-display text-3xl font-medium leading-tight text-ink sm:text-4xl">
+              Straightforward packages, no guesswork
+            </h2>
+          </div>
+          <p className="text-pretty leading-relaxed text-ink-soft sm:pb-1">
+            Starting points to help you plan. Every build is scoped individually —
+            tell us what you need and we&apos;ll put together an exact quote.
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {packages.map((packageItem, index) => (
-          <motion.div
-            key={packageItem.name}
-            className={`relative group overflow-hidden rounded-2xl border ${
-              packageItem.name === "Enterprise Package (custom)"
-                ? 'border-orange-200 bg-gradient-to-br from-orange-50 to-white'
-                : 'border-gray-200 bg-white'
-            }`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.4,
-              delay: index * 0.15,
-              ease: [0.25, 0.1, 0.25, 1]
-            }}
-            whileHover={{ 
-              y: -5,
-              transition: { 
-                duration: 0.2,
-                ease: "easeOut"
-              }
-            }}
-          >
-            {packageItem.name === "Enterprise Package (custom)" && (
+        <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {packages.map((pkg, index) => {
+            const featured = pkg.name === FEATURED;
+            return (
               <motion.div
-                className="absolute top-0 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-orange-600 to-orange-400 text-white text-sm font-medium rounded-b-lg shadow-sm"
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ 
-                  delay: 0.3 + index * 0.15,
-                  duration: 0.3,
-                  ease: "easeOut"
-                }}
+                key={pkg.name}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.45, delay: (index % 3) * 0.08 }}
+                className={`relative flex flex-col rounded-2xl p-7 transition-colors duration-300 ${
+                  featured
+                    ? 'bg-ink text-sand-100'
+                    : 'border border-sand-200 bg-white hover:border-ink/25'
+                }`}
               >
-                Most Popular
-              </motion.div>
-            )}
-            
-            <motion.div 
-              className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent"
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.2 }}
-            />
-            
-            <div className="p-6 sm:p-8 relative">
-              <motion.div 
-                className="mb-5"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  delay: 0.1 + index * 0.15,
-                  duration: 0.3
-                }}
-              >
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">{packageItem.name}</h3>
-                <p className="text-gray-600 text-sm sm:text-base">{packageItem.description}</p>
-              </motion.div>
-              
-              <motion.div 
-                className="mb-6 sm:mb-8"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ 
-                  delay: 0.2 + index * 0.15,
-                  duration: 0.3
-                }}
-              >
-                <div className="flex items-baseline">
-                  <span className="text-sm sm:text-base font-medium text-gray-900 mr-1">KES</span>
-                  <span className="text-4xl sm:text-5xl font-bold text-gray-900">{packageItem.startingPrice * 100}</span>
-                  <span className="text-gray-600 ml-2"></span>
+                {featured && (
+                  <span className="absolute right-7 top-7 rounded-full bg-orange-600 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-white">
+                    Most popular
+                  </span>
+                )}
+
+                <h3 className={`font-display text-xl ${featured ? 'text-white' : 'text-ink'}`}>
+                  {getShortName(pkg.name)}
+                </h3>
+                <p className={`mt-2 text-sm leading-relaxed ${featured ? 'text-sand-300' : 'text-ink-soft'}`}>
+                  {pkg.description}
+                </p>
+
+                <div className={`my-6 border-t ${featured ? 'border-white/15' : 'border-sand-200'}`} />
+
+                <div className="flex items-baseline gap-2">
+                  <span className={`text-xs font-medium ${featured ? 'text-sand-300' : 'text-ink-muted'}`}>From KES</span>
+                  <span className={`font-display text-4xl ${featured ? 'text-white' : 'text-ink'}`}>
+                    {formatPrice(pkg.startingPrice)}
+                  </span>
+                  {isMonthly(pkg.name) && (
+                    <span className={`text-sm ${featured ? 'text-sand-300' : 'text-ink-muted'}`}>/mo</span>
+                  )}
                 </div>
-              </motion.div>
-              
-              <ul className="space-y-3 mb-6 sm:mb-8">
-                {packageItem.features.map((feature, featureIndex) => (
-                  <motion.li
-                    key={featureIndex}
-                    className="flex items-center text-gray-600"
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ 
-                      delay: 0.3 + index * 0.15 + featureIndex * 0.05,
-                      duration: 0.2
-                    }}
-                  >
-                    <CheckCircle className="w-5 h-5 text-orange-500 mr-2 flex-shrink-0" />
-                    <span className="text-sm sm:text-base">{feature}</span>
-                  </motion.li>
-                ))}
-              </ul>
-              
-              <Link href={getPackageLink(packageItem.name)}>
-                <motion.button
-                  className={`w-full py-3 px-4 rounded-xl text-center font-medium transition-colors ${
-                    packageItem.name === "Enterprise Package (custom)"
-                      ? 'bg-gradient-to-r from-orange-600 to-orange-400 text-white hover:shadow-lg hover:shadow-orange-200'
-                      : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+
+                <ul className="mt-6 flex-1 space-y-3">
+                  {pkg.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-3">
+                      <Check className={`mt-0.5 h-4 w-4 shrink-0 ${featured ? 'text-orange-400' : 'text-orange-600'}`} />
+                      <span className={`text-sm leading-relaxed ${featured ? 'text-sand-200' : 'text-ink-soft'}`}>
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  href={getPackageLink(pkg.name)}
+                  className={`group mt-8 inline-flex items-center justify-between rounded-xl px-5 py-3 text-sm font-semibold transition-colors ${
+                    featured
+                      ? 'bg-orange-600 text-white hover:bg-orange-500'
+                      : 'border border-sand-300 text-ink hover:border-ink/40 hover:bg-sand-50'
                   }`}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ 
-                    delay: 0.4 + index * 0.15,
-                    duration: 0.3
-                  }}
-                  whileHover={{ 
-                    scale: 1.02,
-                    transition: { duration: 0.2 }
-                  }}
-                  whileTap={{ scale: 0.98 }}
                 >
-                  Get Started
-                </motion.button>
-              </Link>
-            </div>
-          </motion.div>
-        ))}
+                  Get started
+                  <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </Link>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

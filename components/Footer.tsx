@@ -68,7 +68,7 @@ const Footer = () => {
     transition={{ duration: 0.5, delay: 0.5 }}
     >
     <div className="mb-4 md:mb-0">
-    <Image src="/zelisline.svg" alt="Zelisline Logo" width={150} height={50} />
+    <Image src="/zelisline-logo.png" alt="Zelisline — grow together" width={600} height={160} className="h-9 w-auto" />
     </div>
     <div className="flex space-x-6 mb-4 md:mb-0">
     {socialIcons.map(({ Icon, href, color }, index) => (

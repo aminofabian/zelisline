@@ -64,11 +64,12 @@ const PersonalWebsitePackage = () => {
       {/* Logo - Fixed on the right */}
       <div className="fixed right-8 top-8 z-10 hidden lg:block">
         <Image
-          src="/zelisline.svg"
-          width={200}
-          height={100}
-          alt="Zelisline Logo"
+          src="/zelisline-logo.png"
+          width={600}
+          height={160}
+          alt="Zelisline — grow together"
           priority
+          className="w-40 h-auto"
         />
       </div>
 
@@ -112,11 +113,12 @@ const PersonalWebsitePackage = () => {
             {/* Mobile Logo - Only shows on mobile */}
             <div className="lg:hidden flex justify-center mb-6">
               <Image
-                src="/zelisline.svg"
-                width={160}
-                height={80}
-                alt="Zelisline Logo"
+                src="/zelisline-logo.png"
+                width={600}
+                height={160}
+                alt="Zelisline — grow together"
                 priority
+                className="w-36 h-auto"
               />
             </div>
 

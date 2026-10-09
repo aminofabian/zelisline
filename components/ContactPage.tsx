@@ -1,12 +1,20 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Briefcase, Mail, MessageSquare, Send, Check, X, Building2, Users2, HandIcon } from 'lucide-react';
-import { EnhancedHeader } from './EnhancedHeader';
+import {
+  Mail,
+  MapPin,
+  Phone,
+  Send,
+  Check,
+  X,
+  Building2,
+  User,
+  Briefcase,
+} from 'lucide-react';
 import SimpleCaptcha from './SimpleCaptcha';
 import { useToast } from "@/components/ui/use-toast";
-
 
 interface FormData {
   role: 'business' | 'individual' | 'agency' | '';
@@ -22,133 +30,49 @@ interface SubmitStatus {
   message: string;
 }
 
-interface InputFieldProps {
-  icon: React.ReactElement;
-  placeholder: string;
-  name: keyof FormData;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
-  type?: string;
-  as?: 'input' | 'select' | 'textarea';
-  options?: string[];
-  isActive: boolean;
-  onFocus: () => void;
-  onBlur: () => void;
-}
+const roles = [
+  { id: 'business', icon: Building2, label: 'Business' },
+  { id: 'individual', icon: User, label: 'Individual' },
+  { id: 'agency', icon: Briefcase, label: 'Agency' },
+] as const;
 
-const InputField: React.FC<InputFieldProps> = ({ 
-  icon, placeholder, name, value, onChange, type = 'text', as = 'input', options, isActive, onFocus, onBlur 
-}) => (
-  <motion.div 
-    className={`flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 group ${
-      isActive ? 'bg-orange-50' : ''
-    } rounded-lg p-4 transition-all duration-300`}
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-  >
-    <motion.div 
-      className={`w-12 h-12 rounded-full flex items-center justify-center ${
-        isActive ? 'bg-orange-500 text-white' : 'bg-orange-100 text-orange-500'
-      } shadow-lg transition-all duration-300 flex-shrink-0`}
-      animate={{ rotate: isActive ? 360 : 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      {React.cloneElement(icon, { size: 24 })}
-    </motion.div>
-    {as === 'input' && (
-      <motion.input
-        whileFocus={{ scale: 1.02 }}
-        className="w-full bg-transparent border-b-2 border-gray-300 focus:border-orange-500 text-base sm:text-lg px-2 py-1 outline-none transition-colors duration-300"
-        type={type}
-        placeholder={placeholder}
-        name={name}
-        value={value}
-        onChange={onChange}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        required
-      />
-    )}
-    {as === 'select' && (
-      <motion.select
-        whileFocus={{ scale: 1.02 }}
-        className="w-full bg-transparent border-b-2 border-gray-300 focus:border-orange-500 text-base sm:text-lg px-2 py-1 outline-none appearance-none transition-colors duration-300"
-        name={name}
-        value={value}
-        onChange={onChange}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        required
-      >
-        <option value="">{placeholder}</option>
-        {options?.map((option, index) => (
-          <option key={index} value={option}>{option}</option>
-        ))}
-      </motion.select>
-    )}
-    {as === 'textarea' && (
-      <motion.textarea
-        whileFocus={{ scale: 1.02 }}
-        className="w-full bg-transparent border-b-2 border-gray-300 focus:border-orange-500 text-base sm:text-lg px-2 py-1 outline-none resize-none transition-colors duration-300 min-h-[100px]"
-        placeholder={placeholder}
-        name={name}
-        value={value}
-        onChange={onChange}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        rows={3}
-        required
-      />
-    )}
-  </motion.div>
-);
+const services = [
+  'Web Development',
+  'Digital Marketing',
+  'UI/UX Design',
+  'E-commerce Solutions',
+  'Custom Web Applications',
+  'Website Maintenance',
+  'SEO Services',
+  'Other',
+];
 
-const RoleSelector: React.FC<{ role: string; onChange: (role: FormData['role']) => void }> = ({ role, onChange }) => (
-  <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-    {[
-      { id: 'business', icon: <Building2 size={18} />, label: 'Business' },
-      { id: 'individual', icon: <User size={18} />, label: 'Individual' },
-      { id: 'agency', icon: <HandIcon size={18} />, label: 'Agency' }
-    ].map(({ id, icon, label }) => (
-      <motion.button
-        key={id}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className={`px-3 sm:px-4 py-2 rounded-full flex items-center space-x-2 text-sm sm:text-base ${
-          role === id ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-700'
-        }`}
-        onClick={() => onChange(id as FormData['role'])}
-        type="button"
-      >
-        {icon}
-        <span>{label}</span>
-      </motion.button>
-    ))}
-  </div>
-);
+const contactChannels = [
+  { icon: Mail, label: 'Email', value: 'zelisline@gmail.com', href: 'mailto:zelisline@gmail.com' },
+  { icon: Phone, label: 'Phone', value: '(+254) 714 28 2874', href: 'tel:+254714282874' },
+  { icon: MapPin, label: 'Studio', value: 'Nairobi, Kenya' },
+];
+
+const inputClass =
+  'w-full rounded-lg border border-sand-300 bg-white px-3.5 py-2.5 text-[0.95rem] text-ink outline-none transition-colors placeholder:text-ink-muted/70 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20';
 
 const ContactForm: React.FC = () => {
-  
   const [formData, setFormData] = useState<FormData>({
     role: 'business',
     name: '',
     service: '',
     email: '',
     message: '',
-    termsAccepted: false
+    termsAccepted: false,
   });
-  const [activeField, setActiveField] = useState<keyof FormData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus | null>(null);
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
-  const messageRef = useRef<HTMLTextAreaElement>(null);
   const { toast } = useToast();
 
   const validateForm = () => {
     const errors: Record<string, string> = {};
-    
     if (!formData.name.trim()) errors.name = 'Name is required';
     if (!formData.email.trim()) {
       errors.email = 'Email is required';
@@ -156,45 +80,39 @@ const ContactForm: React.FC = () => {
       errors.email = 'Please enter a valid email';
     }
     if (!formData.message.trim()) errors.message = 'Message is required';
-    if (!isCaptchaValid) errors.captcha = 'Please complete the captcha verification';
-
+    if (!isCaptchaValid) errors.captcha = 'Please complete the verification';
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value, type } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
     }));
-    if (formErrors[name]) {
-      setFormErrors(prev => ({ ...prev, [name]: '' }));
-    }
+    if (formErrors[name]) setFormErrors((prev) => ({ ...prev, [name]: '' }));
   };
-  
-  const handleRoleChange = (role: FormData['role']) => {
-    setFormData(prev => ({ ...prev, role }));
-  };
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!isCaptchaValid) {
       toast({
-        title: "⚠️ Verification Required",
-        description: "Please complete the captcha verification before submitting.",
-        variant: "destructive",
+        title: 'Verification required',
+        description: 'Please complete the verification before submitting.',
+        variant: 'destructive',
         duration: 3000,
       });
       return;
     }
-
     if (!validateForm()) {
       toast({
-        title: "⚠️ Form Incomplete",
-        description: "Please fill in all required fields correctly.",
-        variant: "destructive",
+        title: 'Form incomplete',
+        description: 'Please fill in all required fields correctly.',
+        variant: 'destructive',
         duration: 3000,
       });
       return;
@@ -204,245 +122,240 @@ const ContactForm: React.FC = () => {
     try {
       const response = await fetch('/api/submit-contact-form', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-      
       const result = await response.json();
-      
+
       if (response.ok) {
-        setSubmitStatus({ type: 'success', message: 'Form submitted successfully!' });
+        setSubmitStatus({ type: 'success', message: 'Thanks — your message is on its way.' });
         setFormData({
           role: 'business',
           name: '',
           service: '',
           email: '',
           message: '',
-          termsAccepted: false
+          termsAccepted: false,
         });
       } else {
-        setSubmitStatus({ type: 'error', message: result.error || 'An error occurred. Please try again.' });
+        setSubmitStatus({ type: 'error', message: result.error || 'Something went wrong. Please try again.' });
       }
     } catch (error) {
       console.error('Error submitting form:', error);
       setSubmitStatus({ type: 'error', message: 'An unexpected error occurred. Please try again later.' });
     }
-    
     setIsSubmitting(false);
-    setTimeout(() => setSubmitStatus(null), 5000);
+    setTimeout(() => setSubmitStatus(null), 6000);
   };
-  
-  useEffect(() => {
-    if (messageRef.current) {
-      messageRef.current.style.height = 'auto';
-      messageRef.current.style.height = `${messageRef.current.scrollHeight}px`;
-    }
-  }, [formData.message]);
-  
+
   return (
-    <section className="bg-gradient-to-b from-white to-gray-50 py-4 sm:py-16 lg:py-24 px-1 sm:px-6 lg:px-8 min-h-screen flex items-center justify-center">
-      <div className="w-[98%] sm:container sm:mx-auto sm:max-w-4xl relative">
-        <motion.div 
-          className="absolute top-0 left-1/2 w-64 sm:w-96 h-64 sm:h-96 bg-orange-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 -translate-x-1/2"
-          animate={{ 
-            x: [0, 50, -50, 0],
-            y: [0, -50, 50, 0]
-          }}
-          transition={{ 
-            repeat: Infinity, 
-            duration: 10,
-            ease: "easeInOut"
-          }}
-        ></motion.div>     
-        <motion.div 
-          className="absolute top-0 -right-4 w-64 sm:w-96 h-64 sm:h-96 bg-yellow-100 rounded-full mix-blend-multiply filter blur-xl opacity-70"
-          animate={{ 
-            x: [0, -50, 50, 0],
-            y: [0, 50, -50, 0]
-          }}
-          transition={{ 
-            repeat: Infinity, 
-            duration: 15,
-            ease: "easeInOut"
-          }}
-        ></motion.div>    
-        <motion.div 
-          className="relative bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg rounded-lg sm:rounded-3xl shadow-xl p-3 sm:p-6 lg:p-8 w-full"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <EnhancedHeader />
-          
-          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 lg:space-y-8 mt-6 sm:mt-8">
-            <RoleSelector role={formData.role} onChange={handleRoleChange} />
-            
-            <InputField
-              icon={<User />}
-              placeholder="Your Name"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              isActive={activeField === 'name'}
-              onFocus={() => setActiveField('name')}
-              onBlur={() => setActiveField(null)}
-            />
-            <InputField
-              icon={<Briefcase />}
-              placeholder="Select Service"
-              name="service"
-              value={formData.service}
-              onChange={handleInputChange}
-              as="select"
-              options={[
-                'Web Development',
-                'Digital Marketing',
-                'UI/UX Design',
-                'E-commerce Solutions',
-                'Custom Web Applications',
-                'Website Maintenance',
-                'SEO Services',
-                'Other'
-              ]}
-              isActive={activeField === 'service'}
-              onFocus={() => setActiveField('service')}
-              onBlur={() => setActiveField(null)}
-            />
-            <InputField
-              icon={<Mail />}
-              placeholder="Your Email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              type="email"
-              isActive={activeField === 'email'}
-              onFocus={() => setActiveField('email')}
-              onBlur={() => setActiveField(null)}
-            />
-            <InputField
-              icon={<MessageSquare />}
-              placeholder="Tell us about your project..."
-              name="message"
-              value={formData.message}
-              onChange={handleInputChange}
-              as="textarea"
-              isActive={activeField === 'message'}
-              onFocus={() => setActiveField('message')}
-              onBlur={() => setActiveField(null)}
-            />
-            
-            <motion.div className="flex items-start sm:items-center space-x-3">
-              <input
-                type="checkbox"
-                id="terms"
-                name="termsAccepted"
-                checked={formData.termsAccepted}
-                onChange={handleInputChange}
-                className="form-checkbox h-5 w-5 text-orange-500 rounded-full mt-1 sm:mt-0"
-                required
-              />
-              <label htmlFor="terms" className="text-sm sm:text-base text-gray-700">
-                I hereby accept all terms and conditions.
-              </label>
-            </motion.div>
+    <section>
+      <div className="mx-auto max-w-[1400px] px-5 sm:px-6 lg:px-10">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+          {/* Context */}
+          <div className="lg:col-span-5">
+            <span className="eyebrow">Contact</span>
+            <h2 className="mt-3 max-w-[16ch] font-display text-3xl font-medium leading-tight text-ink sm:text-4xl">
+              Let&apos;s talk about your project
+            </h2>
+            <p className="mt-5 text-pretty leading-relaxed text-ink-soft">
+              Tell us what you&apos;re working on and we&apos;ll come back with honest
+              advice on scope, timeline and cost. No pressure, no jargon.
+            </p>
 
-            {/* Captcha */}
-            <div className="mt-8">
-              <SimpleCaptcha onValidate={setIsCaptchaValid} />
-              {formErrors.captcha && (
-                <p className="mt-1 text-sm text-red-500">{formErrors.captcha}</p>
-              )}
-            </div>
-
-            <motion.button
-              whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-              whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-              type="submit"
-              className={`w-full relative bg-gradient-to-r ${
-                isSubmitting 
-                  ? 'from-orange-400 to-orange-300 cursor-not-allowed' 
-                  : 'from-orange-600 to-orange-400 hover:shadow-lg hover:shadow-orange-200/50'
-              } text-white px-6 py-3 rounded-full text-base sm:text-lg font-semibold transition duration-300 flex items-center justify-center space-x-2 mt-6`}
-              disabled={isSubmitting}
-            >
-              <div className="relative flex items-center justify-center">
-                <span className={`transition-opacity duration-200 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
-                  Send Message
-                </span>
-                {isSubmitting && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="flex gap-1">
-                      <motion.div
-                        className="w-2 h-2 bg-white rounded-full"
-                        animate={{
-                          y: ["0%", "-50%", "0%"],
-                        }}
-                        transition={{
-                          duration: 0.6,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: 0,
-                        }}
-                      />
-                      <motion.div
-                        className="w-2 h-2 bg-white rounded-full"
-                        animate={{
-                          y: ["0%", "-50%", "0%"],
-                        }}
-                        transition={{
-                          duration: 0.6,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: 0.2,
-                        }}
-                      />
-                      <motion.div
-                        className="w-2 h-2 bg-white rounded-full"
-                        animate={{
-                          y: ["0%", "-50%", "0%"],
-                        }}
-                        transition={{
-                          duration: 0.6,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                          delay: 0.4,
-                        }}
-                      />
-                    </div>
+            <dl className="mt-8">
+              {contactChannels.map(({ icon: Icon, label, value, href }) => (
+                <div key={label} className="flex items-center gap-4 border-t border-sand-200 py-4">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-orange-50 text-orange-600">
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  <div>
+                    <dt className="text-xs uppercase tracking-[0.12em] text-ink-muted">{label}</dt>
+                    <dd className="mt-0.5 font-display text-base text-ink">
+                      {href ? (
+                        <a href={href} className="transition-colors hover:text-orange-700">{value}</a>
+                      ) : (
+                        value
+                      )}
+                    </dd>
                   </div>
-                )}
-              </div>
-            </motion.button>
+                </div>
+              ))}
+            </dl>
 
-            <AnimatePresence>
-              {submitStatus && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className={`mt-4 p-3 rounded-lg flex items-center justify-center space-x-2 text-sm sm:text-base ${
-                    submitStatus.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+            <p className="mt-6 font-hand text-xl text-orange-700/90">
+              We usually reply within a day.
+            </p>
+          </div>
+
+          {/* Form */}
+          <div className="lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.5 }}
+              className="rounded-2xl border border-sand-200 bg-white p-5 sm:p-8"
+            >
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Role */}
+                <div>
+                  <span className="mb-2.5 block text-sm font-medium text-ink">I am a…</span>
+                  <div className="flex flex-wrap gap-2">
+                    {roles.map(({ id, icon: Icon, label }) => {
+                      const isActive = formData.role === id;
+                      return (
+                        <button
+                          key={id}
+                          type="button"
+                          onClick={() => setFormData((prev) => ({ ...prev, role: id }))}
+                          className={`flex items-center gap-2 rounded-lg border px-3.5 py-2 text-sm font-medium transition-colors ${
+                            isActive
+                              ? 'border-orange-600 bg-orange-50 text-orange-700'
+                              : 'border-sand-300 text-ink-soft hover:border-ink/30'
+                          }`}
+                        >
+                          <Icon className="h-4 w-4" />
+                          {label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-ink">
+                      Name <span className="text-orange-600">*</span>
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Your name"
+                      className={inputClass}
+                      required
+                    />
+                    {formErrors.name && <p className="mt-1.5 text-xs text-red-600">{formErrors.name}</p>}
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-ink">
+                      Email <span className="text-orange-600">*</span>
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="you@company.com"
+                      className={inputClass}
+                      required
+                    />
+                    {formErrors.email && <p className="mt-1.5 text-xs text-red-600">{formErrors.email}</p>}
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="service" className="mb-1.5 block text-sm font-medium text-ink">
+                    What do you need?
+                  </label>
+                  <select
+                    id="service"
+                    name="service"
+                    value={formData.service}
+                    onChange={handleInputChange}
+                    className={`${inputClass} appearance-none bg-[length:1rem] bg-[right_0.9rem_center] bg-no-repeat pr-10`}
+                    style={{
+                      backgroundImage:
+                        "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2379716B' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\")",
+                    }}
+                  >
+                    <option value="">Select a service</option>
+                    {services.map((option) => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-ink">
+                    Project details <span className="text-orange-600">*</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    rows={5}
+                    placeholder="A little about your goals, timeline and budget…"
+                    className={`${inputClass} resize-y`}
+                    required
+                  />
+                  {formErrors.message && <p className="mt-1.5 text-xs text-red-600">{formErrors.message}</p>}
+                </div>
+
+                <label htmlFor="terms" className="flex cursor-pointer items-start gap-3 text-sm text-ink-soft">
+                  <input
+                    id="terms"
+                    type="checkbox"
+                    name="termsAccepted"
+                    checked={formData.termsAccepted}
+                    onChange={handleInputChange}
+                    className="mt-0.5 h-4 w-4 rounded border-sand-400 text-orange-600 accent-orange-600"
+                    required
+                  />
+                  <span>I accept the terms and conditions.</span>
+                </label>
+
+                <div>
+                  <SimpleCaptcha onValidate={setIsCaptchaValid} />
+                  {formErrors.captcha && <p className="mt-1.5 text-xs text-red-600">{formErrors.captcha}</p>}
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-base font-semibold text-white transition-colors ${
+                    isSubmitting ? 'cursor-not-allowed bg-orange-300' : 'bg-orange-600 hover:bg-orange-700'
                   }`}
                 >
-                  {submitStatus.type === 'success' ? (
+                  {isSubmitting ? (
                     <>
-                      <Check size={18} className="flex-shrink-0" />
-                      <span>{submitStatus.message}</span>
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                      Sending…
                     </>
                   ) : (
                     <>
-                      <X size={18} className="flex-shrink-0" />
-                      <span>{submitStatus.message}</span>
+                      Send message
+                      <Send className="h-4 w-4" />
                     </>
                   )}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </form>
-        </motion.div>
+                </button>
+
+                <AnimatePresence>
+                  {submitStatus && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className={`flex items-center gap-2 rounded-lg px-4 py-3 text-sm ${
+                        submitStatus.type === 'success'
+                          ? 'bg-green-50 text-green-800'
+                          : 'bg-red-50 text-red-700'
+                      }`}
+                    >
+                      {submitStatus.type === 'success' ? <Check className="h-4 w-4" /> : <X className="h-4 w-4" />}
+                      <span>{submitStatus.message}</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </form>
+            </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );

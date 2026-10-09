@@ -1,102 +1,81 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { Tabs } from "../ui/tabs";
-import MyAccordion from "./MyAccordion";
-import * as items from "@/data/faq";
-import { Globe, Search, PenTool, Image, Video, LucideIcon } from 'lucide-react';
+'use client';
 
-type TabTitle = "Web Design" | "SEO Services" | "Content Marketing" | "Logo Design" | "Video Production";
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import MyAccordion from './MyAccordion';
+import * as items from '@/data/faq';
+import { Globe, Search, PenTool, Image, Video } from 'lucide-react';
 
-const tabIcons: Record<TabTitle, LucideIcon> = {
-  "Web Design": Globe,
-  "SEO Services": Search,
-  "Content Marketing": PenTool,
-  "Logo Design": Image,
-  "Video Production": Video,
-};
+const tabs = [
+  { title: 'Web design', icon: Globe, items: items.webDesignFaqs },
+  { title: 'SEO', icon: Search, items: items.seoFaqs },
+  { title: 'Content marketing', icon: PenTool, items: items.faqContent },
+  { title: 'Logo design', icon: Image, items: items.logoFaqs },
+  { title: 'Video production', icon: Video, items: items.videoFaqs },
+];
 
 export function TabsDemo() {
-  const tabs = [
-    {
-      title: "Web Design" as TabTitle,
-      value: "product",
-      content: (
-        <FAQSection title="Web Design FAQs" items={items.webDesignFaqs} />
-      ),
-    },
-    {
-      title: "SEO Services" as TabTitle,
-      value: "seo",
-      content: (
-        <FAQSection title="SEO FAQs" items={items.seoFaqs} />
-      ),
-    },
-    {
-      title: "Content Marketing" as TabTitle,
-      value: "content",
-      content: (
-        <FAQSection title="Content Marketing FAQs" items={items.faqContent} />
-      ),
-    },
-    {
-      title: "Logo Design" as TabTitle,
-      value: "logo",
-      content: (
-        <FAQSection title="Logo Design FAQs" items={items.logoFaqs} />
-      ),
-    },
-    {
-      title: "Video Production" as TabTitle,
-      value: "video",
-      content: (
-        <FAQSection title="Video Production FAQs" items={items.videoFaqs} />
-      ),
-    },
-  ];
-  
+  const [activeIndex, setActiveIndex] = useState(0);
+  const active = tabs[activeIndex];
+
   return (
-    <div className="bg-gradient-to-br from-orange-50 via-white to-orange-50/30 py-4 px-1 sm:px-6 lg:px-8">
-      <div className="w-[98%] sm:container mx-auto sm:max-w-6xl">
-        <motion.h2 
-          className="text-2xl sm:text-4xl font-bold text-center mb-4 text-gray-800"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          Browse Our <span className="text-orange-500">FAQs</span>
-        </motion.h2>
-        <Tabs 
-          tabs={tabs}
-          containerClassName="mb-2"
-          contentClassName="relative z-10"
-        />
+    <div className="mx-auto max-w-[1400px] px-5 sm:px-6 lg:px-10">
+      <div className="grid gap-6 sm:grid-cols-2 sm:items-end">
+        <div>
+          <span className="eyebrow">Answers</span>
+          <h2 className="mt-3 max-w-[20ch] font-display text-3xl font-medium leading-tight text-ink sm:text-4xl">
+            Questions we hear often
+          </h2>
+        </div>
+        <p className="text-pretty leading-relaxed text-ink-soft sm:pb-1">
+          A few of the things clients ask before we begin. Can&apos;t find yours?
+          Just reach out — we&apos;re happy to talk it through.
+        </p>
+      </div>
+
+      <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:gap-12">
+        {/* Tab list */}
+        <div className="lg:col-span-4">
+          <div className="flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0">
+            {tabs.map((tab, index) => {
+              const Icon = tab.icon;
+              const isActive = index === activeIndex;
+              return (
+                <button
+                  key={tab.title}
+                  onClick={() => setActiveIndex(index)}
+                  aria-pressed={isActive}
+                  className={`group flex shrink-0 items-center gap-3 rounded-lg px-4 py-3 text-left text-sm font-medium transition-colors lg:w-full lg:text-base ${
+                    isActive
+                      ? 'bg-orange-50 text-orange-700'
+                      : 'text-ink-soft hover:bg-sand-100 hover:text-ink'
+                  }`}
+                >
+                  <Icon className={`h-4 w-4 shrink-0 ${isActive ? 'text-orange-600' : 'text-ink-muted group-hover:text-orange-600'}`} />
+                  <span className="whitespace-nowrap lg:whitespace-normal">{tab.title}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Panel */}
+        <div className="lg:col-span-8">
+          <div className="rounded-2xl border border-sand-200 bg-white p-4 sm:p-6">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active.title}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
+              >
+                <MyAccordion items={active.items} />
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-
-const FAQSection: React.FC<{ title: string; items: any[] }> = ({ title, items }) => (
-  <motion.div 
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -20 }}
-    transition={{ duration: 0.5 }}
-    className="bg-white/80 backdrop-blur-sm rounded-xl sm:rounded-2xl shadow-lg p-3 sm:p-6 w-full relative"
-  >
-    <h3 className="text-xl sm:text-3xl font-semibold mb-3 text-orange-500 px-2">{title}</h3>
-    <div className="relative">
-      <MyAccordion items={items} />
-    </div>
-  </motion.div>
-);
-
-// Custom tab component to include icons
-const CustomTab = ({ title }: { title: TabTitle }) => {
-  const Icon = tabIcons[title];
-  return (
-    <div className="flex items-center space-x-2 relative z-10">
-      <Icon className="w-4 h-4 text-orange-500 group-hover:text-white transition-colors duration-300" />
-      <span className="transition-colors duration-300">{title}</span>
-    </div>
-  );
-};

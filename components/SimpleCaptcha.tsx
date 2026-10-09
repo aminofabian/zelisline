@@ -63,37 +63,37 @@ export const SimpleCaptcha: React.FC<SimpleCaptchaProps> = ({ onValidate }) => {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-white to-gray-50 rounded-xl p-6 shadow-lg border border-gray-100"
+        className="bg-sand-50 rounded-xl p-5 border border-sand-200"
       >
         <div className="flex flex-col space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-gray-700 font-semibold">
+            <h3 className="text-ink font-medium">
               Human Verification
             </h3>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={generateNewProblem}
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              className="p-2 hover:bg-sand-100 rounded-full transition-colors"
               aria-label="Generate new problem"
             >
-              <RefreshCw className="w-4 h-4 text-gray-500" />
+              <RefreshCw className="w-4 h-4 text-ink-muted" />
             </motion.button>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <motion.div
               animate={{ scale: isAnimating ? 0.95 : 1, opacity: isAnimating ? 0.5 : 1 }}
-              className="flex items-center justify-center bg-gradient-to-r from-orange-500/10 to-orange-600/10 rounded-lg p-4 min-w-[180px]"
+              className="flex items-center justify-center bg-white rounded-lg border border-sand-200 p-4 min-w-[180px]"
             >
               <motion.span
                 key={`${num1}${operator}${num2}`}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-xl font-semibold text-gray-800 flex items-center space-x-3"
+                className="text-xl font-display text-ink flex items-center space-x-3"
               >
                 <span>{num1}</span>
-                <span className="text-orange-500">{operator}</span>
+                <span className="text-orange-600">{operator}</span>
                 <span>{num2}</span>
                 <span>=</span>
               </motion.span>
@@ -104,9 +104,9 @@ export const SimpleCaptcha: React.FC<SimpleCaptchaProps> = ({ onValidate }) => {
                 type="number"
                 value={userAnswer}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors
+                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors bg-white text-ink
                   ${isCorrect === null 
-                    ? 'border-gray-200 focus:border-orange-500' 
+                    ? 'border-sand-300 focus:border-orange-500' 
                     : isCorrect 
                       ? 'border-green-500 bg-green-50' 
                       : 'border-red-500 bg-red-50'
@@ -126,7 +126,7 @@ export const SimpleCaptcha: React.FC<SimpleCaptchaProps> = ({ onValidate }) => {
             </div>
           </div>
 
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-ink-muted">
             {isCorrect === false && (
               <motion.p
                 initial={{ opacity: 0 }}
@@ -148,10 +148,6 @@ export const SimpleCaptcha: React.FC<SimpleCaptchaProps> = ({ onValidate }) => {
           </div>
         </div>
       </motion.div>
-
-      {/* Decorative Elements */}
-      <div className="absolute -top-2 -left-2 w-20 h-20 bg-orange-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" />
-      <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-orange-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000" />
     </div>
   );
 };

@@ -82,11 +82,11 @@ const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({ isOpen, onClo
           <div className="flex flex-col space-y-2">
             <p>Thank you for your project inquiry!</p>
             <p className="text-sm text-gray-500">
-              We've received your message and will get back to you within 24-48 hours.
+              We&apos;ve received your message and will get back to you within 24-48 hours.
             </p>
           </div>
         ),
-        className: "bg-gradient-to-r from-green-50 to-emerald-50 border-green-200",
+        className: "bg-green-50 border-green-200",
         duration: 5000,
       });
 
@@ -155,18 +155,18 @@ const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({ isOpen, onClo
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", duration: 0.5 }}
-              className="relative inline-block w-full max-w-2xl p-6 my-8 overflow-hidden text-left align-middle bg-white shadow-xl rounded-2xl"
+              className="relative inline-block w-full max-w-2xl p-6 my-8 overflow-hidden text-left align-middle bg-white shadow-lift rounded-2xl border border-sand-200"
             >
               <div className="absolute top-4 right-4">
                 <button
                   onClick={onClose}
-                  className="p-2 text-gray-400 hover:text-gray-500 rounded-full hover:bg-gray-100 transition-colors"
+                  className="p-2 text-ink-muted hover:text-ink rounded-full hover:bg-sand-100 transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              <Dialog.Title as="h3" className="text-2xl font-semibold leading-6 text-gray-900 mb-8">
+              <Dialog.Title as="h3" className="font-display text-2xl leading-6 text-ink mb-8">
                 Start Your Project
               </Dialog.Title>
 
@@ -174,7 +174,7 @@ const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({ isOpen, onClo
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {/* Name Field */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-ink mb-2">
                       Name *
                     </label>
                     <input
@@ -182,9 +182,9 @@ const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({ isOpen, onClo
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className={`w-full px-4 py-3 rounded-lg border ${
-                        formErrors.name ? 'border-red-500' : 'border-gray-300'
-                      } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors`}
+                      className={`w-full px-4 py-3 rounded-lg border bg-white text-ink ${
+                        formErrors.name ? 'border-red-500' : 'border-sand-300'
+                      } focus:outline-none focus:ring-2 focus:ring-orange-500/25 focus:border-orange-500 transition-colors`}
                       placeholder="Your name"
                     />
                     {formErrors.name && (
@@ -194,7 +194,7 @@ const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({ isOpen, onClo
 
                   {/* Email Field */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-ink mb-2">
                       Email *
                     </label>
                     <input
@@ -202,9 +202,9 @@ const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({ isOpen, onClo
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className={`w-full px-4 py-3 rounded-lg border ${
-                        formErrors.email ? 'border-red-500' : 'border-gray-300'
-                      } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors`}
+                      className={`w-full px-4 py-3 rounded-lg border bg-white text-ink ${
+                        formErrors.email ? 'border-red-500' : 'border-sand-300'
+                      } focus:outline-none focus:ring-2 focus:ring-orange-500/25 focus:border-orange-500 transition-colors`}
                       placeholder="your@email.com"
                     />
                     {formErrors.email && (
@@ -214,7 +214,7 @@ const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({ isOpen, onClo
 
                   {/* Phone Field */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-ink mb-2">
                       Phone Number
                     </label>
                     <input
@@ -222,14 +222,14 @@ const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({ isOpen, onClo
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 rounded-lg border border-sand-300 bg-white text-ink focus:outline-none focus:ring-2 focus:ring-orange-500/25 focus:border-orange-500 transition-colors"
                       placeholder="Your phone number"
                     />
                   </div>
 
                   {/* Company Field */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-ink mb-2">
                       Company
                     </label>
                     <input
@@ -237,7 +237,7 @@ const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({ isOpen, onClo
                       name="company"
                       value={formData.company}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 rounded-lg border border-sand-300 bg-white text-ink focus:outline-none focus:ring-2 focus:ring-orange-500/25 focus:border-orange-500 transition-colors"
                       placeholder="Your company name"
                     />
                   </div>
@@ -245,7 +245,7 @@ const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({ isOpen, onClo
 
                 {/* Project Details Field */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-ink mb-2">
                     Project Details *
                   </label>
                   <textarea
@@ -253,9 +253,9 @@ const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({ isOpen, onClo
                     value={formData.projectDetails}
                     onChange={handleInputChange}
                     rows={4}
-                    className={`w-full px-4 py-3 rounded-lg border ${
-                      formErrors.projectDetails ? 'border-red-500' : 'border-gray-300'
-                    } focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors`}
+                    className={`w-full px-4 py-3 rounded-lg border bg-white text-ink ${
+                      formErrors.projectDetails ? 'border-red-500' : 'border-sand-300'
+                    } focus:outline-none focus:ring-2 focus:ring-orange-500/25 focus:border-orange-500 transition-colors`}
                     placeholder="Tell us about your project..."
                   />
                   {formErrors.projectDetails && (
@@ -276,10 +276,10 @@ const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({ isOpen, onClo
                   <button
                     type="submit"
                     disabled={!isCaptchaValid || isLoading}
-                    className={`w-full px-6 py-4 text-white rounded-lg text-lg font-semibold transition-all transform hover:scale-[1.02] ${
+                    className={`w-full px-6 py-4 text-white rounded-xl text-lg font-semibold transition-all transform hover:scale-[1.01] ${
                       isCaptchaValid && !isLoading
-                        ? 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-lg hover:shadow-xl'
-                        : 'bg-gray-300 cursor-not-allowed'
+                        ? 'bg-orange-600 hover:bg-orange-700'
+                        : 'bg-sand-400 cursor-not-allowed'
                     }`}
                   >
                     {isLoading ? (

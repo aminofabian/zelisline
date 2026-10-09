@@ -142,7 +142,7 @@ export const generateProjectInquiryEmail = (data: ProjectInquiryData) => {
           <div class="header">
             <div class="logo">
               <!-- Replace with your actual logo URL -->
-              <img src="https://zelisline.com/zelisline.svg" alt="Zelisline" />
+              <img src="https://www.zelisline.co.ke/zelisline-logo.png" alt="Zelisline" />
             </div>
             <h1>New Project Inquiry</h1>
             <p>We've received a new message from your website</p>

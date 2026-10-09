@@ -5,17 +5,20 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ExternalLink, Mail, Phone, Calendar, Users, Target } from 'lucide-react';
+import ClientSideNav from '@/components/ClientSideNav';
+import FooterRev from '@/components/FooterRev';
 
 interface Project {
   id: number;
   title: string;
   image: string;
   description: string;
-  duration: string;
-  techStack: string[];
-  otherDetails: string;
-  link: string;
-  client: {
+  duration?: string;
+  techStack?: string[];
+  otherDetails?: string;
+  link?: string;
+  tag?: string;
+  client?: {
     name: string;
     contact: {
       email: string;
@@ -24,7 +27,7 @@ interface Project {
   };
   teamSize?: string;
   keyObjectives?: string;
-  testimonial: {
+  testimonial?: {
     text: string;
     author: string;
   };
@@ -33,6 +36,27 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
+    title: "kiosk.ke – The Digital Shopfront",
+    image: "/kiosk.svg",
+    description: "kiosk.ke brings the everyday corner shop online. A mobile-first storefront that lets small traders showcase their products, take orders, and reach customers well beyond their street corner — the kiosk energy of Kenyan commerce, reimagined for the web.",
+    tag: "New",
+  },
+  {
+    id: 2,
+    title: "squl.co.ke – School, Sorted",
+    image: "/squl.svg",
+    description: "Our education platform. squl.co.ke connects administrators, teachers, parents, and learners in one place — bringing admissions, records, and everyday school communication together so nothing gets lost in the paperwork.",
+    tag: "New",
+  },
+  {
+    id: 3,
+    title: "kioskpay.co.ke – Payments for Small Business",
+    image: "/kioskpay.svg",
+    description: "The payments layer of the kiosk story. kioskpay.co.ke is merchant-first payment tooling built to make collections, payouts, and reconciliation effortless — conceived as an M-Pesa-first rail for small business in Kenya.",
+    tag: "New",
+  },
+  {
+    id: 4,
     title: "Alexawriters – Premium Article Writing Platform",
     image: "/alexawriters.png",
     description: "AlexaWriters is a premium article writing platform built with Next.js, featuring a client dashboard for placing orders, a writer dashboard for managing tasks, and an admin dashboard for overseeing operations. It integrates AI tools for generating content ideas, managing writers, and optimizing order fulfillment, designed for seamless efficiency.",
@@ -55,7 +79,7 @@ const projects: Project[] = [
     }
   },
   {
-    id: 2,
+    id: 5,
     title: "FItrii - Community Support Platform",
     image: "/fitrii.png",
     description: "FItrii is a platform where people join support communities to help each other. It features integrated payment systems and is designed for easy community building and mutual assistance.",
@@ -78,7 +102,7 @@ const projects: Project[] = [
     }
   },
   {
-    id: 3,
+    id: 6,
     title: "Mediamasses - Social Media Following Marketplace",
     image: "/mediamassess.png",
     description: "Mediamasses is a platform that sells social media following across various platforms including YouTube and Instagram. It integrates third-party APIs for service processing and Kopokopo APIs for M-Pesa payments.",
@@ -101,7 +125,7 @@ const projects: Project[] = [
     }
   },
   {
-    id: 4,
+    id: 7,
     title: "Pulse Labs - Innovative UX Research Platform",
     image: "/pulselabs.png",
     description: "Pulse Labs is at the forefront of revolutionizing user experience research and analytics. Our proprietary technology captures real-time, context-rich user interactions in a privacy-conscious manner, providing human-centered insights since 2017.",
@@ -123,82 +147,156 @@ const projects: Project[] = [
       author: "Dr. Emily Chen, Head of UX Research at TechGiant Corp."
     }
   }
-  
 ];
 
+const Fact: React.FC<{ icon: React.ElementType; label: string; value: string }> = ({ icon: Icon, label, value }) => (
+  <div className="flex items-start gap-3">
+    <Icon className="mt-0.5 h-4 w-4 shrink-0 text-orange-600" />
+    <div>
+      <dt className="text-xs uppercase tracking-[0.1em] text-ink-muted">{label}</dt>
+      <dd className="mt-0.5 text-sm leading-relaxed text-ink">{value}</dd>
+    </div>
+  </div>
+);
+
 const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => (
-  <motion.div 
-  className="flex flex-col mb-16 p-8 bg-gradient-to-br from-orange-50 via-white to-purple-50 rounded-lg shadow-lg"
-  initial={{ opacity: 0, y: 50 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.5, delay: index * 0.1 }}
+  <motion.article
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: '-80px' }}
+    transition={{ duration: 0.5, delay: (index % 2) * 0.05 }}
+    className={`py-10 sm:py-14 ${index > 0 ? 'border-t border-sand-200' : ''}`}
   >
-  <div className="flex flex-col md:flex-row mb-6">
-  <div className="w-full md:w-1/3 mr-0 md:mr-8 mb-6 md:mb-0">
-  <Image src={project.image} alt={project.title} width={300} height={200} className="rounded-lg shadow-sm w-full h-auto" />
-  </div>
-  <div className="w-full md:w-2/3">
-  <h2 className="text-3xl font-bold mb-4 text-orange-500">{project.id}. {project.title}</h2>
-  <p className="mb-4 text-gray-700">{project.description}</p>
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-  <div className="flex items-center text-gray-600">
-  <Calendar className="mr-2 w-4 h-4 text-orange-500" />
-  <span><strong>Duration:</strong> {project.duration}</span>
-  </div>
-  {project.teamSize && (
-    <div className="flex items-center text-gray-600">
-    <Users className="mr-2 w-4 h-4 text-orange-500" />
-    <span><strong>Team:</strong> {project.teamSize}</span>
+    <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
+      {/* Visual */}
+      <div className="lg:col-span-4">
+        <div className="border border-sand-200 bg-sand-50 p-4">
+          <Image
+            src={project.image}
+            alt={project.title}
+            width={600}
+            height={400}
+            className="h-auto w-full"
+          />
+        </div>
+      </div>
+
+      {/* Detail */}
+      <div className="lg:col-span-8">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+          <span className="font-display text-xs text-ink-muted">{String(project.id).padStart(2, '0')}</span>
+          <h2 className="font-display text-2xl font-medium leading-tight text-ink sm:text-3xl">{project.title}</h2>
+          {project.tag && (
+            <span className="border border-orange-200 bg-orange-50 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-orange-700">
+              {project.tag}
+            </span>
+          )}
+        </div>
+
+        <p className="mt-4 max-w-2xl text-pretty leading-relaxed text-ink-soft">{project.description}</p>
+
+        {(project.duration || project.teamSize || project.keyObjectives) && (
+          <dl className="mt-6 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
+            {project.duration && <Fact icon={Calendar} label="Duration" value={project.duration} />}
+            {project.teamSize && <Fact icon={Users} label="Team" value={project.teamSize} />}
+            {project.keyObjectives && <Fact icon={Target} label="Key objectives" value={project.keyObjectives} />}
+          </dl>
+        )}
+
+        {project.techStack && project.techStack.length > 0 && (
+          <p className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-ink-soft">
+            <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted">Tech stack</span>
+            <span>{project.techStack.join(' · ')}</span>
+          </p>
+        )}
+
+        {project.otherDetails && (
+          <p className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-ink-soft">
+            <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted">Result</span>
+            <span>{project.otherDetails}</span>
+          </p>
+        )}
+
+        {project.link && (
+          <Link
+            href={project.link}
+            target="_blank"
+            className="group mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-orange-700 transition-colors hover:text-orange-800"
+          >
+            View project
+            <ExternalLink className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
+        )}
+
+        {(project.client || project.testimonial) && (
+          <div className="mt-8 grid gap-6 border-t border-sand-200 pt-6 sm:grid-cols-2">
+            {project.client && (
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted">Client</div>
+                <div className="mt-2 font-display text-lg text-ink">{project.client.name}</div>
+                <p className="mt-2 flex items-center gap-2 text-sm text-ink-soft">
+                  <Mail className="h-4 w-4 shrink-0 text-orange-600" /> {project.client.contact.email}
+                </p>
+                <p className="mt-1 flex items-center gap-2 text-sm text-ink-soft">
+                  <Phone className="h-4 w-4 shrink-0 text-orange-600" /> {project.client.contact.phone}
+                </p>
+              </div>
+            )}
+            {project.testimonial && (
+              <blockquote className="border-l-2 border-orange-300 pl-5">
+                <p className="text-pretty italic leading-relaxed text-ink-soft">&quot;{project.testimonial.text}&quot;</p>
+                <footer className="mt-3 text-sm text-ink-muted">— {project.testimonial.author}</footer>
+              </blockquote>
+            )}
+          </div>
+        )}
+      </div>
     </div>
-  )}
-  {project.keyObjectives && (
-    <div className="flex items-center text-gray-600">
-    <Target className="mr-2 w-4 h-4 text-orange-500" />
-    <span><strong>Key Objectives:</strong> {project.keyObjectives}</span>
-    </div>
-  )}
-  </div>
-  <p className="mb-4 text-gray-600"><strong className="text-orange-500">Tech Stack:</strong> {project.techStack.join(", ")}</p>
-  <p className="mb-4 text-gray-600"><strong className="text-orange-500">Results:</strong> {project.otherDetails}</p>
-  <Link href={project.link} target='_blank' className="inline-flex items-center text-orange-500 hover:text-orange-600 transition-colors duration-200">
-  View Project <ExternalLink className="ml-1 w-4 h-4" />
-  </Link>
-  </div>
-  </div>
-  <div className="bg-white p-6 rounded-lg shadow-inner flex flex-wrap justify-between items-center">
-  <div>
-  <h3 className="text-xl font-semibold mb-2 text-orange-500">Client: {project.client.name}</h3>
-  <p className="text-gray-600 flex items-center mb-1">
-  <Mail className="mr-2 w-4 h-4 text-orange-500" /> {project.client.contact.email}
-  </p>
-  <p className="text-gray-600 flex items-center">
-  <Phone className="mr-2 w-4 h-4 text-orange-500" /> {project.client.contact.phone}
-  </p>
-  </div>
-  <div className="mt-4 md:mt-0 bg-orange-50 p-4 rounded-lg italic flex-grow md:ml-4 max-w-md">
-  <p className="text-gray-700 mb-2">&quot;{project.testimonial.text}&quot;</p>
-  <p className="text-gray-600 text-right">- {project.testimonial.author}</p>
-  </div>
-  </div>
-  </motion.div>
+  </motion.article>
 );
 
 const OurWork: React.FC = () => {
   return (
-    <div className="bg-gradient-to-br from-orange-50 via-white to-purple-50 min-h-screen py-16">
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-    <motion.h1 
-    className="text-5xl font-bold mb-16 text-center text-orange-500"
-    initial={{ opacity: 0, y: -20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-    >
-    Our Work
-    </motion.h1>
-    {projects.map((project, index) => (
-      <ProjectCard key={project.id} project={project} index={index} />
-    ))}
-    </div>
+    <div className="min-h-screen bg-background">
+      {/* Squared surfaces, matching the homepage. */}
+      <div className="edges-square">
+        <div className="flex items-start">
+          {/* Desktop rail — small screens use the layout-level MobileNav */}
+          <div className="hidden shrink-0 pl-4 pr-2 pt-6 sm:pl-6 md:block md:self-stretch lg:pl-10">
+            <ClientSideNav />
+          </div>
+
+          <main className="min-w-0 flex-1">
+            {/* Header band */}
+            <section className="border-b border-sand-200 bg-sand-50">
+              <div className="mx-auto max-w-[1400px] px-5 pb-14 pt-12 sm:px-6 md:pt-16 lg:px-10">
+                <div className="flex items-center gap-3">
+                  <span className="h-px w-8 bg-orange-500" />
+                  <span className="eyebrow">Selected work</span>
+                </div>
+                <h1 className="mt-5 max-w-[20ch] font-display text-[2.15rem] font-medium leading-[1.06] tracking-[-0.02em] text-ink sm:text-5xl lg:text-[3.6rem]">
+                  Our Work
+                </h1>
+                <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-ink-soft sm:text-lg">
+                  From storefront (<span className="font-medium text-orange-700">kiosk.ke</span>) to
+                  operations (<span className="font-medium text-orange-700">squl.co.ke</span>) to
+                  payments (<span className="font-medium text-orange-700">kioskpay.co.ke</span>) — and
+                  everything in between — here&apos;s what we&apos;ve been building.
+                </p>
+              </div>
+            </section>
+
+            {/* Projects */}
+            <section className="mx-auto max-w-[1400px] px-5 sm:px-6 lg:px-10">
+              {projects.map((project, index) => (
+                <ProjectCard key={project.id} project={project} index={index} />
+              ))}
+            </section>
+          </main>
+        </div>
+
+        <FooterRev />
+      </div>
     </div>
   );
 };

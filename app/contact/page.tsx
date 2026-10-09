@@ -149,7 +149,7 @@ function Contact() {
     <link rel="canonical" href='/contact' />
     </Head>
     <div className="flex min-h-screen relative md:flex-row md:overflow-hidden xl:px-40 md:px-10 bg-gradient-to-b from-gray-50 to-white">
-    <div className="w-screen lg:w-44 md:border-r border-slate-50 justify-center align-middle">
+    <div className="w-screen lg:w-72 md:border-r border-slate-50 justify-center align-middle">
     <div className="hidden md:flex"><SideNav /></div>
     </div>
     

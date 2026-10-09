@@ -1,18 +1,14 @@
 import Image from 'next/image'
 
-export default function Logo() {
+export default function Logo({ className = 'h-8' }: { className?: string }) {
   return (
-    <div className="md:flex bg-transparent lg:!p-0 w-[35dvh] h-auto">
     <Image
-    src="/zelisline.svg"
-    width="0"
-    height="0"
-    sizes="10vw"
-    style={{ width: '50%', height: 'auto' }}
-    placeholder="empty"
-    loading = 'lazy'
-    alt="Zelisline Logo"
+      src="/zelisline-logo.png"
+      width={600}
+      height={160}
+      alt="Zelisline — grow together"
+      priority
+      className={`${className} w-auto`}
     />
-    </div>
   )
 }

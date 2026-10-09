@@ -1,144 +1,116 @@
 'use client';
 
 import React from 'react';
-import { motion } from "framer-motion";
-import { Twitter, Github, Youtube, MessageCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Github, Linkedin, MessageCircle, Twitter, Youtube } from 'lucide-react';
+
+const footerSections = [
+  {
+    title: 'Services',
+    links: [
+      { href: '/webdevelopment', text: 'Web Development' },
+      { href: '/digitalmarketing', text: 'Digital Marketing' },
+      { href: '/seo', text: 'SEO Services' },
+      { href: '/ecommerce-website-development', text: 'E-commerce' },
+      { href: '/services', text: 'Brand & Design' },
+    ],
+  },
+  {
+    title: 'Packages',
+    links: [
+      { href: '/personal-website-package', text: 'Personal Website' },
+      { href: '/small-business-package', text: 'Small Business' },
+      { href: '/contact', text: 'Enterprise / Custom' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { href: '/about', text: 'About' },
+      { href: '/our-work', text: 'Our Work' },
+      { href: '/blog', text: 'Journal' },
+      { href: '/contact', text: 'Contact' },
+      { href: '/client', text: 'Client Portal' },
+    ],
+  },
+];
+
+const socials = [
+  { Icon: Linkedin, href: 'https://www.linkedin.com/company/zelisline-ltd', label: 'LinkedIn' },
+  { Icon: Twitter, href: 'https://www.twitter.com/zelisline', label: 'Twitter' },
+  { Icon: MessageCircle, href: 'https://wa.me/254714282874', label: 'WhatsApp' },
+  { Icon: Youtube, href: '#', label: 'YouTube' },
+  { Icon: Github, href: '#', label: 'GitHub' },
+];
 
 const FooterRev = () => {
   const currentYear = new Date().getFullYear();
 
-  const footerSections = [
-    {
-      title: "Services",
-      links: [
-        { href: "/digitalmarketing", text: "Digital Marketing" },
-        { href: "/webdevelopment", text: "Web Development Services (WordPress)" },
-        { href: "/ecommerce-website-development", text: "Ecommerce Website Design & Development" },
-        { href: "#", text: "Content Marketing" },
-        { href: "#", text: "Video Production" },
-        { href: "#", text: "Social Media Services" },
-        { href: "#", text: "Graphic Design/Logo Design" },
-      ]
-    },
-    {
-      title: "Company",
-      links: [
-        { href: "#", text: "Who We Are" },
-        { href: "#", text: "Client Reviews" },
-        { href: "#", text: "Hover, Focus, & Other States" },
-        { href: "#", text: "Our Portfolio" },
-        { href: "#", text: "Partner with Us" },
-        { href: "#", text: "Blog" },
-        { href: "#", text: "Contact Us" },
-      ]
-    },
-    {
-      title: "Helpful Links",
-      links: [
-        { href: "#", text: "Privacy Policy" },
-        { href: "#", text: "Terms of Use" },
-        { href: "#", text: "Your Privacy Choices" },
-        { href: "#", text: "FAQs" },
-        { href: "#", text: "Topics and Insights" },
-        { href: "#", text: "Testimonials" },
-        { href: "#", text: "Tell Us About Your Project" },
-      ]
-    },
-    {
-      title: "Find Us",
-      links: [
-        { href: "#", text: "GitHub", Icon: Github },
-        { href: "#", text: "Discord", Icon: MessageCircle },
-        { href: "#", text: "Twitter", Icon: Twitter },
-        { href: "#", text: "YouTube", Icon: Youtube },
-      ]
-    }
-  ];
-
-  const socialIcons = [
-    { Icon: Github, href: "#", color: "text-gray-800" },
-    { Icon: MessageCircle, href: "#", color: "text-indigo-500" },
-    { Icon: Twitter, href: "#", color: "text-blue-400" },
-    { Icon: Youtube, href: "#", color: "text-red-600" },
-  ];
-
   return (
-    <footer className="bg-gradient-to-br from-orange-50/80 via-white to-purple-50/80 text-gray-800 py-12 sm:py-16 mt-24 border-t border-orange-100/50">
-      <div className="w-full transition-all duration-300 ease-in-out md:ml-[80px] lg:ml-[160px]">
-        <div className="max-w-[calc(100%-2rem)] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
-            {footerSections.map((section, index) => (
-              <motion.div 
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative"
-              >
-                <h3 className="text-lg font-semibold mb-6 text-orange-500 inline-block pb-2 border-b-2 border-orange-200">{section.title}</h3>
-                <ul className="space-y-3">
-                  {section.links.map((link, linkIndex) => (
-                    <motion.li 
-                      key={linkIndex}
-                      whileHover={{ x: 5 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    >
-                      <Link 
-                        href={link.href} 
-                        className="text-gray-600 hover:text-orange-500 transition-all duration-200 flex items-center text-sm lg:text-base group"
-                      >
-                        {link.Icon && <link.Icon className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-200" />}
-                        <span className="border-b border-transparent group-hover:border-orange-300">
-                          {link.text}
-                        </span>
-                      </Link>
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
-          
-          <motion.div 
-            className="border-t border-orange-200/70 pt-8 mt-8 flex flex-col lg:flex-row justify-between items-center gap-6"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-          >
-            <div className="order-1 lg:order-1">
-              <Image 
-                src="/zelisline.svg" 
-                alt="Zelisline Logo" 
-                width={150} 
-                height={50}
-                className="transform hover:scale-105 transition-transform duration-200"
-              />
-            </div>
-            <div className="flex space-x-8 order-2 lg:order-2">
-              {socialIcons.map(({ Icon, href, color }, index) => (
-                <motion.a
-                  key={index}
+    <footer className="mt-24 border-t border-sand-200 bg-sand-100">
+      <div className="mx-auto max-w-[1400px] px-5 py-14 sm:px-6 lg:px-10 lg:py-16">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
+          {/* Brand */}
+          <div className="lg:col-span-5">
+            <Link href="/" aria-label="Zelisline home">
+              <Image src="/zelisline-logo.png" alt="Zelisline — grow together" width={600} height={160} className="h-9 w-auto" />
+            </Link>
+            <p className="mt-5 max-w-xs text-pretty text-sm leading-relaxed text-ink-soft">
+              A Nairobi software studio designing, building and growing digital
+              products for businesses across East Africa.
+            </p>
+            <div className="mt-6 flex items-center gap-1">
+              {socials.map(({ Icon, href, label }) => (
+                <a
+                  key={label}
                   href={href}
-                  className={`${color} hover:text-orange-500 transition-all duration-200`}
-                  whileHover={{ y: -3, scale: 1.1 }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index }}
+                  aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg text-ink-muted transition-colors hover:bg-white hover:text-orange-700"
                 >
-                  <Icon size={22} className="hover:drop-shadow-md" />
-                </motion.a>
+                  <Icon className="h-[1.15rem] w-[1.15rem]" />
+                </a>
               ))}
             </div>
-            <div className="text-sm text-gray-500 order-3 lg:order-3 text-center w-full px-4">
-              <div className="flex flex-wrap justify-center items-center gap-1 break-words max-w-[90%] mx-auto">
-                <span className="text-orange-500 font-medium whitespace-normal">Zelisline</span>
-                <span className="whitespace-normal">is a registered trademark of Zelisline, Inc.</span>
-                <span className="whitespace-normal">Copyright {currentYear} Zelisline, Inc.</span>
+          </div>
+
+          {/* Links */}
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7">
+            {footerSections.map((section) => (
+              <div key={section.title}>
+                <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted">
+                  {section.title}
+                </h3>
+                <ul className="mt-4 space-y-2.5">
+                  {section.links.map((link) => (
+                    <li key={`${section.title}-${link.text}`}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-ink-soft transition-colors hover:text-orange-700"
+                      >
+                        {link.text}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
-          </motion.div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-14 flex flex-col gap-4 border-t border-sand-200 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-ink-muted">
+            © {currentYear} Zelisline. All rights reserved.
+          </p>
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-ink-muted">
+            <Link href="#" className="transition-colors hover:text-orange-700">Privacy Policy</Link>
+            <Link href="#" className="transition-colors hover:text-orange-700">Terms of Use</Link>
+            <a href="mailto:zelisline@gmail.com" className="transition-colors hover:text-orange-700">
+              zelisline@gmail.com
+            </a>
+          </div>
         </div>
       </div>
     </footer>
