@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Lottie from 'lottie-react';
+import Lottie from '@/components/ClientLottie';
 import Animation1 from './Animation1.json';
 import {
   Palette,

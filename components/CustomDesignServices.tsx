@@ -8,7 +8,7 @@ import {
   Layout,
   Code,
 } from 'lucide-react'; 
-import Lottie from 'lottie-react';
+import Lottie from '@/components/ClientLottie';
 import Animation1 from './Animation1.json'
 
 

@@ -8,7 +8,7 @@ import 'reactjs-popup/dist/index.css';
 import { useToast } from "@/components/ui/use-toast";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send, ArrowRight, Loader2 } from 'lucide-react';
-import Lottie from 'lottie-react';
+import Lottie from '@/components/ClientLottie';
 import contactAnimation from '@/public/phone-flow.json';
 import SimpleCaptcha from '@/components/SimpleCaptcha';
 
