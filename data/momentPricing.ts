@@ -5,6 +5,8 @@ export interface MomentComponentDef {
   price: number;
   /** Repeatable components can be added more than once (e.g. a second custom feature). */
   repeatable?: boolean;
+  /** Components sharing a group are mutually exclusive (e.g. one hosting option). */
+  group?: string;
 }
 
 export interface MomentBundleDef {
@@ -41,6 +43,20 @@ export const MOMENT_COMPONENTS: MomentComponentDef[] = [
     price: 10000,
     repeatable: true,
   },
+  {
+    id: "hosting-vercel",
+    name: "Hosting — Vercel",
+    description: "Deployed for free on Vercel's global platform. The simplest way to go live.",
+    price: 0,
+    group: "hosting",
+  },
+  {
+    id: "hosting-vps",
+    name: "Hosting — VPS + SSL",
+    description: "We provision and configure a VPS with SSL, DNS and everything set up for you.",
+    price: 10000,
+    group: "hosting",
+  },
 ];
 
 export const MOMENT_BUNDLES: MomentBundleDef[] = [
@@ -69,3 +85,6 @@ export const MOMENT_PRICING_NOTE =
   "All prices in Kenyan shillings (KES). One-time build — no subscription. Dashboard-only pricing on request.";
 
 export const formatKes = (value: number) => `KES ${value.toLocaleString("en-KE")}`;
+
+/** Zero-priced items read as "Free" rather than "KES 0". */
+export const formatMomentPrice = (value: number) => (value === 0 ? "Free" : formatKes(value));

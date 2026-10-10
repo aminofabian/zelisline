@@ -1,19 +1,49 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type FormEvent } from "react";
 import { Check, Minus, Plus } from "lucide-react";
 import Action from "@/components/system/Action";
-import { MOMENT_BUNDLES, MOMENT_COMPONENTS, MOMENT_PRICING_NOTE, formatKes } from "@/data/momentPricing";
+import {
+  MOMENT_BUNDLES,
+  MOMENT_COMPONENTS,
+  MOMENT_PRICING_NOTE,
+  formatKes,
+  formatMomentPrice,
+} from "@/data/momentPricing";
 
 type Counts = Record<string, number>;
+type Status = "idle" | "sending" | "sent" | "error";
 
 const emptyCounts = (): Counts => Object.fromEntries(MOMENT_COMPONENTS.map((component) => [component.id, 0]));
 
+const EMAIL_PATTERN = /^\S+@\S+\.\S+$/;
+
+const EMAIL_INPUT_CLASSES =
+  "w-full border border-paper bg-ink px-4 py-3 font-mono text-[13px] text-paper outline-none transition-colors placeholder:text-paper-dim focus:border-paper";
+
+const idsInGroup = (group: string) =>
+  MOMENT_COMPONENTS.filter((component) => component.group === group).map((component) => component.id);
+
 export default function MomentCalculator() {
   const [counts, setCounts] = useState<Counts>(emptyCounts);
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState("");
 
   const setCount = (id: string, value: number) => setCounts((prev) => ({ ...prev, [id]: Math.max(0, value) }));
+
   const toggle = (id: string) => setCount(id, counts[id] ? 0 : 1);
+
+  const toggleGroup = (id: string, group: string) => {
+    const ids = idsInGroup(group);
+    setCounts((prev) => {
+      const turningOn = !prev[id];
+      const next = { ...prev };
+      for (const grouped of ids) next[grouped] = 0;
+      if (turningOn) next[id] = 1;
+      return next;
+    });
+  };
 
   const applyBundle = (items: Record<string, number>) => {
     const next = emptyCounts();
@@ -26,6 +56,41 @@ export default function MomentCalculator() {
     [counts]
   );
   const total = lines.reduce((sum, line) => sum + line.price * line.count, 0);
+  const isEmpty = lines.length === 0;
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isEmpty || !EMAIL_PATTERN.test(email)) {
+      setStatus("error");
+      setError("Please enter a valid email.");
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      const response = await fetch("/api/submit-moment-build", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          total,
+          items: lines.map((line) => ({ name: line.name, price: line.price, count: line.count })),
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || "Something went wrong.");
+      }
+
+      setStatus("sent");
+      setEmail("");
+      setError("");
+    } catch (submitError) {
+      setStatus("error");
+      setError(submitError instanceof Error ? submitError.message : "Something went wrong.");
+    }
+  };
 
   return (
     <div className="grid gap-px border border-ink bg-ink lg:grid-cols-12">
@@ -51,9 +116,7 @@ export default function MomentCalculator() {
                     >
                       <Minus className="h-4 w-4" aria-hidden />
                     </button>
-                    <span className="w-6 text-center font-mono text-sm tabular-nums" aria-live="polite">
-                      {count}
-                    </span>
+                    <span className="w-6 text-center font-mono text-sm tabular-nums">{count}</span>
                     <button
                       type="button"
                       onClick={() => setCount(component.id, count + 1)}
@@ -66,7 +129,9 @@ export default function MomentCalculator() {
                   <div className="flex-1">
                     <span className="flex flex-wrap items-baseline justify-between gap-x-4">
                       <span className="display-wide font-display text-lg font-bold">{component.name}</span>
-                      <span className="font-mono text-[12px] tabular-nums text-ink-muted">{formatKes(component.price)} each</span>
+                      <span className="font-mono text-[12px] tabular-nums text-ink-muted">
+                        {formatMomentPrice(component.price)} each
+                      </span>
                     </span>
                     <span className="mt-1 block text-sm leading-relaxed text-ink-muted">{component.description}</span>
                   </div>
@@ -80,7 +145,7 @@ export default function MomentCalculator() {
                   type="button"
                   role="checkbox"
                   aria-checked={active}
-                  onClick={() => toggle(component.id)}
+                  onClick={() => (component.group ? toggleGroup(component.id, component.group) : toggle(component.id))}
                   className="flex w-full items-start gap-5 py-5 text-left transition-colors hover:bg-grey-50"
                 >
                   <span
@@ -94,7 +159,9 @@ export default function MomentCalculator() {
                   <span className="flex-1">
                     <span className="flex flex-wrap items-baseline justify-between gap-x-4">
                       <span className="display-wide font-display text-lg font-bold">{component.name}</span>
-                      <span className="font-mono text-[12px] tabular-nums text-ink-muted">{formatKes(component.price)}</span>
+                      <span className="font-mono text-[12px] tabular-nums text-ink-muted">
+                        {formatMomentPrice(component.price)}
+                      </span>
                     </span>
                     <span className="mt-1 block text-sm leading-relaxed text-ink-muted">{component.description}</span>
                   </span>
@@ -113,14 +180,14 @@ export default function MomentCalculator() {
           <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-paper-dim">Your estimate</p>
 
           <ul className="mt-6 space-y-3">
-            {lines.length === 0 && <li className="text-sm text-paper-dim">Select components to build a quote.</li>}
+            {isEmpty && <li className="text-sm text-paper-dim">Select components to build a quote.</li>}
             {lines.map((line) => (
               <li key={line.id} className="flex items-baseline justify-between gap-4 text-sm">
                 <span>
                   {line.count > 1 ? `${line.count} × ` : ""}
                   {line.name}
                 </span>
-                <span className="tabular-nums text-paper-dim">{formatKes(line.price * line.count)}</span>
+                <span className="tabular-nums text-paper-dim">{formatMomentPrice(line.price * line.count)}</span>
               </li>
             ))}
           </ul>
@@ -150,11 +217,45 @@ export default function MomentCalculator() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-3">
-          <Action href="/contact" variant="inverse" arrow className="w-full">
-            Start a project
-          </Action>
-          <p className="text-center text-xs text-paper-dim">One-time price. No subscription — the app expires by design.</p>
+        <div className="mt-10">
+          {status === "sent" ? (
+            <div className="border border-paper px-4 py-4" role="status">
+              <p className="flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.1em]">
+                <Check className="h-4 w-4" aria-hidden /> Build sent
+              </p>
+              <p className="mt-2 text-sm text-paper-dim">
+                Thanks — we&apos;ve got your configuration and will reply with a quote shortly.
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
+              <label htmlFor="moment-email" className="sr-only">
+                Your email
+              </label>
+              <input
+                id="moment-email"
+                type="email"
+                autoComplete="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder="you@email.com"
+                aria-label="Your email"
+                className={EMAIL_INPUT_CLASSES}
+              />
+              <Action type="submit" variant="inverse" arrow className="w-full" disabled={status === "sending" || isEmpty}>
+                {status === "sending" ? "Sending…" : "Send my build"}
+              </Action>
+              {isEmpty && <p className="text-center text-xs text-paper-dim">Add at least one component above.</p>}
+              {status === "error" && (
+                <p role="alert" className="text-center text-xs text-paper">
+                  {error}
+                </p>
+              )}
+              <p className="text-center text-xs text-paper-dim">
+                Just your email — we&apos;ll send the quote and next steps. No spam.
+              </p>
+            </form>
+          )}
         </div>
       </div>
     </div>
