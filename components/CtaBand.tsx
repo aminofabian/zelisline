@@ -1,81 +1,69 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { ArrowRight, Check, Copy, Phone } from 'lucide-react';
+import { useState } from "react";
+import { Check, Copy } from "lucide-react";
+import Action from "@/components/system/Action";
+import Container from "@/components/system/Container";
+import Eyebrow from "@/components/system/Eyebrow";
+import { site } from "@/data/site";
 
-const PHONE = '+254714282874';
-const PHONE_LABEL = '(+254) 714 28 2874';
+const COPIED_RESET_MS = 2000;
+const PHONE_E164 = site.phone.href.replace("tel:", "");
 
-const CtaBand = () => {
-  const [copied, setCopied] = useState(false);
+export default function CtaBand() {
+  const [isCopied, setIsCopied] = useState(false);
 
   const copyNumber = async () => {
     try {
-      await navigator.clipboard.writeText(PHONE);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      await navigator.clipboard.writeText(PHONE_E164);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), COPIED_RESET_MS);
     } catch {
-      /* clipboard unavailable — the tel: link still works */
+      setIsCopied(false);
     }
   };
 
   return (
-    <section className="mx-auto max-w-[1400px] px-5 sm:px-6 lg:px-10">
-      <div className="relative overflow-hidden rounded-3xl bg-ink px-6 py-14 sm:px-12 sm:py-20">
-        <div className="pointer-events-none absolute inset-0 grid-motif-light" aria-hidden />
-        <div
-          className="pointer-events-none absolute -right-20 -top-24 h-80 w-80 [background:radial-gradient(circle_at_center,rgba(194,65,12,0.35),transparent_70%)]"
-          aria-hidden
-        />
+    <section className="border-t-2 border-ink py-20 sm:py-28">
+      <Container>
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-7">
+            <Eyebrow>Ready when you are</Eyebrow>
+            <h2 className="display-wide mt-6 font-display text-[2.4rem] font-bold uppercase leading-[0.95] tracking-[-0.03em] sm:text-6xl lg:text-[4.2rem]">
+              Let&apos;s build something worth talking about
+            </h2>
+            <p className="mt-6 max-w-lg text-pretty text-lg leading-relaxed text-ink-muted">
+              Bring us the idea, the problem or the rough sketch. We&apos;ll help you shape it into something your
+              customers remember.
+            </p>
+          </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5 }}
-          className="relative max-w-2xl"
-        >
-          <span className="font-sans text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-orange-400">Ready when you are</span>
-          <h2 className="mt-4 font-display text-3xl font-medium leading-tight text-white sm:text-[2.75rem] sm:leading-[1.1]">
-            Let&apos;s build something worth talking about
-          </h2>
-          <p className="mt-5 max-w-lg text-pretty leading-relaxed text-sand-300">
-            Bring us the idea, the problem or the rough sketch. We&apos;ll help you
-            shape it into something your customers remember.
-          </p>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link
-              href="/contact"
-              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-orange-600 px-6 py-3.5 text-base font-semibold text-white transition-colors hover:bg-orange-500"
-            >
-              Start a project
-              <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-            </Link>
-
-            <div className="inline-flex items-center gap-3 rounded-xl border border-white/15 px-5 py-3">
+          <div className="flex flex-col gap-px border border-ink bg-ink lg:col-span-5 lg:self-end">
+            <div className="bg-paper p-6">
+              <Action href="/contact" arrow className="w-full">
+                Start a project
+              </Action>
+            </div>
+            <div className="flex items-stretch bg-paper">
               <a
-                href={`tel:${PHONE}`}
-                className="flex items-center gap-2 text-base font-medium text-white transition-colors hover:text-orange-300"
+                href={site.phone.href}
+                className="flex flex-1 flex-col justify-center px-6 py-5 transition-colors hover:bg-grey-50"
               >
-                <Phone className="h-4 w-4 text-orange-400" />
-                <span className="tabular-nums">{PHONE_LABEL}</span>
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-muted">Call us</span>
+                <span className="display-wide mt-1 font-display text-xl font-bold tabular-nums">{site.phone.display}</span>
               </a>
               <button
+                type="button"
                 onClick={copyNumber}
-                aria-label="Copy phone number"
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-sand-300 transition-colors hover:bg-white/10 hover:text-white"
+                aria-label={isCopied ? "Phone number copied" : "Copy phone number"}
+                className="flex w-16 items-center justify-center border-l border-ink transition-colors hover:bg-ink hover:text-paper"
               >
-                {copied ? <Check className="h-4 w-4 text-green-400" /> : <Copy className="h-4 w-4" />}
+                {isCopied ? <Check className="h-4 w-4" aria-hidden /> : <Copy className="h-4 w-4" aria-hidden />}
               </button>
             </div>
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </Container>
     </section>
   );
-};
-
-export default CtaBand;
+}

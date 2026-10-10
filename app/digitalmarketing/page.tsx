@@ -1,59 +1,44 @@
-'use client';
+import type { Metadata } from "next";
+import ServiceLandingPage from "@/components/landing/ServiceLandingPage";
+import { packages } from "@/data/pricing/DMPricingPackages";
+import { faqContent } from "@/data/faq";
+import {
+  digitalMarketingDiscipline,
+  graphicalDesignDiscipline,
+  webDesignDiscipline,
+} from "@/data/serviceDisciplines";
 
-import ContactPage from '@/components/ContactPage';
-import ShuffleHero  from '@/components/ShuffleHero';
-import Services from '@/components/Services';
-import SideNav from '@/components/SideNav';
-import * as items from '@/data/faq';
-import MyAccordion from '@/components/myComponents/MyAccordion';
-import DigitalMarketingPricing from '@/components/pricing/DigitalMarketingPricing';
-import FooterRev from '@/components/FooterRev';
-import DigitalMarketing from "@/components/DigitalMarketing";
+export const metadata: Metadata = {
+  title: "Digital marketing",
+  description:
+    "Digital marketing services in Kenya: SEO, social media, paid campaigns and content, with packages for every stage of growth.",
+};
 
+const DIGITAL_MARKETING_DISCIPLINES = [digitalMarketingDiscipline, webDesignDiscipline, graphicalDesignDiscipline];
 
-
-export default function HomePage() {
-  const buttons = [
-    { link: "/contact", text: "Get Started" },
-    { link: "/portfolio", text: "View Portfolio" },
-  ];
-  
+export default function DigitalMarketingPage() {
   return (
-    <>
-    <div className="flex h-screen relative md:flex-row md:overflow-hidden xl:px-10 md:px-2 bg-transparent mx-auto">
-    <nav className="hidden md:flex mt-5 pl-2">
-    <SideNav />
-    </nav>
-    <div className="flex-grow mt-7 md:mt-0 flex-1 w-9xl md:overflow-y-auto md:p-5 max-w-6xl mx-auto">
-    <div>
-    <ShuffleHero
-    subTitle="Build a kick-ass brand with our cutting-edge Digital Marketing Services in Kenya."
-    title="WE PROMISE TO GROW YOUR WEBSITE TRAFFIC, OR YOU DON'T PAY. PARTNER WITH THE HIGHEST-RATED DIGITAL MARKETING AGENCY IN KENYA"
-    bgImage="/bg.jpg"
-    buttons={buttons}
+    <ServiceLandingPage
+      hero={{
+        eyebrow: "Digital marketing · Kenya",
+        title: "We promise to grow your website traffic, or you don't pay. Partner with the highest-rated digital marketing agency in Kenya",
+        description: "Build a kick-ass brand with our cutting-edge digital marketing services in Kenya.",
+        primary: { label: "Get started", href: "/contact" },
+        secondary: { label: "View portfolio", href: "/portfolio" },
+      }}
+      pricing={{
+        eyebrow: "Packages",
+        title: "Choose your package",
+        description: "Starting points to help you plan. Every campaign is scoped individually to your goals.",
+        currency: "usd",
+        packages,
+      }}
+      services={{
+        eyebrow: "What we do",
+        title: "From simple blogs to complex SaaS, we've got you covered",
+        disciplines: DIGITAL_MARKETING_DISCIPLINES,
+      }}
+      faq={{ eyebrow: "Answers", title: "Questions we hear often", items: faqContent }}
     />
-    
-    </div>
-    <div className="m-5 rounded-xl">
-    <DigitalMarketingPricing />
-    </div>
-    <div>
-    <Services />
-    </div>
-    <div className="w-[100dvh] mb-10 border-[1px]">
-    <MyAccordion
-    items={items.webDesignFaqs}
-    />
-    </div>
-    <div>
-    <DigitalMarketing />
-    </div>
-    <div>
-    <ContactPage />
-    </div>
-    <FooterRev />
-    </div>
-    </div>
-    </>
-  )
+  );
 }

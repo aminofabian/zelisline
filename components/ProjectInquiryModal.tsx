@@ -1,306 +1,229 @@
-import { Dialog } from '@headlessui/react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
-import SimpleCaptcha from './SimpleCaptcha';
-import { X, Loader2 } from 'lucide-react';
+"use client";
+
+import { useState, type ChangeEvent, type FormEvent } from "react";
+import { Dialog } from "@headlessui/react";
+import { Loader2, X } from "lucide-react";
+import SimpleCaptcha from "@/components/SimpleCaptcha";
+import Action from "@/components/system/Action";
+import FormField from "@/components/forms/FormField";
+import { INPUT_CLASSES, TEXTAREA_CLASSES } from "@/components/forms/inputStyles";
 import { useToast } from "@/components/ui/use-toast";
+import { site } from "@/data/site";
 
 interface ProjectInquiryModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const ProjectInquiryModal: React.FC<ProjectInquiryModalProps> = ({ isOpen, onClose }) => {
+interface InquiryForm {
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  projectDetails: string;
+}
+
+type InquiryErrors = Partial<Record<keyof InquiryForm | "captcha", string>>;
+
+const EMAIL_PATTERN = /\S+@\S+\.\S+/;
+const INITIAL_FORM: InquiryForm = { name: "", email: "", phone: "", company: "", projectDetails: "" };
+const TOAST_DURATION_MS = 3000;
+const RESULT_TOAST_DURATION_MS = 5000;
+
+const validate = (form: InquiryForm, isCaptchaValid: boolean): InquiryErrors => {
+  const errors: InquiryErrors = {};
+  if (!form.name.trim()) errors.name = "Name is required";
+  if (!form.email.trim()) {
+    errors.email = "Email is required";
+  } else if (!EMAIL_PATTERN.test(form.email)) {
+    errors.email = "Please enter a valid email";
+  }
+  if (!form.projectDetails.trim()) errors.projectDetails = "Project details are required";
+  if (!isCaptchaValid) errors.captcha = "Please complete the captcha verification";
+  return errors;
+};
+
+export default function ProjectInquiryModal({ isOpen, onClose }: ProjectInquiryModalProps) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    projectDetails: '',
-  });
+  const [formData, setFormData] = useState<InquiryForm>(INITIAL_FORM);
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
-  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [formErrors, setFormErrors] = useState<InquiryErrors>({});
 
-  const validateForm = () => {
-    const errors: Record<string, string> = {};
-    
-    if (!formData.name.trim()) errors.name = 'Name is required';
-    if (!formData.email.trim()) {
-      errors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.email = 'Please enter a valid email';
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (formErrors[name as keyof InquiryErrors]) {
+      setFormErrors((prev) => ({ ...prev, [name]: undefined }));
     }
-    if (!formData.projectDetails.trim()) errors.projectDetails = 'Project details are required';
-    if (!isCaptchaValid) errors.captcha = 'Please complete the captcha verification';
-
-    setFormErrors(errors);
-    return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
+  const reportInvalid = (title: string, description: string) => {
+    toast({ title, description, variant: "destructive", duration: TOAST_DURATION_MS });
+  };
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+
     if (!isCaptchaValid) {
-      toast({
-        title: "⚠️ Verification Required",
-        description: "Please complete the captcha verification before submitting.",
-        variant: "destructive",
-        duration: 3000,
-      });
+      reportInvalid("Verification required", "Please complete the captcha verification before submitting.");
       return;
     }
 
-    if (!validateForm()) {
-      toast({
-        title: "⚠️ Form Incomplete",
-        description: "Please fill in all required fields correctly.",
-        variant: "destructive",
-        duration: 3000,
-      });
+    const errors = validate(formData, isCaptchaValid);
+    setFormErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      reportInvalid("Form incomplete", "Please fill in all required fields correctly.");
       return;
     }
 
     setIsLoading(true);
     try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to send email');
-      }
+      if (!response.ok) throw new Error("Failed to send email");
 
       toast({
-        title: "✨ Success!",
+        title: "Message received",
         description: (
           <div className="flex flex-col space-y-2">
             <p>Thank you for your project inquiry!</p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-ink-muted">
               We&apos;ve received your message and will get back to you within 24-48 hours.
             </p>
           </div>
         ),
-        className: "bg-green-50 border-green-200",
-        duration: 5000,
+        duration: RESULT_TOAST_DURATION_MS,
       });
 
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        projectDetails: '',
-      });
+      setFormData(INITIAL_FORM);
       setIsCaptchaValid(false);
       onClose();
-    } catch (error) {
+    } catch {
       toast({
-        title: "❌ Error",
+        title: "Something went wrong",
         description: (
           <div className="flex flex-col space-y-2">
             <p>Failed to send your inquiry.</p>
-            <p className="text-sm text-red-500">
-              Please try again or contact us directly at zelisline@gmail.com
-            </p>
+            <p className="text-sm text-ink-muted">Please try again or contact us directly at {site.email}</p>
           </div>
         ),
         variant: "destructive",
-        duration: 5000,
+        duration: RESULT_TOAST_DURATION_MS,
       });
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    if (formErrors[name]) {
-      setFormErrors(prev => ({ ...prev, [name]: '' }));
-    }
-  };
+  const submitLabel = isLoading ? "Sending…" : isCaptchaValid ? "Submit project inquiry" : "Complete verification";
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <Dialog
-          as={motion.div}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 overflow-y-auto"
-          onClose={onClose}
-          open={isOpen}
-        >
-          <div className="min-h-screen px-4 text-center">
-            <Dialog.Overlay
-              as={motion.div}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/40"
-            />
+    <Dialog open={isOpen} onClose={onClose} className="relative z-[70]">
+      <div className="fixed inset-0 bg-ink/80" aria-hidden="true" />
+      <div className="fixed inset-0 overflow-y-auto">
+        <div className="flex min-h-full items-center justify-center p-4 sm:p-8">
+          <Dialog.Panel className="w-full max-w-2xl border border-ink bg-paper p-6 sm:p-10">
+            <div className="flex items-start justify-between gap-6">
+              <Dialog.Title as="h2" className="display-wide font-display text-2xl font-bold leading-tight sm:text-3xl">
+                Start your project
+              </Dialog.Title>
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label="Close inquiry form"
+                className="flex h-10 w-10 shrink-0 items-center justify-center border border-ink hover:bg-ink hover:text-paper"
+              >
+                <X className="h-4 w-4" aria-hidden />
+              </button>
+            </div>
 
-            <span className="inline-block h-screen align-middle" aria-hidden="true">&#8203;</span>
+            <form onSubmit={handleSubmit} noValidate className="mt-8 space-y-6">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <FormField label="Name" htmlFor="inquiry-name" required error={formErrors.name}>
+                  <input
+                    id="inquiry-name"
+                    name="name"
+                    type="text"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your name"
+                    aria-invalid={Boolean(formErrors.name)}
+                    className={INPUT_CLASSES}
+                  />
+                </FormField>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ type: "spring", duration: 0.5 }}
-              className="relative inline-block w-full max-w-2xl p-6 my-8 overflow-hidden text-left align-middle bg-white shadow-lift rounded-2xl border border-sand-200"
-            >
-              <div className="absolute top-4 right-4">
-                <button
-                  onClick={onClose}
-                  className="p-2 text-ink-muted hover:text-ink rounded-full hover:bg-sand-100 transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+                <FormField label="Email" htmlFor="inquiry-email" required error={formErrors.email}>
+                  <input
+                    id="inquiry-email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="you@email.com"
+                    aria-invalid={Boolean(formErrors.email)}
+                    className={INPUT_CLASSES}
+                  />
+                </FormField>
+
+                <FormField label="Phone number" htmlFor="inquiry-phone">
+                  <input
+                    id="inquiry-phone"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="Your phone number"
+                    className={INPUT_CLASSES}
+                  />
+                </FormField>
+
+                <FormField label="Company" htmlFor="inquiry-company">
+                  <input
+                    id="inquiry-company"
+                    name="company"
+                    type="text"
+                    value={formData.company}
+                    onChange={handleChange}
+                    placeholder="Your company name"
+                    className={INPUT_CLASSES}
+                  />
+                </FormField>
               </div>
 
-              <Dialog.Title as="h3" className="font-display text-2xl leading-6 text-ink mb-8">
-                Start Your Project
-              </Dialog.Title>
+              <FormField label="Project details" htmlFor="inquiry-details" required error={formErrors.projectDetails}>
+                <textarea
+                  id="inquiry-details"
+                  name="projectDetails"
+                  value={formData.projectDetails}
+                  onChange={handleChange}
+                  rows={4}
+                  placeholder="Tell us about your project…"
+                  aria-invalid={Boolean(formErrors.projectDetails)}
+                  className={TEXTAREA_CLASSES}
+                />
+              </FormField>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {/* Name Field */}
-                  <div>
-                    <label className="block text-sm font-medium text-ink mb-2">
-                      Name *
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className={`w-full px-4 py-3 rounded-lg border bg-white text-ink ${
-                        formErrors.name ? 'border-red-500' : 'border-sand-300'
-                      } focus:outline-none focus:ring-2 focus:ring-orange-500/25 focus:border-orange-500 transition-colors`}
-                      placeholder="Your name"
-                    />
-                    {formErrors.name && (
-                      <p className="mt-1 text-sm text-red-500">{formErrors.name}</p>
-                    )}
-                  </div>
+              <div>
+                <SimpleCaptcha onValidate={setIsCaptchaValid} />
+                {formErrors.captcha && (
+                  <p role="alert" className="mt-2 text-sm font-medium text-ink">
+                    {formErrors.captcha}
+                  </p>
+                )}
+              </div>
 
-                  {/* Email Field */}
-                  <div>
-                    <label className="block text-sm font-medium text-ink mb-2">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className={`w-full px-4 py-3 rounded-lg border bg-white text-ink ${
-                        formErrors.email ? 'border-red-500' : 'border-sand-300'
-                      } focus:outline-none focus:ring-2 focus:ring-orange-500/25 focus:border-orange-500 transition-colors`}
-                      placeholder="your@email.com"
-                    />
-                    {formErrors.email && (
-                      <p className="mt-1 text-sm text-red-500">{formErrors.email}</p>
-                    )}
-                  </div>
-
-                  {/* Phone Field */}
-                  <div>
-                    <label className="block text-sm font-medium text-ink mb-2">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-lg border border-sand-300 bg-white text-ink focus:outline-none focus:ring-2 focus:ring-orange-500/25 focus:border-orange-500 transition-colors"
-                      placeholder="Your phone number"
-                    />
-                  </div>
-
-                  {/* Company Field */}
-                  <div>
-                    <label className="block text-sm font-medium text-ink mb-2">
-                      Company
-                    </label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-lg border border-sand-300 bg-white text-ink focus:outline-none focus:ring-2 focus:ring-orange-500/25 focus:border-orange-500 transition-colors"
-                      placeholder="Your company name"
-                    />
-                  </div>
-                </div>
-
-                {/* Project Details Field */}
-                <div>
-                  <label className="block text-sm font-medium text-ink mb-2">
-                    Project Details *
-                  </label>
-                  <textarea
-                    name="projectDetails"
-                    value={formData.projectDetails}
-                    onChange={handleInputChange}
-                    rows={4}
-                    className={`w-full px-4 py-3 rounded-lg border bg-white text-ink ${
-                      formErrors.projectDetails ? 'border-red-500' : 'border-sand-300'
-                    } focus:outline-none focus:ring-2 focus:ring-orange-500/25 focus:border-orange-500 transition-colors`}
-                    placeholder="Tell us about your project..."
-                  />
-                  {formErrors.projectDetails && (
-                    <p className="mt-1 text-sm text-red-500">{formErrors.projectDetails}</p>
-                  )}
-                </div>
-
-                {/* Captcha */}
-                <div className="mt-6">
-                  <SimpleCaptcha onValidate={setIsCaptchaValid} />
-                  {formErrors.captcha && (
-                    <p className="mt-1 text-sm text-red-500">{formErrors.captcha}</p>
-                  )}
-                </div>
-
-                {/* Submit Button */}
-                <div className="mt-8">
-                  <button
-                    type="submit"
-                    disabled={!isCaptchaValid || isLoading}
-                    className={`w-full px-6 py-4 text-white rounded-xl text-lg font-semibold transition-all transform hover:scale-[1.01] ${
-                      isCaptchaValid && !isLoading
-                        ? 'bg-orange-600 hover:bg-orange-700'
-                        : 'bg-sand-400 cursor-not-allowed'
-                    }`}
-                  >
-                    {isLoading ? (
-                      <span className="flex items-center justify-center">
-                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                        Sending...
-                      </span>
-                    ) : isCaptchaValid ? (
-                      'Submit Project Inquiry'
-                    ) : (
-                      'Please Complete Verification'
-                    )}
-                  </button>
-                </div>
-              </form>
-            </motion.div>
-          </div>
-        </Dialog>
-      )}
-    </AnimatePresence>
+              <Action type="submit" disabled={!isCaptchaValid || isLoading} className="w-full" arrow={!isLoading}>
+                {isLoading && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
+                {submitLabel}
+              </Action>
+            </form>
+          </Dialog.Panel>
+        </div>
+      </div>
+    </Dialog>
   );
-};
-
-export default ProjectInquiryModal;
+}

@@ -1,153 +1,119 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { RefreshCw } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { Check, RefreshCw, X } from "lucide-react";
+import { INPUT_CLASSES } from "@/components/forms/inputStyles";
 
 interface SimpleCaptchaProps {
   onValidate: (isValid: boolean) => void;
 }
 
+const OPERATORS = ["+", "-", "x"] as const;
+const MAX_OPERAND = 10;
+const ANIMATION_MS = 500;
+
+type Operator = (typeof OPERATORS)[number];
+
+const OPERATOR_WORDS: Record<Operator, string> = { "+": "plus", "-": "minus", x: "times" };
+
+const randomOperand = () => Math.floor(Math.random() * MAX_OPERAND) + 1;
+
+const solve = (left: number, right: number, operator: Operator) => {
+  if (operator === "+") return left + right;
+  if (operator === "-") return left - right;
+  return left * right;
+};
+
 export const SimpleCaptcha: React.FC<SimpleCaptchaProps> = ({ onValidate }) => {
-  const [num1, setNum1] = useState(0);
-  const [num2, setNum2] = useState(0);
-  const [userAnswer, setUserAnswer] = useState('');
-  const [operator, setOperator] = useState('+');
+  const [left, setLeft] = useState(0);
+  const [right, setRight] = useState(0);
+  const [operator, setOperator] = useState<Operator>("+");
+  const [answer, setAnswer] = useState("");
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const generateNewProblem = () => {
-    setIsAnimating(true);
-    const operators = ['+', '-', 'x'];
-    const newNum1 = Math.floor(Math.random() * 10) + 1;
-    const newNum2 = Math.floor(Math.random() * 10) + 1;
-    const newOperator = operators[Math.floor(Math.random() * operators.length)];
-    
-    setNum1(newNum1);
-    setNum2(newNum2);
-    setOperator(newOperator);
-    setUserAnswer('');
+  const generateProblem = () => {
+    setIsRefreshing(true);
+    setLeft(randomOperand());
+    setRight(randomOperand());
+    setOperator(OPERATORS[Math.floor(Math.random() * OPERATORS.length)]);
+    setAnswer("");
     setIsCorrect(null);
-    setTimeout(() => setIsAnimating(false), 500);
-  };
-
-  const calculateCorrectAnswer = () => {
-    switch (operator) {
-      case '+':
-        return num1 + num2;
-      case '-':
-        return num1 - num2;
-      case 'x':
-        return num1 * num2;
-      default:
-        return 0;
-    }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setUserAnswer(value);
-    
-    const correctAnswer = calculateCorrectAnswer();
-    const isValid = parseInt(value) === correctAnswer;
-    setIsCorrect(value === '' ? null : isValid);
-    onValidate(isValid);
+    onValidate(false);
+    setTimeout(() => setIsRefreshing(false), ANIMATION_MS);
   };
 
   useEffect(() => {
-    generateNewProblem();
+    generateProblem();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleAnswerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    const isValid = parseInt(value, 10) === solve(left, right, operator);
+    setAnswer(value);
+    setIsCorrect(value === "" ? null : isValid);
+    onValidate(isValid);
+  };
+
+  const inputState =
+    isCorrect === null ? "border-ink" : isCorrect ? "border-ink bg-grey-50" : "border-2 border-ink";
+
   return (
-    <div className="relative">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-sand-50 rounded-xl p-5 border border-sand-200"
-      >
-        <div className="flex flex-col space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-ink font-medium">
-              Human Verification
-            </h3>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={generateNewProblem}
-              className="p-2 hover:bg-sand-100 rounded-full transition-colors"
-              aria-label="Generate new problem"
-            >
-              <RefreshCw className="w-4 h-4 text-ink-muted" />
-            </motion.button>
-          </div>
+    <div className="border border-ink bg-grey-50 p-5">
+      <div className="flex items-center justify-between gap-4">
+        <h3 className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-ink">Human verification</h3>
+        <button
+          type="button"
+          onClick={generateProblem}
+          aria-label="Generate a new problem"
+          className="flex h-9 w-9 items-center justify-center border border-ink bg-paper hover:bg-ink hover:text-paper"
+        >
+          <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} aria-hidden />
+        </button>
+      </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            <motion.div
-              animate={{ scale: isAnimating ? 0.95 : 1, opacity: isAnimating ? 0.5 : 1 }}
-              className="flex items-center justify-center bg-white rounded-lg border border-sand-200 p-4 min-w-[180px]"
-            >
-              <motion.span
-                key={`${num1}${operator}${num2}`}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-xl font-display text-ink flex items-center space-x-3"
-              >
-                <span>{num1}</span>
-                <span className="text-orange-600">{operator}</span>
-                <span>{num2}</span>
-                <span>=</span>
-              </motion.span>
-            </motion.div>
-
-            <div className="relative flex-1 min-w-[120px]">
-              <input
-                type="number"
-                value={userAnswer}
-                onChange={handleInputChange}
-                className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors bg-white text-ink
-                  ${isCorrect === null 
-                    ? 'border-sand-300 focus:border-orange-500' 
-                    : isCorrect 
-                      ? 'border-green-500 bg-green-50' 
-                      : 'border-red-500 bg-red-50'
-                  }`}
-                placeholder="Your answer"
-              />
-              {isCorrect !== null && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className={`absolute right-3 top-1/2 -translate-y-1/2 
-                    ${isCorrect ? 'text-green-500' : 'text-red-500'}`}
-                >
-                  {isCorrect ? '✓' : '✗'}
-                </motion.div>
-              )}
-            </div>
-          </div>
-
-          <div className="text-sm text-ink-muted">
-            {isCorrect === false && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-red-500"
-              >
-                Incorrect answer. Please try again.
-              </motion.p>
-            )}
-            {isCorrect === true && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-green-500"
-              >
-                Correct! You can now submit the form.
-              </motion.p>
-            )}
-          </div>
+      <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-stretch">
+        <p id="captcha-prompt" className="sr-only">
+          What is {left} {OPERATOR_WORDS[operator]} {right}?
+        </p>
+        <div
+          aria-hidden
+          className="display-wide flex min-w-[180px] items-center justify-center gap-3 border border-ink bg-paper px-5 py-4 font-display text-xl font-bold"
+        >
+          <span>{left}</span>
+          <span>{operator}</span>
+          <span>{right}</span>
+          <span>=</span>
         </div>
-      </motion.div>
+
+        <div className="relative flex-1">
+          <label htmlFor="captcha-answer" className="sr-only">
+            Answer to the verification question
+          </label>
+          <input
+            id="captcha-answer"
+            type="number"
+            inputMode="numeric"
+            value={answer}
+            onChange={handleAnswerChange}
+            placeholder="Your answer"
+            aria-invalid={isCorrect === false}
+            aria-describedby="captcha-prompt"
+            className={`${INPUT_CLASSES} ${inputState} pr-10`}
+          />
+          {isCorrect !== null && (
+            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-ink">
+              {isCorrect ? <Check className="h-5 w-5" aria-hidden /> : <X className="h-5 w-5" aria-hidden />}
+            </span>
+          )}
+        </div>
+      </div>
+
+      <p className="mt-3 min-h-5 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-muted" aria-live="polite">
+        {isCorrect === false && "Incorrect answer. Please try again."}
+        {isCorrect === true && "Verified. You can submit the form."}
+      </p>
     </div>
   );
 };

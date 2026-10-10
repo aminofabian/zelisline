@@ -1,139 +1,148 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { useEffect, useState, type ReactNode } from "react";
+import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Pause, Play } from "lucide-react";
+import { clientStories } from "@/data/clientStories";
 
-const testimonials = [
-  {
-    client: 'Jobslah',
-    websiteLink: 'https://www.jobslah.com/',
-    screenshot: 'jobslah.png',
-    review: "Fabian and the Team really exceeded our expectations. They're a small team, but their dedication and attention to detail are second to none. They took the time to understand our business, our goals and our target audience - something other agencies we've worked with didn't bother doing. The end result was a visually stunning website that not only represents our brand perfectly, but also drives results. We couldn't be happier with Jobslah's new website!",
-  },
-  {
-    client: 'Hawaii Family Dental',
-    websiteLink: 'https://hawaiifamilydental.com/',
-    screenshot: 'hfd.png',
-    review: "Zelisline isn't just a web design agency, they're true partners. We've been working with them for years and every project has been a success. They have an incredible eye for design and their technical skills are top-notch. But what sets them apart is their commitment to customer satisfaction. They truly care about our business and always go above and beyond to make sure we're happy with the final product. Hawaii Family Dental's website is a testament to their expertise and dedication.",
-  },
-  {
-    client: 'Wanderlust Travel Co.',
-    websiteLink: 'https://www.wanderlusttravelco.com/',
-    screenshot: 'wander.png',
-    review: "Working with Fabian and the team at Zelisline was an absolute pleasure. They're not just web designers, they're storytellers. They were able to capture the essence of our travel company and create a website that truly speaks to our audience. From the stunning visuals to the user-friendly interface, everything was executed flawlessly. We've received so many compliments on our new site and it's all thanks to Zelisline!",
-  },
-  {
-    client: 'Rustic Retreats',
-    websiteLink: 'https://www.rustic-retreats.uk/',
-    screenshot: 'rustic.png',
-    review: "Slow but steady wins the race and that's exactly how we felt working with Zelisline. They were patient, methodical, and thorough in their approach to designing our website. We appreciated their attention to detail and open communication throughout the entire process. The end result was a beautiful website that perfectly captures the rustic and cozy feel of our retreats. We highly recommend Zelisline to any business looking for a top-notch web design team.",
-  },
-  {
-    client: 'FitFusion Fitness',
-    websiteLink: 'https://www.fitfusionfitness.com/',
-    screenshot: 'fitness.png',
-    review: "As a fitness studio, it was important for us to have a website that not only looked great but also functioned seamlessly. Zelisline delivered on both accounts and more. They incorporated our branding into the design effortlessly and created a user-friendly platform for our clients to navigate. We've seen an increase in website traffic and inquiries since launching our new site.",
-  },
-];
+const AUTOPLAY_INTERVAL_MS = 7000;
+const FADE_DURATION_S = 0.3;
+const FIRST_SLIDE = 0;
 
-function Portfolio() {
-  const [index, setIndex] = useState(0);
-  const count = testimonials.length;
+const STEP_NEXT = 1;
+const STEP_PREVIOUS = -1;
 
-  const go = useCallback(
-    (dir: number) => setIndex((prev) => (prev + dir + count) % count),
-    [count]
-  );
+const wrapIndex = (value: number, count: number) => (value + count) % count;
 
+export default function Portfolio() {
+  const [index, setIndex] = useState(FIRST_SLIDE);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const count = clientStories.length;
+
+  // `index` in the deps resets the timer on any manual step, so a click never
+  // races the next autoplay tick. Hover/focus pauses it entirely.
   useEffect(() => {
-    const timer = setInterval(() => setIndex((prev) => (prev + 1) % count), 7000);
+    if (isPaused || isHovered || count <= 1) return;
+    const timer = setInterval(
+      () => setIndex((previous) => wrapIndex(previous + STEP_NEXT, count)),
+      AUTOPLAY_INTERVAL_MS
+    );
     return () => clearInterval(timer);
-  }, [count]);
+  }, [count, isPaused, isHovered, index]);
 
-  const current = testimonials[index];
+  if (count === 0) {
+    return (
+      <div className="border border-ink bg-grey-50 p-10 text-center">
+        <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-ink-muted">Client stories coming soon</p>
+      </div>
+    );
+  }
+
+  const story = clientStories[index];
+  const step = (direction: number) => setIndex((previous) => wrapIndex(previous + direction, count));
 
   return (
-    <div className="mx-auto max-w-[1400px] px-5 sm:px-6 lg:px-10">
-      <div className="grid border border-sand-200 lg:grid-cols-2">
-        {/* Screenshot */}
-        <div className="bg-sand-100 p-5 sm:p-8">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={current.client}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.35 }}
-              className="border border-sand-200 bg-white p-2"
-            >
-              <Image
-                src={current.screenshot}
-                alt={`${current.client} website screenshot`}
-                width={1200}
-                height={800}
-                className="h-auto w-full"
-              />
-            </motion.div>
-          </AnimatePresence>
-        </div>
+    <div
+      role="group"
+      aria-roledescription="carousel"
+      aria-label="Client stories"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocusCapture={() => setIsHovered(true)}
+      onBlurCapture={() => setIsHovered(false)}
+      className="grid border border-ink lg:grid-cols-2"
+    >
+      <div className="grayscale-plate border-b border-ink bg-grey-50 p-5 sm:p-8 lg:border-b-0 lg:border-r">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={story.client}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: FADE_DURATION_S }}
+            className="border border-ink bg-paper p-2"
+          >
+            <Image
+              src={`/${story.screenshot}`}
+              alt={`${story.client} website screenshot`}
+              width={1200}
+              height={800}
+              className="h-auto w-full"
+            />
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
-        {/* Quote */}
-        <div className="flex flex-col justify-between gap-8 bg-sand-50 p-6 sm:p-10">
+      <div className="flex flex-col justify-between gap-10 bg-paper p-6 sm:p-10">
+        <div aria-live="polite" aria-atomic="true">
           <AnimatePresence mode="wait">
             <motion.figure
-              key={current.client}
+              key={story.client}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.35 }}
+              transition={{ duration: FADE_DURATION_S }}
             >
-              <span className="eyebrow">Client story</span>
-              <blockquote className="mt-5 text-pretty text-lg leading-relaxed text-ink-soft">
-                &ldquo;{current.review}&rdquo;
+              <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-muted">Client story</p>
+              <blockquote className="mt-5 text-pretty text-lg leading-relaxed sm:text-xl">
+                &ldquo;{story.review}&rdquo;
               </blockquote>
-              <figcaption className="mt-6 font-display text-lg text-ink">
-                {current.client}
-              </figcaption>
-              <Link
-                href={current.websiteLink}
+              <figcaption className="display-wide mt-8 font-display text-xl font-bold">{story.client}</figcaption>
+              <a
+                href={story.websiteLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-orange-700 transition-colors hover:text-orange-800"
+                className="group mt-3 inline-flex items-center gap-1.5 text-sm font-medium underline-offset-4 hover:underline"
               >
                 Visit site
-                <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
+                <ArrowUpRight
+                  className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  aria-hidden
+                />
+              </a>
             </motion.figure>
           </AnimatePresence>
+        </div>
 
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => go(-1)}
-              aria-label="Previous testimonial"
-              className="flex h-10 w-10 items-center justify-center border border-sand-300 text-ink transition-colors hover:border-ink/40 hover:text-orange-700"
-            >
-              <ArrowLeft className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={() => go(1)}
-              aria-label="Next testimonial"
-              className="flex h-10 w-10 items-center justify-center border border-sand-300 text-ink transition-colors hover:border-ink/40 hover:text-orange-700"
-            >
-              <ArrowRight className="h-4 w-4" />
-            </button>
-            <span className="ml-1 font-display text-sm tabular-nums text-ink-muted">
-              {index + 1} / {count}
-            </span>
-          </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <ControlButton label="Previous testimonial" onClick={() => step(STEP_PREVIOUS)}>
+            <ArrowLeft className="h-4 w-4" aria-hidden />
+          </ControlButton>
+          <ControlButton label="Next testimonial" onClick={() => step(STEP_NEXT)}>
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </ControlButton>
+          <ControlButton
+            label={isPaused ? "Resume autoplay" : "Pause autoplay"}
+            onClick={() => setIsPaused((paused) => !paused)}
+          >
+            {isPaused ? <Play className="h-4 w-4" aria-hidden /> : <Pause className="h-4 w-4" aria-hidden />}
+          </ControlButton>
+          <span className="ml-3 font-mono text-[12px] tabular-nums text-ink-muted">
+            {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
+          </span>
         </div>
       </div>
     </div>
   );
 }
 
-export default Portfolio;
+interface ControlButtonProps {
+  label: string;
+  onClick: () => void;
+  children: ReactNode;
+}
+
+function ControlButton({ label, onClick, children }: ControlButtonProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={label}
+      className="flex h-11 w-11 items-center justify-center border border-ink bg-paper transition-colors hover:bg-ink hover:text-paper"
+    >
+      {children}
+    </button>
+  );
+}

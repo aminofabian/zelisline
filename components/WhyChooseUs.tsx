@@ -1,86 +1,65 @@
-'use client';
+import Container from "@/components/system/Container";
+import Eyebrow from "@/components/system/Eyebrow";
+import Reveal from "@/components/system/Reveal";
+import { formatIndex } from "@/lib/format";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import {
-  Code2,
-  Workflow,
-  Clock,
-  Gem,
-  Cloud,
-  Shield,
-} from 'lucide-react';
+const STAGGER_STEP_S = 0.05;
 
-const reasons = [
-  { title: 'A senior team', icon: Code2, description: 'Engineers with years of experience across React, Node and cloud infrastructure.' },
-  { title: 'Agile delivery', icon: Workflow, description: 'Regular sprints, visible progress and continuous delivery — not a black box.' },
-  { title: 'Fast turnaround', icon: Clock, description: 'An optimised process and CI/CD pipeline that keeps momentum high.' },
-  { title: 'Quality assurance', icon: Gem, description: 'Unit, integration and end-to-end testing built into every project.' },
-  { title: 'Cloud & DevOps', icon: Cloud, description: 'Architecture that stays scalable, secure and maintainable as you grow.' },
-  { title: 'Security first', icon: Shield, description: 'Best practices, regular audits and compliance applied at every stage.' },
+const REASONS = [
+  { title: "A senior team", description: "Engineers with years of experience across React, Node and cloud infrastructure." },
+  { title: "Agile delivery", description: "Regular sprints, visible progress and continuous delivery — not a black box." },
+  { title: "Fast turnaround", description: "An optimised process and CI/CD pipeline that keeps momentum high." },
+  { title: "Quality assurance", description: "Unit, integration and end-to-end testing built into every project." },
+  { title: "Cloud & DevOps", description: "Architecture that stays scalable, secure and maintainable as you grow." },
+  { title: "Security first", description: "Best practices, regular audits and compliance applied at every stage." },
 ];
 
-const stats = [
-  { number: '100+', label: 'Projects delivered' },
-  { number: '99.9%', label: 'Uptime targeted' },
-  { number: '24/7', label: 'Support available' },
+const STATS = [
+  { value: "100+", label: "Projects delivered" },
+  { value: "99.9%", label: "Uptime targeted" },
+  { value: "24/7", label: "Support available" },
 ];
 
-const WhyChooseUs = () => {
+export default function WhyChooseUs() {
   return (
-    <section>
-      <div className="mx-auto max-w-[1400px] px-5 sm:px-6 lg:px-10">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          {/* Sticky intro */}
-          <div className="lg:col-span-4 lg:sticky lg:top-6 lg:self-start">
-            <span className="eyebrow">Why Zelisline</span>
-            <h2 className="mt-3 max-w-[16ch] font-display text-3xl font-medium leading-tight text-ink sm:text-4xl">
+    <section className="py-20 sm:py-28">
+      <Container>
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:sticky lg:top-24 lg:col-span-5 lg:self-start">
+            <Eyebrow>Why Zelisline</Eyebrow>
+            <h2 className="display-wide mt-6 font-display text-[2.1rem] font-bold uppercase leading-[1.02] tracking-[-0.02em] sm:text-5xl">
               A partner you can actually rely on
             </h2>
-            <p className="mt-5 text-pretty leading-relaxed text-ink-soft">
-              We are small on purpose. That means the people who scope your project
-              are the people who build it — and who are still there when you need
-              changes a year later.
+            <p className="mt-6 max-w-md text-pretty text-lg leading-relaxed text-ink-muted">
+              We are small on purpose. That means the people who scope your project are the people who build it — and
+              who are still there when you need changes a year later.
             </p>
 
-            <div className="mt-8 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-sand-200 bg-sand-200 sm:grid-cols-3">
-              {stats.map((stat) => (
-                <div key={stat.label} className="bg-sand-50 px-4 py-5">
-                  <div className="font-display text-2xl text-orange-700">{stat.number}</div>
-                  <div className="mt-1 text-xs uppercase tracking-[0.1em] text-ink-muted">{stat.label}</div>
+            <dl className="mt-10 grid grid-cols-3 gap-px border border-ink bg-ink">
+              {STATS.map((stat) => (
+                <div key={stat.label} className="bg-paper p-4">
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.1em] text-ink-muted">{stat.label}</dt>
+                  <dd className="display-wide mt-2 font-display text-2xl font-bold sm:text-3xl">{stat.value}</dd>
                 </div>
               ))}
-            </div>
+            </dl>
           </div>
 
-          {/* Reason list */}
-          <div className="lg:col-span-8">
-            <div className="sm:grid sm:grid-cols-2 sm:gap-x-10">
-              {reasons.map((reason, index) => {
-                const Icon = reason.icon;
-                return (
-                  <motion.div
-                    key={reason.title}
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-60px' }}
-                    transition={{ duration: 0.45, delay: (index % 2) * 0.08 }}
-                    className="group border-t border-sand-200 py-6"
-                  >
-                    <div className="flex items-center gap-3">
-                      <Icon className="h-5 w-5 text-orange-600" />
-                      <h3 className="font-display text-lg text-ink">{reason.title}</h3>
-                    </div>
-                    <p className="mt-2.5 text-sm leading-relaxed text-ink-soft">{reason.description}</p>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
+          <ol className="border-t-2 border-ink lg:col-span-7">
+            {REASONS.map((reason, index) => (
+              <li key={reason.title} className="border-b border-ink">
+                <Reveal delay={index * STAGGER_STEP_S} className="grid grid-cols-[3rem_1fr] gap-4 py-7 sm:grid-cols-[4rem_1fr]">
+                  <span className="font-mono text-[12px] text-ink-muted">{formatIndex(index + 1)}</span>
+                  <div>
+                    <h3 className="display-wide font-display text-xl font-bold sm:text-2xl">{reason.title}</h3>
+                    <p className="mt-2 max-w-lg text-sm leading-relaxed text-ink-muted sm:text-base">{reason.description}</p>
+                  </div>
+                </Reveal>
+              </li>
+            ))}
+          </ol>
         </div>
-      </div>
+      </Container>
     </section>
   );
-};
-
-export default WhyChooseUs;
+}

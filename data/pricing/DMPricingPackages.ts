@@ -19,8 +19,8 @@ export const packages = [
     startingPrice: 100
   },
   {
-    name: "Basic Package",
-    description: "The basic package is perfect for new businesses and brands looking to grow their online presence and attract more customers.",
+    name: "Standard Package",
+    description: "For businesses ready to scale their reach with a broader content and SEO programme across more channels.",
     features: [
       "Custom SEO strategy tailored to your business goals and target audience",
       "5 1000-word blog posts, human-written and optimized for search engines",
@@ -33,10 +33,9 @@ export const packages = [
     ],
     startingPrice: 300
   },
-
   {
-    name: "Basic Package",
-    description: "The basic package is perfect for new businesses and brands looking to grow their online presence and attract more customers.",
+    name: "Advanced Package",
+    description: "Our most popular growth tier — more content, paid campaigns and influencer activity across channels.",
     features: [
       "Custom SEO strategy tailored to your business goals and target audience",
       "5 1000-word blog posts, human-written and optimized for search engines",
@@ -47,7 +46,8 @@ export const packages = [
       "Collaboration with 1 influencer per quarter to expand brand reach",
       "Bi-monthly online reputation reports and management to enhance brand presence",
       "Creation of 2 promotional videos per month for YouTube and social media",
-      "Optimization for up to 2 local keywords to improve geographic visibility"],
+      "Optimization for up to 2 local keywords to improve geographic visibility"
+    ],
     startingPrice: 500
   },
   {
@@ -101,16 +101,4 @@ export const packages = [
     ],
     startingPrice: 5000
   },
-
 ];
-interface Package {
-  name: string;
-  description: string;
-  features: string[];
-  startingPrice: number;
-}
-
-interface Props {
-  packages: Package[];
-}
-

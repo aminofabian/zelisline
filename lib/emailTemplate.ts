@@ -1,3 +1,5 @@
+import { site } from "@/data/site";
+
 interface ProjectInquiryData {
   name: string;
   email: string;
@@ -7,205 +9,57 @@ interface ProjectInquiryData {
   projectDetails?: string;
 }
 
+/** Escape user-supplied values before they are interpolated into email HTML. */
+export function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+const LABEL = "margin:0 0 6px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#5C5C5C;";
+const VALUE = "margin:0;font-size:15px;line-height:1.6;white-space:pre-line;color:#0A0A0A;";
+
+export function emailShell(heading: string, subheading: string, contentHtml: string): string {
+  return `<!DOCTYPE html>
+<html>
+  <body style="margin:0;padding:24px;background:#F4F4F4;font-family:Arial,Helvetica,sans-serif;color:#0A0A0A;">
+    <div style="max-width:600px;margin:0 auto;border:2px solid #0A0A0A;background:#FFFFFF;">
+      <div style="background:#0A0A0A;color:#FFFFFF;padding:24px 28px;">
+        <p style="margin:0;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#BDBDBD;">Zelisline</p>
+        <h1 style="margin:8px 0 0;font-size:22px;font-weight:700;letter-spacing:-0.02em;">${heading}</h1>
+        <p style="margin:6px 0 0;font-size:14px;color:#BDBDBD;">${subheading}</p>
+      </div>
+      <div style="padding:28px;">${contentHtml}</div>
+      <div style="border-top:2px solid #0A0A0A;padding:20px 28px;font-size:12px;color:#5C5C5C;">
+        <p style="margin:0;">Zelisline · ${site.studio} · ${site.coordinates}</p>
+        <p style="margin:4px 0 0;">${site.email} · ${site.phone.display}</p>
+      </div>
+    </div>
+  </body>
+</html>`;
+}
+
+export function emailField(label: string, value: string): string {
+  return `<div style="padding:14px 0;border-bottom:1px solid #E8E8E8;">
+    <p style="${LABEL}">${label}</p>
+    <p style="${VALUE}">${value}</p>
+  </div>`;
+}
+
 export const generateProjectInquiryEmail = (data: ProjectInquiryData) => {
   const { name, email, phone, company, message, projectDetails } = data;
-  const details = message || projectDetails;
-  
-  return `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>New Project Inquiry - Zelisline</title>
-        <style>
-          body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            line-height: 1.6;
-            color: #2d3748;
-            background-color: #f7fafc;
-            margin: 0;
-            padding: 20px;
-          }
-          .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          }
-          .header {
-            background: linear-gradient(135deg, #ff6b2c 0%, #ff8f50 100%);
-            color: white;
-            padding: 32px 20px;
-            text-align: center;
-          }
-          .header h1 {
-            margin: 0;
-            font-size: 28px;
-            font-weight: 600;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          }
-          .header p {
-            margin: 8px 0 0;
-            opacity: 0.9;
-            font-size: 16px;
-          }
-          .logo {
-            margin-bottom: 20px;
-          }
-          .logo img {
-            height: 40px;
-          }
-          .content {
-            padding: 32px 24px;
-          }
-          .field {
-            margin-bottom: 24px;
-            border-bottom: 1px solid #edf2f7;
-            padding-bottom: 16px;
-          }
-          .field:last-child {
-            border-bottom: none;
-          }
-          .label {
-            font-weight: 600;
-            color: #ff6b2c;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-          }
-          .value {
-            color: #2d3748;
-            font-size: 16px;
-            line-height: 1.6;
-          }
-          .message-box {
-            background: #fff8f6;
-            border-left: 4px solid #ff6b2c;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 24px;
-          }
-          .message-box .label {
-            color: #ff6b2c;
-            margin-bottom: 12px;
-          }
-          .message-box .value {
-            white-space: pre-line;
-            color: #4a5568;
-          }
-          .footer {
-            text-align: center;
-            padding: 24px;
-            background: #f8fafc;
-            border-top: 1px solid #edf2f7;
-          }
-          .footer p {
-            margin: 4px 0;
-            color: #718096;
-            font-size: 14px;
-          }
-          .contact-info {
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid #edf2f7;
-            text-align: center;
-            font-size: 14px;
-            color: #718096;
-          }
-          .contact-info a {
-            color: #ff6b2c;
-            text-decoration: none;
-          }
-          .highlight {
-            color: #ff6b2c;
-            font-weight: 600;
-          }
-          .button {
-            display: inline-block;
-            padding: 12px 24px;
-            background: #ff6b2c;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 600;
-            margin-top: 16px;
-            text-align: center;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <div class="header">
-            <div class="logo">
-              <!-- Replace with your actual logo URL -->
-              <img src="https://www.zelisline.co.ke/zelisline-logo.png" alt="Zelisline" />
-            </div>
-            <h1>New Project Inquiry</h1>
-            <p>We've received a new message from your website</p>
-          </div>
-          
-          <div class="content">
-            <div class="field">
-              <div class="label">From</div>
-              <div class="value highlight">${name}</div>
-            </div>
-            
-            <div class="field">
-              <div class="label">Email Address</div>
-              <div class="value">
-                <a href="mailto:${email}" style="color: #ff6b2c; text-decoration: none;">
-                  ${email}
-                </a>
-              </div>
-            </div>
-            
-            ${phone ? `
-            <div class="field">
-              <div class="label">Phone Number</div>
-              <div class="value">
-                <a href="tel:${phone}" style="color: #ff6b2c; text-decoration: none;">
-                  ${phone}
-                </a>
-              </div>
-            </div>
-            ` : ''}
-            
-            ${company ? `
-            <div class="field">
-              <div class="label">Company</div>
-              <div class="value">${company}</div>
-            </div>
-            ` : ''}
-            
-            <div class="message-box">
-              <div class="label">Message</div>
-              <div class="value">${details?.replace(/\n/g, '<br>') || ''}</div>
-            </div>
-          </div>
-          
-          <div class="footer">
-            <p>This is an automated message from your website's contact form.</p>
-            <p><strong>Zelisline</strong> - Digital Solutions for Modern Businesses</p>
-            
-            <div class="contact-info">
-              <p>Need help? Contact us:</p>
-              <p>
-                Email: <a href="mailto:zelisline@gmail.com">zelisline@gmail.com</a><br>
-                Phone: <a href="tel:+254797356380">+254 714 28 28 74</a>
-              </p>
-              <a href="https://zelisline.com" class="button">Visit Our Website</a>
-            </div>
-            
-            <p style="margin-top: 24px; font-size: 12px; color: #a0aec0;">
-              &copy; ${new Date().getFullYear()} Zelisline. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </body>
-    </html>
-  `;
+  const details = message || projectDetails || "";
+
+  const rows = [
+    emailField("From", escapeHtml(name)),
+    emailField("Email", escapeHtml(email)),
+    phone ? emailField("Phone", escapeHtml(phone)) : "",
+    company ? emailField("Company", escapeHtml(company)) : "",
+    emailField("Message", escapeHtml(details)),
+  ].join("");
+
+  return emailShell("New project inquiry", "A new message from your website", rows);
 };

@@ -1,6 +1,6 @@
 export const packages = [
   {
-    name: "Basic Package",
+    name: "Basic Store",
     description: "The basic package is perfect for new businesses and brands looking to grow their online presence and attract more customers.",
     features: [
       "Up to 6 pages on your site",
@@ -26,8 +26,8 @@ export const packages = [
     startingPrice: 500
   },
   {
-    name: "Basic Package",
-    description: "The basic package is perfect for new businesses and brands looking to grow their online presence and attract more customers.",
+    name: "Standard Store",
+    description: "For growing stores that need a custom design, more products and richer marketing pages.",
     features: [
       "Up to 12 pages on your site",
       "List up to 50 products online",
@@ -51,10 +51,9 @@ export const packages = [
     ],
     startingPrice: 1000
   },
-
   {
-    name: "Basic Package",
-    description: "The basic package is perfect for new businesses and brands looking to grow their online presence and attract more customers.",
+    name: "Advanced Store",
+    description: "A full-featured storefront with advanced SEO, security and support for multiple product types.",
     features: [
       "Up to 20 pages on your site",
       "List up to 100 products online",
@@ -78,16 +77,4 @@ export const packages = [
     ],
     startingPrice: 2000
   }
-
 ];
-interface Package {
-  name: string;
-  description: string;
-  features: string[];
-  startingPrice: number;
-}
-
-interface Props {
-  packages: Package[];
-}
-

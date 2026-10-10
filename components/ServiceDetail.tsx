@@ -1,65 +1,42 @@
-'use client';
+import Lottie from "@/components/ClientLottie";
+import Reveal from "@/components/system/Reveal";
+import Eyebrow from "@/components/system/Eyebrow";
+import { formatIndex } from "@/lib/format";
+import type { ServiceDiscipline } from "@/types/content";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import type { LucideIcon } from 'lucide-react';
-import Lottie from '@/components/ClientLottie';
+const STAGGER_STEP_S = 0.05;
 
-export interface ServiceItem {
-  name: string;
-  description: string;
-  icon: LucideIcon;
-}
-
-interface ServiceDetailProps {
-  kicker: string;
-  title: string;
-  lead: string;
-  animation: object;
-  items: ServiceItem[];
-}
-
-/**
- * Shared presentation for a single service discipline. Keeping all three
- * services on one component guarantees a consistent rhythm across the section.
- */
-const ServiceDetail: React.FC<ServiceDetailProps> = ({ kicker, title, lead, animation, items }) => {
+export default function ServiceDetail({ kicker, title, lead, animation, items }: Omit<ServiceDiscipline, "id" | "tabLabel">) {
   return (
-    <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
-      <div className="lg:col-span-5 lg:sticky lg:top-6 lg:self-start">
-        <span className="eyebrow">{kicker}</span>
-        <h3 className="mt-3 font-display text-2xl text-ink sm:text-3xl">{title}</h3>
-        <p className="mt-4 text-pretty leading-relaxed text-ink-soft">{lead}</p>
+    <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
+      <div className="lg:col-span-5 lg:sticky lg:top-24 lg:self-start">
+        <Eyebrow>{kicker}</Eyebrow>
+        <h3 className="display-wide mt-5 font-display text-[1.9rem] font-bold uppercase leading-[1] tracking-[-0.02em] sm:text-4xl">
+          {title}
+        </h3>
+        <p className="mt-5 max-w-md text-pretty text-base leading-relaxed text-ink-muted sm:text-lg">{lead}</p>
 
-        <div className="mt-7 overflow-hidden rounded-xl border border-sand-200 bg-sand-50 p-4">
-          <Lottie animationData={animation} loop className="mx-auto h-40 w-full max-w-[220px]" />
+        <div className="grayscale-plate mt-8 flex h-56 items-center justify-center border border-ink bg-grey-50 p-6">
+          <Lottie animationData={animation} loop className="h-full w-full max-w-[220px]" />
         </div>
       </div>
 
-      <dl className="lg:col-span-7">
-        {items.map((item, index) => {
-          const Icon = item.icon;
-          return (
-            <motion.div
-              key={item.name}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: index * 0.06 }}
-              className="group flex items-start gap-4 border-b border-sand-200 py-4 first:border-t first:border-sand-200"
+      <ol className="border-t-2 border-ink lg:col-span-7">
+        {items.map((item, index) => (
+          <li key={item.name} className="group border-b border-ink transition-colors duration-150 hover:bg-ink hover:text-paper">
+            <Reveal
+              delay={index * STAGGER_STEP_S}
+              className="grid grid-cols-[3rem_1fr] gap-4 px-3 py-5 sm:grid-cols-[4rem_1fr] sm:px-5"
             >
-              <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-orange-50 text-orange-600 transition-colors group-hover:bg-orange-600 group-hover:text-white">
-                <Icon className="h-4 w-4" />
-              </span>
+              <span className="font-mono text-[12px] text-ink-muted group-hover:text-paper-dim">{formatIndex(index + 1)}</span>
               <div>
-                <dt className="font-display text-lg text-ink">{item.name}</dt>
-                <dd className="mt-0.5 text-sm leading-relaxed text-ink-soft">{item.description}</dd>
+                <h4 className="display-wide font-display text-lg font-bold leading-tight sm:text-xl">{item.name}</h4>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink-muted group-hover:text-paper-dim">{item.description}</p>
               </div>
-            </motion.div>
-          );
-        })}
-      </dl>
+            </Reveal>
+          </li>
+        ))}
+      </ol>
     </div>
   );
-};
-
-export default ServiceDetail;
+}

@@ -3,53 +3,37 @@ import type { Config } from "tailwindcss"
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   prefix: "",
   theme: {
     container: {
       center: true,
       padding: "1.25rem",
-      screens: {
-        "2xl": "1280px",
-      },
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-jost)", "ui-sans-serif", "system-ui", "sans-serif"],
-        display: ["var(--font-fraunces)", "ui-serif", "Georgia", "serif"],
-        hand: ["var(--font-caveat)", "cursive"],
+        sans: ["var(--font-archivo)", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["var(--font-archivo)", "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       colors: {
-        // Warm, earthy brand accent (a refined rust / ember).
-        // The built-in `orange` scale is re-mapped to this palette so existing
-        // usages stay visually consistent with the new identity.
-        orange: {
-          50: "#FCF5EF",
-          100: "#F7E4D6",
-          200: "#EFC7AC",
-          300: "#E29E76",
-          400: "#D4693C",
-          500: "#C2410C",
-          600: "#A6370B",
-          700: "#852C0A",
-          800: "#67230A",
-          900: "#521D0B",
-        },
-        // Warm neutral surfaces derived from stone.
-        sand: {
-          50: "#FBF9F5",
-          100: "#F5F1EA",
-          200: "#EBE4D9",
-          300: "#DCD2C2",
-          400: "#B9AC97",
-        },
+        // Strictly monochrome palette. Nothing else is used on the site.
         ink: {
-          DEFAULT: "#1C1917",
-          soft: "#44403C",
-          muted: "#79716B",
+          DEFAULT: "#0A0A0A",
+          muted: "#5C5C5C",
+        },
+        paper: {
+          DEFAULT: "#FFFFFF",
+          dim: "#BDBDBD",
+        },
+        grey: {
+          50: "#F4F4F4",
+          100: "#E8E8E8",
+          200: "#D4D4D4",
+          300: "#A6A6A6",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -85,14 +69,26 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      // Square geometry everywhere. Only the spinner dot keeps a true circle.
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        none: "0px",
+        DEFAULT: "0px",
+        sm: "0px",
+        md: "0px",
+        lg: "0px",
+        xl: "0px",
+        "2xl": "0px",
+        "3xl": "0px",
+        full: "9999px",
       },
       boxShadow: {
-        soft: "0 1px 2px rgba(28, 25, 23, 0.04), 0 12px 32px -18px rgba(28, 25, 23, 0.22)",
-        lift: "0 2px 4px rgba(28, 25, 23, 0.05), 0 24px 48px -24px rgba(28, 25, 23, 0.28)",
+        DEFAULT: "none",
+        sm: "none",
+        md: "none",
+        lg: "none",
+        xl: "none",
+        "2xl": "none",
+        none: "none",
       },
       keyframes: {
         "accordion-down": {
@@ -107,18 +103,11 @@ const config = {
           from: { transform: "translateX(0)" },
           to: { transform: "translateX(-50%)" },
         },
-        blob: {
-          "0%": { transform: "translate(0px, 0px) scale(1)" },
-          "33%": { transform: "translate(30px, -50px) scale(1.1)" },
-          "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
-          "100%": { transform: "translate(0px, 0px) scale(1)" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "marquee": "marquee 40s linear infinite",
-        "blob": "blob 7s infinite",
+        marquee: "marquee 60s linear infinite",
       },
     },
   },

@@ -1,53 +1,40 @@
-import ContactPage from '@/components/ContactPage';
-import ShuffleHero from '@/components/ShuffleHero';
-import Services from '@/components/Services';
-import SideNav from '@/components/SideNav';
-import * as items from '@/data/faq';
-import MyAccordion from '@/components/myComponents/MyAccordion';
-import FooterRev from '@/components/FooterRev';
-import EcommercePricing from '@/components/pricing/EcommercePricing';
+import type { Metadata } from "next";
+import ServiceLandingPage from "@/components/landing/ServiceLandingPage";
+import { packages } from "@/data/pricing/EcommercePackage";
+import { webDesignFaqs } from "@/data/faq";
+import { customStackDiscipline, webDesignDiscipline } from "@/data/serviceDisciplines";
 
+export const metadata: Metadata = {
+  title: "Ecommerce website development",
+  description:
+    "Ecommerce website design and development in Kenya: storefronts, product catalogues and payment integrations built by a Nairobi studio.",
+};
 
+const ECOMMERCE_DISCIPLINES = [webDesignDiscipline, customStackDiscipline];
 
-export default function EcommercePage () {
-  const buttons = [
-    { link: "/contact", text: "Talk to Us" },
-    { link: "/contact", text: "Get a Quote" },
-  ];
-  
+export default function EcommercePage() {
   return (
-    <>
-    <div className="flex h-screen relative md:flex-row md:overflow-hidden xl:px-10 md:px-2 mx-auto">
-    <nav className="hidden md:flex mt-5 pl-2">
-    <SideNav />
-    </nav>
-    <div className="flex-grow mt-7 md:mt-0 flex-1 w-9xl md:overflow-y-auto md:p-5 max-w-6xl mx-auto">
-    <div>
-    <ShuffleHero
-    subTitle=" Ecommerce Website Design and Development"
-    title=" The Leading eCommerce Website Design & Development Service in Kenya"
-    bgImage="/bg.jpg"
-    buttons={buttons}
+    <ServiceLandingPage
+      hero={{
+        eyebrow: "Ecommerce website design & development",
+        title: "The leading ecommerce website design & development service in Kenya",
+        description: "Online stores with product catalogues, carts and payments, designed and launched by a Nairobi studio.",
+        primary: { label: "Get a quote", href: "/contact" },
+        secondary: { label: "See the packages", href: "#pricing" },
+      }}
+      pricing={{
+        eyebrow: "Packages",
+        title: "Choose your ecommerce package",
+        description: "Starting points to help you plan. Every store is scoped individually to your catalogue and payments.",
+        currency: "usd",
+        packages,
+      }}
+      services={{
+        eyebrow: "What we do",
+        title: "From simple blogs to complex SaaS, we've got you covered",
+        disciplines: ECOMMERCE_DISCIPLINES,
+      }}
+      faq={{ eyebrow: "Answers", title: "Questions we hear often", items: webDesignFaqs }}
     />
-    
-    </div>
-    <div className="m-5 rounded-xl">
-    <EcommercePricing />
-    </div>
-    <div>
-    <Services />
-    </div>
-    <div className="w-[100dvh] mb-10 border-[1px]">
-    <MyAccordion
-    items={items.webDesignFaqs}
-    />
-    </div>
-    <div>
-    <ContactPage />
-    </div>
-    <FooterRev />
-    </div>
-    </div>
-    </>
-  )
+  );
 }

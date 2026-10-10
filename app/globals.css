@@ -4,69 +4,37 @@
 
 /* ------------------------------------------------------------------ */
 /*  Design tokens                                                      */
-/*  Warm, editorial palette: bone paper, ink text, ember accent.       */
+/*  Strictly monochrome: ink, paper and three neutral greys.           */
 /* ------------------------------------------------------------------ */
 @layer base {
   :root {
-    --background: 38 33% 97%;
-    --foreground: 24 10% 10%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 4%;
 
     --card: 0 0% 100%;
-    --card-foreground: 24 10% 10%;
+    --card-foreground: 0 0% 4%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 24 10% 10%;
+    --popover-foreground: 0 0% 4%;
 
-    --primary: 21 89% 40%;
-    --primary-foreground: 40 60% 98%;
+    --primary: 0 0% 4%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 36 33% 94%;
-    --secondary-foreground: 24 10% 12%;
+    --secondary: 0 0% 91%;
+    --secondary-foreground: 0 0% 4%;
 
-    --muted: 36 26% 94%;
-    --muted-foreground: 28 8% 44%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 36%;
 
-    --accent: 24 60% 95%;
-    --accent-foreground: 21 60% 20%;
+    --accent: 0 0% 91%;
+    --accent-foreground: 0 0% 4%;
 
-    --destructive: 0 72% 45%;
-    --destructive-foreground: 40 60% 98%;
+    --destructive: 0 0% 4%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 34 20% 87%;
-    --input: 34 20% 85%;
-    --ring: 21 89% 40%;
-
-    --radius: 0.625rem;
-  }
-
-  .dark {
-    --background: 24 10% 8%;
-    --foreground: 40 30% 96%;
-
-    --card: 24 9% 11%;
-    --card-foreground: 40 30% 96%;
-
-    --popover: 24 9% 11%;
-    --popover-foreground: 40 30% 96%;
-
-    --primary: 21 85% 52%;
-    --primary-foreground: 24 20% 8%;
-
-    --secondary: 24 8% 16%;
-    --secondary-foreground: 40 30% 96%;
-
-    --muted: 24 8% 16%;
-    --muted-foreground: 34 12% 66%;
-
-    --accent: 24 12% 18%;
-    --accent-foreground: 40 30% 96%;
-
-    --destructive: 0 62% 40%;
-    --destructive-foreground: 40 30% 96%;
-
-    --border: 24 8% 20%;
-    --input: 24 8% 20%;
-    --ring: 21 85% 52%;
+    --border: 0 0% 4%;
+    --input: 0 0% 4%;
+    --ring: 0 0% 4%;
   }
 }
 
@@ -81,16 +49,18 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    font-feature-settings: "kern" 1, "liga" 1;
+    @apply bg-background font-sans text-foreground antialiased;
     text-rendering: optimizeLegibility;
   }
 
-  /* Editorial defaults: display serif for large headings. */
-  h1, h2 {
-    @apply font-display text-ink;
-    font-weight: 500;
-    letter-spacing: -0.015em;
+  /* Headings inherit their surface colour so they stay legible on both
+     paper and ink blocks. Never hard-code a text colour here. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+    letter-spacing: -0.02em;
   }
 
   a {
@@ -98,99 +68,190 @@
     text-decoration: none;
   }
 
-  /* Accessible focus ring across the whole site. */
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Two-tone focus ring: a white ring behind a black outline stays legible on
+     both paper and ink surfaces without any per-section wiring. */
   :focus-visible {
-    outline: 2px solid hsl(var(--ring));
+    outline: 2px solid #0a0a0a;
     outline-offset: 2px;
-    border-radius: 2px;
+    box-shadow: 0 0 0 2px #ffffff;
   }
 
   ::selection {
-    background-color: #f6d9c4;
-    color: #1c1917;
+    background-color: #0a0a0a;
+    color: #ffffff;
   }
 }
 
 @layer utilities {
-  /* Small, uppercase section label used throughout the page. */
-  .eyebrow {
-    @apply font-sans text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-orange-600;
+  /* Wide display face (Archivo at 125% width) for headlines. */
+  .display-wide {
+    font-stretch: 125%;
   }
 
-  /* A fine, warm hairline that reads as a designed rule rather than a border. */
-  .hairline {
-    @apply border-sand-200;
-  }
-
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  /*
-   * Opt-in squared look. Removes every rounded corner within the scope so a
-   * page can share one sharp, straight-edged language.
-   */
-  .edges-square,
-  .edges-square * {
-    border-radius: 0 !important;
-  }
-
-  .text-pretty {
-    text-wrap: pretty;
-  }
-
-  /* Subtle structural grid motif — a nod to "lines" in Zelisline. */
-  .grid-motif {
+  /* Hero and section backdrop: a faint technical grid. */
+  .bg-grid {
     background-image:
-      linear-gradient(to right, rgba(28, 25, 23, 0.045) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(28, 25, 23, 0.045) 1px, transparent 1px);
-    background-size: 56px 56px;
+      linear-gradient(to right, rgba(10, 10, 10, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(10, 10, 10, 0.06) 1px, transparent 1px);
+    background-size: 80px 80px;
   }
 
-  .grid-motif-light {
-    background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-    background-size: 56px 56px;
+  /* Outlined display type for numerals and the marquee on light surfaces. */
+  .text-outline-ink {
+    color: transparent;
+    -webkit-text-stroke: 1px #0a0a0a;
   }
 
-  .mask-fade-b {
-    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 100;
+    background: #0a0a0a;
+    color: #ffffff;
+    padding: 0.75rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
 
-  .mask-fade-x {
-    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  .skip-link:focus {
+    top: 1rem;
   }
 
-  /* Blog post typography (kept for the /post route). */
-  .post-content p { @apply pb-3 leading-loose; }
-  .post-content table { @apply pr-10 leading-relaxed mr-10; }
-  .post-content a { @apply text-orange-700 hover:text-orange-800 underline underline-offset-2; }
-  .post-content h1 { @apply font-display text-4xl font-semibold; }
-  .post-content h2 { @apply font-display text-3xl font-semibold mb-5; }
-  .post-content h3 { @apply font-display text-2xl font-medium mb-2 text-ink-soft; }
-  .post-content h4 { @apply text-lg font-medium; }
-  .post-content ul { @apply list-disc leading-tight tracking-tight list-inside pb-4 pt-2 pl-8 text-base text-ink-soft; }
-  .post-content ol { @apply list-decimal leading-tight tracking-tight list-inside pb-4 text-base text-ink-soft; }
-  .post-content li { @apply pb-2; }
-  .post-content figure { @apply pb-4; }
-  .post-content figure figcaption { @apply text-sm text-ink-muted; }
-  .post-content code { @apply text-sm text-orange-800 bg-sand-100 px-2 py-0.5 rounded; }
-  .post-content pre { @apply text-sm text-ink-soft overflow-x-auto bg-sand-100 p-4 rounded-lg; }
-  .post-content blockquote { @apply text-lg text-ink-soft font-light italic border-l-2 border-orange-300 pl-5 my-4; }
-  .post-content strong { @apply font-semibold text-ink; }
-  .post-content img { @apply rounded-lg; }
-  .post-content hr { @apply border-sand-200 my-6; }
+  .invert-logo {
+    filter: invert(1);
+  }
 
-  /* Legacy clip-path shapes still referenced by a few secondary pages. */
-  .clip-ask { clip-path: polygon(0% 0%, 100% 0%, 100% 83%, 85% 87%, 84% 100%, 49% 91%, 0 91%); }
-  .clip-round { clip-path: circle(60.6% at 50% 50%); }
-  .clip-rabet { clip-path: polygon(0% 0%, 87% 14%, 100% 75%, 75% 75%, 100% 100%, 50% 75%, 10% 66%); }
-  .clip-arrow { clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%); }
-  .clip-portfolio { clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%); }
-  .clip-angled { clip-path: polygon(20% 0%, 94% 0, 100% 20%, 100% 100%, 80% 100%, 5% 100%, 0% 80%, 0 0); }
-  .clip-angled-both { clip-path: polygon(0% 20%, 2% 0, 97% 0, 100% 50%, 98% 100%, 2% 100%, 0% 80%); }
-  .custom-clip { clip-path: polygon(30px 0, calc(100% - 30px) 0, 100% 30px, 100% calc(100% - 30px), calc(100% - 30px) 100%, 30px 100%, 0 calc(100% - 30px), 0 30px); }
+  .grayscale-plate {
+    filter: grayscale(1);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Journal article body (WordPress HTML)                              */
+/* ------------------------------------------------------------------ */
+.post-content {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: #0a0a0a;
+}
+
+.post-content > * + * {
+  margin-top: 1.25rem;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+  font-family: var(--font-archivo);
+  font-stretch: 125%;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-top: 2.5rem;
+}
+
+.post-content h2 {
+  font-size: 2rem;
+}
+
+.post-content h3 {
+  font-size: 1.5rem;
+}
+
+.post-content a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+
+.post-content ul {
+  list-style: square;
+  padding-left: 1.25rem;
+}
+
+.post-content ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+}
+
+.post-content blockquote {
+  border-left: 4px solid #0a0a0a;
+  padding-left: 1.25rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.post-content img {
+  filter: grayscale(1);
+  border: 1px solid #0a0a0a;
+  max-width: 100%;
+  height: auto;
+}
+
+.post-content code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: #f4f4f4;
+  padding: 0 0.25rem;
+}
+
+.post-content pre {
+  background: #0a0a0a;
+  color: #ffffff;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.post-content pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.post-content th,
+.post-content td {
+  border: 1px solid #0a0a0a;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.post-content hr {
+  border: 0;
+  border-top: 1px solid #0a0a0a;
+}
+
+/* Without JS (or for crawlers) reveal content must never stay hidden. */
+@media (scripting: none) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Users who prefer reduced motion get instant transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

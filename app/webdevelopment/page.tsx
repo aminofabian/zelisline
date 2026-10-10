@@ -1,56 +1,40 @@
-import ContactPage from '@/components/ContactPage';
-import ShuffleHero from '@/components/ShuffleHero';
-import Services from '@/components/WebDevelopmentServices';
-import SideNav from '@/components/SideNav';
-import * as items from '@/data/faq';
-import MyAccordion from '@/components/myComponents/MyAccordion';
-import WebDevelopersPricing from '@/components/pricing/WebDevelopersPricing';
-import FooterRev from '@/components/FooterRev';
+import type { Metadata } from "next";
+import ServiceLandingPage from "@/components/landing/ServiceLandingPage";
+import { packages } from "@/data/pricing/WebDevelopmentPackages";
+import { webDesignFaqs } from "@/data/faq";
+import { customStackDiscipline, webDesignDiscipline } from "@/data/serviceDisciplines";
 
+export const metadata: Metadata = {
+  title: "Web design & development",
+  description:
+    "Web design and development services in Kenya: marketing sites, web applications and custom stacks built by a Nairobi studio.",
+};
 
+const WEB_DEVELOPMENT_DISCIPLINES = [webDesignDiscipline, customStackDiscipline];
 
-function HomePage() {
-  const buttons = [
-    { link: "/contact", text: "Talk to Us" },
-    { link: "/contact", text: "Get a Quote" },
-  ];
-  
+export default function WebDevelopmentPage() {
   return (
-    <>
-    <div className="container flex h-screen relative md:flex-row md:overflow-hidden xl:px-10 md:px-2 bg-transparent mx-auto">
-    <nav className="hidden md:flex mt-5 pl-2">
-    <SideNav />
-    </nav>
-    <div className="flex-grow mt-7 md:mt-0 flex-1 w-9xl md:overflow-y-auto md:p-5 max-w-6xl mx-auto">
-    <div>
-    <ShuffleHero
-    subTitle=" Website Design & Development"
-    title="Get Web Design & Development Services from the Top Agency in Kenya"
-    bgImage="/bg.jpg"
-    buttons={buttons}
+    <ServiceLandingPage
+      hero={{
+        eyebrow: "Website design & development",
+        title: "Get web design & development services from the top agency in Kenya",
+        description: "Marketing sites, web applications and custom stacks, designed and engineered by a Nairobi studio.",
+        primary: { label: "Get a quote", href: "/contact" },
+        secondary: { label: "See the packages", href: "#pricing" },
+      }}
+      pricing={{
+        eyebrow: "Packages",
+        title: "Choose your web development package",
+        description: "Starting points to help you plan. Every build is scoped individually.",
+        currency: "usd",
+        packages,
+      }}
+      services={{
+        eyebrow: "What we do",
+        title: "From simple blogs to complex SaaS, we've got you covered",
+        disciplines: WEB_DEVELOPMENT_DISCIPLINES,
+      }}
+      faq={{ eyebrow: "Answers", title: "Questions we hear often", items: webDesignFaqs }}
     />
-    
-    </div>
-    <div className="m-5 rounded-xl">
-    <WebDevelopersPricing />
-    </div>
-    <div>
-    <Services />
-    </div>
-    <div className="w-[100dvh] mb-10 border-[1px]">
-    <MyAccordion
-    items={items.webDesignFaqs}
-    />
-    </div>
-    <div>
-    <ContactPage />
-    </div>
-    <FooterRev />
-    </div>
-    </div>
-    </>
-  )
+  );
 }
-
-
-export default HomePage;
