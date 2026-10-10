@@ -4,9 +4,19 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ExternalLink, Mail, Phone, Calendar, Users, Target } from 'lucide-react';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Calendar,
+  ExternalLink,
+  Mail,
+  Phone,
+  Target,
+  Users,
+} from 'lucide-react';
 import ClientSideNav from '@/components/ClientSideNav';
 import FooterRev from '@/components/FooterRev';
+import CtaBand from '@/components/CtaBand';
 
 interface Project {
   id: number;
@@ -149,111 +159,153 @@ const projects: Project[] = [
   }
 ];
 
+const heroFacts = [
+  { k: 'Projects', v: '07' },
+  { k: 'Disciplines', v: 'Web · Product · Payments' },
+  { k: 'Studio', v: 'Nairobi, Kenya' },
+  { k: 'Shipped to', v: 'Kenya · UK · US' },
+];
+
+const capabilities = [
+  { n: '01', label: 'Web design & development', href: '/webdevelopment' },
+  { n: '02', label: 'Digital marketing & SEO', href: '/digitalmarketing' },
+  { n: '03', label: 'E-commerce storefronts', href: '/ecommerce-website-development' },
+];
+
 const Fact: React.FC<{ icon: React.ElementType; label: string; value: string }> = ({ icon: Icon, label, value }) => (
   <div className="flex items-start gap-3">
     <Icon className="mt-0.5 h-4 w-4 shrink-0 text-orange-600" />
     <div>
       <dt className="text-xs uppercase tracking-[0.1em] text-ink-muted">{label}</dt>
-      <dd className="mt-0.5 text-sm leading-relaxed text-ink">{value}</dd>
+      <dd className="mt-1 text-sm leading-relaxed text-ink">{value}</dd>
     </div>
   </div>
 );
 
-const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => (
-  <motion.article
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: '-80px' }}
-    transition={{ duration: 0.5, delay: (index % 2) * 0.05 }}
-    className={`py-10 sm:py-14 ${index > 0 ? 'border-t border-sand-200' : ''}`}
-  >
-    <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
-      {/* Visual */}
-      <div className="lg:col-span-4">
-        <div className="border border-sand-200 bg-sand-50 p-4">
-          <Image
-            src={project.image}
-            alt={project.title}
-            width={600}
-            height={400}
-            className="h-auto w-full"
-          />
-        </div>
-      </div>
+const Chip: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <span className="border border-sand-200 bg-sand-50 px-3 py-1 text-xs font-medium text-ink-soft">
+    {children}
+  </span>
+);
 
-      {/* Detail */}
-      <div className="lg:col-span-8">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-          <span className="font-display text-xs text-ink-muted">{String(project.id).padStart(2, '0')}</span>
-          <h2 className="font-display text-2xl font-medium leading-tight text-ink sm:text-3xl">{project.title}</h2>
-          {project.tag && (
-            <span className="border border-orange-200 bg-orange-50 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-orange-700">
-              {project.tag}
-            </span>
-          )}
-        </div>
+const SectionLabel: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <div className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted">{children}</div>
+);
 
-        <p className="mt-4 max-w-2xl text-pretty leading-relaxed text-ink-soft">{project.description}</p>
+const ProjectRow: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
+  const flip = index % 2 === 1;
 
-        {(project.duration || project.teamSize || project.keyObjectives) && (
-          <dl className="mt-6 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
-            {project.duration && <Fact icon={Calendar} label="Duration" value={project.duration} />}
-            {project.teamSize && <Fact icon={Users} label="Team" value={project.teamSize} />}
-            {project.keyObjectives && <Fact icon={Target} label="Key objectives" value={project.keyObjectives} />}
-          </dl>
-        )}
-
-        {project.techStack && project.techStack.length > 0 && (
-          <p className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-ink-soft">
-            <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted">Tech stack</span>
-            <span>{project.techStack.join(' · ')}</span>
-          </p>
-        )}
-
-        {project.otherDetails && (
-          <p className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm text-ink-soft">
-            <span className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted">Result</span>
-            <span>{project.otherDetails}</span>
-          </p>
-        )}
-
-        {project.link && (
-          <Link
-            href={project.link}
-            target="_blank"
-            className="group mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-orange-700 transition-colors hover:text-orange-800"
-          >
-            View project
-            <ExternalLink className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
-        )}
-
-        {(project.client || project.testimonial) && (
-          <div className="mt-8 grid gap-6 border-t border-sand-200 pt-6 sm:grid-cols-2">
-            {project.client && (
-              <div>
-                <div className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-muted">Client</div>
-                <div className="mt-2 font-display text-lg text-ink">{project.client.name}</div>
-                <p className="mt-2 flex items-center gap-2 text-sm text-ink-soft">
-                  <Mail className="h-4 w-4 shrink-0 text-orange-600" /> {project.client.contact.email}
-                </p>
-                <p className="mt-1 flex items-center gap-2 text-sm text-ink-soft">
-                  <Phone className="h-4 w-4 shrink-0 text-orange-600" /> {project.client.contact.phone}
-                </p>
-              </div>
+  return (
+    <motion.article
+      id={`project-${project.id}`}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      className={`scroll-mt-24 py-14 sm:py-20 ${index > 0 ? 'border-t border-sand-200' : ''}`}
+    >
+      <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
+        {/* Visual */}
+        <div className={`lg:col-span-5 ${flip ? 'lg:order-2' : ''}`}>
+          <div className="border border-sand-200 bg-sand-50 p-4">
+            <Image
+              src={project.image}
+              alt={project.title}
+              width={600}
+              height={400}
+              className="h-auto w-full"
+            />
+          </div>
+          <div className="mt-4 flex flex-wrap items-baseline gap-x-5 gap-y-2 text-sm">
+            {project.link && (
+              <Link
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-1.5 font-medium text-orange-700 transition-colors hover:text-orange-800"
+              >
+                View project
+                <ExternalLink className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
             )}
-            {project.testimonial && (
-              <blockquote className="border-l-2 border-orange-300 pl-5">
-                <p className="text-pretty italic leading-relaxed text-ink-soft">&quot;{project.testimonial.text}&quot;</p>
-                <footer className="mt-3 text-sm text-ink-muted">— {project.testimonial.author}</footer>
-              </blockquote>
+            {project.client && (
+              <span className="text-ink-muted">Client · {project.client.name}</span>
             )}
           </div>
-        )}
+        </div>
+
+        {/* Detail */}
+        <div className={`lg:col-span-7 ${flip ? 'lg:order-1' : ''}`}>
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-2">
+            <span className="font-display text-xs text-ink-muted">
+              {String(project.id).padStart(2, '0')}
+            </span>
+            <h2 className="font-display text-2xl font-medium leading-tight text-ink sm:text-3xl">
+              {project.title}
+            </h2>
+            {project.tag && (
+              <span className="border border-orange-200 bg-orange-50 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-orange-700">
+                {project.tag}
+              </span>
+            )}
+          </div>
+
+          <p className="mt-4 max-w-2xl text-pretty leading-relaxed text-ink-soft">
+            {project.description}
+          </p>
+
+          {(project.duration || project.teamSize || project.keyObjectives) && (
+            <dl className="mt-8 grid grid-cols-1 gap-x-8 gap-y-5 border-t border-sand-200 pt-6 sm:grid-cols-2">
+              {project.duration && <Fact icon={Calendar} label="Duration" value={project.duration} />}
+              {project.teamSize && <Fact icon={Users} label="Team" value={project.teamSize} />}
+              {project.keyObjectives && <Fact icon={Target} label="Key objectives" value={project.keyObjectives} />}
+            </dl>
+          )}
+
+          {project.techStack && project.techStack.length > 0 && (
+            <div className="mt-8 border-t border-sand-200 pt-6">
+              <SectionLabel>Tech stack</SectionLabel>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {project.techStack.map((tech) => (
+                  <li key={tech}>
+                    <Chip>{tech}</Chip>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {project.otherDetails && (
+            <div className="mt-8 border-t border-sand-200 pt-6">
+              <SectionLabel>Outcome</SectionLabel>
+              <p className="mt-3 max-w-2xl leading-relaxed text-ink-soft">{project.otherDetails}</p>
+            </div>
+          )}
+
+          {project.testimonial && (
+            <blockquote className="mt-8 border-l-2 border-orange-300 pl-5">
+              <p className="text-pretty italic leading-relaxed text-ink-soft">
+                &ldquo;{project.testimonial.text}&rdquo;
+              </p>
+              <footer className="mt-3 text-sm text-ink-muted">— {project.testimonial.author}</footer>
+            </blockquote>
+          )}
+
+          {project.client && (
+            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-sand-200 pt-6 text-sm text-ink-soft">
+              <span className="flex items-center gap-2">
+                <Mail className="h-4 w-4 shrink-0 text-orange-600" /> {project.client.contact.email}
+              </span>
+              <span className="flex items-center gap-2">
+                <Phone className="h-4 w-4 shrink-0 text-orange-600" /> {project.client.contact.phone}
+              </span>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  </motion.article>
-);
+    </motion.article>
+  );
+};
 
 const OurWork: React.FC = () => {
   return (
@@ -267,31 +319,155 @@ const OurWork: React.FC = () => {
           </div>
 
           <main className="min-w-0 flex-1">
-            {/* Header band */}
-            <section className="border-b border-sand-200 bg-sand-50">
-              <div className="mx-auto max-w-[1400px] px-5 pb-14 pt-12 sm:px-6 md:pt-16 lg:px-10">
-                <div className="flex items-center gap-3">
-                  <span className="h-px w-8 bg-orange-500" />
-                  <span className="eyebrow">Selected work</span>
+            {/* Hero */}
+            <section className="relative overflow-hidden border-b border-sand-200 bg-sand-50">
+              <div className="pointer-events-none absolute inset-0 grid-motif mask-fade-b opacity-70" aria-hidden />
+              <div
+                className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] [background:radial-gradient(circle_at_center,rgba(254,215,170,0.5),transparent_70%)]"
+                aria-hidden
+              />
+
+              <div className="relative mx-auto max-w-[1400px] px-5 pb-16 pt-14 sm:px-6 md:pb-20 md:pt-20 lg:px-10">
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="h-px w-8 bg-orange-500" />
+                    <span className="eyebrow">Selected work</span>
+                  </div>
+
+                  <h1 className="mt-5 max-w-[18ch] font-display text-[2.15rem] font-medium leading-[1.06] tracking-[-0.02em] text-ink sm:text-5xl lg:text-[3.6rem]">
+                    Our Work
+                  </h1>
+
+                  <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-ink-soft sm:text-lg">
+                    Products, platforms and payment rails we&apos;ve designed, built and shipped — from a
+                    digital shopfront for Kenyan traders to community platforms and content engines for
+                    teams across three continents.
+                  </p>
+
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <Link
+                      href="/contact"
+                      className="group inline-flex items-center justify-center gap-2 bg-orange-600 px-6 py-3.5 text-base font-semibold text-white transition-colors hover:bg-orange-700"
+                    >
+                      Start a project
+                      <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+                    </Link>
+                    <Link
+                      href="#index"
+                      className="group inline-flex items-center justify-center gap-2 border border-sand-300 bg-white/60 px-6 py-3.5 text-base font-medium text-ink transition-colors hover:border-ink/30 hover:bg-white"
+                    >
+                      Browse the work
+                      <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </Link>
+                  </div>
+                </motion.div>
+
+                <motion.dl
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="mt-14 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-sand-200 pt-8 sm:grid-cols-4"
+                >
+                  {heroFacts.map((fact) => (
+                    <div key={fact.k}>
+                      <dt className="text-xs uppercase tracking-[0.14em] text-ink-muted">{fact.k}</dt>
+                      <dd className="mt-1.5 font-display text-lg text-ink">{fact.v}</dd>
+                    </div>
+                  ))}
+                </motion.dl>
+              </div>
+            </section>
+
+            {/* Index */}
+            <section id="index" className="scroll-mt-24 border-b border-sand-200 bg-background">
+              <div className="mx-auto max-w-[1400px] px-5 py-14 sm:px-6 sm:py-16 lg:px-10">
+                <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+                  <div className="lg:col-span-4">
+                    <span className="eyebrow">On this page</span>
+                    <p className="mt-4 max-w-sm text-pretty leading-relaxed text-ink-soft">
+                      Jump straight to a project, or read through from the top.
+                    </p>
+                  </div>
+
+                  <div className="lg:col-span-8">
+                    <div className="border-t border-sand-200">
+                      {projects.map((project) => (
+                        <Link
+                          key={project.id}
+                          href={`#project-${project.id}`}
+                          className="group flex items-baseline gap-4 border-b border-sand-200 py-3.5 transition-colors hover:border-ink/30"
+                        >
+                          <span className="font-display text-xs text-ink-muted">
+                            {String(project.id).padStart(2, '0')}
+                          </span>
+                          <span className="flex-1 font-display text-base text-ink transition-colors group-hover:text-orange-700 sm:text-lg">
+                            {project.title}
+                          </span>
+                          {project.tag && (
+                            <span className="text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-orange-700">
+                              {project.tag}
+                            </span>
+                          )}
+                          <ArrowUpRight className="h-4 w-4 shrink-0 text-ink-muted transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-orange-600" />
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <h1 className="mt-5 max-w-[20ch] font-display text-[2.15rem] font-medium leading-[1.06] tracking-[-0.02em] text-ink sm:text-5xl lg:text-[3.6rem]">
-                  Our Work
-                </h1>
-                <p className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-ink-soft sm:text-lg">
-                  From storefront (<span className="font-medium text-orange-700">kiosk.ke</span>) to
-                  operations (<span className="font-medium text-orange-700">squl.co.ke</span>) to
-                  payments (<span className="font-medium text-orange-700">kioskpay.co.ke</span>) — and
-                  everything in between — here&apos;s what we&apos;ve been building.
-                </p>
               </div>
             </section>
 
             {/* Projects */}
             <section className="mx-auto max-w-[1400px] px-5 sm:px-6 lg:px-10">
               {projects.map((project, index) => (
-                <ProjectCard key={project.id} project={project} index={index} />
+                <ProjectRow key={project.id} project={project} index={index} />
               ))}
             </section>
+
+            {/* Capabilities */}
+            <section className="border-y border-sand-200 bg-sand-50">
+              <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-6 sm:py-20 lg:px-10">
+                <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+                  <div className="lg:col-span-5">
+                    <span className="eyebrow">What we can build for you</span>
+                    <h2 className="mt-3 max-w-[18ch] font-display text-3xl font-medium leading-tight text-ink sm:text-4xl">
+                      Three disciplines, one steady team
+                    </h2>
+                    <p className="mt-5 max-w-md text-pretty leading-relaxed text-ink-soft">
+                      The same team behind the work above can take your idea from a rough sketch to
+                      something your customers remember.
+                    </p>
+                  </div>
+
+                  <div className="lg:col-span-7">
+                    <div className="border-t border-sand-200">
+                      {capabilities.map((item) => (
+                        <Link
+                          key={item.n}
+                          href={item.href}
+                          className="group flex items-baseline gap-4 border-b border-sand-200 py-5 transition-colors hover:border-ink/30"
+                        >
+                          <span className="font-display text-xs text-ink-muted">{item.n}</span>
+                          <span className="flex-1 font-display text-xl text-ink transition-colors group-hover:text-orange-700">
+                            {item.label}
+                          </span>
+                          <ArrowUpRight className="h-5 w-5 shrink-0 text-ink-muted transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-orange-600" />
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Closing CTA */}
+            <div className="py-16 sm:py-20">
+              <CtaBand />
+            </div>
           </main>
         </div>
 
