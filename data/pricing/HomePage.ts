@@ -62,7 +62,7 @@ export const packages = [
       "Website backups in case of issues",
       "Technical support for website-related inquiries"
     ],
-    startingPrice: 100 // Per month
+    startingPrice: 100,
   },
   {
     name: "Additional Services",
@@ -70,21 +70,11 @@ export const packages = [
     features: [
       "Logo design",
       "Branding and identity development",
-      "Custom graphics a",
+      "Custom graphics and illustration",
       "Copywriting and content creation",
-      "Photography and videog",
+      "Photography and videography",
     ],
-    startingPrice: 50// Per month
+    startingPrice: 50,
   },
 ];
-interface Package {
-  name: string;
-  description: string;
-  features: string[];
-  startingPrice: number;
-}
-
-interface Props {
-  packages: Package[];
-}
 

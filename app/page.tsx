@@ -1,56 +1,87 @@
+import ContactPage from "@/components/ContactPage";
+import CtaBand from "@/components/CtaBand";
+import FaqTabs from "@/components/FaqTabs";
+import HowWeWork from "@/components/HowWeWork";
+import PageHero from "@/components/PageHero";
+import WhyChooseUs from "@/components/WhyChooseUs";
+import ServicesSection from "@/components/landing/ServicesSection";
+import ProductLaunches from "@/components/landing/ProductLaunches";
+import Pricing from "@/components/pricing/Pricing";
+import Container from "@/components/system/Container";
+import Marquee from "@/components/system/Marquee";
+import SectionHeader from "@/components/system/SectionHeader";
+import { capabilities } from "@/data/capabilities";
+import { HOME_MARQUEE_ITEMS } from "@/data/marquee";
+import { webDesignFaqs, seoFaqs, faqContent, logoFaqs, videoFaqs } from "@/data/faq";
+import {
+  digitalMarketingDiscipline,
+  graphicalDesignDiscipline,
+  webDesignDiscipline,
+} from "@/data/serviceDisciplines";
+import type { FaqGroup } from "@/types/content";
 
-import ContactPage from '@/components/ContactPage';
-import Pricing from '@/components/pricing/Pricing';
-import ShuffleHero from '@/components/ShuffleHero';
-import Footer from '@/components/Footer';
-import Services from '@/components/Services';
-import SideNav from '@/components/SideNav';
-import * as items from '@/data/faq';
-import MyAccordion from '@/components/myComponents/MyAccordion';
-import { TabsDemo } from '@/components/myComponents/Tabs';
+const HOME_DISCIPLINES = [webDesignDiscipline, digitalMarketingDiscipline, graphicalDesignDiscipline];
 
+const FAQ_GROUPS: FaqGroup[] = [
+  { id: "web-design", label: "Web design", items: webDesignFaqs },
+  { id: "seo", label: "SEO", items: seoFaqs },
+  { id: "content", label: "Content marketing", items: faqContent },
+  { id: "logo", label: "Logo design", items: logoFaqs },
+  { id: "video", label: "Video production", items: videoFaqs },
+];
 
+const HERO_FACTS = [
+  { label: "Studio", value: "Nairobi, Kenya" },
+  { label: "Projects shipped", value: "100+" },
+  { label: "Experience", value: "5+ years" },
+  { label: "Support", value: "Always on" },
+];
 
-function HomePage() {
-  const buttons = [
-    { link: "/contact", text: "Write Us" },
-    { link: "/blog", text: "Read our Blog" },
-  ];
-  
+export default function HomePage() {
   return (
     <>
-    <div className="flex h-screen relative md:flex-row md:overflow-hidden xl:px-10 md:px-2 bg-transparent mx-auto">
-    <nav className="hidden md:flex mt-5 pl-2">
-    <SideNav />
-    </nav>
-    <div className="flex-grow mt-7 md:mt-0 flex-1 w-9xl md:overflow-y-auto md:p-5 max-w-6xl mx-auto">
-    <div>
-    <ShuffleHero
-    subTitle="Driving Growth from Series A to IPO"
-    title="YOUR ONE-STOP-SHOP FOR WEB DEVELOPMENT AND DIGITAL MARKETING SERVICES IN KENYA"
-    bgImage="/bg.jpg"
-    buttons={buttons}
-    />
-    
-    </div>
-    <div className="m-5 rounded-xl">
-    <Pricing />
-    </div>
-    <div>
-    <Services />
-    </div>
-    <div className="w-7xl justify-center mb-5 mt-0 pt-0 h-fit overflow-y-auto">
-    <TabsDemo />
-    </div>
-    <div className="w-7xl mt-10">
-    <ContactPage />
-    </div>
-    <Footer />
-    </div>
-    </div>
+      <PageHero
+        eyebrow="Software studio · Nairobi"
+        title="Web development & digital marketing for ambitious Kenyan brands"
+        description="We design, build and grow websites, storefronts and digital products for businesses that want to compete online."
+        primary={{ label: "Start a project" }}
+        secondary={{ label: "See our work", href: "/our-work" }}
+        facts={HERO_FACTS}
+        index={capabilities}
+        fillViewport
+      />
+
+      <Marquee items={HOME_MARQUEE_ITEMS} />
+
+      <ProductLaunches />
+
+      <ServicesSection
+        id="services"
+        eyebrow="What we do"
+        title="From simple blogs to complex SaaS"
+        description="Whether you need a simple business blog or a complex SaaS application, we bring strategy, design and engineering under one roof."
+        disciplines={HOME_DISCIPLINES}
+      />
+
+      <HowWeWork />
+      <WhyChooseUs />
+      <Pricing />
+
+      <section className="py-20 sm:py-28">
+        <Container>
+          <SectionHeader
+            eyebrow="Answers"
+            title="Questions we hear often"
+            description="A few of the things clients ask before we begin. Can't find yours? Just reach out — we're happy to talk it through."
+          />
+          <div className="mt-14">
+            <FaqTabs groups={FAQ_GROUPS} />
+          </div>
+        </Container>
+      </section>
+
+      <ContactPage />
+      <CtaBand />
     </>
-    )
-  }
-  
-  
-  export default HomePage;
+  );
+}

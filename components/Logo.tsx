@@ -1,19 +1,21 @@
-import Image from 'next/image'
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 
-export default function Logo() {
+interface LogoProps {
+  className?: string;
+  inverted?: boolean;
+  priority?: boolean;
+}
+
+export default function Logo({ className = "h-8", inverted = false, priority = false }: LogoProps) {
   return (
-    <div className="md:flex bg-transparent lg:!p-0 w-[35dvh] h-auto">
     <Image
-    src="/zelisline.svg"
-    width="0"
-    height="0"
-    sizes="10vw"
-    style={{ width: '90%', height: 'auto' }}
-    placeholder="empty"
-    loading = 'lazy'
-    alt="Zelisline Logo"
+      src="/zelisline-logo.png"
+      width={600}
+      height={160}
+      alt="Zelisline — grow together"
+      priority={priority}
+      className={cn("w-auto", className, inverted && "invert-logo")}
     />
-    </div>
-    )
-  }
-  
+  );
+}

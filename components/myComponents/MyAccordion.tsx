@@ -1,37 +1,24 @@
-import React from 'react';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import * as items from '@/data/faq';
-
-
-interface AccordionItemProps {
-  value: string;
-  triggerText: string;
-  content: string;
-}
+import type { FaqItem } from "@/types/content";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { stripDecorativeMarker } from "@/lib/format";
 
 interface MyAccordionProps {
-  items: AccordionItemProps[];
+  items: FaqItem[];
 }
 
-const MyAccordion: React.FC<MyAccordionProps> = ({items  }) => {
+export default function MyAccordion({ items }: MyAccordionProps) {
   return (
-    <div className='px-20'>
-    <Accordion type="single" collapsible>
-    {items.map((item, index) => (
-      <AccordionItem key={index} value={item.value}>
-      <AccordionTrigger className='text-slate-800 text-lg font-light'>{item.triggerText}</AccordionTrigger>
-      <AccordionContent className='bg-slate-50 p-10 rounded-xl text-lg font-light text-slate-800 space-y-10'>{item.content}</AccordionContent>
-      </AccordionItem>
+    <Accordion type="single" collapsible className="w-full border-t-2 border-ink">
+      {items.map((item) => (
+        <AccordionItem key={item.value} value={item.value}>
+          <AccordionTrigger>{stripDecorativeMarker(item.triggerText)}</AccordionTrigger>
+          <AccordionContent>
+            <p className="max-w-2xl whitespace-pre-line text-pretty text-base leading-relaxed text-ink-muted">
+              {item.content.trim()}
+            </p>
+          </AccordionContent>
+        </AccordionItem>
       ))}
-      </Accordion>
-      </div>
-      );
-    };
-    
-    export default MyAccordion;
-    
+    </Accordion>
+  );
+}

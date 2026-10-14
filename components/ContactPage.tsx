@@ -1,230 +1,328 @@
-"use client"
-import React, { useState } from 'react';
+"use client";
 
-const formHandler = async (e: any) => {
-  e.preventDefault();
-  
-  // Get form input values
-  const firstName = e.target['first-name'].value;
-  const lastName = e.target['last-name'].value;
-  const company = e.target.company.value;
-  const email = e.target.email.value;
-  const phoneNumber = e.target['phone-number'].value;
-  const message = e.target.message.value;
-  
-  // Check if any field is empty
-  if (!firstName || !lastName || !company || !email || !phoneNumber || !message) {
-    alert("Please fill in all fields.");
-    return; // Exit early if any field is empty
-  }
-  
-  // All fields are filled, proceed with form submission
-  const formData = {
-    firstName,
-    lastName,
-    company,
-    email,
-    phoneNumber,
-    message,
-  };
-  
-  try {
-    const response = await fetch("/api/contact-us", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-    
-    if (response.status === 200) {
-      alert("Your Message Was Sent. We'll Respond Within 24 Hours.");
-      e.target.reset();
-      console.log(formData);
-    } else {
-      alert("Failed to send message. Please try again later.");
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    alert("An error occurred. Please try again later.");
-  }
+import { useState, type ChangeEvent, type FormEvent } from "react";
+import { Check, Loader2, Mail, MapPin, Phone, X } from "lucide-react";
+import FormField from "@/components/forms/FormField";
+import { INPUT_CLASSES, TEXTAREA_CLASSES } from "@/components/forms/inputStyles";
+import SimpleCaptcha from "@/components/SimpleCaptcha";
+import Action from "@/components/system/Action";
+import Eyebrow from "@/components/system/Eyebrow";
+import { useToast } from "@/components/ui/use-toast";
+import { site } from "@/data/site";
+import { cn } from "@/lib/utils";
+
+type ClientRole = "business" | "individual" | "agency";
+
+interface ContactForm {
+  role: ClientRole;
+  name: string;
+  service: string;
+  email: string;
+  message: string;
+  termsAccepted: boolean;
+}
+
+type ContactErrors = Partial<Record<keyof ContactForm | "captcha", string>>;
+
+interface SubmitStatus {
+  type: "success" | "error";
+  message: string;
+}
+
+const ROLES: { id: ClientRole; label: string }[] = [
+  { id: "business", label: "Business" },
+  { id: "individual", label: "Individual" },
+  { id: "agency", label: "Agency" },
+];
+
+const SERVICES = [
+  "Web Development",
+  "Digital Marketing",
+  "UI/UX Design",
+  "E-commerce Solutions",
+  "Custom Web Applications",
+  "Website Maintenance",
+  "SEO Services",
+  "Other",
+];
+
+const CONTACT_CHANNELS = [
+  { icon: Mail, label: "Email", value: site.email, href: `mailto:${site.email}` },
+  { icon: Phone, label: "Phone", value: site.phone.display, href: site.phone.href },
+  { icon: MapPin, label: "Studio", value: site.studio, href: undefined },
+];
+
+const EMAIL_PATTERN = /\S+@\S+\.\S+/;
+const STATUS_TIMEOUT_MS = 6000;
+const TOAST_DURATION_MS = 3000;
+const RESULT_TOAST_DURATION_MS = 5000;
+
+const INITIAL_FORM: ContactForm = {
+  role: "business",
+  name: "",
+  service: "",
+  email: "",
+  message: "",
+  termsAccepted: false,
 };
 
-export default function ContactPage() {
-  const [agreed, setAgreed] = useState(false);
-  
-  const handleCheckboxChange = () => {
-    setAgreed(!agreed);
-  };
-  
-  return (
-    <div className="flex items-center justify-center lg:mx-48 relative z-5 overflow-hidden rounded-3xl">
-    <div className="text-center space-y-1">
-    <h3 className="text-2xl font-light text-slate-500 py-5">
-    Welcome Our Esteemed Visitor. Write Us
-    </h3>
-    <p className="text-xl light text-sky-600">Drop us an email. We are no snobs</p>
-    <div className="flex gap-2 justify-center">
-    <div className="isolate bg-white px-6 py-5 lg:px-8 ">
-    <div
-    className="absolute inset-x-0 top-[-5rem] transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
-    aria-hidden="true"
-    >
-    <div
-    className="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
-    style={{
-      clipPath:
-      'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-    }}
-    />
-    </div>
-    <div className="mx-auto md:max-w-4xl text-center">
-    <h2 className="text-3xl font-extralight tracking-tight text-gray-600 sm:text-4xl"></h2>
-    </div>
-    <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20" onSubmit={formHandler}>
-    <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 max-w-screen-2xl">
-    <div>
-    <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
-    First name
-    </label>
-    <div className="mt-2.5">
-    <input
-    type="text"
-    name="first-name"
-    id="first-name"
-    autoComplete="given-name"
-    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-    />
-    </div>
-    </div>
-    <div>
-    <label htmlFor="last-name" className="block text-sm font-semibold leading-6 text-gray-900">
-    Last name
-    </label>
-    <div className="mt-2.5">
-    <input
-    type="text"
-    name="last-name"
-    id="last-name"
-    autoComplete="family-name"
-    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-    />
-    </div>
-    </div>
-    <div className="sm:col-span-2">
-    <label htmlFor="company" className="block text-sm font-semibold leading-6 text-gray-900">
-    Company
-    </label>
-    <div className="mt-2.5">
-    <input
-    type="text"
-    name="company"
-    id="company"
-    autoComplete="organization"
-    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-    />
-    </div>
-    </div>
-    <div className="sm:col-span-2">
-    <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">
-    Email
-    </label>
-    <div className="mt-2.5">
-    <input
-    type="email"
-    name="email"
-    id="email"
-    autoComplete="email"
-    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-    />
-    </div>
-    </div>
-    <div className="sm:col-span-2">
-    <label htmlFor="phone-number" className="block text-sm font-semibold leading-6 text-gray-900">
-    Phone number
-    </label>
-    <div className="relative mt-2.5">
-    <div className="absolute inset-y-0 left-0 flex items-center">
-    <label htmlFor="country" className="sr-only">
-    Country
-    </label>
-    <select
-    id="country"
-    name="country"
-    className="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-    >
-    <option>KE</option>
-    <option>US</option>
-    <option>CA</option>
-    <option>SG</option>
-    <option>TZ</option>
-    <option>UG</option>
-    </select>
-    </div>
-    <input
-    type="tel"
-    name="phone-number"
-    id="phone-number"
-    autoComplete="tel"
-    className="block w-full rounded-md border-0 px-5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-    />
-    </div>
-    </div>
-    <div className="sm:col-span-2">
-    <label htmlFor="message" className="block text-sm font-semibold leading-6 text-gray-900">
-    Message
-    </label>
-    <div className="mt-2.5">
-    <textarea
-    name="message"
-    id="message"
-    rows={4}
-    className="block w-full border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-    defaultValue={''}
-    />
-    </div>
-    </div>
-    <div className="flex gap-x-4 sm:col-span-2">
-    <div className="flex items-center">
-    <input
-    type="checkbox"
-    id="agreed"
-    name="agreed"
-    checked={agreed}
-    onChange={handleCheckboxChange}
-    className="w-4 h-4 text-cyan-400 focus:ring-cyan-500 border-cyan-300 focus:outline-none focus:ring focus:border-cyan-300 rounded-2xl"
-    />
-    <label htmlFor="agreed" className="ml-2 text-sm text-slate-600">
-    By selecting this, you agree to our{' '}
-    <a href="#" className="font-semibold text-orange-500">
-    privacy policy
-    </a>
-    .
-    </label>
-    </div>
-    </div>
-    <div className="mt-5 mx-auto justify-center">
-    <div className="generate-text-box flex">
-    <button
-    type="submit"
-    className="inline bg-cyan-400 px-5 py-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 clip-angled generate-text-box"
-    >
-    Let Us talk
-    </button>
-    <div className="text-box-container clip-angled-both mt-2 mb-10 text-sm">
-    <p>You can send us an email. We&apos;ll respond within 24 hours.</p>
-    <p>Alternatively, you can email us directly at (support@zelisline.co.ke)</p>
-    </div>
-    </div>
-    </div>
-    </div>
-    </form>
-    </div>
-    </div>
-    </div>
-    </div>
-    );
+const validate = (form: ContactForm, isCaptchaValid: boolean): ContactErrors => {
+  const errors: ContactErrors = {};
+  if (!form.name.trim()) errors.name = "Name is required";
+  if (!form.email.trim()) {
+    errors.email = "Email is required";
+  } else if (!EMAIL_PATTERN.test(form.email)) {
+    errors.email = "Please enter a valid email";
   }
-  
-  
-  
+  if (!form.service) errors.service = "Choose the service you need";
+  if (!form.message.trim()) errors.message = "Message is required";
+  if (!form.termsAccepted) errors.termsAccepted = "Please accept the terms to continue";
+  if (!isCaptchaValid) errors.captcha = "Please complete the verification";
+  return errors;
+};
+
+function ContactChannels() {
+  return (
+    <dl className="mt-12 border-t border-ink">
+      {CONTACT_CHANNELS.map(({ icon: Icon, label, value, href }) => (
+        <div key={label} className="flex items-center gap-5 border-b border-ink py-5">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-ink bg-paper">
+            <Icon className="h-4 w-4" aria-hidden />
+          </span>
+          <div>
+            <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-muted">{label}</dt>
+            <dd className="display-wide mt-1 font-display text-lg font-bold">
+              {href ? (
+                <a href={href} className="underline-offset-4 hover:underline">
+                  {value}
+                </a>
+              ) : (
+                value
+              )}
+            </dd>
+          </div>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+export default function ContactPage() {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState<ContactForm>(INITIAL_FORM);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus | null>(null);
+  const [formErrors, setFormErrors] = useState<ContactErrors>({});
+  const [captchaKey, setCaptchaKey] = useState(0);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type } = event.target;
+    const nextValue = type === "checkbox" ? (event.target as HTMLInputElement).checked : value;
+    setFormData((prev) => ({ ...prev, [name]: nextValue }));
+    if (formErrors[name as keyof ContactErrors]) {
+      setFormErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const reportInvalid = (title: string, description: string) => {
+    toast({ title, description, variant: "destructive", duration: TOAST_DURATION_MS });
+  };
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+
+    const errors = validate(formData, isCaptchaValid);
+    setFormErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      reportInvalid("Form incomplete", "Please fill in all required fields correctly.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    try {
+      const response = await fetch("/api/submit-contact-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const result = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({ type: "success", message: "Thanks — your message is on its way." });
+        setFormData(INITIAL_FORM);
+        setIsCaptchaValid(false);
+        setCaptchaKey((key) => key + 1);
+      } else {
+        setSubmitStatus({ type: "error", message: result.error || "Something went wrong. Please try again." });
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSubmitStatus({ type: "error", message: "An unexpected error occurred. Please try again later." });
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus(null), STATUS_TIMEOUT_MS);
+    }
+  };
+
+  return (
+    <section aria-labelledby="contact-heading" className="border-b border-ink bg-grey-50">
+      <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <Eyebrow>Contact</Eyebrow>
+            <h2 id="contact-heading" className="display-wide mt-6 font-display text-[2.1rem] font-bold leading-[1.02] sm:text-5xl">
+              Let&apos;s talk about your project
+            </h2>
+            <p className="mt-6 max-w-md text-pretty text-lg leading-relaxed text-ink-muted">
+              Tell us what you&apos;re working on and we&apos;ll come back with honest advice on scope, timeline and
+              cost. No pressure, no jargon.
+            </p>
+            <ContactChannels />
+            <p className="mt-6 font-mono text-[12px] uppercase tracking-[0.1em] text-ink-muted">
+              We usually reply within a day.
+            </p>
+          </div>
+
+          <div className="lg:col-span-7">
+            <div className="border border-ink bg-paper p-6 text-ink sm:p-10">
+              <form onSubmit={handleSubmit} noValidate className="space-y-7">
+                <fieldset>
+                  <legend className="mb-3 font-mono text-[12px] uppercase tracking-[0.1em]">I am a…</legend>
+                  <div className="grid grid-cols-3 border border-ink">
+                    {ROLES.map(({ id, label }, index) => {
+                      const isActive = formData.role === id;
+                      return (
+                        <button
+                          key={id}
+                          type="button"
+                          aria-pressed={isActive}
+                          onClick={() => setFormData((prev) => ({ ...prev, role: id }))}
+                          className={cn(
+                            "px-3 py-3 font-mono text-[12px] uppercase tracking-[0.08em] transition-colors",
+                            index < ROLES.length - 1 && "border-r border-ink",
+                            isActive ? "bg-ink text-paper" : "hover:bg-grey-50"
+                          )}
+                        >
+                          {label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </fieldset>
+
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <FormField label="Name" htmlFor="name" required error={formErrors.name}>
+                    <input
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Your name"
+                      aria-invalid={Boolean(formErrors.name)}
+                      autoComplete="name"
+                      className={INPUT_CLASSES}
+                    />
+                  </FormField>
+                  <FormField label="Email" htmlFor="email" required error={formErrors.email}>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="you@company.com"
+                      aria-invalid={Boolean(formErrors.email)}
+                      autoComplete="email"
+                      className={INPUT_CLASSES}
+                    />
+                  </FormField>
+                </div>
+
+                <FormField label="What do you need?" htmlFor="service" required error={formErrors.service}>
+                  <select
+                    id="service"
+                    name="service"
+                    value={formData.service}
+                    onChange={handleChange}
+                    aria-invalid={Boolean(formErrors.service)}
+                    className={`${INPUT_CLASSES} appearance-none`}
+                  >
+                    <option value="">Select a service</option>
+                    {SERVICES.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </FormField>
+
+                <FormField label="Project details" htmlFor="message" required error={formErrors.message}>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows={5}
+                    placeholder="A little about your goals, timeline and budget…"
+                    aria-invalid={Boolean(formErrors.message)}
+                    className={TEXTAREA_CLASSES}
+                  />
+                </FormField>
+
+                <div>
+                  <label htmlFor="termsAccepted" className="flex cursor-pointer items-start gap-3 text-sm">
+                    <input
+                      id="termsAccepted"
+                      type="checkbox"
+                      name="termsAccepted"
+                      checked={formData.termsAccepted}
+                      onChange={handleChange}
+                      aria-invalid={Boolean(formErrors.termsAccepted)}
+                      className="mt-0.5 h-4 w-4 shrink-0 accent-ink"
+                    />
+                    <span>I accept the terms and conditions.</span>
+                  </label>
+                  {formErrors.termsAccepted && (
+                    <p role="alert" className="mt-2 text-sm font-medium">
+                      {formErrors.termsAccepted}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <SimpleCaptcha key={captchaKey} onValidate={setIsCaptchaValid} />
+                  {formErrors.captcha && (
+                    <p role="alert" className="mt-2 text-sm font-medium">
+                      {formErrors.captcha}
+                    </p>
+                  )}
+                </div>
+
+                <Action type="submit" disabled={isSubmitting} className="w-full" arrow={!isSubmitting}>
+                  {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
+                  {isSubmitting ? "Sending…" : "Send message"}
+                </Action>
+
+                {submitStatus && (
+                  <div
+                    role="status"
+                    className="flex items-start gap-3 border border-ink bg-grey-50 px-4 py-3 text-sm font-medium"
+                  >
+                    {submitStatus.type === "success" ? (
+                      <Check className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+                    ) : (
+                      <X className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+                    )}
+                    <span>{submitStatus.message}</span>
+                  </div>
+                )}
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
