@@ -10,28 +10,26 @@ interface PackageFeaturesProps {
   features: PackageFeature[];
 }
 
-const STAGGER_STEP_S = 0.05;
+const STAGGER_STEP_S = 0.04;
 
 export default function PackageFeatures({ title, description, features }: PackageFeaturesProps) {
   return (
-    <section className="py-20 sm:py-28">
+    <section className="bg-grey-50 py-24 sm:py-32">
       <Container>
-        <SectionHeader eyebrow="What's included" title={title} description={description} />
-        <ol className="mt-14 border-t-2 border-ink">
+        <SectionHeader eyebrow="Included" title={title} description={description} />
+        <ol className="mt-16">
           {features.map((feature, index) => (
-            <li key={feature.title} className="border-b border-ink">
-              <Reveal delay={index * STAGGER_STEP_S} className="grid gap-6 py-8 md:grid-cols-12 md:gap-10">
-                <div className="flex gap-4 md:col-span-5">
-                  <span className="font-mono text-[12px] text-ink-muted">{formatIndex(index + 1)}</span>
-                  <div>
-                    <h3 className="display-wide font-display text-2xl font-bold leading-tight">{feature.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-ink-muted">{feature.description}</p>
-                  </div>
+            <li key={feature.title} className="border-t border-grey-200 last:border-b">
+              <Reveal delay={index * STAGGER_STEP_S} className="grid gap-6 py-10 md:grid-cols-12 md:gap-12">
+                <div className="md:col-span-5">
+                  <span className="font-display text-lg italic text-brass">{formatIndex(index + 1)}</span>
+                  <h3 className="mt-4 font-display text-2xl font-medium leading-tight">{feature.title}</h3>
+                  <p className="mt-3 max-w-[36ch] text-sm leading-[1.7] text-ink-muted">{feature.description}</p>
                 </div>
-                <ul className="space-y-2 md:col-span-7 md:pt-1">
+                <ul className="space-y-3 md:col-span-6 md:col-start-7 md:pt-10">
                   {feature.benefits.map((benefit) => (
-                    <li key={benefit} className="flex items-center gap-3 text-sm sm:text-base">
-                      <span aria-hidden className="h-1.5 w-1.5 shrink-0 bg-ink" />
+                    <li key={benefit} className="flex items-start gap-3 text-sm leading-[1.65] sm:text-base">
+                      <span aria-hidden className="mt-[0.55rem] h-1 w-1 shrink-0 rounded-full bg-brass" />
                       {benefit}
                     </li>
                   ))}

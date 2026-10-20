@@ -11,18 +11,18 @@ interface SectionHeaderProps {
 
 export default function SectionHeader({ eyebrow, index, title, description, id }: SectionHeaderProps) {
   return (
-    <header className="grid gap-8 border-t-2 border-ink pt-6 md:grid-cols-12 md:items-end md:gap-12">
-      <div className="md:col-span-7 lg:col-span-8">
+    <header className="grid gap-8 md:grid-cols-12 md:items-end md:gap-16">
+      <div className="md:col-span-7 lg:col-span-7">
         <Eyebrow index={index}>{eyebrow}</Eyebrow>
         <h2
           id={id}
-          className="display-wide mt-6 font-display text-[2.1rem] font-bold leading-[1.02] tracking-[-0.02em] text-ink sm:text-5xl lg:text-[3.5rem]"
+          className="mt-6 font-display text-[2.4rem] font-medium leading-[1.08] tracking-[-0.03em] text-ink sm:text-5xl lg:text-[3.25rem]"
         >
           {title}
         </h2>
       </div>
       {description && (
-        <div className="text-pretty leading-relaxed text-ink-muted md:col-span-5 md:pb-2 lg:col-span-4">
+        <div className="max-w-[38ch] text-pretty text-base leading-[1.7] text-ink-muted md:col-span-5 md:pb-1 lg:col-span-4 lg:col-start-9">
           {description}
         </div>
       )}

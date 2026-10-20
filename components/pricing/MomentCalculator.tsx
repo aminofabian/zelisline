@@ -19,7 +19,7 @@ const emptyCounts = (): Counts => Object.fromEntries(MOMENT_COMPONENTS.map((comp
 const EMAIL_PATTERN = /^\S+@\S+\.\S+$/;
 
 const EMAIL_INPUT_CLASSES =
-  "w-full border border-paper bg-ink px-4 py-3 font-mono text-[13px] text-paper outline-none transition-colors placeholder:text-paper-dim focus:border-paper";
+  "w-full border border-white/20 bg-transparent px-4 py-3.5 text-base text-paper outline-none transition-colors duration-200 placeholder:text-paper-dim focus:border-brass";
 
 const idsInGroup = (group: string) =>
   MOMENT_COMPONENTS.filter((component) => component.group === group).map((component) => component.id);
@@ -93,10 +93,9 @@ export default function MomentCalculator() {
   };
 
   return (
-    <div className="grid gap-px border border-ink bg-ink lg:grid-cols-12">
-      {/* Options */}
-      <div className="bg-paper p-6 sm:p-8 lg:col-span-7">
-        <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-muted">Build your app</p>
+    <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+      <div className="lg:col-span-7">
+        <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-brass">Compose</p>
 
         <ul className="mt-6">
           {MOMENT_COMPONENTS.map((component) => {
@@ -105,31 +104,31 @@ export default function MomentCalculator() {
 
             if (component.repeatable) {
               return (
-                <li key={component.id} className="flex items-start gap-5 border-t border-ink py-5">
+                <li key={component.id} className="flex items-start gap-5 border-t border-grey-200 py-5">
                   <div className="flex items-center gap-2" role="group" aria-label={`${component.name} quantity`}>
                     <button
                       type="button"
                       onClick={() => setCount(component.id, count - 1)}
                       disabled={count === 0}
                       aria-label={`Remove one ${component.name}`}
-                      className="flex h-8 w-8 items-center justify-center border border-ink transition-colors hover:bg-ink hover:text-paper disabled:opacity-30 disabled:hover:bg-paper disabled:hover:text-ink"
+                      className="flex h-8 w-8 items-center justify-center border border-grey-300 transition-colors duration-200 hover:border-ink hover:bg-ink hover:text-paper disabled:opacity-30 disabled:hover:border-grey-300 disabled:hover:bg-transparent disabled:hover:text-ink"
                     >
                       <Minus className="h-4 w-4" aria-hidden />
                     </button>
-                    <span className="w-6 text-center font-mono text-sm tabular-nums">{count}</span>
+                    <span className="w-6 text-center text-sm tabular-nums">{count}</span>
                     <button
                       type="button"
                       onClick={() => setCount(component.id, count + 1)}
                       aria-label={`Add one ${component.name}`}
-                      className="flex h-8 w-8 items-center justify-center border border-ink transition-colors hover:bg-ink hover:text-paper"
+                      className="flex h-8 w-8 items-center justify-center border border-grey-300 transition-colors duration-200 hover:border-ink hover:bg-ink hover:text-paper"
                     >
                       <Plus className="h-4 w-4" aria-hidden />
                     </button>
                   </div>
                   <div className="flex-1">
                     <span className="flex flex-wrap items-baseline justify-between gap-x-4">
-                      <span className="display-wide font-display text-lg font-bold">{component.name}</span>
-                      <span className="font-mono text-[12px] tabular-nums text-ink-muted">
+                      <span className="font-display text-lg font-medium">{component.name}</span>
+                      <span className="text-[12px] tabular-nums text-ink-muted">
                         {formatMomentPrice(component.price)} each
                       </span>
                     </span>
@@ -140,7 +139,7 @@ export default function MomentCalculator() {
             }
 
             return (
-              <li key={component.id} className="border-t border-ink">
+              <li key={component.id} className="border-t border-grey-200">
                 <button
                   type="button"
                   role="checkbox"
@@ -150,16 +149,16 @@ export default function MomentCalculator() {
                 >
                   <span
                     aria-hidden
-                    className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center border border-ink transition-colors ${
-                      active ? "bg-ink text-paper" : ""
+                    className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center border transition-colors duration-200 ${
+                      active ? "border-brass bg-brass text-paper" : "border-grey-300"
                     }`}
                   >
                     {active && <Check className="h-4 w-4" />}
                   </span>
                   <span className="flex-1">
                     <span className="flex flex-wrap items-baseline justify-between gap-x-4">
-                      <span className="display-wide font-display text-lg font-bold">{component.name}</span>
-                      <span className="font-mono text-[12px] tabular-nums text-ink-muted">
+                      <span className="font-display text-lg font-medium">{component.name}</span>
+                      <span className="text-[12px] tabular-nums text-ink-muted">
                         {formatMomentPrice(component.price)}
                       </span>
                     </span>
@@ -171,13 +170,12 @@ export default function MomentCalculator() {
           })}
         </ul>
 
-        <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-muted">{MOMENT_PRICING_NOTE}</p>
+        <p className="mt-6 text-sm leading-[1.7] text-ink-muted">{MOMENT_PRICING_NOTE}</p>
       </div>
 
-      {/* Summary */}
-      <div className="flex flex-col justify-between bg-ink p-6 text-paper sm:p-8 lg:col-span-5">
+      <div className="flex flex-col justify-between bg-ink p-8 text-paper sm:p-10 lg:col-span-5">
         <div>
-          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-paper-dim">Your estimate</p>
+          <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-brass">Your estimate</p>
 
           <ul className="mt-6 space-y-3">
             {isEmpty && <li className="text-sm text-paper-dim">Select components to build a quote.</li>}
@@ -192,23 +190,23 @@ export default function MomentCalculator() {
             ))}
           </ul>
 
-          <div className="mt-6 flex items-baseline justify-between border-t border-paper pt-6">
-            <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-paper-dim">Total</span>
-            <span className="display-wide font-display text-3xl font-bold tabular-nums" aria-live="polite">
+          <div className="mt-8 flex items-baseline justify-between border-t border-white/15 pt-6">
+            <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-paper-dim">Total</span>
+            <span className="font-display text-4xl font-medium tabular-nums" aria-live="polite">
               {formatKes(total)}
             </span>
           </div>
 
-          <div className="mt-8">
-            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-paper-dim">Or start from a bundle</p>
-            <div className="mt-3 flex flex-wrap gap-2">
+          <div className="mt-10">
+            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-paper-dim">Or begin from a bundle</p>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
               {MOMENT_BUNDLES.map((bundle) => (
                 <button
                   key={bundle.id}
                   type="button"
                   onClick={() => applyBundle(bundle.items)}
                   title={bundle.includes}
-                  className="border border-paper px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-paper transition-colors hover:bg-paper hover:text-ink"
+                  className="text-[12px] font-medium uppercase tracking-[0.14em] text-paper-dim underline decoration-white/20 underline-offset-[6px] transition-colors duration-200 hover:text-paper hover:decoration-brass"
                 >
                   {bundle.name}
                 </button>
@@ -219,12 +217,12 @@ export default function MomentCalculator() {
 
         <div className="mt-10">
           {status === "sent" ? (
-            <div className="border border-paper px-4 py-4" role="status">
-              <p className="flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.1em]">
-                <Check className="h-4 w-4" aria-hidden /> Build sent
+            <div className="px-1 py-2" role="status">
+              <p className="flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.16em] text-brass">
+                <Check className="h-4 w-4" aria-hidden /> Received
               </p>
-              <p className="mt-2 text-sm text-paper-dim">
-                Thanks — we&apos;ve got your configuration and will reply with a quote shortly.
+              <p className="mt-3 text-sm leading-[1.7] text-paper-dim">
+                We have your configuration and will reply with a quote shortly.
               </p>
             </div>
           ) : (
@@ -243,7 +241,7 @@ export default function MomentCalculator() {
                 className={EMAIL_INPUT_CLASSES}
               />
               <Action type="submit" variant="inverse" arrow className="w-full" disabled={status === "sending" || isEmpty}>
-                {status === "sending" ? "Sending…" : "Send my build"}
+                {status === "sending" ? "Sending…" : "Request this quote"}
               </Action>
               {isEmpty && <p className="text-center text-xs text-paper-dim">Add at least one component above.</p>}
               {status === "error" && (
@@ -252,7 +250,7 @@ export default function MomentCalculator() {
                 </p>
               )}
               <p className="text-center text-xs text-paper-dim">
-                Just your email — we&apos;ll send the quote and next steps. No spam.
+                Your email only. We reply with the quote and the next step.
               </p>
             </form>
           )}

@@ -28,10 +28,10 @@ const toTab = (discipline: ServiceDiscipline): ServiceTab => ({
 
 export default function ServicesSection({ id, eyebrow, title, description, disciplines }: ServicesSectionProps) {
   return (
-    <section id={id} className="scroll-mt-20 py-20 sm:py-28">
+    <section id={id} className="scroll-mt-28 py-24 sm:py-32">
       <Container>
         <SectionHeader eyebrow={eyebrow} title={title} description={description} />
-        <div className="mt-12">
+        <div className="mt-16">
           <ServicesTabs tabs={disciplines.map(toTab)} />
         </div>
       </Container>

@@ -15,25 +15,29 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-archivo)", "ui-sans-serif", "system-ui", "sans-serif"],
-        display: ["var(--font-archivo)", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "ui-serif", "serif"],
         mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       colors: {
-        // Strictly monochrome palette. Nothing else is used on the site.
+        // Warm neutrals, with brass reserved for small moments.
         ink: {
-          DEFAULT: "#0A0A0A",
-          muted: "#5C5C5C",
+          DEFAULT: "#1C1917",
+          muted: "#6F675E",
         },
         paper: {
-          DEFAULT: "#FFFFFF",
-          dim: "#BDBDBD",
+          DEFAULT: "#F6F3EE",
+          dim: "#A89F94",
         },
         grey: {
-          50: "#F4F4F4",
-          100: "#E8E8E8",
-          200: "#D4D4D4",
-          300: "#A6A6A6",
+          50: "#EFEBE4",
+          100: "#E4DED4",
+          200: "#D5CEC3",
+          300: "#B0A79C",
+        },
+        brass: {
+          DEFAULT: "#8C7355",
+          deep: "#6E5840",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -107,7 +111,7 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        marquee: "marquee 60s linear infinite",
+        marquee: "marquee 90s linear infinite",
       },
     },
   },

@@ -6,16 +6,15 @@ import Container from "@/components/system/Container";
 import Eyebrow from "@/components/system/Eyebrow";
 import ProjectInquiryModal from "@/components/ProjectInquiryModal";
 import ServiceIndex from "@/components/ServiceIndex";
-import { site } from "@/data/site";
 import type { CapabilityLink } from "@/data/capabilities";
 import { cn } from "@/lib/utils";
 
-const LONG_TITLE_LENGTH = 70;
-const TITLE_SIZE_LONG = "text-[2rem] sm:text-[2.9rem] lg:text-[3.4rem]";
-const TITLE_SIZE_DEFAULT = "text-[2.4rem] sm:text-[3.8rem] lg:text-[4.6rem]";
+const LONG_TITLE_LENGTH = 48;
+const TITLE_SIZE_LONG = "text-[2.5rem] sm:text-[3.4rem] lg:text-[4.25rem]";
+const TITLE_SIZE_DEFAULT = "text-[2.85rem] sm:text-[4.25rem] lg:text-[5.25rem]";
 
-/** Height of the sticky chrome (promo bar h-10 + header h-16) that sits above the hero. */
-const CHROME_HEIGHT = "6.5rem";
+/** Height of the sticky chrome (promo bar + header) that sits above the hero. */
+const CHROME_HEIGHT = "7.25rem";
 
 export interface HeroFact {
   label: string;
@@ -46,7 +45,7 @@ function HeroActions({
   onOpenInquiry,
 }: Pick<PageHeroProps, "primary" | "secondary"> & { onOpenInquiry: () => void }) {
   return (
-    <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+    <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
       {primary?.href && (
         <Action href={primary.href} arrow>
           {primary.label}
@@ -58,7 +57,7 @@ function HeroActions({
         </Action>
       )}
       {secondary && (
-        <Action href={secondary.href} variant="outline">
+        <Action href={secondary.href} variant="ghost">
           {secondary.label}
         </Action>
       )}
@@ -83,58 +82,53 @@ export default function PageHero({
 
   return (
     <section
-      className={cn(
-        "relative overflow-hidden border-b border-ink bg-paper",
-        fillViewport && "flex flex-col"
-      )}
+      className={cn("relative bg-paper", fillViewport && "flex flex-col")}
       style={fillViewport ? { minHeight: `calc(100dvh - ${CHROME_HEIGHT})` } : undefined}
     >
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid opacity-70" />
-
       <Container
         className={cn(
-          "relative pb-12 pt-10 md:pb-14 md:pt-12",
+          "relative pb-16 pt-16 md:pb-20 md:pt-24",
           fillViewport && "flex flex-1 flex-col"
         )}
       >
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-ink pb-4 font-mono text-[11px] uppercase tracking-[0.12em]">
-          <Eyebrow>{eyebrow}</Eyebrow>
-          <span className="hidden text-ink-muted sm:inline">
-            {site.studio} · {site.coordinates}
-          </span>
-        </div>
+        <Eyebrow>{eyebrow}</Eyebrow>
 
         <h1
           className={cn(
-            "display-wide mt-8 max-w-[18ch] font-display font-bold uppercase leading-[0.92] tracking-[-0.035em]",
+            "mt-8 max-w-[14ch] font-display font-medium leading-[1.04] tracking-[-0.035em]",
             titleSize
           )}
         >
           {title}
         </h1>
 
-        <div className="mt-10 grid gap-12 border-t border-ink pt-8 lg:grid-cols-12">
+        <div className="mt-12 grid gap-14 lg:mt-16 lg:grid-cols-12 lg:gap-16">
           <div className={hasIndex ? "lg:col-span-6" : "lg:col-span-7"}>
-            <p className="max-w-xl text-pretty text-lg leading-relaxed text-ink-muted sm:text-xl">{description}</p>
+            <p className="max-w-[38rem] text-pretty text-lg leading-[1.7] text-ink-muted">{description}</p>
             {(primary || secondary) && (
               <HeroActions primary={primary} secondary={secondary} onOpenInquiry={() => setIsInquiryOpen(true)} />
             )}
           </div>
 
           {hasIndex && index && (
-            <div className="border border-ink bg-grey-50 p-6 sm:p-8 lg:col-span-6">
-              <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-muted">Capabilities</p>
+            <div className="lg:col-span-5 lg:col-start-8">
+              <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-ink-muted">Capabilities</p>
               <ServiceIndex items={index} />
             </div>
           )}
         </div>
 
         {hasFacts && (
-          <dl className={cn("grid grid-cols-2 gap-px border border-ink bg-ink sm:grid-cols-4", fillViewport ? "mt-auto pt-12" : "mt-12")}>
+          <dl
+            className={cn(
+              "grid grid-cols-2 gap-x-8 gap-y-10 border-t border-grey-200 pt-10 sm:grid-cols-4",
+              fillViewport ? "mt-auto" : "mt-16"
+            )}
+          >
             {facts!.map((fact) => (
-              <div key={fact.label} className="bg-paper px-5 py-4">
-                <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-muted">{fact.label}</dt>
-                <dd className="display-wide mt-2 font-display text-lg font-bold leading-tight sm:text-xl">{fact.value}</dd>
+              <div key={fact.label}>
+                <dt className="text-[11px] font-medium uppercase tracking-[0.18em] text-ink-muted">{fact.label}</dt>
+                <dd className="mt-3 font-display text-xl font-medium leading-tight sm:text-2xl">{fact.value}</dd>
               </div>
             ))}
           </dl>

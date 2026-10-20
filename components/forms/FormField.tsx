@@ -14,7 +14,7 @@ export default function FormField({ label, htmlFor, required = false, error, chi
 
   return (
     <div className="flex flex-col">
-      <label htmlFor={htmlFor} className="mb-2 font-mono text-[12px] uppercase tracking-[0.1em] text-ink">
+      <label htmlFor={htmlFor} className="mb-2 text-[11px] font-medium uppercase tracking-[0.16em] text-ink-muted">
         {label}
         {required && <span aria-hidden> *</span>}
       </label>

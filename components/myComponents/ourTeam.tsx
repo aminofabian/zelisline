@@ -18,16 +18,16 @@ const initialsOf = (name: string) =>
 
 function TeamRow({ member, position }: { member: TeamMember; position: number }) {
   return (
-    <li className="border-b border-ink">
-      <Reveal delay={position * STAGGER_STEP_S} className="grid gap-6 py-8 md:grid-cols-12 md:gap-8">
+    <li className="border-b border-grey-200">
+      <Reveal delay={position * STAGGER_STEP_S} className="grid gap-6 py-10 md:grid-cols-12 md:gap-8">
         <div className="flex items-start gap-5 md:col-span-4">
-          <span className="flex h-16 w-16 shrink-0 items-center justify-center bg-ink font-display text-lg font-bold text-paper" aria-hidden>
+          <span className="flex h-14 w-14 shrink-0 items-center justify-center bg-grey-50 font-display text-lg italic text-brass" aria-hidden>
             {initialsOf(member.name)}
           </span>
           <div>
-            <p className="font-mono text-[11px] text-ink-muted">{formatIndex(position + 1)}</p>
-            <h3 className="display-wide mt-1 font-display text-xl font-bold leading-tight sm:text-2xl">{member.name}</h3>
-            <p className="mt-1 text-sm font-medium">{member.role}</p>
+            <p className="font-display italic text-brass">{formatIndex(position + 1)}</p>
+            <h3 className="mt-1 font-display text-2xl font-medium leading-tight">{member.name}</h3>
+            <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.16em] text-ink-muted">{member.role}</p>
           </div>
         </div>
 
@@ -35,7 +35,7 @@ function TeamRow({ member, position }: { member: TeamMember; position: number })
           <p className="text-sm leading-relaxed text-ink-muted">{member.description}</p>
           <ul className="mt-4 flex flex-wrap gap-2">
             {member.skills.map((skill) => (
-              <li key={skill} className="border border-ink px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.08em]">
+              <li key={skill} className="text-[11px] font-medium uppercase tracking-[0.12em] text-ink-muted">
                 {skill}
               </li>
             ))}
@@ -44,11 +44,11 @@ function TeamRow({ member, position }: { member: TeamMember; position: number })
 
         <dl className="grid grid-cols-2 gap-4 text-sm md:col-span-4 md:grid-cols-1">
           <div>
-            <dt className="font-mono text-[11px] uppercase tracking-[0.1em] text-ink-muted">Focus</dt>
+            <dt className="text-[11px] font-medium uppercase tracking-[0.16em] text-ink-muted">Focus</dt>
             <dd className="mt-1">{member.expertise}</dd>
           </div>
           <div>
-            <dt className="font-mono text-[11px] uppercase tracking-[0.1em] text-ink-muted">Based</dt>
+            <dt className="text-[11px] font-medium uppercase tracking-[0.16em] text-ink-muted">Based</dt>
             <dd className="mt-1">{member.location}</dd>
           </div>
           {member.github && (
@@ -71,32 +71,31 @@ function TeamRow({ member, position }: { member: TeamMember; position: number })
 
 export function OurTeam() {
   return (
-    <section className="border-t-2 border-ink py-20 sm:py-28">
+    <section className="py-24 sm:py-32">
       <Container>
         <SectionHeader
           eyebrow="The team"
-          title="Meet our expert team"
-          description="A talented team of developers from Kenya, passionate about creating innovative digital solutions and delivering exceptional results for our clients."
+          title="The people who do the work"
+          description="A small team in Kenya. The same people who scope a project are the ones who build it."
         />
 
-        <ol className="mt-14 border-t-2 border-ink">
+        <ol className="mt-16 border-t border-grey-200">
           {teamMembers.map((member, index) => (
             <TeamRow key={member.name} member={member} position={index} />
           ))}
         </ol>
 
-        <div className="mt-16 grid gap-8 border-2 border-ink p-8 sm:p-12 md:grid-cols-12 md:items-end">
+        <div className="mt-20 grid gap-8 md:grid-cols-12 md:items-end">
           <div className="md:col-span-8">
-            <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-muted">Hiring</p>
-            <h3 className="display-wide mt-3 font-display text-2xl font-bold sm:text-3xl">Join our team</h3>
-            <p className="mt-3 max-w-xl text-pretty text-ink-muted">
-              We&apos;re always looking for talented developers to join our growing team. If you&apos;re passionate about
-              creating amazing digital experiences, we&apos;d love to hear from you.
+            <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-brass">Hiring</p>
+            <h3 className="mt-3 font-display text-3xl font-medium">Join the studio</h3>
+            <p className="mt-3 max-w-xl text-pretty leading-[1.7] text-ink-muted">
+              If you build carefully and like staying with the work after it ships, write to us.
             </p>
           </div>
           <div className="md:col-span-4 md:justify-self-end">
             <Action href="/contact" arrow>
-              Get in touch
+              Write to us
             </Action>
           </div>
         </div>

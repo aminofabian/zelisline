@@ -3,8 +3,8 @@
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
-const REVEAL_OFFSET_PX = 16;
-const REVEAL_DURATION_S = 0.5;
+const REVEAL_OFFSET_PX = 8;
+const REVEAL_DURATION_S = 0.28;
 const REVEAL_VIEWPORT_MARGIN = "-60px";
 const REVEAL_EASE = [0.22, 1, 0.36, 1] as const;
 

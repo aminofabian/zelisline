@@ -14,7 +14,7 @@ export default function PricingGrid({ packages, currency, featuredName }: Pricin
   const lgCols = count % 3 === 0 ? "lg:grid-cols-3" : count % 2 === 0 ? "lg:grid-cols-2" : "lg:grid-cols-1";
 
   return (
-    <div className={`grid grid-cols-1 gap-px border border-ink bg-ink ${mdCols} ${lgCols}`}>
+    <div className={`grid grid-cols-1 gap-6 ${mdCols} ${lgCols}`}>
       {packages.map((pkg, index) => (
         <PricingCard
           key={`${index}-${pkg.name}`}

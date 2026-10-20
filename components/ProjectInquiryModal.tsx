@@ -119,23 +119,26 @@ export default function ProjectInquiryModal({ isOpen, onClose }: ProjectInquiryM
     }
   };
 
-  const submitLabel = isLoading ? "Sending…" : isCaptchaValid ? "Submit project inquiry" : "Complete verification";
+  const submitLabel = isLoading ? "Sending…" : isCaptchaValid ? "Send the inquiry" : "Complete verification";
 
   return (
-    <Dialog open={isOpen} onClose={onClose} className="relative z-[70]">
-      <div className="fixed inset-0 bg-ink/80" aria-hidden="true" />
+    <Dialog open={isOpen} onClose={onClose} className="relative z-[80]">
+      <div className="fixed inset-0 bg-ink/50" aria-hidden="true" />
       <div className="fixed inset-0 overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4 sm:p-8">
-          <Dialog.Panel className="w-full max-w-2xl border border-ink bg-paper p-6 sm:p-10">
+          <Dialog.Panel className="w-full max-w-2xl bg-paper p-7 sm:p-12">
             <div className="flex items-start justify-between gap-6">
-              <Dialog.Title as="h2" className="display-wide font-display text-2xl font-bold leading-tight sm:text-3xl">
-                Start your project
-              </Dialog.Title>
+              <div>
+                <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-brass">Inquiry</p>
+                <Dialog.Title as="h2" className="mt-3 font-display text-3xl font-medium leading-tight sm:text-4xl">
+                  Begin a project
+                </Dialog.Title>
+              </div>
               <button
                 type="button"
                 onClick={onClose}
                 aria-label="Close inquiry form"
-                className="flex h-10 w-10 shrink-0 items-center justify-center border border-ink hover:bg-ink hover:text-paper"
+                className="flex h-10 w-10 shrink-0 items-center justify-center text-ink-muted transition-colors duration-200 hover:text-ink"
               >
                 <X className="h-4 w-4" aria-hidden />
               </button>

@@ -22,14 +22,14 @@ export default function Pricing() {
   const packages = homePackages.map(withLink);
 
   return (
-    <section id="pricing" className="scroll-mt-20 border-y border-ink bg-grey-50 py-20 sm:py-28">
+    <section id="pricing" className="scroll-mt-28 bg-grey-50 py-24 sm:py-32">
       <Container>
         <SectionHeader
           eyebrow="Pricing"
-          title="Straightforward packages, no guesswork"
-          description="Starting points to help you plan. Every build is scoped individually — tell us what you need and we'll put together an exact quote."
+          title="Clear starting points"
+          description="Every build is scoped on its own. These figures help you plan. Tell us what you need and we will prepare an exact quote."
         />
-        <div className="mt-14">
+        <div className="mt-16">
           <PricingGrid packages={packages} currency="kes" featuredName={FEATURED_PACKAGE} />
         </div>
       </Container>

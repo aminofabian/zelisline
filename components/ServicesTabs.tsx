@@ -34,7 +34,7 @@ export default function ServicesTabs({ tabs }: ServicesTabsProps) {
   return (
     <div>
       {/* Scrolls horizontally on small screens instead of overflowing the box. */}
-      <div role="tablist" aria-label="Services" className="flex overflow-x-auto border border-ink">
+      <div role="tablist" aria-label="Services" className="flex gap-8 overflow-x-auto border-b border-grey-200">
         {tabs.map((tab, index) => {
           const isActive = index === activeIndex;
           return (
@@ -52,9 +52,8 @@ export default function ServicesTabs({ tabs }: ServicesTabsProps) {
               onClick={() => setActiveIndex(index)}
               onKeyDown={handleKeyDown}
               className={cn(
-                "flex-none whitespace-nowrap px-5 py-4 font-mono text-[12px] uppercase tracking-[0.1em] transition-colors sm:px-7",
-                index < tabs.length - 1 && "border-r border-ink",
-                isActive ? "bg-ink text-paper" : "bg-paper text-ink hover:bg-grey-50"
+                "-mb-px flex-none whitespace-nowrap border-b pb-4 text-[12px] font-medium uppercase tracking-[0.18em] transition-colors duration-200",
+                isActive ? "border-brass text-ink" : "border-transparent text-ink-muted hover:text-ink"
               )}
             >
               {tab.label}

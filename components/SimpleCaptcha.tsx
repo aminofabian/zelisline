@@ -57,17 +57,17 @@ export const SimpleCaptcha: React.FC<SimpleCaptchaProps> = ({ onValidate }) => {
   };
 
   const inputState =
-    isCorrect === null ? "border-ink" : isCorrect ? "border-ink bg-grey-50" : "border-2 border-ink";
+    isCorrect === null ? "" : isCorrect ? "border-ink" : "border-brass";
 
   return (
-    <div className="border border-ink bg-grey-50 p-5">
+    <div className="bg-grey-50 p-5">
       <div className="flex items-center justify-between gap-4">
-        <h3 className="font-mono text-[12px] font-medium uppercase tracking-[0.1em] text-ink">Human verification</h3>
+        <h3 className="text-[11px] font-medium uppercase tracking-[0.16em] text-ink-muted">Human verification</h3>
         <button
           type="button"
           onClick={generateProblem}
           aria-label="Generate a new problem"
-          className="flex h-9 w-9 items-center justify-center border border-ink bg-paper hover:bg-ink hover:text-paper"
+          className="flex h-9 w-9 items-center justify-center text-ink-muted transition-colors duration-200 hover:text-ink"
         >
           <RefreshCw className={`h-4 w-4 ${isRefreshing ? "animate-spin" : ""}`} aria-hidden />
         </button>
@@ -79,7 +79,7 @@ export const SimpleCaptcha: React.FC<SimpleCaptchaProps> = ({ onValidate }) => {
         </p>
         <div
           aria-hidden
-          className="display-wide flex min-w-[180px] items-center justify-center gap-3 border border-ink bg-paper px-5 py-4 font-display text-xl font-bold"
+          className="flex min-w-[180px] items-center justify-center gap-3 bg-paper px-5 py-4 font-display text-xl font-medium"
         >
           <span>{left}</span>
           <span>{operator}</span>
@@ -110,7 +110,7 @@ export const SimpleCaptcha: React.FC<SimpleCaptchaProps> = ({ onValidate }) => {
         </div>
       </div>
 
-      <p className="mt-3 min-h-5 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-muted" aria-live="polite">
+      <p className="mt-3 min-h-5 text-sm text-ink-muted" aria-live="polite">
         {isCorrect === false && "Incorrect answer. Please try again."}
         {isCorrect === true && "Verified. You can submit the form."}
       </p>

@@ -6,33 +6,25 @@ interface PackageTestimonialsProps {
   testimonials: Testimonial[];
 }
 
-const getInitials = (name: string) =>
-  name
-    .split(" ")
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2);
-
 export default function PackageTestimonials({ testimonials }: PackageTestimonialsProps) {
   return (
-    <section className="border-t border-ink bg-grey-50 py-20 sm:py-28">
+    <section className="py-24 sm:py-32">
       <Container>
-        <Eyebrow>Client voices</Eyebrow>
-        <h2 className="display-wide mt-6 font-display text-[2rem] font-bold uppercase leading-none tracking-[-0.02em] sm:text-5xl">
-          What our clients say
+        <Eyebrow>Clients</Eyebrow>
+        <h2 className="mt-6 max-w-[14ch] font-display text-[2.4rem] font-medium leading-[1.08] tracking-[-0.03em] sm:text-5xl">
+          In their words
         </h2>
 
-        <div className="mt-14 grid gap-px border border-ink bg-ink md:grid-cols-2">
+        <div className="mt-16 grid gap-12 md:grid-cols-2 md:gap-16">
           {testimonials.map((testimonial) => (
-            <figure key={testimonial.name} className="flex flex-col justify-between gap-10 bg-paper p-8 sm:p-10">
-              <blockquote className="text-pretty text-lg leading-relaxed sm:text-xl">&ldquo;{testimonial.content}&rdquo;</blockquote>
-              <figcaption className="flex items-center gap-4">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center bg-ink font-display text-sm font-bold text-paper" aria-hidden>
-                  {getInitials(testimonial.name)}
-                </span>
-                <span>
-                  <span className="block font-display text-lg font-bold">{testimonial.name}</span>
-                  <span className="block text-sm text-ink-muted">{testimonial.role}</span>
+            <figure key={testimonial.name} className="flex flex-col justify-between gap-10 border-t border-grey-200 pt-8">
+              <blockquote className="max-w-[42ch] font-display text-2xl font-medium leading-[1.35] tracking-[-0.02em]">
+                &ldquo;{testimonial.content}&rdquo;
+              </blockquote>
+              <figcaption>
+                <span className="block text-base">{testimonial.name}</span>
+                <span className="mt-1 block text-[11px] font-medium uppercase tracking-[0.16em] text-ink-muted">
+                  {testimonial.role}
                 </span>
               </figcaption>
             </figure>

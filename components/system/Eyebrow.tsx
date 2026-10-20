@@ -9,8 +9,14 @@ interface EyebrowProps {
 
 export default function Eyebrow({ children, index, className }: EyebrowProps) {
   return (
-    <p className={cn("flex flex-wrap items-center gap-3 font-mono text-[12px] uppercase tracking-[0.12em]", className)}>
-      {index && <span className="border border-current px-1.5 py-0.5 leading-none">{index}</span>}
+    <p
+      className={cn(
+        "flex flex-wrap items-center gap-3 text-[11px] font-medium uppercase tracking-[0.22em] text-brass",
+        className
+      )}
+    >
+      <span aria-hidden className="h-px w-8 bg-brass" />
+      {index && <span className="text-ink-muted">{index}</span>}
       <span>{children}</span>
     </p>
   );

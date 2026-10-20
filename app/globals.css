@@ -4,37 +4,37 @@
 
 /* ------------------------------------------------------------------ */
 /*  Design tokens                                                      */
-/*  Strictly monochrome: ink, paper and three neutral greys.           */
+/*  Warm ivory, charcoal, and a single brass accent.                   */
 /* ------------------------------------------------------------------ */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 4%;
+    --background: 36 33% 95%;
+    --foreground: 24 9% 10%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 4%;
+    --card: 36 33% 95%;
+    --card-foreground: 24 9% 10%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 4%;
+    --popover: 36 33% 95%;
+    --popover-foreground: 24 9% 10%;
 
-    --primary: 0 0% 4%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 24 9% 10%;
+    --primary-foreground: 36 33% 95%;
 
-    --secondary: 0 0% 91%;
-    --secondary-foreground: 0 0% 4%;
+    --secondary: 36 22% 91%;
+    --secondary-foreground: 24 9% 10%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 36%;
+    --muted: 36 24% 92%;
+    --muted-foreground: 30 9% 40%;
 
-    --accent: 0 0% 91%;
-    --accent-foreground: 0 0% 4%;
+    --accent: 33 24% 44%;
+    --accent-foreground: 36 33% 95%;
 
-    --destructive: 0 0% 4%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 24 9% 10%;
+    --destructive-foreground: 36 33% 95%;
 
-    --border: 0 0% 4%;
-    --input: 0 0% 4%;
-    --ring: 0 0% 4%;
+    --border: 36 18% 80%;
+    --input: 36 18% 80%;
+    --ring: 24 9% 10%;
   }
 }
 
@@ -50,7 +50,21 @@
 
   body {
     @apply bg-background font-sans text-foreground antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.65;
     text-rendering: optimizeLegibility;
+  }
+
+  /* Feather-light linen grain. Sits above the page, never blocks clicks. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    mix-blend-mode: multiply;
   }
 
   /* Headings inherit their surface colour so they stay legible on both
@@ -59,8 +73,10 @@
   h2,
   h3,
   h4 {
-    @apply font-display;
-    letter-spacing: -0.02em;
+    @apply font-display font-medium;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    font-optical-sizing: auto;
   }
 
   a {
@@ -79,35 +95,30 @@
   /* Two-tone focus ring: a white ring behind a black outline stays legible on
      both paper and ink surfaces without any per-section wiring. */
   :focus-visible {
-    outline: 2px solid #0a0a0a;
-    outline-offset: 2px;
-    box-shadow: 0 0 0 2px #ffffff;
+    outline: 1px solid #1c1917;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 2px #f6f3ee;
   }
 
   ::selection {
-    background-color: #0a0a0a;
-    color: #ffffff;
+    background-color: #1c1917;
+    color: #f6f3ee;
   }
 }
 
 @layer utilities {
-  /* Wide display face (Archivo at 125% width) for headlines. */
+  /* Display face. Kept as a class so existing headlines pick up the serif. */
   .display-wide {
-    font-stretch: 125%;
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 500;
+    font-optical-sizing: auto;
+    letter-spacing: -0.03em;
   }
 
-  /* Hero and section backdrop: a faint technical grid. */
-  .bg-grid {
-    background-image:
-      linear-gradient(to right, rgba(10, 10, 10, 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(10, 10, 10, 0.06) 1px, transparent 1px);
-    background-size: 80px 80px;
-  }
-
-  /* Outlined display type for numerals and the marquee on light surfaces. */
+  /* Outlined display type for numerals on light surfaces. */
   .text-outline-ink {
     color: transparent;
-    -webkit-text-stroke: 1px #0a0a0a;
+    -webkit-text-stroke: 1px #1c1917;
   }
 
   .skip-link {
@@ -141,9 +152,10 @@
 /*  Journal article body (WordPress HTML)                              */
 /* ------------------------------------------------------------------ */
 .post-content {
-  font-size: 1.0625rem;
-  line-height: 1.75;
-  color: #0a0a0a;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #1c1917;
+  max-width: 68ch;
 }
 
 .post-content > * + * {
@@ -154,9 +166,8 @@
 .post-content h2,
 .post-content h3,
 .post-content h4 {
-  font-family: var(--font-archivo);
-  font-stretch: 125%;
-  font-weight: 700;
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 500;
   line-height: 1.15;
   margin-top: 2.5rem;
 }
@@ -186,15 +197,14 @@
 }
 
 .post-content blockquote {
-  border-left: 4px solid #0a0a0a;
+  border-left: 1px solid #8c7355;
   padding-left: 1.25rem;
   font-size: 1.25rem;
   line-height: 1.5;
 }
 
 .post-content img {
-  filter: grayscale(1);
-  border: 1px solid #0a0a0a;
+  border: 1px solid #d5cec3;
   max-width: 100%;
   height: auto;
 }
@@ -202,13 +212,13 @@
 .post-content code {
   font-family: var(--font-mono);
   font-size: 0.875em;
-  background: #f4f4f4;
+  background: #efebe4;
   padding: 0 0.25rem;
 }
 
 .post-content pre {
-  background: #0a0a0a;
-  color: #ffffff;
+  background: #1c1917;
+  color: #f6f3ee;
   padding: 1rem;
   overflow-x: auto;
 }
@@ -226,14 +236,14 @@
 
 .post-content th,
 .post-content td {
-  border: 1px solid #0a0a0a;
+  border: 1px solid #d5cec3;
   padding: 0.5rem 0.75rem;
   text-align: left;
 }
 
 .post-content hr {
   border: 0;
-  border-top: 1px solid #0a0a0a;
+  border-top: 1px solid #d5cec3;
 }
 
 /* Without JS (or for crawlers) reveal content must never stay hidden. */

@@ -7,13 +7,13 @@ interface PackageStatsProps {
 
 export default function PackageStats({ stats }: PackageStatsProps) {
   return (
-    <section className="border-b border-ink bg-grey-50">
-      <Container className="py-0">
-        <dl className="grid grid-cols-1 divide-y divide-ink border-x border-ink sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+    <section className="border-y border-grey-200">
+      <Container className="py-12 sm:py-16">
+        <dl className="grid grid-cols-1 gap-10 sm:grid-cols-3">
           {stats.map((stat) => (
-            <div key={stat.label} className="flex flex-col gap-4 px-2 py-8 sm:px-8">
-              <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-muted">{stat.label}</dt>
-              <dd className="display-wide font-display text-5xl font-bold leading-none tracking-[-0.03em] sm:text-6xl">{stat.value}</dd>
+            <div key={stat.label}>
+              <dd className="font-display text-5xl font-medium leading-none tracking-[-0.03em] sm:text-6xl">{stat.value}</dd>
+              <dt className="mt-3 text-[11px] font-medium uppercase tracking-[0.18em] text-ink-muted">{stat.label}</dt>
             </div>
           ))}
         </dl>

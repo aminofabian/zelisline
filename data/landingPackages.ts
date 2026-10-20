@@ -2,22 +2,21 @@ import type { PackageLandingConfig } from "@/types/content";
 
 export const personalWebsitePackage: PackageLandingConfig = {
   eyebrow: "Personal website package",
-  proofLine: "Trusted by 500+ Professionals",
+  proofLine: "For independent professionals",
   title: [
-    { text: "Launch Your Professional Website in Just" },
-    { text: "7 Days", emphasis: true },
+    { text: "A professional site, ready in" },
+    { text: "seven days.", emphasis: true },
   ],
-  description:
-    "Get a custom-designed, SEO-optimized website that converts visitors into clients - ",
-  descriptionHighlight: "or your money back",
+  description: "A custom site, written and structured so the right clients can find you. ",
+  descriptionHighlight: "Thirty days to change your mind.",
   price: {
     strike: "KES 35,000/month",
-    discount: "28% OFF",
+    discount: "Introductory rate",
     amount: "KES 25,000",
     note: "for a fully functional website",
   },
   perks: ["Launch in 7 days or less", "30-day money-back guarantee", "Unlimited revisions"],
-  ctaLabel: "Get started now — limited time offer",
+  ctaLabel: "Begin this package",
   guarantee: "30-day money-back guarantee · No hidden fees · Cancel anytime",
   stats: [
     { value: "50+", label: "Websites launched" },
@@ -32,9 +31,8 @@ export const personalWebsitePackage: PackageLandingConfig = {
     { name: "Mavuno Church", sector: "Religious Organization", tags: ["Non-Profit", "Events", "Community"], url: "https://mavunochurch.org" },
     { name: "Style Connection", sector: "Fashion Retail", tags: ["E-commerce", "Fashion", "Retail"], url: "https://styleconnection.co.ke" },
   ],
-  featuresTitle: "Everything You Need to Succeed Online",
-  featuresDescription:
-    "Our all-inclusive package is designed to give you everything you need to establish a strong online presence and attract more clients.",
+  featuresTitle: "What is included",
+  featuresDescription: "Design, domain, pages, search setup and hosting. One scope, agreed before we begin.",
   features: [
     {
       title: "Professional Design",
@@ -66,7 +64,7 @@ export const personalWebsitePackage: PackageLandingConfig = {
     {
       name: "Sarah Johnson",
       role: "Freelance Designer",
-      content: "My website started generating leads within the first week. Best investment I've made for my business!",
+      content: "Enquiries started arriving in the first week. The site looks like the practice I wanted people to find.",
     },
     {
       name: "James Smith",
@@ -74,36 +72,34 @@ export const personalWebsitePackage: PackageLandingConfig = {
       content: "The process was smooth and the results exceeded my expectations. My portfolio has never looked better.",
     },
   ],
-  finalTitle: "Ready to Transform Your Online Presence?",
-  finalDescription:
-    "Join 500+ successful professionals who've already taken their business to the next level with our website package.",
-  finalCtaLabel: "Start your 7-day website journey",
+  finalTitle: "When you are ready",
+  finalDescription: "Tell us about the practice. We will confirm the pages, the timeline and the date we can begin.",
+  finalCtaLabel: "Begin this package",
   finalGuarantee: "30-day money-back guarantee · No hidden fees · Cancel anytime",
 };
 
 export const smallBusinessPackage: PackageLandingConfig = {
   eyebrow: "Small business package",
-  proofLine: "Trusted by 200+ Small Businesses",
+  proofLine: "For shops, clinics and local teams",
   title: [
-    { text: "Launch Your Business Website with Our" },
-    { text: "Templated Solution", emphasis: true },
+    { text: "A complete website for a" },
+    { text: "small business.", emphasis: true },
   ],
-  description: "Get a professional, feature-rich website perfect for small businesses - ",
-  descriptionHighlight: "at an affordable price",
+  description: "Ten pages, search setup, hosting and a template chosen for your trade. ",
+  descriptionHighlight: "Thirty days to change your mind.",
   price: {
     strike: "KES 65,000/month",
-    discount: "23% OFF",
+    discount: "Introductory rate",
     amount: "KES 50,000",
     note: "per month",
   },
   perks: ["Choose from premium templates", "10 custom pages included", "Social media integration"],
-  ctaLabel: "Start your business website now",
+  ctaLabel: "Begin this package",
   guarantee: "30-day money-back guarantee · No hidden fees · Cancel anytime",
   stats: [],
   launches: [],
-  featuresTitle: "Everything Your Business Needs Online",
-  featuresDescription:
-    "Our small business package includes all the essential features to establish your professional online presence",
+  featuresTitle: "What the package covers",
+  featuresDescription: "A template, ten pages, search setup, social links, a domain and help with the words.",
   features: [
     {
       title: "Templated Design",
@@ -140,7 +136,7 @@ export const smallBusinessPackage: PackageLandingConfig = {
     {
       name: "David Kamau",
       role: "Restaurant Owner",
-      content: "The templated approach saved us time and money while still giving us a professional look. Exactly what we needed!",
+      content: "The template saved us time, and the site still looks like the restaurant. That was the brief.",
     },
     {
       name: "Jane Muthoni",
@@ -148,9 +144,8 @@ export const smallBusinessPackage: PackageLandingConfig = {
       content: "Perfect solution for our small business. The social media integration really helped boost our online presence.",
     },
   ],
-  finalTitle: "Ready to Grow Your Business Online?",
-  finalDescription:
-    "Join 200+ successful small businesses who've transformed their online presence with our templated solution.",
-  finalCtaLabel: "Get your business online today",
+  finalTitle: "Tell us about the business",
+  finalDescription: "We will confirm the template, the pages and when the site can go live.",
+  finalCtaLabel: "Begin this package",
   finalGuarantee: "30-day money-back guarantee · No hidden fees · Cancel anytime",
 };

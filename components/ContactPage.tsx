@@ -83,15 +83,15 @@ const validate = (form: ContactForm, isCaptchaValid: boolean): ContactErrors => 
 
 function ContactChannels() {
   return (
-    <dl className="mt-12 border-t border-ink">
+    <dl className="mt-12 border-t border-grey-200">
       {CONTACT_CHANNELS.map(({ icon: Icon, label, value, href }) => (
-        <div key={label} className="flex items-center gap-5 border-b border-ink py-5">
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-ink bg-paper">
+        <div key={label} className="flex items-center gap-5 border-b border-grey-200 py-5">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center text-brass">
             <Icon className="h-4 w-4" aria-hidden />
           </span>
           <div>
-            <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-muted">{label}</dt>
-            <dd className="display-wide mt-1 font-display text-lg font-bold">
+            <dt className="text-[11px] font-medium uppercase tracking-[0.16em] text-ink-muted">{label}</dt>
+            <dd className="mt-1 font-display text-lg font-medium">
               {href ? (
                 <a href={href} className="underline-offset-4 hover:underline">
                   {value}
@@ -167,31 +167,30 @@ export default function ContactPage() {
   };
 
   return (
-    <section aria-labelledby="contact-heading" className="border-b border-ink bg-grey-50">
-      <div className="mx-auto w-full max-w-[1440px] px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
-        <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
+    <section aria-labelledby="contact-heading" className="bg-grey-50">
+      <div className="mx-auto w-full max-w-[1180px] px-6 py-24 sm:px-8 sm:py-32 lg:px-10">
+        <div className="grid gap-16 lg:grid-cols-12 lg:gap-20">
           <div className="lg:col-span-5">
-            <Eyebrow>Contact</Eyebrow>
-            <h2 id="contact-heading" className="display-wide mt-6 font-display text-[2.1rem] font-bold leading-[1.02] sm:text-5xl">
-              Let&apos;s talk about your project
+            <Eyebrow>Correspondence</Eyebrow>
+            <h2 id="contact-heading" className="mt-6 font-display text-[2.4rem] font-medium leading-[1.08] tracking-[-0.03em] sm:text-5xl">
+              Write to the studio
             </h2>
-            <p className="mt-6 max-w-md text-pretty text-lg leading-relaxed text-ink-muted">
-              Tell us what you&apos;re working on and we&apos;ll come back with honest advice on scope, timeline and
-              cost. No pressure, no jargon.
+            <p className="mt-6 max-w-[36ch] text-pretty text-lg leading-[1.7] text-ink-muted">
+              Tell us what you are working on. We reply with honest advice on scope, timeline and cost.
             </p>
             <ContactChannels />
-            <p className="mt-6 font-mono text-[12px] uppercase tracking-[0.1em] text-ink-muted">
+            <p className="mt-8 text-[11px] font-medium uppercase tracking-[0.16em] text-ink-muted">
               We usually reply within a day.
             </p>
           </div>
 
           <div className="lg:col-span-7">
-            <div className="border border-ink bg-paper p-6 text-ink sm:p-10">
+            <div className="bg-paper p-7 text-ink sm:p-12">
               <form onSubmit={handleSubmit} noValidate className="space-y-7">
                 <fieldset>
-                  <legend className="mb-3 font-mono text-[12px] uppercase tracking-[0.1em]">I am a…</legend>
-                  <div className="grid grid-cols-3 border border-ink">
-                    {ROLES.map(({ id, label }, index) => {
+                  <legend className="mb-4 text-[11px] font-medium uppercase tracking-[0.16em] text-ink-muted">I am a</legend>
+                  <div className="flex gap-6 border-b border-grey-200">
+                    {ROLES.map(({ id, label }) => {
                       const isActive = formData.role === id;
                       return (
                         <button
@@ -200,9 +199,8 @@ export default function ContactPage() {
                           aria-pressed={isActive}
                           onClick={() => setFormData((prev) => ({ ...prev, role: id }))}
                           className={cn(
-                            "px-3 py-3 font-mono text-[12px] uppercase tracking-[0.08em] transition-colors",
-                            index < ROLES.length - 1 && "border-r border-ink",
-                            isActive ? "bg-ink text-paper" : "hover:bg-grey-50"
+                            "-mb-px border-b px-0 py-3 text-[12px] font-medium uppercase tracking-[0.16em] transition-colors duration-200",
+                            isActive ? "border-brass text-ink" : "border-transparent text-ink-muted hover:text-ink"
                           )}
                         >
                           {label}
@@ -308,7 +306,7 @@ export default function ContactPage() {
                 {submitStatus && (
                   <div
                     role="status"
-                    className="flex items-start gap-3 border border-ink bg-grey-50 px-4 py-3 text-sm font-medium"
+                    className="flex items-start gap-3 bg-grey-50 px-4 py-3 text-sm"
                   >
                     {submitStatus.type === "success" ? (
                       <Check className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />

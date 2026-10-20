@@ -25,7 +25,7 @@ export default function ServicesPage() {
         eyebrow="Services"
         title="Strategy, design and engineering under one roof"
         description="Pick a discipline to see what we build, or tell us about the whole problem and we'll shape the right mix."
-        primary={{ label: "Start a project", href: "/contact" }}
+        primary={{ label: "Begin a project", href: "/contact" }}
         secondary={{ label: "See pricing", href: "/#pricing" }}
         index={capabilities}
       />

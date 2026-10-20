@@ -8,7 +8,7 @@ interface MyAccordionProps {
 
 export default function MyAccordion({ items }: MyAccordionProps) {
   return (
-    <Accordion type="single" collapsible className="w-full border-t-2 border-ink">
+    <Accordion type="single" collapsible className="w-full border-t border-grey-200">
       {items.map((item) => (
         <AccordionItem key={item.value} value={item.value}>
           <AccordionTrigger>{stripDecorativeMarker(item.triggerText)}</AccordionTrigger>

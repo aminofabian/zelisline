@@ -41,11 +41,11 @@ export default function HomePage() {
   return (
     <>
       <PageHero
-        eyebrow="Software studio · Nairobi"
-        title="Web development & digital marketing for ambitious Kenyan brands"
-        description="We design, build and grow websites, storefronts and digital products for businesses that want to compete online."
-        primary={{ label: "Start a project" }}
-        secondary={{ label: "See our work", href: "/our-work" }}
+        eyebrow="Nairobi studio"
+        title="Websites and digital products for ambitious brands"
+        description="We design, build and grow the sites, storefronts and software a business actually runs on. Based in Nairobi, working with teams across East Africa."
+        primary={{ label: "Begin a project" }}
+        secondary={{ label: "View the work", href: "/our-work" }}
         facts={HERO_FACTS}
         index={capabilities}
         fillViewport
@@ -57,9 +57,9 @@ export default function HomePage() {
 
       <ServicesSection
         id="services"
-        eyebrow="What we do"
-        title="From simple blogs to complex SaaS"
-        description="Whether you need a simple business blog or a complex SaaS application, we bring strategy, design and engineering under one roof."
+        eyebrow="Services"
+        title="From a brochure site to a product your team runs"
+        description="Strategy, design and engineering, held in one studio. The scope stays clear. The people stay the same."
         disciplines={HOME_DISCIPLINES}
       />
 
@@ -67,14 +67,14 @@ export default function HomePage() {
       <WhyChooseUs />
       <Pricing />
 
-      <section className="py-20 sm:py-28">
+      <section className="py-24 sm:py-32">
         <Container>
           <SectionHeader
-            eyebrow="Answers"
-            title="Questions we hear often"
-            description="A few of the things clients ask before we begin. Can't find yours? Just reach out — we're happy to talk it through."
+            eyebrow="Questions"
+            title="Before we begin"
+            description="A few things clients ask first. If yours is not here, write to us."
           />
-          <div className="mt-14">
+          <div className="mt-16">
             <FaqTabs groups={FAQ_GROUPS} />
           </div>
         </Container>

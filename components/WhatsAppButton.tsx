@@ -12,10 +12,10 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
-      className="group fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center border border-ink bg-ink text-paper transition-colors duration-150 hover:bg-paper hover:text-ink focus-visible:bg-paper focus-visible:text-ink sm:bottom-6 sm:right-6"
+      className="group fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center bg-ink text-paper transition-colors duration-200 hover:bg-brass focus-visible:bg-brass sm:bottom-8 sm:right-8"
     >
-      <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap border border-ink bg-paper px-3 py-2 font-mono text-[12px] uppercase tracking-[0.1em] text-ink opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100 sm:block">
-        Chat with us
+      <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap bg-paper px-3 py-2 text-[11px] font-medium uppercase tracking-[0.16em] text-ink opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 sm:block">
+        Write on WhatsApp
       </span>
       <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current" aria-hidden="true">
         <path d={WHATSAPP_GLYPH_PATH} />

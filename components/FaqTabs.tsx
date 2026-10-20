@@ -16,7 +16,7 @@ export default function FaqTabs({ groups }: FaqTabsProps) {
   return (
     <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
       <div className="lg:col-span-4">
-        <div role="group" aria-label="FAQ topics" className="flex flex-wrap gap-2">
+        <div role="group" aria-label="FAQ topics" className="flex flex-col items-start gap-1">
           {groups.map((group) => {
             const isActive = group.id === active.id;
             return (
@@ -26,10 +26,11 @@ export default function FaqTabs({ groups }: FaqTabsProps) {
                 aria-pressed={isActive}
                 onClick={() => setActiveId(group.id)}
                 className={cn(
-                  "border border-ink px-4 py-3 text-left font-mono text-[12px] uppercase tracking-[0.1em] transition-colors",
-                  isActive ? "bg-ink text-paper" : "bg-paper text-ink hover:bg-grey-50"
+                  "py-2 text-left text-[13px] font-medium uppercase tracking-[0.16em] transition-colors duration-200",
+                  isActive ? "text-ink" : "text-ink-muted hover:text-ink"
                 )}
               >
+                <span className={cn("mr-3 inline-block h-px w-6 align-middle", isActive ? "bg-brass" : "bg-transparent")} />
                 {group.label}
               </button>
             );

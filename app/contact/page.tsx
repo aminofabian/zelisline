@@ -22,8 +22,8 @@ export default function Contact() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="Let's build something amazing together"
-        description="Have a project in mind? We'd love to hear about it. Drop us a message and we'll get back to you within 24 hours."
+        title="Write to the studio"
+        description="Tell us what you are working on. We reply within a day with honest advice on scope, timeline and cost."
         facts={CONTACT_FACTS}
       />
       <ContactPage />

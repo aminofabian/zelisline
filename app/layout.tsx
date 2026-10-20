@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, JetBrains_Mono } from "next/font/google";
+import { Fraunces, Instrument_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { Toaster } from "@/components/ui/toaster";
@@ -8,16 +8,21 @@ import SiteHeader from "@/components/chrome/SiteHeader";
 import SiteFooter from "@/components/chrome/SiteFooter";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
-const archivo = Archivo({
+const sans = Instrument_Sans({
   subsets: ["latin"],
-  axes: ["wdth"],
-  variable: "--font-archivo",
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const display = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-display",
   display: "swap",
 });
 
 const mono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500"],
   variable: "--font-mono",
   display: "swap",
 });
@@ -55,7 +60,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${archivo.variable} ${mono.variable}`}>
+    <html lang="en" className={`${sans.variable} ${display.variable} ${mono.variable}`}>
       <body className="font-sans">
         <GoogleTagManager gtmId={GTM_ID} />
         <a href="#main" className="skip-link">

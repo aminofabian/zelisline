@@ -35,7 +35,7 @@ export default function OurWorkPage() {
         eyebrow="Selected work"
         title="Our work"
         description="Products, platforms and payment rails we've designed, built and shipped — from a digital shopfront for Kenyan traders to community platforms and content engines for teams across three continents."
-        primary={{ label: "Start a project", href: "/contact" }}
+        primary={{ label: "Begin a project", href: "/contact" }}
         secondary={{ label: "Browse the work", href: "#index" }}
         facts={WORK_FACTS}
       />

@@ -1,8 +1,7 @@
 import { Fragment } from "react";
 
 const WORD_CLASSES =
-  "text-outline-ink display-wide font-display text-[2.75rem] font-bold uppercase leading-none tracking-[-0.03em] sm:text-7xl lg:text-[5.5rem]";
-const SEPARATOR_CLASSES = "mx-8 inline-block h-3 w-3 shrink-0 bg-ink sm:mx-12";
+  "font-display text-[1.75rem] font-normal italic leading-none tracking-[-0.02em] text-ink/75 sm:text-5xl";
 
 interface MarqueeProps {
   items: readonly string[];
@@ -14,7 +13,9 @@ function MarqueeTrack({ items }: MarqueeProps) {
       {items.map((item) => (
         <Fragment key={item}>
           <span className={WORD_CLASSES}>{item}</span>
-          <span aria-hidden className={SEPARATOR_CLASSES} />
+          <span aria-hidden className="mx-8 text-brass sm:mx-12">
+            ·
+          </span>
         </Fragment>
       ))}
     </div>
@@ -23,7 +24,7 @@ function MarqueeTrack({ items }: MarqueeProps) {
 
 export default function Marquee({ items }: MarqueeProps) {
   return (
-    <div aria-hidden className="group overflow-hidden border-b border-ink bg-grey-50 py-6 sm:py-8">
+    <div aria-hidden className="group overflow-hidden border-y border-grey-200 py-8 sm:py-10">
       <div className="flex w-max animate-marquee group-hover:[animation-play-state:paused]">
         <MarqueeTrack items={items} />
         <MarqueeTrack items={items} />

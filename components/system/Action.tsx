@@ -21,22 +21,22 @@ interface ActionProps {
 }
 
 const BASE_CLASSES =
-  "group inline-flex items-center justify-center gap-3 border font-mono font-medium uppercase tracking-[0.1em] transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-40";
+  "group inline-flex items-center justify-center gap-3 font-sans font-medium uppercase tracking-[0.16em] transition-colors duration-200 ease-out disabled:cursor-not-allowed disabled:opacity-40";
 
 const VARIANT_CLASSES: Record<ActionVariant, string> = {
-  solid: "border-ink bg-ink text-paper hover:bg-paper hover:text-ink",
-  outline: "border-ink bg-paper text-ink hover:bg-ink hover:text-paper",
-  inverse: "border-paper bg-paper text-ink hover:bg-ink hover:text-paper",
-  ghost: "border-transparent bg-transparent text-ink underline underline-offset-4 decoration-1 hover:decoration-2",
+  solid: "bg-ink text-paper hover:bg-brass",
+  outline: "border border-grey-300 bg-transparent text-ink hover:border-ink hover:bg-ink hover:text-paper",
+  inverse: "bg-paper text-ink hover:bg-brass hover:text-paper",
+  ghost: "bg-transparent text-ink underline decoration-grey-300 underline-offset-[6px] decoration-1 hover:decoration-brass",
 };
 
 const SIZE_CLASSES: Record<ActionSize, string> = {
-  md: "min-h-12 px-6 py-3 text-[13px]",
-  sm: "min-h-10 px-4 py-2 text-[12px]",
+  md: "min-h-12 px-7 py-3 text-[12px]",
+  sm: "min-h-10 px-5 py-2 text-[11px]",
 };
 
 const ARROW_CLASSES =
-  "h-4 w-4 shrink-0 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5";
+  "h-3.5 w-3.5 shrink-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5";
 
 export default function Action({
   children,
