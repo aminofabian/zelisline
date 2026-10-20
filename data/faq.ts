@@ -1,243 +1,402 @@
-export const webdesign = [
+
+export const webDesignFaqs = [
   {
     value: 'item-1',
-    triggerText: '❈ What is the typical timeframe for completing a website design project?',
-    content: "\nThe typical timeframe for completing a website design project depends on its complexity. On average, small to medium-sized websites can take 4-8 weeks, while larger, more intricate projects may extend beyond 8 weeks. Factors such as client feedback responsiveness and the clarity of project requirements also play a crucial role in meeting deadlines. Open communication between the web design service and the client helps ensure a smooth and timely delivery of the finalized website, meeting both parties' expectations for quality and functionality."
+    triggerText: '❈ Pricing Inquiry: How Much Do You Charge for a Website?',
+    content: `Our pricing varies depending on your project's complexity and required features.
+
+    Recognizing each business's uniqueness, we determine prices on a case-by-case basis. Our packages range from kes20K($200) to kes5m($50,000) or more, tailored to your specific needs.
+    
+    Feel free to discuss your project directly with us for a personalized quote. Additionally, we have a comprehensive guide on website development costs for reference.
+    
+    Regardless of whether you need a simple brochure-style website, a sophisticated e-commerce platform, or a SaaS project, our experienced team ensures the solution aligns with your budget and business requirements.`,
   },
   {
     value: 'item-2',
-    triggerText: '❈ How do web design services determine the cost of a project?',
-    content: "Web design services determine project costs based on several factors. These include the complexity of the project, the required features and functionalities, and the level of customization desired by the client. Additionally, aspects like e-commerce functionality, database integration, and ongoing maintenance needs contribute to the overall pricing. Web design services often conduct a thorough initial consultation with the client to understand their specific requirements and business goals, allowing for the creation of a customized proposal that outlines the scope of work and associated costs, ensuring transparency and alignment between the service provider and the client."
+    triggerText: '❈ Project Cost Clarification: Why Are Some of Your Projects So Expensive?',
+    content: `The cost depends on the project's scope and the effort invested.
+A more intricate website or platform necessitates more time, resources, and expertise, which is reflected in the price.
+While many agencies rely on templates, we prioritize crafting unique solutions tailored to each client. Extensive customizations and integrations requested by some clients may contribute to higher costs.
+Nevertheless, we strive to strike a balance between quality and affordability, aiming to deliver exceptional services that add tangible value to your business.`,
   },
   {
     value: 'item-3',
-    triggerText: '❈ Can businesses request modifications or updates after the completion of a web design project?',
-    content: "Yes, businesses can certainly request modifications or updates after the completion of a web design project. Many web design services offer post-launch support and maintenance packages to accommodate changes, updates, and ongoing improvements. These services may include fixing bugs, adding new features, or making adjustments based on evolving business needs. Businesses are encouraged to maintain an open line of communication with their web design service provider to discuss any required modifications and ensure the website remains aligned with changing business objectives. This flexibility helps businesses adapt and grow in the dynamic online landscape."
+    triggerText: '❈ Development Duration: How Long Does It Take to Build a Website?',
+    content: `The duration hinges on your project's complexity, ranging from a week to several months.
+Our process involves initial consultations to grasp your needs, design mockups for approval, and subsequent coding and testing phases. Regular updates and feedback sessions ensure alignment with your expectations.
+While we prioritize efficiency, our paramount concern is quality, ensuring your website not only looks appealing but also functions seamlessly for your audience's benefit.`,
   },
   {
     value: 'item-4',
-    triggerText: '❈ What steps are involved in the collaborative process between businesses and web design services?',
-    content: "The collaborative process between businesses and web design services is a multi-step journey. It typically begins with an initial consultation, where the service provider gains a comprehensive understanding of the client's business, goals, and vision for the website. Following this, both parties engage in project planning, including defining project milestones, deliverables, and timelines. Design mockups are then created, allowing the client to provide feedback and iterate on the design. Development, testing, and final deployment follow, ensuring that the website functions seamlessly. Throughout this process, effective communication, regular client feedback, and collaborative decision-making contribute to the success of the project, creating a website that aligns with the client's expectations and objectives."
+    triggerText: '❈ Post-Launch Costs: Are There Any Ongoing Costs After the Website is Launched?',
+    content: `Yes, ongoing costs like hosting, domain fees, and maintenance are necessary for smooth website operation and security.
+We offer support packages for regular updates or maintenance, ensuring your website remains relevant in the evolving digital landscape.
+As frameworks evolve and your business requires new features, we're committed to supporting your growth and adaptation.`,
   },
   {
     value: 'item-5',
-    triggerText: '❈ Are responsive design and mobile optimization included in standard web design services?',
-    content: "Yes, responsive design and mobile optimization are integral components included in standard web design services. Ensuring a seamless user experience across various devices is a fundamental principle of modern web design. Responsive design allows websites to adapt to different screen sizes and resolutions, providing users with a consistent and visually appealing experience. Mobile optimization, on the other hand, involves tailoring the website's functionality and design specifically for mobile devices, addressing touch interactions and smaller screens. By incorporating these features into standard web design services, businesses can reach a broader audience and enhance user satisfaction across all devices."
+    triggerText: '❈ Requirements Gathering: What Will You Require from Me to Build a Website?',
+    content: `Throughout development, we'll need your input, feedback, and any content or media assets such as images, videos, and text.
+Access to your domain and hosting accounts may also be requested for correct website setup. Rest assured, we prioritize security and confidentiality.
+For clients without team images (and located in Kenya), we can arrange for our photographer to capture images at an additional cost if needed.`,
   },
   {
     value: 'item-6',
-    triggerText: '❈ How do web design services ensure the security of websites?',
-    content: "Web design services prioritize website security through a multifaceted approach. This includes implementing secure coding practices during the development phase to mitigate vulnerabilities. Additionally, the inclusion of SSL certificates ensures data encryption, safeguarding user information during online transactions. Regular security audits and monitoring help identify and address potential threats, while timely application of security patches and updates enhances overall protection. Collaborating with web design services that stay informed about emerging security trends and best practices further ensures that websites remain resilient against evolving cyber threats, providing users with a safe and secure online experience."
+    triggerText: `❈ Satisfaction Assurance: What if I Don't Like the Website You Build for Me?`,
+    content: `We collaborate closely with you throughout development, providing regular updates and feedback sessions.
+Starting with a simple mockup design, we offer unlimited revisions until you're satisfied. Our aim is to create a website that not only meets your needs but also aligns with your vision and brand.
+In the unlikely event of dissatisfaction, our satisfaction guarantee policy ensures we work with you to resolve any issues. Your happiness with the end result is our priority, guiding you through the website development process with expert assistance.`,
+  },
+];
+
+export const seoFaqs = [
+  {
+    value: 'item-1',
+    triggerText: '❈ Are SEO Services Necessary in Kenya?',
+    content: `SEO Services are as crucial in Kenya as they are anywhere else in the world. With the rise of digital technology, more and more people are relying on search engines to find products and services.  
+It doesn't matter what industry you're in; SEO can help your business generate more visibility, leads, and revenue. As a digital marketing agency, we have seen the impact of SEO on even the most localized businesses in Kenya. So, yes, SEO services are necessary in Kenya for businesses that want to stay competitive and reach their target audience effectively.`
+  },
+
+  {
+    value: 'item-2',
+    triggerText: `❈ What is the Difference Between On-page and Off-page SEO?`,
+    content: `On-page SEO refers to the strategies and techniques used on your website to improve its search engine ranking. This includes optimizing page titles, meta descriptions, headers, and content for relevant keywords, as well as improving site speed and user experience.
+Off-page SEO focuses on increasing the authority of your website by building backlinks from reputable sources. This involves guest posting, influencer marketing, and other tactics to improve your website's credibility and relevance in the eyes of search engines. Both on-page and off-page SEO are important for improving your website's visibility and ranking in search results.`,
+  },
+
+  {
+    value: 'item-3',
+    triggerText: `❈ How Long Does It Take to See Results from SEO?`,
+    content: `SEO is a long-term strategy, and it can take anywhere from 3-6 months to see significant results. However, the timing depends on various factors such as your industry, target keywords, competition, and the quality of your website's SEO. It's important to note that SEO is an ongoing process, and results may continue to improve over time with consistent effort and optimization. 
+Our team at Zelisline will work closely with you to set realistic expectations and provide regular updates on your website's progress.`,
+  },
+  {
+    value: 'item-4',
+    triggerText: `❈ Do You Guarantee to Get Me to Number #1 on Google?`,
+    content: `Unfortunately, we cannot guarantee a #1 ranking on Google as it is against search engine guidelines. However, we have a proven track record of helping our clients achieve significant improvements in their search engine rankings and visibility. 
+Our team uses ethical and effective SEO practices to improve your website's ranking over time, which can result in increased traffic, leads, and conversions. We focus on optimizing your website for relevant keywords that align with your business goals and resonet with your target audience.`,
+  },
+
+  {
+    value: 'item-5',
+    triggerText: `❈ Can I Do My Own SEO?`,
+    content: `Yes, you can... But there's a learning curve, and it can be time-consuming to stay on top of the constantly evolving SEO practices. You have to know how to do keyword research, optimize your website's on-page elements, build backlinks, get under the hood and tweak the technical parts, and keep up with algorithm updates. 
+Our team at Zelisline has extensive experience in SEO and stays updated with the latest trends, insights, and best practices to ensure your website is always optimized for success.`,
+  },
+
+  {
+    value: 'item-6',
+    triggerText: `❈ How Do You Choose Keywords for My Website?`,
+    content: `We conduct extensive research to identify the most relevant and valuable keywords for your website. Our team will analyze your industry, target audience, and competitors to find high-traffic keywords that can help drive quality traffic to your website. We also consider long-tail keywords and local keywords to improve your chances of ranking for specific searches in your area.
+Our goal is to choose the right mix of keywords that align with your business goals and have a high potential for driving qualified leads and conversions.`,
   },
   {
     value: 'item-7',
-    triggerText: '❈ Can businesses request custom functionalities or integrations in their web design projects?',
-    content: "Absolutely, businesses can request custom functionalities or integrations in their web design projects. Web design services recognize the uniqueness of each business and often provide tailored solutions to meet specific needs. Custom functionalities may include advanced features, interactive elements, or industry-specific tools that enhance the website's capabilities. Integrations with third-party services, such as payment gateways, CRM systems, or social media platforms, can be seamlessly incorporated to streamline business processes. Collaborative discussions between the business and the web design service ensure that the final website aligns with the client's vision and operational requirements, offering a bespoke and differentiated online presence."
+    triggerText: `❈ How Do I Know If My SEO is Working?`,
+    content: `We provide regular reports on your website's performance and progress to keep you informed about the effectiveness of our SEO efforts. Our team uses various tools and analytics to track keyword rankings, organic traffic, backlinks, and other metrics to show the impact of our SEO strategies. We also take the time to explain these reports to you and answer any questions you may have.`,
   },
+
   {
     value: 'item-8',
-    triggerText: '❈ How can businesses ensure their website remains up-to-date with the latest design trends?',
-    content: "To keep a website up-to-date with the latest design trends, businesses can take several proactive measures. First, collaborating with web design services that prioritize ongoing education and staying informed about industry developments ensures that the website benefits from contemporary design practices. Regular design updates, such as refreshing visual elements, typography, and color schemes, can be implemented to reflect current trends and maintain a modern aesthetic. Businesses are encouraged to actively engage with their web design service providers, discussing emerging design trends and exploring opportunities for periodic updates to keep the website visually appealing and aligned with evolving user expectations."
+    triggerText: `❈ Can I Succeed Online Without SEO?`,
+    content: `SEO isn't the only digital marketing strategy that can help your business succeed online, but it's the least expensive, the most sustainable, and the one with the highest return on investment. SEO can help your website generate more organic (unpaid) traffic and improve its overall search engine ranking, which can result in increased brand visibility, credibility, leads, and conversions. If you want to compete online effectively and reach your target audience where they spend most of their time (on search engines), then no, you cannot succeed without SEO.`,
   },
   {
     value: 'item-9',
-    triggerText: '❈ Do web design services provide post-launch training for businesses to manage their websites?',
-    content: "Yes, many web design services offer post-launch training for businesses to manage and update their websites independently. This training typically covers the use of content management systems (CMS), providing businesses with the skills and knowledge to make content updates, add new pages, and perform routine maintenance tasks. Empowering businesses with post-launch training enhances their autonomy and reduces dependence on external support for routine website management. It also ensures that businesses can adapt to changing content needs, keeping their websites dynamic and relevant in response to evolving business strategies and objectives."
+    triggerText: `❈ How Much Does SEO Cost?`,
+    content: `The cost of SEO services varies depending on your business needs, goals, and the scope of work involved. The cost can range from a few hundred to thousands of dollars per month. At Zelisline, we offer affordable and customized SEO packages tailored to your business size, industry, and objectives. Contact us for a detailed quote based on your specific SEO needs and requirements.`,
+  },
+  {
+    value: 'item-10',
+    triggerText: `❈ Do I need backlinks for My Website?`,
+    content: `Yes, backlinks are an essential part of off-page SEO and can help improve your website's authority and ranking. They act as votes of confidence from other websites linking to yours, showing search engines that your content is valuable and relevant.
+Think of it this way: if a reputable and trustworthy website links to yours, it's like them saying "hey, this website has great content, you should check it out too." The more high-quality backlinks you have pointing to your site, the better.`,
+  },
+
+  {
+    value: 'item-11',
+    triggerText: `❈ What of Sites That Offer Cheap Backlinks`,
+    content: `Buying backlinks is against Google's guidelines and can result in penalties or even getting your website blacklisted. But if you must buy backlinks, then cheap backlinks are the worst you can buy. They're often of low quality, irrelevant to your niche, and could come from spammy websites that may hurt your SEO efforts.
+Imagine getting links from websites that sell viagra or gambling sites while your business is about beauty products. It not only looks unnatural to search engines, but it also sends a wrong signal and can damage your website's reputation and ranking. 
+One high-quality backlink costs not less than $250, and that's how much it costs to get a high-quality content published on top publications. If you find an agency offering 100 backlinks for $20 or less, kindly run away.`,
   }
-];
+]
 
+export const faqContent = [{
+  value: 'item-1',
+  triggerText: `❈ Do You Use AI to Write Content?`,
+  content: `No, we don't. Otherwise, we wouldn't call ourselves writers. We're humans who love writing and are good at it. When you hire us, you can expect creative, well-researched, and engaging content that resonates with your target audience.
+Every piece of content we put out has been carefully crafted by our team of experienced writers and editors to meet your brand's unique tone, voice, and style. We also utilize various tools and resources to ensure our content is free from plagiarism and grammatical errors.`,
+},
+{
+  value: 'item-2',
+  triggerText: `❈ How Do You Ensure Quality Content?`,
+  content: `Our content writing department consists of a team of experienced writers and editors with diverse backgrounds and skillsets. We have creative thinkers, industry experts, SEO specialists, and grammar nerds all working together to produce high-quality content. Our content goes through a rigorous editorial process to ensure it's well-researched, error-free, engaging, and aligned with your brand's tone.
+We also conduct extensive research on your industry, target audience, and competitors to create content that stands out and resonates with your readers. We understand that quality content is more than just words on a page; it's about delivering value and building trust with your audience.`
+},
+{
+  value: 'item-3',
+  triggerText: `❈ What Type of Content Do You Write?`,
+  content: `At Zelisline, we specialize in creating all types of written content that help businesses connect, engage, and convert their target audience. Some of the content types we write include web copy, blog articles, social media posts, email marketing campaigns, whitepapers, eBooks, press releases, product descriptions and reviews, case studies, and more.
+Whether you need SEO-optimized content to improve your website's ranking or engaging content to grow your brand on social media platforms –we've got you covered.`
+},
+{
+  value: 'item-4',
+  triggerText: `❈ Do You Offer Customized Content Packages?`,
+  content: `Yes, we do. We understand that every business has unique needs, goals, and budgets when it comes to content marketing. That's why we offer customized content packages tailored to your specific requirements.
+Whether you need a one-time project or ongoing content marketing services, we're flexible and can adjust our packages to meet your needs. Contact us now, and let's discuss how we can help take your content marketing to the next level.`,
+},
+{
+  value: 'item-5',
+  triggerText: `❈ What Industries Do You Write For?`,
+  content: `We write for businesses in various industries, including but not limited to healthcare, technology, finance, marketing and advertising, real estate, e-commerce, education, travel and hospitality. No matter your industry or niche, our team has the experience and expertise to create compelling content that resonates with your target audience.
+We also conduct thorough research on your industry to understand your market landscape better and how we can help you differentiate yourself from competitors. Contact us now, and let's discuss your unique content needs.`,
+},
+{
+  value: 'item-6',
+  triggerText: `❈ What Is Your Pricing Structure?`,
+  content: `Our pricing depends on the type of content, length, complexity, and urgency. We offer affordable rates tailored to your budget without compromising quality. Our prices range from 0.03 to 0.10 USD per word.
+That's, for 1, 000 words, you could pay as low as $30 or as high as $100 depending on the factors mentioned above. We also offer bulk discounts and customized content packages for ongoing projects.
+Get in touch with us now, and let's discuss how we can help meet your unique content needs within your budget.`,
+},
+{
+  value: 'item-7',
+  triggerText: `❈ What's Your Turnaround Time?`,
+  content: `We understand that time is critical when it comes to digital marketing. That's why we strive to deliver your orders promptly without compromising quality. Our typical turnaround time for up to 2,000 words of content is within three business days.
+However, if you need content urgently, kindly let us know, and we'll try our best to meet your deadline. We also offer rush orders for an additional fee.
+Contact us now, and let's discuss how we can help you with your content needs within your timeline.`,
+},
+{
+  value: 'item-8',
+  triggerText: `❈ What Type of Content Management System Do You Use?`,
+  content: `We work with various content management systems (CMS), including WordPress, Squarespace, Wix, Weebly, Shopify, and more. We're also familiar with popular project management tools like Trello, Asana, and Basecamp.
+If you need assistance uploading your content to a specific CMS or project management platform, kindly let us know. Our team is versatile and quick to learn new tools to provide you with the best service.`,
+},
+{
+  value: 'item-9',
+  triggerText: `❈ How Can I Use the Content You Write for Me?`,
+  content: `Once we deliver your content, you have full ownership and copyright over it. You can use the content however you like; publish it on your website, blog or social media platforms, distribute it as email marketing campaigns, printed materials, and more.
+We don't restrict the usage of your content; however, we appreciate if you credit us for our work. We also offer revisions until you're completely satisfied with the end product.`,
+},
+{
+  value: 'item-10',
+  triggerText: `❈ How Do I Place an Order?`,
+  content: `To place an order, kindly fill out the contact form on our website with your project details and requirements. You can also send us an email at support@zelisline.co.ke or call us directly at +254714282874.
+Our team will get back to you within 24 hours to discuss your project further and provide a quote. If you're happy with our offer, we'll proceed to send you an invoice and start working on your content right away.`,
+},
+{
+  value: 'item-11',
+  triggerText: `❈ Do You Offer Revisions?`,
+  content: `Yes, we do. Our goal is to ensure you're completely satisfied with the end product. If there's anything you'd like us to revise or change in your content, kindly inform us within seven days from the delivery date.
+Revisions are free of charge. However, if you would like changes made after the seven-day period has elapsed, we'll be happy to do it at a small fee.`,
+},
+{
+  value: 'item-12',
+  triggerText: `❈ Do You Have a Refund Policy?`,
+  content: `Yes, we have a refund policy. We understand that sometimes things don't work as expected. That's why we offer a 100% money-back guarantee.
+If you're not happy with the quality of our work or would like to cancel your order for any reason before delivery, kindly inform us, and we'll issue a refund within seven working days.`,
+},
+{
+  value: 'item-13',
+  triggerText: `❈ How Do I Pay for Your Services?`,
+  content: `We accept various payment methods, including PayPal, M-Pesa, bank transfers, and credit/debit cards. Once we agree on the terms of your project, we'll send you an invoice with a payment link, where you can choose your preferred payment method.
+We require full payment before we start working on your project. However, if it's an ongoing project or a large order, we can divide the payments into two installments; 50% upfront and 50% upon completion.`,
+},
+]
 
-
-export const seo = [
+export const logoFaqs = [
+  {
+    value: 'item-0',
+    triggerText: `❈ How Much Does it Cost to Create a Logo?`,
+    content: `The cost of designing a logo varies depending on the complexity, size, and number of revisions needed. Our prices range from kes5000 to kes100,000.
+We offer affordable rates without compromising on quality. Our experienced designers ensure that you get a unique and professional logo within your budget. Contact us now, and let's discuss how we can help bring your brand to life.`,
+  },
   {
     value: 'item-1',
-    triggerText: '❈ What sets Zelisline\'s SEO services apart from other agencies?',
-    content: "\nZelisline distinguishes itself through a holistic approach to SEO that combines technical expertise, strategic content creation, and data-driven insights. Our team focuses on personalized strategies tailored to your business goals, ensuring sustainable and measurable results. By prioritizing transparency, continuous communication, and staying abreast of industry trends, we stand out in delivering effective and innovative SEO solutions for our clients."
+    triggerText: `❈ What File Formats Do You Deliver?`,
+    content: `We deliver your logo in various high-quality file formats, including:
+PNG (transparent background)
+JPG
+PDF
+EPS (vector format)
+If you need any other file formats, kindly let us know, and our designers will be happy to assist.`,
   },
   {
     value: 'item-2',
-    triggerText: '❈ How does Zelisline determine the right keywords for my business?',
-    content: "At Zelisline, keyword research begins with a thorough analysis of your industry, competitors, and target audience. We leverage cutting-edge tools to identify relevant keywords with high search volumes and low competition. Our goal is to choose keywords that align with your business objectives and have the potential to drive qualified traffic, enhancing your online visibility and rankings."
+    triggerText: `❈ Do You Offer Revisions?`,
+    content: `Yes, we do. Our goal is to ensure you're completely satisfied with the end product. If there's anything you'd like us to revise or change in your logo, kindly inform us within seven days from the delivery date.
+Revisions are free of charge. However, if you would like changes made after the seven-day period has elapsed, we'll be happy to do it at a small fee.`,
   },
   {
     value: 'item-3',
-    triggerText: '❈ Can Zelisline guarantee first-page rankings on search engines?',
-    content: "While we cannot guarantee specific rankings, Zelisline focuses on implementing strategic SEO practices to improve your website's visibility and traffic. Our approach involves ethical, white-hat techniques that align with search engine guidelines. We prioritize sustainable, long-term growth, and our success is measured by the positive impact on your website's overall performance and increased organic traffic."
+    triggerText: `❈ How Long Does It Take to Create a Logo?`,
+    content: `The duration of creating your logo depends on the complexity and number of revisions needed. However, our typical turnaround time is within three business days.
+If you have a tight deadline, kindly let us know. We'll do our best to prioritize your project and deliver within your preferred timeline.`,
   },
   {
     value: 'item-4',
-    triggerText: '❈ How does Zelisline stay updated with the ever-changing landscape of SEO?',
-    content: "Zelisline is committed to staying at the forefront of the dynamic SEO landscape. Our team regularly participates in industry conferences, undergoes continuous training, and subscribes to leading SEO publications. We leverage the latest tools and technologies to adapt to algorithm updates promptly. This dedication ensures that our strategies remain effective, compliant with search engine guidelines, and capable of navigating the evolving nuances of the SEO landscape."
+    triggerText: `❈ Can I Use the Logo You Create for Me Anywhere?`,
+    content: `Yes, you can. Once we deliver your logo, you have full ownership and license to use it anywhere you like. Our designers create your logo from scratch; hence, you don't have to worry about copyright issues.`,
   },
   {
     value: 'item-5',
-    triggerText: '❈ What reports and analytics does Zelisline provide to track the success of SEO campaigns?',
-    content: "Zelisline provides comprehensive reports and analytics to track the success of your SEO campaigns. Our regular reports include key performance indicators such as organic traffic growth, keyword rankings, conversion rates, and more. We believe in transparency and use these metrics to demonstrate the tangible impact of our efforts. Our team also offers insights and recommendations based on the data, ensuring that your SEO strategy continually evolves for optimal results."
+    triggerText: `❈ Do You Have a Refund Policy?`,
+    content: `Yes, we have a refund policy. We understand that sometimes things may not work as expected. That's why we offer a 100% money-back guarantee.
+If you're not happy with the quality of our work or would like to cancel your order for any reason before delivery, kindly inform us, and we'll issue a refund within seven working days.`,
   },
   {
     value: 'item-6',
-    triggerText: '❈ How does Zelisline approach on-page and off-page SEO for my website?',
-    content: "Zelisline employs a dual-pronged approach to SEO, addressing both on-page and off-page factors. On-page optimization involves enhancing elements such as meta tags, content structure, and user experience. Simultaneously, our off-page strategies focus on building high-quality backlinks, establishing online authority, and ensuring your website gains recognition within your industry. This comprehensive approach ensures that your website not only ranks well but also maintains a strong online presence and credibility."
+    triggerText: `❈ How Many Logo Do I get to Choose From?`,
+    content: `Once you place an order, our designers will send you three unique logo designs to choose from. If there's a particular style or design you have in mind, kindly inform us so that we can incorporate it into the designs.
+If none of the three options appeals to you, let us know, and we'll be happy to create more options.`,
   },
   {
     value: 'item-7',
-    triggerText: '❈ Can Zelisline assist with local SEO to target a specific geographic audience?',
-    content: "Absolutely, Zelisline specializes in local SEO strategies to help your business reach a targeted geographic audience. We optimize your online presence for local searches, manage local business listings, and implement strategies to boost visibility in location-based search results. Whether you have a single local storefront or multiple locations, our tailored approach ensures that your business stands out in local searches and attracts nearby customers."
+    triggerText: `❈ Do You Offer Vector Logo?`,
+    content: `Yes, we do. We deliver your logo in EPS file format, which is a vector format.
+A vector logo allows you to resize the image without losing its quality or sharpness. It's ideal for printing on different media, including t-shirts, caps, and billboards.`,
   },
   {
     value: 'item-8',
-    triggerText: '❈ How does Zelisline handle SEO for e-commerce websites?',
-    content: "Zelisline tailors its SEO strategies to the unique needs of e-commerce websites. We optimize product pages, streamline navigation, and implement strategies to enhance online visibility. Our approach includes keyword optimization for product descriptions, creating SEO-friendly URLs, and utilizing structured data to improve the visibility of your products in search engine results. Whether you're a small online store or a large e-commerce platform, Zelisline ensures that your products are prominently featured to attract and convert potential customers."
+    triggerText: `❈ What Information Do You Need to Create My Logo?`,
+    content: `Our designers need a little information from you to create your logo. We'll require:
+Your company name
+A tagline or slogan (if you have one)
+The colors you prefer
+Your target audience
+Any other information that may be relevant to your brand`,
   },
   {
     value: 'item-9',
-    triggerText: '❈ How can Zelisline help with content creation for SEO?',
-    content: "Zelisline recognizes the critical role of content in SEO success. Our team collaborates with you to create strategic, high-quality content that resonates with your target audience. From blog posts and articles to optimized website copy, we ensure that your content aligns with your SEO goals. By incorporating relevant keywords, addressing user intent, and fostering engagement, Zelisline's content creation strategies contribute to improved search engine rankings, increased organic traffic, and enhanced overall online visibility."
+    triggerText: `❈ Can I Use My Own Image in the Logo?`,
+    content: `Yes, if there's an image or icon that you'd like us to use in the logo, kindly send it to us.
+Please ensure that you have full rights and ownership of the image. Alternatively, we can purchase and license the image on your behalf for an additional fee.`,
+  },
+  {
+    value: 'item-10',
+    triggerText: `❈ What Do I Get When I Order a Logo Design?`,
+    content: `When you order our logo design service, you get:
+Three unique logo designs to choose from
+High-quality files in different formats (PNG, JPG, PDF, and EPS)
+Full ownership and license of the final design
+Revisions (within seven days from delivery)
+ Favicon for your website
+A PDF User Guideline on how to use your logo
+Pure Black Version
+Pure White Version,
+RGB version
+CMYK version
+Pantone Color Code Versions`,
+  },
+  {
+    value: 'item-11',
+    triggerText: `❈ Why Should I Choose Zelisline for My Logo Design?`,
+    content: `At zelisline, we don't just design logos; we create unique and professional brand identities that represent your brand's essence.
+Our experienced designers will work with you every step of the way to ensure we create a logo that resonates with your brand values, vision, and target audience. We understand how important it is to have a strong brand identity in today's competitive market.
+Working with us gives you access to:
+Affordable rates
+Quick turnaround time
+Unlimited revisions within seven days
+High-quality and unique designs
+Personalized communication with our designers
+Full ownership and license of the final design
+Don't just take our word for it, check out our portfolio to see some of the amazing logos we've created for our clients!`
   }
-];
+]
 
-
-export const content = [
+export const videoFaqs = [
   {
     value: 'item-1',
-    triggerText: '❈ What makes Zelisline’s content marketing services stand out?',
-    content: "\nZelisline stands out in the realm of content marketing with a commitment to delivering high-quality, engaging content tailored to your brand. Our team of skilled writers crafts content that aligns with your business goals and resonates with your target audience. With a focus on creativity, strategic messaging, and consistent brand voice, Zelisline ensures that your content not only captivates your audience but also drives meaningful results for your business."
+    triggerText: `❈ What File Formats Do You Deliver?`,
+    content: `We deliver your video in various high-quality file formats, including:
+MP4 (H.264)
+MOV
+If you need any other file formats, kindly let us know, and our editors will be happy to assist.`,
   },
   {
     value: 'item-2',
-    triggerText: '❈ What are the rates for Zelisline’s content marketing services?',
-    content: "Zelisline offers content marketing services at a competitive rate of $0.05 per word. This pricing structure ensures affordability while maintaining the quality and effectiveness of the content produced. We believe in transparent pricing, and our team works closely with clients to understand their content needs and provide customized solutions that align with their budgetary considerations."
+    triggerText: `❈ What Videos Do You Create?`,
+    content: `We create videos for different purposes, including but not limited to:
+Social media ads
+Marketing Videos
+Tutorial Videos
+Motion Graphics and Animation Videos
+Explainer Videos
+Product Demonstration Videos.
+Music Videos
+Event Videos.
+If you need a video for a different purpose, feel free to contact us with your requirements.`,
   },
   {
     value: 'item-3',
-    triggerText: '❈ How long does it take for Zelisline to deliver a 1000-word article?',
-    content: "Zelisline prides itself on efficient content delivery. For a 1000-word article or less, our standard turnaround time is 2 days. This quick delivery ensures that you receive timely, well-crafted content for your marketing initiatives. We understand the importance of meeting deadlines, and our streamlined process allows us to maintain a balance between speed and quality in content production."
+    triggerText: `❈ How Long Does It Take to Create a Video?`,
+    content: `The duration of creating a video depends on the complexity and length of the video. Generally, our editors can create a ten-minute video within three business days.
+However, if you have a tight deadline, let us know, and we'll do our best to prioritize your project.`,
   },
   {
     value: 'item-4',
-    triggerText: '❈ Can Zelisline create content tailored for specific industries or niches?',
-    content: "Absolutely, Zelisline specializes in creating content tailored for specific industries or niches. Our team of writers possesses diverse expertise and can adapt their writing style to suit the unique needs and nuances of your industry. Whether you're in technology, healthcare, finance, or any other sector, Zelisline ensures that your content reflects industry-specific knowledge and resonates with your target audience."
+    triggerText: `❈ Do You Offer Scriptwriting Services?`,
+    content: `Yes, we do. Our team of professionals includes experienced scriptwriters who can help bring your ideas to life.
+If you're not sure what type of video you want or how to present your ideas, our scriptwriting services will come in handy. We'll create a compelling story that resonates with your brand and target audience.`,
   },
   {
     value: 'item-5',
-    triggerText: '❈ Does Zelisline offer content strategy consultation services?',
-    content: "Yes, Zelisline provides content strategy consultation services to help businesses define and refine their content marketing approach. Our team collaborates with you to understand your business objectives, target audience, and industry landscape. We then develop a customized content strategy that aligns with your goals, enhances brand visibility, and fosters audience engagement. By offering strategic guidance, Zelisline ensures that your content marketing efforts contribute to the overall success of your business."
+    triggerText: `❈ Can I Use my Own Voiceover or Music in the Video?`,
+    content: `Yes, if you have a particular voiceover or music that you'd like to use in your video, kindly send it to us.
+Alternatively, we can source and license appropriate voiceovers and background music for your video.`,
   },
   {
     value: 'item-6',
-    triggerText: '❈ How can Zelisline ensure the consistency of brand voice across content?',
-    content: "Maintaining the consistency of brand voice is a priority for Zelisline. Our writers undergo thorough onboarding to familiarize themselves with your brand guidelines, tone, and messaging. We create style guides and conduct regular check-ins to ensure that every piece of content aligns with your brand identity. This meticulous approach guarantees that your brand voice remains cohesive across all content channels, building a strong and recognizable brand presence in the eyes of your audience."
+    triggerText: `❈ Can I Make Revisions to My Video?`,
+    content: `Absolutely! We offer unlimited revisions within seven days from delivery. If there's anything you'd like us to change or add in the video, kindly inform us, and we'll do it at no additional cost.`,
   },
   {
     value: 'item-7',
-    triggerText: '❈ Can Zelisline assist with content distribution and promotion strategies?',
-    content: "Certainly, Zelisline offers expertise in content distribution and promotion strategies. Beyond content creation, our team can guide you on effectively distributing and promoting your content across various channels. Whether it's social media, email marketing, or other digital platforms, we provide insights on maximizing visibility and engagement. Zelisline's holistic approach ensures that your valuable content reaches the right audience and generates the desired impact for your business."
+    triggerText: `❈ What Do I Get When I Order a Video?`,
+    content: `When you order our video editing service, you get:
+A 60-second high-definition (HD) video
+High-quality output in MP4 or MOV format
+Background music and voiceover*
+Professional scriptwriting services*
+High-quality stock images and footage*
+Unlimited revisions within seven days from delivery
+*Depends on the type of video you order.`,
   },
   {
     value: 'item-8',
-    triggerText: '❈ What types of content does Zelisline specialize in creating?',
-    content: "Zelisline specializes in creating a diverse range of content types to suit your business needs. This includes blog posts, articles, social media content, email newsletters, whitepapers, and more. Our team collaborates with you to understand your content goals and crafts engaging, informative content that resonates with your audience and aligns with your overall marketing strategy."
+    triggerText: `❈ Why Should I Choose Zelisline for My Video Editing Needs?`,
+    content: `Zelisline is your one-stop-shop for all your video editing needs. Our experienced team of editors works tirelessly to create videos that capture your brand's essence, vision, and values.
+We pride ourselves on delivering top-quality videos at affordable rates, without compromising on creativity or quality. We also offer unlimited revisions to ensure we meet our client's expectations.
+Don't take our word for it; check out our portfolio for some of the amazing videos we've created for our clients!`,
   },
   {
     value: 'item-9',
-    triggerText: '❈ How does Zelisline handle revisions and client feedback in the content creation process?',
-    content: "Zelisline values client feedback and provides a collaborative content creation process. After delivering the initial draft, clients have the opportunity to provide feedback and request revisions. We understand the importance of aligning with your vision, and our team is dedicated to ensuring that the final content meets your expectations. This iterative process allows for fine-tuning and guarantees that the content aligns perfectly with your brand and messaging."
+    triggerText: `❈ How Much Does It Cost to Order a Video?`,
+    content: `The cost of our video editing service depends on the type and complexity of the video you need. Contact us with your requirements, and we'll provide you with a custom quote.
+Our prices start at $300 for a 3 minutes video and $500 for a 5 minutes video. However, our pricing is flexible and depends on your specific needs.`
+  },
+  {
+    value: 'item-10',
+    triggerText: `❈ What Do I Need to Provide When Ordering a Video?`,
+    content: `When ordering a video, you'll need to provide us with:
+A brief description of the video (including purpose, target audience, brand values)
+Any specific requirements or guidelines
+Content (images, footage, logo) to be included in the video
+A brief script (if any)
+If you need us to source and license stock images or footage for your video, kindly let us know.`,
+  },
+  {
+    value: 'item-11',
+
+    triggerText: `❈ What Languages Do You Offer for Voiceover?`,
+    content: `We provide voiceovers only in English and KiswahilI. If you need a different language, kindly provide us with the voiceover or let us know in advance to source and license it for your video.`,
+  },
+  {
+    value: 'item-12',
+
+    triggerText: `❈ Do You Offer Express Delivery?`,
+    content: `Yes, we offer express delivery at an additional cost. Kindly inform us of your deadline and requirements, and we'll provide you with a custom quote for express delivery.`,
   }
-];
+]
 
 
-export const logo = [
-  {
-    value: 'item-1',
-    triggerText: '❈ What makes Zelisline’s logo design services unique in Kenya?',
-    content: "\nZelisline brings a Kenyan flair to logo design, seamlessly blending local cultural elements with modern aesthetics. Our designs reflect the rich diversity and vibrancy of Kenya's heritage, creating logos that resonate with local audiences. By understanding the unique market nuances, Zelisline crafts logos that not only visually stand out but also connect deeply with the Kenyan identity, fostering brand loyalty and recognition."
-  },
-  {
-    value: 'item-2',
-    triggerText: '❈ What is the cost structure for Zelisline’s logo design services in Kenya?',
-    content: "Zelisline offers affordable logo design services tailored for the Kenyan market. Our rates are competitively priced to accommodate businesses of all sizes. We understand the budget considerations of local enterprises and strive to provide cost-effective solutions without compromising on creativity and quality. Zelisline believes in transparent pricing, ensuring that our clients in Kenya receive exceptional value for their investment in logo design."
-  },
-  {
-    value: 'item-3',
-    triggerText: '❈ How long does it take for Zelisline to deliver a logo design in Kenya?',
-    content: "Zelisline prioritizes efficient logo design delivery for businesses in Kenya. Our standard turnaround time is designed to meet the fast-paced nature of the local market, with most logo designs completed within 5-7 days. This quick delivery ensures that Kenyan businesses receive distinctive and professionally crafted logos promptly, empowering them to establish a strong visual presence in their respective industries."
-  },
-  {
-    value: 'item-4',
-    triggerText: '❈ Can Zelisline incorporate Kenyan cultural elements into logo designs?',
-    content: "Absolutely, Zelisline takes pride in incorporating Kenyan cultural elements into logo designs. Our team collaborates closely with clients to understand their brand ethos and the cultural nuances that resonate with their target audience in Kenya. Whether it's using colors inspired by Kenya's landscapes or incorporating traditional patterns, Zelisline ensures that each logo design reflects a deep connection with the local culture, fostering a sense of authenticity and relatability."
-  },
-  {
-    value: 'item-5',
-    triggerText: '❈ Does Zelisline offer consultation on the symbolism of logo elements in the Kenyan context?',
-    content: "Yes, Zelisline provides consultation on the symbolism of logo elements specifically tailored for the Kenyan context. Our team guides clients in understanding the cultural significance of various design elements, ensuring that the chosen symbols resonate positively with the Kenyan audience. This thoughtful approach helps create logos that not only visually appeal but also convey meaningful messages aligned with local values and traditions."
-  },
-  {
-    value: 'item-6',
-    triggerText: '❈ How does Zelisline ensure that logos cater to the diverse business landscape in Kenya?',
-    content: "Zelisline acknowledges the diversity of businesses in Kenya and tailors logo designs to cater to this rich landscape. Whether it's a tech startup in Nairobi or a traditional business in Mombasa, our designs adapt to the unique characteristics of each enterprise. By offering customization and flexibility, Zelisline ensures that logos stand out and effectively represent the varied industries and sectors present in Kenya's vibrant business ecosystem."
-  },
-  {
-    value: 'item-7',
-    triggerText: '❈ Can Zelisline assist with branding strategies for Kenyan businesses beyond logo design?',
-    content: "Certainly, Zelisline extends its expertise to comprehensive branding strategies for Kenyan businesses. Beyond logo design, our team collaborates with clients to develop cohesive brand identities, encompassing color schemes, typography, and visual elements. By aligning branding strategies with the local market dynamics, Zelisline helps Kenyan businesses create a strong and memorable brand presence, fostering trust and recognition among their target audience."
-  },
-  {
-    value: 'item-8',
-    triggerText: '❈ What types of businesses in Kenya can benefit from Zelisline’s logo design services?',
-    content: "Zelisline's logo design services cater to a wide range of businesses in Kenya, from startups to established enterprises. Whether you're in the hospitality industry in Kisumu, a tech company in Nairobi, or a retail business in Eldoret, our designs adapt to suit diverse sectors. Zelisline ensures that each logo reflects the unique identity and aspirations of the business, contributing to its success in the local Kenyan market."
-  },
-  {
-    value: 'item-9',
-    triggerText: '❈ How does Zelisline handle revisions to ensure client satisfaction with logo designs in Kenya?',
-    content: "Zelisline values client satisfaction and offers a collaborative logo design process with the opportunity for revisions. After presenting initial concepts, clients in Kenya can provide feedback, and our team incorporates any necessary changes to align with their vision. This iterative process ensures that the final logo not only meets but exceeds the expectations of Kenyan clients, providing them with a visually compelling and meaningful brand symbol."
-  }
-];
-
-export const video = [
-  {
-    value: 'item-1',
-    triggerText: '❈ How does Zelisline bring a Kenyan touch to video production services?',
-    content: "\nZelisline infuses local flavor into video production, capturing the essence of Kenya's diverse culture and landscapes. Our team draws inspiration from the rich tapestry of Kenya's traditions, weaving them into compelling visual narratives. From stunning visuals of iconic landmarks to narratives that resonate with local stories, Zelisline ensures that each video production embodies the spirit and authenticity of Kenya."
-  },
-  {
-    value: 'item-2',
-    triggerText: '❈ What are the rates for Zelisline’s video production services in Kenya?',
-    content: "Zelisline offers competitive rates for video production services in Kenya. Our pricing is designed to accommodate businesses of all sizes, from startups in Nakuru to established enterprises in Mombasa. We understand the budget considerations of the local market and strive to provide cost-effective solutions without compromising on the quality and creativity of our video productions. Zelisline believes in transparent pricing, ensuring that clients in Kenya receive exceptional value for their investment in video content."
-  },
-  {
-    value: 'item-3',
-    triggerText: '❈ How long does it take for Zelisline to deliver a video production in Kenya?',
-    content: "Zelisline prioritizes efficient video production delivery for businesses in Kenya. Our standard turnaround time is designed to meet the dynamic needs of the local market, with most video productions completed within 7-14 days. This quick delivery ensures that Kenyan businesses receive engaging and professionally crafted videos promptly, allowing them to showcase their stories and offerings effectively to their target audience."
-  },
-  {
-    value: 'item-4',
-    triggerText: '❈ Can Zelisline incorporate Kenyan cultural elements into video productions?',
-    content: "Absolutely, Zelisline takes pride in incorporating Kenyan cultural elements into video productions. Our team collaborates closely with clients to understand their brand ethos and the cultural nuances that resonate with their target audience in Kenya. Whether it's capturing traditional ceremonies, showcasing local artistry, or featuring diverse landscapes, Zelisline ensures that each video production reflects a deep connection with the local culture, creating content that resonates authentically with Kenyan viewers."
-  },
-  {
-    value: 'item-5',
-    triggerText: '❈ Does Zelisline provide storytelling consultation for video productions in the Kenyan context?',
-    content: "Yes, Zelisline provides storytelling consultation tailored for the Kenyan context. Our team guides clients in crafting narratives that align with local sensibilities, values, and storytelling traditions. This collaborative approach ensures that the storytelling in each video production is not only visually compelling but also emotionally resonant with the Kenyan audience. Zelisline's commitment to impactful storytelling helps businesses in Kenya connect with their viewers on a deeper level."
-  },
-  {
-    value: 'item-6',
-    triggerText: '❈ How does Zelisline ensure that video productions cater to diverse audiences in Kenya?',
-    content: "Zelisline recognizes the diversity of audiences in Kenya and tailors video productions to cater to this varied landscape. Whether it's showcasing urban lifestyles in Nairobi or highlighting rural communities in Kisumu, our video productions adapt to the unique characteristics of each target audience. By offering customization and inclusivity, Zelisline ensures that videos resonate with viewers from different regions and backgrounds in Kenya."
-  },
-  {
-    value: 'item-7',
-    triggerText: '❈ Can Zelisline assist with video distribution and promotion strategies in the Kenyan market?',
-    content: "Certainly, Zelisline offers expertise in video distribution and promotion strategies tailored for the Kenyan market. Beyond video production, our team can guide you on effectively distributing and promoting your videos across various channels. Whether it's leveraging social media, online platforms, or traditional media, Zelisline provides insights on maximizing visibility and engagement. Zelisline's holistic approach ensures that your impactful videos reach the right audience and generate the desired impact for your business in Kenya."
-  },
-  {
-    value: 'item-8',
-    triggerText: '❈ What types of businesses in Kenya can benefit from Zelisline’s video production services?',
-    content: "Zelisline's video production services cater to a wide range of businesses in Kenya, from tourism and hospitality to education and beyond. Whether you're a tech startup in Nairobi seeking promotional videos or a conservation organization in Maasai Mara highlighting your initiatives, our videos are tailored to suit diverse sectors. Zelisline ensures that each video production effectively communicates the unique stories and offerings of businesses, resonating with the varied audiences in Kenya."
-  },
-  {
-    value: 'item-9',
-    triggerText: '❈ How does Zelisline handle revisions to ensure client satisfaction with video productions in Kenya?',
-    content: "Zelisline values client satisfaction and offers a collaborative video production process with the opportunity for revisions. After presenting initial drafts, clients in Kenya can provide feedback, and our team incorporates any necessary changes to align with their vision. This iterative process ensures that the final video not only meets but exceeds the expectations of Kenyan clients, providing them with visually compelling and impactful content that effectively tells their stories."
-  }
-];
